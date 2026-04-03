@@ -1,0 +1,22 @@
+<svg width="170" height="170" viewBox="0 0 170 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="markBlue" x1="14" y1="24" x2="116" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1FA0FF"/>
+      <stop offset="1" stop-color="#0A2F8E"/>
+    </linearGradient>
+    <linearGradient id="markBlueDark" x1="24" y1="46" x2="128" y2="134" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#103C9E"/>
+      <stop offset="1" stop-color="#0B1C67"/>
+    </linearGradient>
+    <linearGradient id="markOrange" x1="76" y1="12" x2="154" y2="136" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7B526"/>
+      <stop offset="1" stop-color="#F26B0F"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M18 36H106L93 58H71L56 104L32 112L47 58H18V36Z" fill="url(#markBlue)"/>
+  <path d="M18 87C43 119 90 124 134 102C178 80 203 46 195 19C208 32 211 53 201 76C187 107 149 129 102 134C56 138 20 120 6 94L18 87Z" fill="url(#markOrange)"/>
+  <path d="M20 95C41 121 76 124 109 109C142 94 161 71 155 51C162 61 165 76 159 89C150 112 122 128 89 131C56 134 29 122 17 102L20 95Z" fill="url(#markBlueDark)"/>
+  <path d="M92 24C112 13 134 9 156 12L151 24C130 26 111 33 95 44L92 24Z" fill="url(#markOrange)"/>
+  <circle cx="158" cy="20" r="9" fill="url(#markOrange)"/>
+</svg>

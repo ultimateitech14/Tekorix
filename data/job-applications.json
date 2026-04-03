@@ -1,0 +1,25 @@
+[
+  {
+    "id": "APP-9001",
+    "jobId": "bf516fe1-4640-4326-834c-1ddc6582b735",
+    "jobTitle": "full stack",
+    "jobLocation": "Bengaluru, India",
+    "fullName": "Aditya Pandey",
+    "email": "vish87717@gmail.com",
+    "phone": "8112631013",
+    "location": "pune , india",
+    "experience": "3",
+    "coverLetter": "ertyuiopjhgfhv g",
+    "status": "shortlisted",
+    "createdAt": "2026-02-16T10:10:34.930Z",
+    "updatedAt": "2026-04-02T19:08:23.522Z",
+    "reviewedAt": "2026-02-16T20:45:43.054Z",
+    "isRead": true,
+    "resume": {
+      "originalName": "receipt-2026-01-13T04_52_23.216Z.pdf",
+      "storedName": "1a897ead-c45d-4d43-a9b7-c76d5ff84dad.pdf",
+      "contentType": "application/pdf",
+      "size": 25574
+    }
+  }
+]

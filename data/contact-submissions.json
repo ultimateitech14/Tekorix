@@ -1,0 +1,31 @@
+[
+  {
+    "inquiryType": "candidate",
+    "firstName": "PARBHAKAR",
+    "lastName": "DURVEDI",
+    "email": "vish87717@gmail.com",
+    "country": "France",
+    "industry": "Technology",
+    "company": "Tekorix",
+    "position": "manager",
+    "phonePrefix": "+91",
+    "phoneNumber": "7418523697",
+    "message": "jhgftrfdgffdswasws",
+    "acceptTerms": true,
+    "marketingConsent": true,
+    "id": "67286a9e-55f3-4e83-a10f-01e3e1bf5493",
+    "createdAt": "2026-02-16T21:11:41.864Z",
+    "isRead": true,
+    "replies": [
+      {
+        "id": "c2f503ff-206f-4200-b927-21e5b438a62d",
+        "message": "hello",
+        "sentAt": "2026-02-16T21:22:44.886Z",
+        "fromEmail": "ultimatedev14@gmail.com",
+        "toEmail": "vish87717@gmail.com",
+        "deliveryStatus": "failed",
+        "deliveryError": "SMTP is not configured. Set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE."
+      }
+    ]
+  }
+]

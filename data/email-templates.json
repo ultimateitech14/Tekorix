@@ -1,0 +1,32 @@
+[
+  {
+    "id": "TPL-1001",
+    "name": "Application Received",
+    "subject": "We received your application",
+    "body": "Hi Aditya Pandey,\n\nThank you for applying for Full Stack. Our team will review your profile and get back to you soon.\n\nRegards,\nVishal Pandey",
+    "channel": "Email",
+    "isActive": true,
+    "createdAt": "2026-02-14T00:00:00.000Z",
+    "updatedAt": "2026-02-18T07:08:04.890Z"
+  },
+  {
+    "id": "TPL-1002",
+    "name": "Interview Invitation",
+    "subject": "Interview scheduled for your role",
+    "body": "Hi {{candidate_name}},\n\nYou are shortlisted for {{job_title}}. Please confirm your availability for the interview.\n\nRegards,\n{{recruiter_name}}",
+    "channel": "Email",
+    "isActive": true,
+    "createdAt": "2026-02-13T00:00:00.000Z",
+    "updatedAt": "2026-02-13T00:00:00.000Z"
+  },
+  {
+    "id": "TPL-1003",
+    "name": "Rejection Notice",
+    "subject": "Update on your application",
+    "body": "Hi {{candidate_name}},\n\nThank you for your interest in {{job_title}}. At this time, we are moving forward with other candidates.\n\nRegards,\n{{recruiter_name}}",
+    "channel": "Email",
+    "isActive": true,
+    "createdAt": "2026-02-12T00:00:00.000Z",
+    "updatedAt": "2026-02-12T00:00:00.000Z"
+  }
+]

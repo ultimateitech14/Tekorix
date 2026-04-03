@@ -1,0 +1,41 @@
+{
+  "companyName": "StartupWork123",
+  "companyEmail": "hello@startupwork.dev",
+  "companyPhone": "+1 555-100-2000",
+  "careersDomain": "careers.startupwork.dev",
+  "careersHeadline": "Build products that help teams hire better.",
+  "careersSubtitle": "We are hiring across product, engineering, and operations. Join us to shape the future of recruiting.",
+  "careersPublished": true,
+  "careersShowTeamPhotos": true,
+  "careersAutoPublishJobs": true,
+  "careersTeamMembers": [
+    {
+      "id": "team-01",
+      "name": "Priya Sharma",
+      "role": "Engineering Manager",
+      "photo": "/images/profiles/profile-3.svg",
+      "blurb": "Leads distributed teams delivering product and platform initiatives."
+    },
+    {
+      "id": "team-02",
+      "name": "Arjun Menon",
+      "role": "Senior Product Designer",
+      "photo": "/images/profiles/profile-3.svg",
+      "blurb": "Shapes user journeys and design systems for high-scale products."
+    },
+    {
+      "id": "team-03",
+      "name": "Nisha Verma",
+      "role": "Talent Partner",
+      "photo": "/images/profiles/profile-3.svg",
+      "blurb": "Partners with hiring teams to build strong and inclusive pipelines."
+    },
+    {
+      "id": "team-04",
+      "name": "Aditya Pandey",
+      "role": "Software Engineer",
+      "photo": "/images/profiles/profile-3.svg",
+      "blurb": "Developer"
+    }
+  ]
+}

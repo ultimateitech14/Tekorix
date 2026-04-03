@@ -1,0 +1,53 @@
+<svg width="620" height="160" viewBox="0 0 620 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tekBlue" x1="18" y1="26" x2="146" y2="124" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1FA0FF"/>
+      <stop offset="1" stop-color="#0A2F8E"/>
+    </linearGradient>
+    <linearGradient id="tekBlueDark" x1="26" y1="40" x2="156" y2="132" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#103C9E"/>
+      <stop offset="1" stop-color="#0B1C67"/>
+    </linearGradient>
+    <linearGradient id="tekOrange" x1="122" y1="18" x2="246" y2="142" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7B526"/>
+      <stop offset="1" stop-color="#F26B0F"/>
+    </linearGradient>
+    <linearGradient id="tekTextBlue" x1="244" y1="48" x2="404" y2="118" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1E8CED"/>
+      <stop offset="1" stop-color="#0A1F74"/>
+    </linearGradient>
+    <linearGradient id="tekTextOrange" x1="400" y1="52" x2="556" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F39D1B"/>
+      <stop offset="1" stop-color="#F06B12"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M28 34H145L128 63H99L78 122L47 132L68 63H28V34Z" fill="url(#tekBlue)"/>
+  <path d="M26 97C59 137 118 143 173 117C228 91 260 46 250 14C266 31 271 58 258 87C240 126 191 152 132 158C74 163 27 141 8 106L26 97Z" fill="url(#tekOrange)"/>
+  <path d="M28 105C54 133 98 136 139 117C181 99 205 69 198 44C207 56 210 75 203 93C191 122 156 141 114 146C73 151 40 136 25 114L28 105Z" fill="url(#tekBlueDark)"/>
+  <path d="M125 22C151 8 180 4 208 8L201 23C174 26 151 34 129 48L125 22Z" fill="url(#tekOrange)"/>
+  <circle cx="212" cy="18" r="12" fill="url(#tekOrange)"/>
+
+  <text
+    x="248"
+    y="108"
+    fill="url(#tekTextBlue)"
+    font-family="Manrope, Segoe UI, Arial, sans-serif"
+    font-size="92"
+    font-style="italic"
+    font-weight="800"
+  >
+    Tek
+  </text>
+  <text
+    x="412"
+    y="108"
+    fill="url(#tekTextOrange)"
+    font-family="Manrope, Segoe UI, Arial, sans-serif"
+    font-size="92"
+    font-style="italic"
+    font-weight="800"
+  >
+    Orix
+  </text>
+</svg>
