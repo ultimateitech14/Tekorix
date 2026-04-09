@@ -17,21 +17,25 @@ export const metadata: Metadata = buildMetadata({
 
 const programs = [
   {
+    id: "engineering-foundations",
     icon: GraduationCap,
     title: "Engineering Foundations",
     description: "Practical learning paths for modern software, platform, and quality engineering basics.",
   },
   {
+    id: "cloud-and-devops-tracks",
     icon: Laptop2,
     title: "Cloud and DevOps Tracks",
     description: "Role-aligned enablement for cloud operations, platform engineering, reliability, and delivery tooling.",
   },
   {
+    id: "data-and-ai-learning",
     icon: BookOpen,
     title: "Data and AI Learning",
     description: "Structured upskilling for data platforms, analytics workflows, and applied AI readiness.",
   },
   {
+    id: "career-acceleration",
     icon: BriefcaseBusiness,
     title: "Career Acceleration",
     description: "Capability tracks designed to help candidates and teams move toward higher-value product roles.",
@@ -40,14 +44,17 @@ const programs = [
 
 const learningFormats = [
   {
+    id: "workshops",
     title: "Workshops",
     description: "Short, focused sessions for teams that need immediate practical uplift around tools, workflows, or delivery practices.",
   },
   {
+    id: "certification-support",
     title: "Certification support",
     description: "Learning journeys that help participants prepare for recognized cloud, platform, or technical milestone goals.",
   },
   {
+    id: "applied-mentoring",
     title: "Applied mentoring",
     description: "Support that keeps learning tied to project reality instead of remaining purely classroom-based.",
   },
@@ -103,8 +110,8 @@ export default function AcademyPage() {
         panelNoteDescription="This page should feel useful now while remaining easy to deepen later with actual program detail."
       />
 
-      <section className="bg-white py-16 sm:py-20">
-        <div className="site-container space-y-10">
+      <section className="bg-[#CFE3FF] public-section">
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Programs and tracks"
             title="Learning paths that align with modern engineering roles and delivery expectations."
@@ -115,7 +122,8 @@ export default function AcademyPage() {
             {programs.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-white p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                id={item.id}
+                className="scroll-mt-28 rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <span
@@ -134,8 +142,8 @@ export default function AcademyPage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20" style={{ backgroundColor: colors.surfaceAlt }}>
-        <div className="site-container space-y-10">
+      <section className="public-section" style={{ backgroundColor: colors.surfaceAlt }}>
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Formats"
             title="Flexible learning formats for workshops, certifications, and applied enablement."
@@ -147,7 +155,8 @@ export default function AcademyPage() {
             {learningFormats.map((item, index) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-white p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                id={item.id}
+                className="scroll-mt-28 rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <p
@@ -165,7 +174,7 @@ export default function AcademyPage() {
           </div>
 
           <div
-            className="rounded-[2rem] border bg-white p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
+            className="rounded-[2rem] border bg-[#DCEEFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
             style={{ borderColor: colors.border }}
           >
             <HomeSectionHeading
@@ -178,10 +187,10 @@ export default function AcademyPage() {
               {supportBlocks.map((item, index) => (
                 <div
                   key={item.title}
-                  className="rounded-[1.5rem] border bg-slate-50 px-5 py-6"
+                  className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-6"
                   style={{
                     borderColor: colors.border,
-                    backgroundColor: index === 0 ? colors.surfaceAlt : "#F8FAFC",
+                    backgroundColor: index === 0 ? colors.surfaceAlt : colors.surfaceCard,
                   }}
                 >
                   <span
@@ -211,3 +220,5 @@ export default function AcademyPage() {
     </>
   );
 }
+
+

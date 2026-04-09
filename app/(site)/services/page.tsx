@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Building2, BriefcaseBusiness, Users2 } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 import { PublicBottomCta } from "@/components/global/PublicBottomCta";
-import { PublicPageHero } from "@/components/global/PublicPageHero";
 import { HomeSectionHeading } from "@/components/home/HomeSectionHeading";
+import { Button } from "@/components/ui/button";
 import { buildMetadata } from "@/lib/seo";
+import { serviceCatalog, serviceDeliveryFlow, serviceValuePoints } from "@/lib/constants/service-catalog";
 import { themeTokens } from "@/lib/theme/tokens";
 
 export const metadata: Metadata = buildMetadata({
@@ -22,166 +24,100 @@ export const metadata: Metadata = buildMetadata({
   ],
 });
 
-const services = [
-  {
-    id: "product-engineering",
-    title: "Product Engineering",
-    description: "Delivery support for product, platform, and engineering programmes that need stronger execution capacity.",
-  },
-  {
-    id: "on-roll-staffing",
-    title: "On-Roll Staffing",
-    description: "Deploy consultants managed through Tekorix when clients need specialist capability with continuity and operational cover.",
-    core: true,
-  },
-  {
-    id: "contract-staffing",
-    title: "Contract Staffing",
-    description: "Flexible contract hiring for programmes that need speed, niche expertise, or variable delivery pacing.",
-    core: true,
-  },
-  {
-    id: "team-building",
-    title: "Team Building",
-    description: "Assemble delivery-ready engineering teams instead of solving every capability gap one role at a time.",
-    core: true,
-  },
-  {
-    id: "gcc-setup",
-    title: "GCC Setup",
-    description: "Support capability center extensions with the team structure, staffing path, and early delivery rhythm needed to start well.",
-  },
-  {
-    id: "staff-augmentation",
-    title: "Staff Augmentation",
-    description: "Add targeted engineering strength to internal teams when the roadmap is moving faster than current bandwidth.",
-    core: true,
-  },
-  {
-    id: "consulting-services",
-    title: "Consulting Services",
-    description: "Use advisory support for discovery, operating model decisions, and transformation planning around team and delivery design.",
-  },
-];
-
-const serviceFlow = [
-  {
-    title: "Assess the gap",
-    description: "Clarify whether the need is for talent, team structure, capability build-out, or consulting-led discovery.",
-  },
-  {
-    title: "Choose the model",
-    description: "Use permanent, on-roll, contract, or pod-based support depending on delivery pressure and continuity needs.",
-  },
-  {
-    title: "Sustain outcomes",
-    description: "Keep the support model practical through clear ownership, operating rhythm, and longer-term team planning.",
-  },
-];
-
-const valuePoints = [
-  {
-    icon: Users2,
-    title: "Staffing and team building stay central",
-    description: "The commercial direction stays clearly visible even as supporting services are added around it.",
-  },
-  {
-    icon: BriefcaseBusiness,
-    title: "Flexible commercial paths",
-    description: "Tekorix can support permanent hiring, contract needs, and broader delivery structures under one brand story.",
-  },
-  {
-    icon: Building2,
-    title: "Built for GCC and scale-up needs",
-    description: "The services page reinforces that support can extend beyond role filling into larger capability setup work.",
-  },
-];
-
 export default function ServicesPage() {
   const { colors } = themeTokens;
 
   return (
     <>
-      <PublicPageHero
-        eyebrow="Services"
-        title="Services structured around talent, teams, and practical delivery support."
-        description="Tekorix combines product engineering, staffing, GCC support, and advisory services in one public services story. The page is designed to make the commercial direction clear: staffing and team building are core, supported by consulting and execution capability."
-        primaryCta={{ label: "Find Talent", href: "/find-talent" }}
-        secondaryCta={{ label: "Talk to Us", href: "/contact" }}
-        signals={["Staffing and team building at the center", "Consulting and execution support around it", "Built for scale-up and continuity needs"]}
-        panelEyebrow="Services page purpose"
-        panelTitle="Show the range of support while keeping the business direction easy to understand."
-        panelItems={[
-          {
-            title: "Core commercial focus",
-            description: "On-roll staffing, contract staffing, staff augmentation, and team building stay highly visible.",
-          },
-          {
-            title: "Broader service context",
-            description: "Product engineering, GCC setup, and consulting show how Tekorix can support beyond isolated hiring asks.",
-          },
-          {
-            title: "Client-ready structure",
-            description: "The page is built to convert curiosity into a direct hiring or advisory conversation.",
-          },
-        ]}
-        panelNoteTitle="Conversion-first services story"
-        panelNoteDescription="This page should make it obvious what Tekorix offers, how it is packaged, and where the strongest commercial path sits."
-      />
+      <section className="relative overflow-hidden border-b border-[#7FB5EA] bg-[#CFE3FF] public-section">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(220,238,255,0.98)_0%,rgba(207,227,255,0.98)_100%)]" />
+        <div className="absolute -left-12 top-10 h-64 w-64 rounded-full bg-[rgba(45,143,229,0.12)] blur-3xl" />
+        <div className="absolute right-0 top-0 h-80 w-80 rounded-full bg-[rgba(83,174,250,0.16)] blur-3xl" />
 
-      <section className="bg-white py-16 sm:py-20">
-        <div className="site-container space-y-10">
+        <div className="site-container relative">
+          <div className="mx-auto max-w-4xl space-y-5 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[#1B66B3]">Services</p>
+            <h1 className="text-5xl font-bold leading-tight text-slate-900 md:text-6xl">Structured services for talent, teams, and delivery support.</h1>
+            <p className="mx-auto max-w-3xl text-base leading-relaxed text-slate-600">
+              Explore the Tekorix services catalog the same way clients evaluate it: clear service definitions,
+              visible core focus areas, and dedicated detail pages for each support model.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#CFE3FF] public-section">
+        <div className="site-container public-stack">
           <HomeSectionHeading
-            eyebrow="Services overview"
-            title="A structured services portfolio built around team quality and delivery momentum."
-            description="The service lines below are deliberately broad enough to be extensible later, while already making the staffing, augmentation, and team-building proposition clear."
+            eyebrow="Service catalog"
+            title="Browse each service as its own client-ready path."
+            description="The layout here is intentionally structured like a service catalog: icon-led cards, fast summaries, and direct links into a deeper service detail page."
           />
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {services.map((item, index) => (
-              <div
-                key={item.title}
+            {serviceCatalog.map((item) => (
+              <article
+                key={item.id}
                 id={item.id}
-                className="scroll-mt-28 rounded-[1.75rem] border bg-white p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
-                style={{ borderColor: colors.border }}
+                className="scroll-mt-28 rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)] sm:p-7"
+                style={{ borderColor: item.core ? colors.primary : colors.border }}
               >
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em]" style={{ color: colors.primary }}>
-                    0{index + 1}
-                  </p>
+                <div className="flex items-start justify-between gap-4">
+                  <span
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
+                    style={{ backgroundColor: item.core ? colors.primary : colors.surfaceMuted, color: item.core ? colors.white : colors.primary }}
+                  >
+                    <item.icon className="h-5 w-5" />
+                  </span>
                   {item.core ? (
-                    <span
-                      className="rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white"
-                      style={{ backgroundColor: colors.accent }}
-                    >
+                    <span className="rounded-full bg-[#C6E0FF] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1B66B3]">
                       Core focus
                     </span>
                   ) : null}
                 </div>
-                <h2 className="mt-5 font-display text-2xl font-semibold tracking-tight text-slate-950">
-                  {item.title}
-                </h2>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
-              </div>
+
+                <div className="mt-6 space-y-3">
+                  <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{item.title}</h2>
+                  <p className="text-base leading-7 text-slate-600">{item.shortDescription}</p>
+                </div>
+
+                <div className="mt-6 space-y-3">
+                  {item.features.slice(0, 3).map((feature) => (
+                    <div key={feature} className="flex items-start gap-3 text-sm leading-6 text-slate-600">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#1B66B3]" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8">
+                  <Button asChild className="w-full shadow-sm">
+                    <Link href={`/services/${item.id}`}>
+                      Explore Service
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20" style={{ backgroundColor: colors.surfaceAlt }}>
-        <div className="site-container space-y-10">
+      <section className="public-section" style={{ backgroundColor: colors.surfaceAlt }}>
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="How services connect"
-            title="The service story becomes stronger when it shows how needs move from hiring gaps to delivery structure."
-            description="Instead of treating each service line as isolated, the page shows how Tekorix can help assess the problem, choose the right model, and keep outcomes stable."
+            title="Each service exists independently, but the buying journey still follows a clear flow."
+            description="This section keeps the services page commercially structured: first identify the real gap, then match the support model, then keep delivery stable."
             align="center"
           />
 
           <div className="grid gap-5 lg:grid-cols-3">
-            {serviceFlow.map((item, index) => (
+            {serviceDeliveryFlow.map((item, index) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-white p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <p
@@ -190,32 +126,30 @@ export default function ServicesPage() {
                 >
                   Step 0{index + 1}
                 </p>
-                <h2 className="mt-4 font-display text-2xl font-semibold tracking-tight text-slate-950">
-                  {item.title}
-                </h2>
+                <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950">{item.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>
 
           <div
-            className="rounded-[2rem] border bg-white p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
+            className="rounded-[2rem] border bg-[#DCEEFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
             style={{ borderColor: colors.border }}
           >
             <HomeSectionHeading
               eyebrow="Why Tekorix"
-              title="The value summary should reinforce staffing strength without narrowing the broader offer."
-              description="This keeps the services page commercially focused while still supporting consulting, product engineering, and GCC conversations."
+              title="The overall services story stays broad, but the core commercial direction remains obvious."
+              description="That balance matters. Clients should see staffing and team building clearly, while still understanding the wider consulting and delivery support capability."
             />
 
             <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {valuePoints.map((item, index) => (
+              {serviceValuePoints.map((item, index) => (
                 <div
                   key={item.title}
-                  className="rounded-[1.5rem] border bg-slate-50 px-5 py-6"
+                  className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-6"
                   style={{
                     borderColor: colors.border,
-                    backgroundColor: index === 0 ? colors.surfaceAlt : "#F8FAFC",
+                    backgroundColor: index === 0 ? colors.surfaceAlt : colors.surfaceCard,
                   }}
                 >
                   <span
@@ -227,7 +161,7 @@ export default function ServicesPage() {
                   >
                     <item.icon className="h-5 w-5" />
                   </span>
-                  <h3 className="mt-4 font-display text-2xl font-semibold text-slate-950">{item.title}</h3>
+                  <h3 className="mt-4 text-2xl font-semibold text-slate-950">{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
                 </div>
               ))}
@@ -237,8 +171,8 @@ export default function ServicesPage() {
       </section>
 
       <PublicBottomCta
-        title="Need product engineering support, team building, or a staffing model that can scale with you?"
-        description="Use Tekorix when you need a clear services conversation that can move quickly into hiring support, advisory design, or delivery-ready execution."
+        title="Need the right service path for hiring, team setup, or delivery support?"
+        description="Start with the Tekorix services catalog, then move directly into the service detail page that matches your requirement."
         primaryCta={{ label: "Find Talent", href: "/find-talent" }}
         secondaryCta={{ label: "Talk to Us", href: "/contact" }}
       />

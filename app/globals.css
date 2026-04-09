@@ -121,7 +121,19 @@
   }
 
   .section-space {
-    @apply py-16 sm:py-20 lg:py-24;
+    @apply py-6 sm:py-8 lg:py-10;
+  }
+
+  .public-section {
+    @apply py-6 sm:py-8;
+  }
+
+  .public-hero-space {
+    @apply py-8 sm:py-10 lg:py-12;
+  }
+
+  .public-stack {
+    @apply space-y-5 sm:space-y-6;
   }
 
   .surface-card {
@@ -156,7 +168,8 @@
   }
 
   .type-eyebrow {
-    @apply text-xs font-medium tracking-wide text-primary;
+    @apply text-xs font-medium tracking-wide;
+    color: #1B66B3;
     line-height: 1.45;
     text-transform: none;
   }

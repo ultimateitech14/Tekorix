@@ -13,11 +13,11 @@ export function ContactHero() {
   const { colors } = themeTokens;
 
   return (
-    <section className="relative overflow-hidden border-b" style={{ backgroundColor: "#F8FAFC", borderColor: colors.border }}>
+    <section className="relative overflow-hidden border-b" style={{ backgroundColor: colors.page, borderColor: colors.border }}>
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(244,248,255,0.98) 100%)",
+          background: "linear-gradient(180deg, rgba(238,246,255,0.96) 0%, rgba(211,232,255,0.98) 100%)",
         }}
       />
       <div
@@ -29,9 +29,9 @@ export function ContactHero() {
         style={{ backgroundColor: "rgba(96,165,250,0.18)" }}
       />
 
-      <div className="site-container relative py-16 sm:py-20 lg:py-24">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="max-w-3xl space-y-8">
+      <div className="site-container relative public-hero-space">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="max-w-3xl public-stack">
             <div className="space-y-5">
               <p className="text-sm font-semibold uppercase tracking-[0.26em]" style={{ color: colors.primary }}>
                 Contact
@@ -58,7 +58,7 @@ export function ContactHero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-slate-300 bg-white text-slate-950 hover:bg-slate-50 hover:text-slate-950"
+                className="border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF] hover:text-slate-950"
               >
                 <Link href="#candidate-inquiry">Candidate Inquiry</Link>
               </Button>
@@ -66,7 +66,7 @@ export function ContactHero() {
           </div>
 
           <div
-            className="rounded-[2rem] border bg-white/92 p-6 shadow-[0_32px_80px_-46px_rgba(15,23,42,0.26)] backdrop-blur-sm sm:p-8"
+            className="rounded-[2rem] border bg-[#DCEEFF]/92 p-6 shadow-[0_32px_80px_-46px_rgba(15,23,42,0.26)] backdrop-blur-sm sm:p-8"
             style={{
               borderColor: colors.border,
             }}
@@ -84,7 +84,7 @@ export function ContactHero() {
               {heroSignals.map((signal) => (
                 <div
                   key={signal}
-                  className="rounded-2xl border bg-slate-50/90 px-4 py-4 text-sm text-slate-700"
+                  className="rounded-2xl border bg-[#EEF6FF]/90 px-4 py-4 text-sm text-slate-700"
                   style={{
                     borderColor: colors.border,
                   }}
@@ -115,3 +115,4 @@ export function ContactHero() {
     </section>
   );
 }
+

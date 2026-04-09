@@ -6,7 +6,6 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { themeTokens } from "@/lib/theme/tokens";
 
 type ExitIntentConfig = {
   storageKey: string;
@@ -44,7 +43,6 @@ const exitIntentRoutes: Record<string, ExitIntentConfig> = {
 export function PublicExitIntentDialog() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const { colors } = themeTokens;
 
   const config = useMemo(() => {
     if (!pathname) {
@@ -113,7 +111,7 @@ export function PublicExitIntentDialog() {
       }}
     >
       <DialogContent className="max-h-[90vh] max-w-md overflow-y-auto rounded-[1.75rem] border border-slate-200 bg-white p-0 shadow-[0_34px_90px_-48px_rgba(15,23,42,0.45)]">
-        <div className="h-1.5" style={{ backgroundColor: colors.primary }} />
+        <div className="h-1.5 bg-[#1B66B3]" />
         <div className="space-y-5 px-6 pb-6 pt-6 sm:px-7 sm:pb-7">
           <DialogHeader className="space-y-2 text-left">
             <DialogTitle className="font-display text-3xl font-semibold tracking-tight text-slate-950">
@@ -125,17 +123,13 @@ export function PublicExitIntentDialog() {
           </DialogHeader>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button
-              asChild
-              className="border-0 text-white shadow-[0_18px_36px_-20px_rgba(37,99,235,0.6)] hover:opacity-95"
-              style={{ backgroundColor: colors.primary }}
-            >
+            <Button asChild className="shadow-sm">
               <Link href={config.primaryHref}>{config.primaryLabel}</Link>
             </Button>
             <Button
               asChild
               variant="outline"
-              className="border-slate-300 bg-white text-slate-950 hover:bg-slate-50"
+              className="border-[#7FB5EA] bg-[#E4F1FF] text-slate-950 hover:bg-[#CFE3FF]"
             >
               <Link href={config.secondaryHref}>{config.secondaryLabel}</Link>
             </Button>

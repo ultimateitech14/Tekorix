@@ -10,7 +10,7 @@ type SiteLayoutProps = {
 
 export default function SiteLayout({ children }: SiteLayoutProps) {
   return (
-    <div className="relative flex min-h-screen flex-col bg-[#EEF5FF] text-slate-900">
+    <div className="relative flex min-h-screen flex-col bg-[#CFE3FF] text-slate-900">
       <Navbar />
       <main className="flex-1 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-20 sm:pb-[calc(7rem+env(safe-area-inset-bottom))] xl:pb-10">
         {children}

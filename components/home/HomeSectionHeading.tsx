@@ -1,4 +1,3 @@
-import { themeTokens } from "@/lib/theme/tokens";
 import { cn } from "@/lib/utils";
 
 type HomeSectionHeadingProps = {
@@ -20,7 +19,6 @@ export function HomeSectionHeading({
 }: HomeSectionHeadingProps) {
   const isDark = theme === "dark";
   const alignmentClasses = align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl";
-  const { colors } = themeTokens;
 
   return (
     <div className={cn("space-y-4", alignmentClasses, className)}>
@@ -28,9 +26,8 @@ export function HomeSectionHeading({
         <p
           className={cn(
             "text-sm font-semibold uppercase tracking-[0.24em]",
-            isDark ? "text-slate-200" : "text-slate-700",
+            isDark ? "text-[#378FDD]" : "text-[#1B66B3]",
           )}
-          style={{ color: isDark ? colors.accent : colors.primary }}
         >
           {eyebrow}
         </p>
@@ -38,16 +35,16 @@ export function HomeSectionHeading({
       <div className="space-y-3">
         <h2
           className={cn(
-            "font-display text-3xl font-semibold tracking-tight sm:text-4xl",
-            isDark ? "text-white" : "text-slate-950",
+            "text-3xl font-semibold leading-tight text-slate-900 md:text-4xl",
+            isDark && "text-white",
           )}
         >
           {title}
         </h2>
         <p
           className={cn(
-            "text-base leading-7 sm:text-lg",
-            isDark ? "text-slate-300" : "text-slate-600",
+            "text-base leading-relaxed text-slate-600",
+            isDark && "text-slate-300",
           )}
         >
           {description}

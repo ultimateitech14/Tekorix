@@ -13,8 +13,8 @@ export function ContactInquiryGrid() {
   const { colors } = themeTokens;
 
   return (
-    <section style={{ backgroundColor: colors.surfaceAlt }} className="py-16 sm:py-20">
-      <div className="site-container space-y-10">
+    <section style={{ backgroundColor: colors.surfaceAlt }} className="public-section">
+      <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="Core inquiry flow"
           title="Choose the contact path that matches your next move."
@@ -25,7 +25,7 @@ export function ContactInquiryGrid() {
           {trustBadges.map((badge) => (
             <div
               key={badge}
-              className="rounded-full border bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600"
+              className="rounded-full border bg-[#DCEEFF] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600"
               style={{ borderColor: colors.border }}
             >
               {badge}
@@ -41,3 +41,4 @@ export function ContactInquiryGrid() {
     </section>
   );
 }
+

@@ -31,12 +31,12 @@ export function Hero({
   children,
 }: HeroProps) {
   return (
-    <section className={cn("relative overflow-hidden border-b border-slate-200 py-20 sm:py-24", className)}>
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(244,248,255,0.98)_100%)]" />
-      <div className="pointer-events-none absolute -left-32 -top-20 h-72 w-72 rounded-full bg-sky-200/50 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-blue-200/45 blur-3xl" />
+    <section className={cn("relative overflow-hidden border-b border-[#7FB5EA] public-hero-space", className)}>
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(220,238,255,0.98)_0%,rgba(207,227,255,0.98)_100%)]" />
+      <div className="pointer-events-none absolute -left-32 -top-20 h-72 w-72 rounded-full bg-sky-200/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-blue-200/50 blur-3xl" />
 
-      <Container className="relative grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+      <Container className="relative grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
         <div className="space-y-7">
           {eyebrow ? (
             <p className="type-eyebrow">{eyebrow}</p>
@@ -52,7 +52,7 @@ export function Hero({
                   asChild
                   size="lg"
                   variant={primaryCta.variant ?? "default"}
-                  className="border-0 bg-[#1D4ED8] text-white shadow-[0_20px_40px_-22px_rgba(37,99,235,0.7)] hover:bg-[#1E40AF]"
+                  className="border-0 bg-[#1B66B3] text-white shadow-[0_20px_40px_-22px_rgba(46,120,196,0.5)] hover:bg-[#145188]"
                 >
                   <Link href={primaryCta.href}>{primaryCta.label}</Link>
                 </Button>
@@ -62,7 +62,7 @@ export function Hero({
                   asChild
                   size="lg"
                   variant={secondaryCta.variant ?? "outline"}
-                  className="border-slate-300 bg-white text-slate-950 hover:bg-slate-50"
+                  className="border-[#7FB5EA] bg-[#DCEEFF] text-[#1B66B3] hover:bg-[#CFE3FF]"
                 >
                   <Link href={secondaryCta.href}>{secondaryCta.label}</Link>
                 </Button>
@@ -76,3 +76,4 @@ export function Hero({
     </section>
   );
 }
+

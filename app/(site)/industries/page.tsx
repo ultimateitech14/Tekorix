@@ -115,8 +115,8 @@ export default function IndustriesPage() {
         panelNoteDescription="This page keeps the vertical story clear without overclaiming deep sector proof before final case-study content is added."
       />
 
-      <section className="bg-white py-16 sm:py-20">
-        <div className="site-container space-y-10">
+      <section className="bg-[#CFE3FF] public-section">
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Industries overview"
             title="Sectors where Tekorix can position talent, consulting, and delivery support."
@@ -127,7 +127,7 @@ export default function IndustriesPage() {
             {industries.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-white p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <span
@@ -146,8 +146,8 @@ export default function IndustriesPage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20" style={{ backgroundColor: colors.surfaceAlt }}>
-        <div className="site-container space-y-10">
+      <section className="public-section" style={{ backgroundColor: colors.surfaceAlt }}>
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Why industry context matters"
             title="The same hiring or consulting model does not fit every sector."
@@ -159,7 +159,7 @@ export default function IndustriesPage() {
             {deliveryThemes.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-white p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-950">{item.title}</h2>
@@ -169,7 +169,7 @@ export default function IndustriesPage() {
           </div>
 
           <div
-            className="rounded-[2rem] border bg-white p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
+            className="rounded-[2rem] border bg-[#DCEEFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
             style={{ borderColor: colors.border }}
           >
             <HomeSectionHeading
@@ -182,7 +182,7 @@ export default function IndustriesPage() {
               {engagementPatterns.map((item, index) => (
                 <div
                   key={item.title}
-                  className="rounded-[1.5rem] border bg-slate-50 px-5 py-6"
+                  className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-6"
                   style={{
                     borderColor: colors.border,
                   }}
@@ -208,3 +208,4 @@ export default function IndustriesPage() {
     </>
   );
 }
+

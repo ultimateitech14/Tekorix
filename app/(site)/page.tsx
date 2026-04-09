@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 
-import { HomeBottomCta } from "@/components/home/HomeBottomCta";
-import { HomeDualPaths } from "@/components/home/HomeDualPaths";
+import { HomeBlog } from "@/components/home/HomeBlog";
 import { HomeHero } from "@/components/home/HomeHero";
-import { HomeProcess } from "@/components/home/HomeProcess";
 import { HomeProfiles } from "@/components/home/HomeProfiles";
 import { HomeServices } from "@/components/home/HomeServices";
 import { HomeStats } from "@/components/home/HomeStats";
@@ -54,11 +52,9 @@ export default function HomePage() {
 
       <HomeHero />
       <HomeStats />
-      <HomeDualPaths />
       <HomeServices />
-      <HomeProcess />
       <HomeProfiles />
-      <HomeBottomCta />
+      <HomeBlog />
     </>
   );
 }

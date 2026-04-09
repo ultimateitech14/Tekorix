@@ -120,8 +120,8 @@ export default function ClientsPage() {
         panelNoteDescription="Use this page to support credibility and client conversation flow before deeper case-study content is introduced."
       />
 
-      <section className="bg-white py-16 sm:py-20">
-        <div className="site-container space-y-10">
+      <section className="bg-[#CFE3FF] public-section">
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Partnership positioning"
             title="A clean public proof layer for the kinds of clients Tekorix is built to support."
@@ -132,7 +132,7 @@ export default function ClientsPage() {
             {publicClientLogoPlaceholders.map((item, index) => (
               <div
                 key={item.name}
-                className="rounded-[1.5rem] border bg-white p-5 text-center shadow-[0_24px_60px_-46px_rgba(15,23,42,0.2)]"
+                className="rounded-[1.5rem] border bg-[#DCEEFF] p-5 text-center shadow-[0_24px_60px_-46px_rgba(15,23,42,0.2)]"
                 style={{ borderColor: colors.border }}
               >
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-lg font-semibold text-slate-700">
@@ -151,8 +151,8 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20" style={{ backgroundColor: colors.surfaceAlt }}>
-        <div className="site-container space-y-10">
+      <section className="public-section" style={{ backgroundColor: colors.surfaceAlt }}>
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Capability highlights"
             title="Examples of the partnership patterns this client page should communicate."
@@ -164,7 +164,7 @@ export default function ClientsPage() {
             {partnershipBlocks.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.75rem] border bg-white p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <p
@@ -177,13 +177,13 @@ export default function ClientsPage() {
                   {item.title}
                 </h2>
                 <div className="mt-5 space-y-4">
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">
+                  <div className="rounded-2xl border border-slate-200 bg-[#DCEEFF] px-4 py-4">
                     <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                       Client need
                     </p>
                     <p className="mt-2 text-sm leading-7 text-slate-700">{item.situation}</p>
                   </div>
-                  <div className="rounded-2xl border border-slate-200 bg-white px-4 py-4">
+                  <div className="rounded-2xl border border-slate-200 bg-[#DCEEFF] px-4 py-4">
                     <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                       Tekorix role
                     </p>
@@ -195,7 +195,7 @@ export default function ClientsPage() {
           </div>
 
           <div
-            className="rounded-[2rem] border bg-white p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
+            className="rounded-[2rem] border bg-[#DCEEFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
             style={{ borderColor: colors.border }}
           >
             <HomeSectionHeading
@@ -208,10 +208,10 @@ export default function ClientsPage() {
               {trustThemes.map((item, index) => (
                 <div
                   key={item.title}
-                  className="rounded-[1.5rem] border bg-slate-50 px-5 py-6"
+                  className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-6"
                   style={{
                     borderColor: colors.border,
-                    backgroundColor: index === 0 ? colors.surfaceAlt : "#F8FAFC",
+                    backgroundColor: index === 0 ? colors.surfaceAlt : colors.surfaceCard,
                   }}
                 >
                   <span
@@ -232,8 +232,8 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      <section className="bg-white py-16 sm:py-20">
-        <div className="site-container space-y-10">
+      <section className="bg-[#CFE3FF] public-section">
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Engagement highlights"
             title="A simple success layer that can expand later without changing the page structure."
@@ -245,7 +245,7 @@ export default function ClientsPage() {
             {engagementHighlights.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[1.5rem] border bg-white p-6 text-center shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 text-center shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <p className="font-display text-4xl font-semibold tracking-tight text-slate-950">
@@ -273,3 +273,4 @@ export default function ClientsPage() {
     </>
   );
 }
+

@@ -47,8 +47,8 @@ export function FindTalentModels() {
   const { colors } = themeTokens;
 
   return (
-    <section className="bg-white py-16 sm:py-20">
-      <div className="site-container space-y-10">
+    <section className="bg-[#CFE3FF] public-section">
+      <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="Hiring models"
           title="Choose the hiring structure that matches your delivery pressure."
@@ -59,10 +59,10 @@ export function FindTalentModels() {
           {models.map((model, index) => (
             <article
               key={model.title}
-              className="rounded-[1.75rem] border bg-white p-6 shadow-[0_22px_50px_-44px_rgba(15,23,42,0.28)] sm:p-7"
+              className="rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_50px_-44px_rgba(15,23,42,0.28)] sm:p-7"
               style={{
                 borderColor: index === 1 ? colors.primary : colors.border,
-                backgroundColor: index === 1 ? colors.surfaceAlt : colors.white,
+                backgroundColor: index === 1 ? colors.surfaceAlt : colors.surfaceCard,
               }}
             >
               <div className="flex items-center justify-between gap-4">
@@ -110,7 +110,7 @@ export function FindTalentModels() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-slate-300 bg-white text-slate-950 hover:bg-slate-50"
+                  className="w-full border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF]"
                 >
                   <Link href="#company-lead-form">{model.cta}</Link>
                 </Button>
@@ -122,3 +122,4 @@ export function FindTalentModels() {
     </section>
   );
 }
+

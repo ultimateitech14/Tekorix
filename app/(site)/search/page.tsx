@@ -143,9 +143,9 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <>
-      <section className="border-b border-border/60 py-12 sm:py-14">
+      <section className="border-b border-[#7FB5EA] bg-[#CFE3FF] py-10 sm:py-12">
         <div className="site-container">
-          <p className="type-eyebrow text-sky-700">Search</p>
+          <p className="type-eyebrow">Search</p>
           <h1 className="type-h1 mt-2">Find pages, services, and jobs</h1>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
             Use one search across the full Tekorix website including jobs, services, careers, insights,
@@ -159,11 +159,11 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
                 name="q"
                 defaultValue={query}
                 placeholder="Search jobs, services, insights, contact..."
-                className="h-11 w-full rounded-lg border border-slate-200 bg-white px-4 pr-24 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#1D4ED8] focus:outline-none"
+                className="h-11 w-full rounded-lg border border-[#7FB5EA] bg-[#DCEEFF] px-4 pr-24 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#1B66B3] focus:outline-none"
               />
               <button
                 type="submit"
-                className="absolute right-1.5 top-1.5 h-8 rounded-md bg-[#1D4ED8] px-3 text-xs font-medium text-white"
+                className="absolute right-1.5 top-1.5 h-8 rounded-md bg-[#1B66B3] px-3 text-xs font-medium text-white transition-colors hover:bg-[#145188]"
               >
                 Search
               </button>
@@ -172,9 +172,9 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
         </div>
       </section>
 
-      <section className="py-10 sm:py-12">
+      <section className="bg-[#CFE3FF] py-8 sm:py-10">
         <div className="site-container space-y-4">
-          <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]">
+          <article className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <Badge className="border border-slate-200 bg-transparent text-xs font-medium text-slate-900">
@@ -189,7 +189,7 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
               </div>
               <Link
                 href={jobSearchLink}
-                className="rounded-md border border-slate-200 px-3 py-2 text-sm font-medium text-slate-900 hover:border-[#1D4ED8]"
+                className="rounded-md border border-[#7FB5EA] bg-[#DCEEFF] px-3 py-2 text-sm font-medium text-slate-900 hover:border-[#1B66B3]"
               >
                 View jobs
               </Link>
@@ -201,7 +201,7 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
               {ranked.map((result) => (
                 <article
                   key={`${result.href}-${result.title}`}
-                  className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]"
+                  className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <h3 className="text-base font-medium text-slate-950">{result.title}</h3>
@@ -210,14 +210,14 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
                     </Badge>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">{result.description}</p>
-                  <Link href={result.href} className="mt-4 inline-flex text-sm font-medium text-[#1D4ED8] hover:text-[#1E40AF]">
+                  <Link href={result.href} className="mt-4 inline-flex text-sm font-medium text-[#1B66B3] hover:text-[#145188]">
                     Open page
                   </Link>
                 </article>
               ))}
             </div>
           ) : (
-            <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]">
+            <article className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]">
               <h3 className="text-base font-medium text-slate-950">No direct matches found</h3>
               <p className="mt-2 text-sm text-slate-600">
                 Try a broader term like consulting, jobs, talent, healthcare, or contact.
@@ -229,3 +229,4 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
     </>
   );
 }
+

@@ -45,7 +45,7 @@ export default async function JobResultsPage() {
             <div className="flex flex-wrap gap-3">
               <Button
                 asChild
-                className="border-0 bg-[#1D4ED8] text-white shadow-[0_20px_40px_-22px_rgba(37,99,235,0.7)] hover:bg-[#1E40AF]"
+                className="border-0 bg-[#1B66B3] text-white shadow-[0_20px_40px_-22px_rgba(27,102,179,0.55)] hover:bg-[#145188]"
               >
                 <Link href="/contact">Contact Us</Link>
               </Button>
@@ -59,7 +59,7 @@ export default async function JobResultsPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-slate-200 py-16 sm:py-20">
+      <section className="relative overflow-hidden border-b border-[#7FB5EA] public-section">
         {ENABLE_3D_HERO_VIDEO ? (
           <HeroBackgroundVideo
             className="hero-fx-motion absolute inset-0 h-full w-full scale-[1.08] object-cover brightness-[0.9] saturate-95 contrast-90"
@@ -72,7 +72,7 @@ export default async function JobResultsPage() {
         ) : (
           <div className="absolute inset-0 bg-[url('/images/hero-fallback.svg')] bg-cover bg-center opacity-16" />
         )}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.9)_0%,rgba(244,248,255,0.94)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(238,246,255,0.92)_0%,rgba(211,232,255,0.96)_100%)]" />
         {ENABLE_3D_HERO_VIDEO ? (
           <>
             <div className="absolute inset-0 bg-[radial-gradient(82%_44%_at_76%_14%,rgba(96,165,250,0.16),transparent_64%)]" />
@@ -89,7 +89,7 @@ export default async function JobResultsPage() {
               preferred work style.
             </p>
             <div className="pt-2">
-              <Suspense fallback={<div className="h-[68px] rounded-2xl border border-slate-200 bg-white" />}>
+              <Suspense fallback={<div className="h-[68px] rounded-2xl border border-[#7FB5EA] bg-[#DCEEFF]" />}>
                 <JobSearchPanel />
               </Suspense>
             </div>
@@ -97,7 +97,7 @@ export default async function JobResultsPage() {
         </Container>
       </section>
 
-      <section className="bg-[#eceef1] py-12 sm:py-14">
+      <section className="bg-[#CFE3FF] public-section">
         <Container>
           <Suspense fallback={<p className="text-sm text-slate-600">Loading job search...</p>}>
             <JobResultsView talentNetworkHref="/find-job#submit-resume" />
@@ -107,3 +107,4 @@ export default async function JobResultsPage() {
     </>
   );
 }
+

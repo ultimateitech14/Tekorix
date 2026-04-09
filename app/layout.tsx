@@ -55,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${display.variable} ${sans.variable} ${mono.variable} min-h-screen bg-white text-slate-900 antialiased`}
+        className={`${display.variable} ${sans.variable} ${mono.variable} min-h-screen bg-[#CFE3FF] text-slate-900 antialiased`}
       >
         {children}
         <Toaster richColors closeButton position="top-right" />

@@ -38,8 +38,8 @@ export function FindTalentOptions() {
   const { colors } = themeTokens;
 
   return (
-    <section className="bg-white py-16 sm:py-20">
-      <div className="site-container space-y-10">
+    <section className="bg-[#CFE3FF] public-section">
+      <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="Build or reshape"
           title="Use Tekorix for team structure decisions, not only staffing requests."
@@ -53,7 +53,7 @@ export function FindTalentOptions() {
               className="rounded-[1.75rem] border p-6 shadow-[0_22px_50px_-44px_rgba(15,23,42,0.25)] sm:p-7"
               style={{
                 borderColor: colors.border,
-                backgroundColor: index === 0 ? colors.surfaceAlt : colors.white,
+                backgroundColor: index === 0 ? colors.surfaceAlt : colors.surfaceCard,
               }}
             >
               <h3 className="font-display text-2xl font-semibold text-slate-950">{option.title}</h3>
@@ -75,7 +75,7 @@ export function FindTalentOptions() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-slate-300 bg-white text-slate-950 hover:bg-slate-50"
+                  className="w-full border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF]"
                 >
                   <Link href="#company-lead-form">{option.cta}</Link>
                 </Button>
@@ -87,3 +87,4 @@ export function FindTalentOptions() {
     </section>
   );
 }
+

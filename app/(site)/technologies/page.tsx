@@ -104,8 +104,8 @@ export default function TechnologiesPage() {
         panelNoteDescription="This page supports both services and find-talent conversations by showing where Tekorix can position technical depth."
       />
 
-      <section className="bg-white py-16 sm:py-20">
-        <div className="site-container space-y-10">
+      <section className="bg-[#CFE3FF] public-section">
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Technology categories"
             title="Grouped technology coverage across product engineering and delivery support."
@@ -116,7 +116,7 @@ export default function TechnologiesPage() {
             {technologyGroups.map((group) => (
               <div
                 key={group.title}
-                className="rounded-[1.75rem] border bg-white p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <span
@@ -132,7 +132,7 @@ export default function TechnologiesPage() {
                   {group.items.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700"
+                      className="rounded-full border border-slate-200 bg-[#DCEEFF] px-3 py-1.5 text-xs font-medium text-slate-700"
                     >
                       {item}
                     </span>
@@ -144,8 +144,8 @@ export default function TechnologiesPage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20" style={{ backgroundColor: colors.surfaceAlt }}>
-        <div className="site-container space-y-10">
+      <section className="public-section" style={{ backgroundColor: colors.surfaceAlt }}>
+        <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Capability lanes"
             title="Use the technology story to connect skills coverage back to real client needs."
@@ -157,7 +157,7 @@ export default function TechnologiesPage() {
             {capabilityLanes.map((item, index) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-white p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <p
@@ -185,3 +185,4 @@ export default function TechnologiesPage() {
     </>
   );
 }
+

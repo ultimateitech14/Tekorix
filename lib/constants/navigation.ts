@@ -1,19 +1,101 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Award,
+  BriefcaseBusiness,
+  Building2,
+  GraduationCap,
+  House,
+  Layers,
+  PhoneCall,
+  Users2,
+} from "lucide-react";
+
+export type NavigationChild = {
+  label: string;
+  href: string;
+  description: string;
+  icon: LucideIcon;
+};
+
 export type NavigationItem = {
   label: string;
   href: string;
+  icon: LucideIcon;
+  featured?: {
+    label: string;
+    description: string;
+  };
+  children?: NavigationChild[];
 };
 
 export const navigationItems: NavigationItem[] = [
-  { label: "Find Talent", href: "/find-talent" },
-  { label: "Find a Job", href: "/find-job" },
-  { label: "Business Consulting", href: "/business-consulting" },
-  { label: "Academy", href: "/academy" },
-  { label: "About", href: "/about" },
-  { label: "Industries", href: "/industries" },
-  { label: "Clients", href: "/clients" },
-  { label: "Technologies", href: "/technologies" },
-  { label: "Services", href: "/services" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "Home", href: "/", icon: House },
+  {
+    label: "Services",
+    href: "/services",
+    icon: BriefcaseBusiness,
+    featured: {
+      label: "All Services",
+      description: "Explore HR consulting, business support, industries coverage, and academy pathways.",
+    },
+    children: [
+      {
+        label: "HR Consulting",
+        href: "/services#consulting-services",
+        description: "People strategy, hiring support, and workforce consulting for growth teams.",
+        icon: Users2,
+      },
+      {
+        label: "Business",
+        href: "/business-consulting",
+        description: "Business consulting support for planning, transformation, and execution clarity.",
+        icon: BriefcaseBusiness,
+      },
+      {
+        label: "Industries We Serve",
+        href: "/industries",
+        description: "Sector-focused support across technology, BFSI, healthcare, and manufacturing.",
+        icon: Layers,
+      },
+      {
+        label: "Academy",
+        href: "/academy",
+        description: "Learning programs for corporate training, upskilling, and certification readiness.",
+        icon: Building2,
+      },
+    ],
+  },
+  {
+    label: "Academy",
+    href: "/academy",
+    icon: GraduationCap,
+    featured: {
+      label: "All Academy Programs",
+      description: "Explore corporate training, upskilling tracks, and certification support.",
+    },
+    children: [
+      {
+        label: "Corporate Training",
+        href: "/academy#workshops",
+        description: "Structured training programs for teams to improve delivery readiness.",
+        icon: Building2,
+      },
+      {
+        label: "Upskill Yourself",
+        href: "/academy#engineering-foundations",
+        description: "Role-based learning paths to grow technical and professional capability.",
+        icon: GraduationCap,
+      },
+      {
+        label: "Certification",
+        href: "/academy#certification-support",
+        description: "Guided preparation support for recognized technical certifications.",
+        icon: Award,
+      },
+    ],
+  },
+  { label: "About", href: "/about", icon: Building2 },
+  { label: "Contact Us", href: "/contact", icon: PhoneCall },
 ];
 
 export const navigationCtas = {

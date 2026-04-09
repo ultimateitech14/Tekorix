@@ -26,10 +26,10 @@ export function FindJobPublished() {
   return (
     <section
       id="published-jobs"
-      className="py-16 sm:py-20"
+      className="public-section"
       style={{ backgroundColor: colors.surfaceAlt }}
     >
-      <div className="site-container space-y-8">
+      <div className="site-container public-stack">
         <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
           <HomeSectionHeading
             eyebrow="Published jobs"
@@ -41,7 +41,7 @@ export function FindJobPublished() {
             {sectionSignals.map((item) => (
               <div
                 key={item.label}
-                className="rounded-2xl border bg-white px-4 py-4 shadow-[0_22px_50px_-40px_rgba(15,23,42,0.35)]"
+                className="rounded-2xl border bg-[#DCEEFF] px-4 py-4 shadow-[0_22px_50px_-40px_rgba(15,23,42,0.35)]"
                 style={{ borderColor: colors.border }}
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">{item.label}</p>
@@ -52,16 +52,16 @@ export function FindJobPublished() {
         </div>
 
         <div
-          className="rounded-[2rem] border bg-white p-4 shadow-[0_24px_60px_-42px_rgba(15,23,42,0.18)] sm:p-6"
+          className="rounded-[2rem] border bg-[#DCEEFF] p-4 shadow-[0_24px_60px_-42px_rgba(15,23,42,0.18)] sm:p-6"
           style={{ borderColor: colors.border }}
         >
-          <Suspense fallback={<div className="h-[68px] rounded-2xl border border-slate-200 bg-slate-50" />}>
+          <Suspense fallback={<div className="h-[68px] rounded-2xl border border-slate-200 bg-[#DCEEFF]" />}>
             <JobSearchPanel basePath="/find-job" />
           </Suspense>
         </div>
 
         <div
-          className="rounded-[2rem] border bg-white p-5 shadow-[0_28px_80px_-54px_rgba(15,23,42,0.4)] sm:p-7"
+          className="rounded-[2rem] border bg-[#DCEEFF] p-5 shadow-[0_28px_80px_-54px_rgba(15,23,42,0.4)] sm:p-7"
           style={{ borderColor: colors.border }}
         >
           <Suspense fallback={<p className="text-sm text-slate-600">Loading published jobs...</p>}>
@@ -72,3 +72,4 @@ export function FindJobPublished() {
     </section>
   );
 }
+

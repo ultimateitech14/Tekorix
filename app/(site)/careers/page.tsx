@@ -98,7 +98,7 @@ export default async function CareersPage() {
             <div className="flex flex-wrap gap-3">
               <Button
                 asChild
-                className="border-0 bg-[#1D4ED8] text-white shadow-[0_20px_40px_-22px_rgba(37,99,235,0.7)] hover:bg-[#1E40AF]"
+                className="border-0 bg-[#1B66B3] text-white shadow-[0_20px_40px_-22px_rgba(27,102,179,0.55)] hover:bg-[#145188]"
               >
                 <Link href="/contact">Contact Us</Link>
               </Button>
@@ -119,7 +119,7 @@ export default async function CareersPage() {
         primaryCta={{ label: "Find a Job", href: "/find-job#published-jobs" }}
         secondaryCta={{ label: "Submit Resume", href: "/find-job#submit-resume", variant: "outline" }}
       >
-        <Card className="rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_24px_60px_-44px_rgba(15,23,42,0.2)]">
+        <Card className="rounded-[1.5rem] border border-slate-200 bg-[#DCEEFF] shadow-[0_24px_60px_-44px_rgba(15,23,42,0.2)]">
           <CardContent className="space-y-3 p-6">
             <p className="type-eyebrow">People promise</p>
             <p className="text-sm leading-relaxed text-slate-600">
@@ -140,7 +140,7 @@ export default async function CareersPage() {
           {whyJoinCards.map((item) => (
             <Card
               key={item.title}
-              className="rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_22px_55px_-44px_rgba(15,23,42,0.2)]"
+              className="rounded-[1.5rem] border border-slate-200 bg-[#DCEEFF] shadow-[0_22px_55px_-44px_rgba(15,23,42,0.2)]"
             >
               <CardContent className="space-y-3 p-6">
                 <h2 className="type-h3">{item.title}</h2>
@@ -167,7 +167,7 @@ export default async function CareersPage() {
             {siteSettings.careersTeamMembers.map((member) => (
               <Card
                 key={member.id}
-                className="rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_22px_55px_-44px_rgba(15,23,42,0.2)]"
+                className="rounded-[1.5rem] border border-slate-200 bg-[#DCEEFF] shadow-[0_22px_55px_-44px_rgba(15,23,42,0.2)]"
               >
                 <CardContent className="space-y-4 p-6">
                   <div className="flex items-center gap-3">
@@ -229,7 +229,7 @@ export default async function CareersPage() {
         title="Submit Your Resume"
         description="The primary candidate funnel now lives on the Find Job page, while careers content remains available here."
       >
-        <Card className="rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_22px_55px_-44px_rgba(15,23,42,0.2)]">
+        <Card className="rounded-[1.5rem] border border-slate-200 bg-[#DCEEFF] shadow-[0_22px_55px_-44px_rgba(15,23,42,0.2)]">
           <CardContent className="grid gap-5 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div className="space-y-4">
               <h2 className="type-h2">Candidate profile</h2>
@@ -241,11 +241,11 @@ export default async function CareersPage() {
             <div className="flex flex-wrap gap-3">
               <Button
                 asChild
-                className="border-0 bg-[#1D4ED8] text-white shadow-[0_20px_40px_-22px_rgba(37,99,235,0.7)] hover:bg-[#1E40AF]"
+                className="border-0 bg-[#1B66B3] text-white shadow-[0_20px_40px_-22px_rgba(27,102,179,0.55)] hover:bg-[#145188]"
               >
                 <Link href="/find-job">View Find Job</Link>
               </Button>
-              <Button asChild variant="outline" className="border-slate-300 bg-white text-slate-950 hover:bg-slate-50">
+              <Button asChild variant="outline" className="border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF]">
                 <Link href="/find-job#submit-resume">Submit Resume</Link>
               </Button>
             </div>
@@ -255,3 +255,4 @@ export default async function CareersPage() {
     </>
   );
 }
+

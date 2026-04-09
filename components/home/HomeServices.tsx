@@ -1,5 +1,4 @@
 import { HomeSectionHeading } from "@/components/home/HomeSectionHeading";
-import { themeTokens } from "@/lib/theme/tokens";
 
 const services = [
   {
@@ -30,11 +29,9 @@ const services = [
 ];
 
 export function HomeServices() {
-  const { colors } = themeTokens;
-
   return (
-    <section className="py-16 sm:py-20" style={{ backgroundColor: colors.page }}>
-      <div className="site-container space-y-10">
+    <section className="bg-[#CFE3FF] public-section">
+      <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="Service lines"
           title="Structured offers built for team building, delivery, and long-term capability."
@@ -45,41 +42,28 @@ export function HomeServices() {
           {services.map((service) => (
             <article
               key={service.title}
-              className="rounded-[1.75rem] border p-6 shadow-[0_22px_50px_-40px_rgba(62,127,193,0.16)] sm:p-7"
-              style={{
-                borderColor: service.isCore ? colors.primary : colors.border,
-                background:
-                  service.isCore
-                    ? "linear-gradient(180deg, rgba(230,240,255,0.96) 0%, rgba(220,235,251,0.92) 100%)"
-                    : "linear-gradient(180deg, rgba(248,251,255,0.98) 0%, rgba(239,245,255,0.88) 100%)",
-              }}
+              className={service.isCore
+                ? "rounded-xl border border-[#1B66B3] bg-[#C6E0FF] p-6 shadow-sm sm:p-7"
+                : "rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-6 shadow-sm sm:p-7"}
             >
               <div className="flex items-start justify-between gap-4">
                 <span
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full text-sm font-semibold"
-                  style={{
-                    backgroundColor: service.isCore ? colors.primary : colors.surfaceMuted,
-                    color: service.isCore ? colors.white : colors.primary,
-                  }}
+                  className={service.isCore
+                    ? "inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#1B66B3] text-sm font-semibold text-white"
+                    : "inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#B5D5F8] text-sm font-semibold text-[#1B66B3]"}
                 >
                   {service.number}
                 </span>
                 {service.isCore ? (
-                  <span
-                    className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em]"
-                    style={{
-                      backgroundColor: colors.surfaceMuted,
-                      color: colors.primary,
-                    }}
-                  >
+                  <span className="rounded-full bg-[#B5D5F8] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#1B66B3]">
                     Core service
                   </span>
                 ) : null}
               </div>
 
               <div className="mt-6 space-y-3">
-                <h3 className="font-display text-2xl font-semibold text-slate-950">{service.title}</h3>
-                <p className="text-base leading-7 text-slate-600">{service.description}</p>
+                <h3 className="text-xl font-semibold text-slate-900">{service.title}</h3>
+                <p className="text-base text-slate-600 leading-relaxed">{service.description}</p>
               </div>
             </article>
           ))}
@@ -88,3 +72,4 @@ export function HomeServices() {
     </section>
   );
 }
+

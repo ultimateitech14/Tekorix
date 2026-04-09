@@ -29,9 +29,9 @@ export function ContactDirectInfo() {
   const { colors } = themeTokens;
 
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-[#CFE3FF] public-section">
       <div className="site-container grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-        <div className="space-y-8">
+        <div className="public-stack">
           <HomeSectionHeading
             eyebrow="Direct contact"
             title="Prefer a direct route instead of a form?"
@@ -42,7 +42,7 @@ export function ContactDirectInfo() {
             {contactCards.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[1.5rem] border bg-white px-5 py-5 shadow-[0_18px_44px_-40px_rgba(15,23,42,0.28)]"
+                className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-5 shadow-[0_18px_44px_-40px_rgba(15,23,42,0.28)]"
                 style={{ borderColor: colors.border }}
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
@@ -51,7 +51,7 @@ export function ContactDirectInfo() {
                 {item.href ? (
                   <a
                     href={item.href}
-                    className="mt-3 block text-lg font-semibold text-slate-950 hover:text-[#1D4ED8]"
+                    className="mt-3 block text-lg font-semibold text-slate-950 hover:text-[#1B66B3]"
                   >
                     {item.value}
                   </a>
@@ -65,7 +65,7 @@ export function ContactDirectInfo() {
         </div>
 
         <div
-          className="rounded-[2rem] border bg-white p-7 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.2)] sm:p-8"
+          className="rounded-[2rem] border bg-[#DCEEFF] p-7 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.2)] sm:p-8"
           style={{ borderColor: colors.border }}
         >
           <p className="text-sm font-semibold uppercase tracking-[0.22em]" style={{ color: colors.primary }}>
@@ -91,7 +91,7 @@ export function ContactDirectInfo() {
             <Button
               asChild
               variant="outline"
-              className="border-slate-300 bg-white text-slate-950 hover:bg-slate-50 hover:text-slate-950"
+              className="border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF] hover:text-slate-950"
             >
               <Link href="#candidate-inquiry">Apply Now</Link>
             </Button>
@@ -101,3 +101,4 @@ export function ContactDirectInfo() {
     </section>
   );
 }
+

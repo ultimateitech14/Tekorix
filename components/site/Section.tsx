@@ -26,10 +26,10 @@ export function Section({
     <section id={id} className={cn("section-space", className)}>
       <Container>
         {eyebrow || title || description || actions ? (
-          <header className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <header className="mb-6 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl space-y-3">
               {eyebrow ? (
-                <p className="type-eyebrow text-sky-700">{eyebrow}</p>
+                <p className="type-eyebrow">{eyebrow}</p>
               ) : null}
               {title ? (
                 <h2 className="type-h2 text-balance">

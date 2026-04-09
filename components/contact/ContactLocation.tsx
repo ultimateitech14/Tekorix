@@ -21,9 +21,9 @@ export function ContactLocation() {
   const { colors } = themeTokens;
 
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-[#CFE3FF] public-section">
       <div className="site-container grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <div className="space-y-8">
+        <div className="public-stack">
           <HomeSectionHeading
             eyebrow="Location and coverage"
             title="A contact footprint designed for delivery, talent, and support conversations."
@@ -34,7 +34,7 @@ export function ContactLocation() {
             {officeItems.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[1.5rem] border bg-white px-5 py-5 shadow-[0_18px_44px_-40px_rgba(15,23,42,0.28)]"
+                className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-5 shadow-[0_18px_44px_-40px_rgba(15,23,42,0.28)]"
                 style={{ borderColor: colors.border }}
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
@@ -77,3 +77,4 @@ export function ContactLocation() {
     </section>
   );
 }
+

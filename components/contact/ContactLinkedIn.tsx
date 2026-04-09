@@ -32,8 +32,8 @@ export function ContactLinkedIn() {
   const { colors } = themeTokens;
 
   return (
-    <section style={{ backgroundColor: colors.surfaceAlt }} className="py-16 sm:py-20">
-      <div className="site-container space-y-10">
+    <section style={{ backgroundColor: colors.surfaceAlt }} className="public-section">
+      <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="LinkedIn and network presence"
           title="Keep professional connections visible alongside direct inquiry routes."
@@ -44,7 +44,7 @@ export function ContactLinkedIn() {
           {profiles.map((item) => (
             <article
               key={item.title}
-              className="rounded-[1.75rem] border bg-white p-6 shadow-[0_22px_50px_-44px_rgba(15,23,42,0.24)] sm:p-7"
+              className="rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_50px_-44px_rgba(15,23,42,0.24)] sm:p-7"
               style={{ borderColor: colors.border }}
             >
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">LinkedIn</p>
@@ -55,7 +55,7 @@ export function ContactLinkedIn() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-slate-300 bg-white text-slate-950 hover:bg-slate-50"
+                  className="w-full border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF]"
                 >
                   <Link href={item.href} target="_blank" rel="noreferrer">
                     {item.cta}
@@ -69,3 +69,4 @@ export function ContactLinkedIn() {
     </section>
   );
 }
+

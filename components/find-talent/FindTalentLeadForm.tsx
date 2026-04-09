@@ -141,7 +141,7 @@ export function FindTalentLeadForm() {
   }
 
   return (
-    <section id="company-lead-form" style={{ backgroundColor: colors.surfaceAlt }} className="py-16 sm:py-20">
+    <section id="company-lead-form" style={{ backgroundColor: colors.surfaceAlt }} className="public-section">
       <div className="site-container grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
         <div
           className="rounded-[2rem] border bg-white p-7 shadow-[0_28px_70px_-44px_rgba(15,23,42,0.22)] sm:p-8"
@@ -207,7 +207,7 @@ export function FindTalentLeadForm() {
               <Button
                 asChild
                 variant="outline"
-                className="border-slate-300 bg-white text-slate-950 hover:bg-slate-50 hover:text-slate-950"
+                className="border-[#7FB5EA] bg-[#E4F1FF] text-slate-950 hover:bg-[#CFE3FF] hover:text-slate-950"
               >
                 <Link href="/contact">Talk to Us</Link>
               </Button>

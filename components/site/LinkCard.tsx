@@ -21,7 +21,7 @@ export function LinkCard({
   return (
     <Card
       className={cn(
-        "group rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]",
+        "group rounded-[1.5rem] border border-slate-200 bg-[#DCEEFF] shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]",
         className,
       )}
     >
@@ -32,7 +32,7 @@ export function LinkCard({
         </CardDescription>
         <Link
           href={href}
-          className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.01em] text-[#1D4ED8] transition-transform duration-200 group-hover:translate-x-1"
+          className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.01em] text-[#1B66B3] transition-transform duration-200 group-hover:translate-x-1"
         >
           {ctaLabel}
           <span aria-hidden>-&gt;</span>
@@ -41,3 +41,4 @@ export function LinkCard({
     </Card>
   );
 }
+
