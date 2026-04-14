@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { LucideIcon } from "lucide-react";
-import { ArrowRight, CheckCircle2, GraduationCap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { PublicBottomCta } from "@/components/global/PublicBottomCta";
 import { HomeSectionHeading } from "@/components/home/HomeSectionHeading";
-import { Button } from "@/components/ui/button";
 import { navigationItems } from "@/lib/constants/navigation";
 import { buildMetadata } from "@/lib/seo";
-import { serviceCatalog, serviceDeliveryFlow, serviceValuePoints } from "@/lib/constants/service-catalog";
-import { themeTokens } from "@/lib/theme/tokens";
 
 export const metadata: Metadata = buildMetadata({
   title: "Tekorix Services",
@@ -27,41 +23,8 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function ServicesPage() {
-  const { colors } = themeTokens;
   const servicesNavigation = navigationItems.find((item) => item.href === "/services");
   const serviceOverviewItems = servicesNavigation?.children ?? [];
-  const serviceCatalogCards: {
-    id: string;
-    title: string;
-    shortDescription: string;
-    features: string[];
-    core?: boolean;
-    icon: LucideIcon;
-    href: string;
-  }[] = [
-    ...serviceCatalog.map((item) => ({
-      id: item.id,
-      title: item.title,
-      shortDescription: item.shortDescription,
-      features: item.features,
-      core: item.core,
-      icon: item.icon,
-      href: `/services/${item.id}`,
-    })),
-    {
-      id: "academy",
-      title: "Academy",
-      shortDescription:
-        "Role-based learning support for teams and candidates through upskilling tracks, workshops, and certification readiness.",
-      features: [
-        "Corporate training workshops for delivery teams",
-        "Upskill and reskill tracks for role transitions",
-        "Certification guidance aligned to career outcomes",
-      ],
-      icon: GraduationCap,
-      href: "/academy",
-    },
-  ];
 
   return (
     <>
@@ -75,8 +38,8 @@ export default function ServicesPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[#1B66B3]">Services</p>
             <h1 className="type-display text-slate-900">Structured services for talent, teams, and delivery support.</h1>
             <p className="type-body mx-auto max-w-3xl text-slate-600">
-              Explore the Tekorix services catalog the same way clients evaluate it: clear service definitions,
-              visible core focus areas, and dedicated detail pages for each support model.
+              Explore the four core Tekorix service paths clients use most often, with direct navigation into each
+              destination.
             </p>
           </div>
         </div>
@@ -87,7 +50,7 @@ export default function ServicesPage() {
           <HomeSectionHeading
             eyebrow="All services"
             title="See every Tekorix service path from one page."
-            description="All Services opens this page so visitors can quickly view HR Consulting, Business support, Industries coverage, and Academy pathways before going deeper."
+            description="All Services keeps the structure focused on HR, Business, Academy, and Industries so visitors can move quickly to the right destination."
           />
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -112,120 +75,6 @@ export default function ServicesPage() {
                 </span>
               </Link>
             ))}
-          </div>
-
-          <HomeSectionHeading
-            eyebrow="Service catalog"
-            title="Browse each service as its own client-ready path."
-            description="The layout here is intentionally structured like a service catalog: icon-led cards, fast summaries, and direct links into a deeper service detail page."
-          />
-
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {serviceCatalogCards.map((item) => (
-              <article
-                key={item.id}
-                id={item.id}
-                className="scroll-mt-28 flex h-full flex-col rounded-[1.75rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#ECF5FF_100%)] p-6 shadow-[0_28px_64px_-48px_rgba(15,23,42,0.34)] sm:p-7"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <span
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
-                    style={{ backgroundColor: item.core ? colors.primary : colors.surfaceMuted, color: item.core ? colors.white : colors.primary }}
-                  >
-                    <item.icon className="h-5 w-5" />
-                  </span>
-                  {item.core ? (
-                    <span className="rounded-full bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1B66B3]">
-                      Core focus
-                    </span>
-                  ) : null}
-                </div>
-
-                <div className="mt-6 space-y-3">
-                  <h2 className="type-h3 text-slate-950">{item.title}</h2>
-                  <p className="type-body text-slate-600">{item.shortDescription}</p>
-                </div>
-
-                <div className="mt-6 flex-1 space-y-3">
-                  {item.features.slice(0, 3).map((feature) => (
-                    <div key={feature} className="type-body-sm flex items-start gap-3 text-slate-600">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#1B66B3]" />
-                      <span>{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-8">
-                  <Button asChild className="h-11 w-full shadow-sm">
-                    <Link href={item.href}>
-                      Explore Service
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="public-section" style={{ backgroundColor: colors.surfaceAlt }}>
-        <div className="site-container public-stack">
-          <HomeSectionHeading
-            eyebrow="How services connect"
-            title="Each service exists independently, but the buying journey still follows a clear flow."
-            description="This section keeps the services page commercially structured: first identify the real gap, then match the support model, then keep delivery stable."
-            align="center"
-          />
-
-          <div className="grid gap-5 lg:grid-cols-3">
-            {serviceDeliveryFlow.map((item, index) => (
-              <div
-                key={item.title}
-                className="rounded-[1.5rem] bg-[linear-gradient(165deg,#F9FCFF_0%,#EEF7FF_100%)] p-6 shadow-[0_24px_58px_-44px_rgba(15,23,42,0.3)]"
-              >
-                <p
-                  className="type-body-sm font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: index === 1 ? colors.accent : colors.primary }}
-                >
-                  Step 0{index + 1}
-                </p>
-                <h2 className="type-h3 mt-4 text-slate-950">{item.title}</h2>
-                <p className="type-body mt-3 text-slate-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="rounded-[2rem] bg-[linear-gradient(170deg,#F9FCFF_0%,#EAF4FF_100%)] p-6 shadow-[0_30px_74px_-52px_rgba(15,23,42,0.28)] sm:p-8">
-            <HomeSectionHeading
-              eyebrow="Why Tekorix"
-              title="The overall services story stays broad, but the core commercial direction remains obvious."
-              description="That balance matters. Clients should see staffing and team building clearly, while still understanding the wider consulting and delivery support capability."
-            />
-
-            <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {serviceValuePoints.map((item, index) => (
-                <div
-                  key={item.title}
-                  className="rounded-[1.5rem] bg-white/85 px-5 py-6 shadow-[0_22px_52px_-42px_rgba(15,23,42,0.24)]"
-                  style={{
-                    backgroundColor: index === 0 ? colors.surfaceAlt : colors.surfaceCard,
-                  }}
-                >
-                  <span
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white"
-                    style={{
-                      backgroundColor: index === 0 ? colors.primary : colors.surfaceMuted,
-                      color: index === 0 ? colors.white : colors.primary,
-                    }}
-                  >
-                    <item.icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="type-h3 mt-4 text-slate-950">{item.title}</h3>
-                  <p className="type-body mt-3 text-slate-600">{item.description}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>

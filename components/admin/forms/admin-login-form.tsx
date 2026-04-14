@@ -89,14 +89,14 @@ export function AdminLoginForm() {
   return (
     <form className="space-y-5" onSubmit={handleSubmit} noValidate>
       {formError ? (
-        <Alert className="border-red-400/50 bg-red-500/10 text-red-100">
+        <Alert className="border-red-300 bg-red-50 text-red-700">
           <AlertTitle>Sign-in failed</AlertTitle>
           <AlertDescription>{formError}</AlertDescription>
         </Alert>
       ) : null}
 
       <div className="space-y-2">
-        <Label htmlFor="admin-email" className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+        <Label htmlFor="admin-email" className="text-xs uppercase tracking-[0.16em] text-slate-600">
           Email
         </Label>
         <Input
@@ -105,14 +105,14 @@ export function AdminLoginForm() {
           value={values.email}
           onChange={(event) => updateField("email", event.target.value)}
           placeholder="admin@startupwork.dev"
-          className="bg-background/60"
+          className="border-[#BED9F3] bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-[#1B66B3]"
           aria-invalid={Boolean(errors.email)}
         />
-        {errors.email ? <p className="text-xs text-red-300">{errors.email}</p> : null}
+        {errors.email ? <p className="text-xs text-red-600">{errors.email}</p> : null}
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="admin-password" className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+        <Label htmlFor="admin-password" className="text-xs uppercase tracking-[0.16em] text-slate-600">
           Password
         </Label>
         <Input
@@ -121,14 +121,14 @@ export function AdminLoginForm() {
           value={values.password}
           onChange={(event) => updateField("password", event.target.value)}
           placeholder="********"
-          className="bg-background/60"
+          className="border-[#BED9F3] bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-[#1B66B3]"
           aria-invalid={Boolean(errors.password)}
         />
-        {errors.password ? <p className="text-xs text-red-300">{errors.password}</p> : null}
+        {errors.password ? <p className="text-xs text-red-600">{errors.password}</p> : null}
       </div>
 
       <div className="flex items-center justify-between gap-3">
-        <Link href="/admin/forgot-password" className="text-xs text-muted-foreground hover:text-foreground">
+        <Link href="/admin/forgot-password" className="text-xs text-slate-600 hover:text-slate-900">
           Forgot password?
         </Link>
         <Button type="submit" disabled={isLoading}>

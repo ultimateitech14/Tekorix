@@ -291,6 +291,38 @@
     letter-spacing: normal !important;
     text-transform: none !important;
   }
+
+  /* Admin area scrollbar polish */
+  .admin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #8fb6df #eaf2fb;
+  }
+
+  .admin-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .admin-scrollbar::-webkit-scrollbar-track {
+    background: #eaf2fb;
+    border-radius: 9999px;
+  }
+
+  .admin-scrollbar::-webkit-scrollbar-thumb {
+    background: #8fb6df;
+    border: 2px solid #eaf2fb;
+    border-radius: 9999px;
+  }
+
+  .admin-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #6f9fce;
+  }
+
+  .admin-scrollbar::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 }
 
 @keyframes hero-float {

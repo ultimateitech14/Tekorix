@@ -110,7 +110,7 @@ export default function AcademyPage() {
         panelNoteDescription="This page should feel useful now while remaining easy to deepen later with actual program detail."
       />
 
-      <section className="bg-[#E6F1FF] public-section">
+      <section id="upskilling" className="scroll-mt-28 bg-[#E6F1FF] public-section">
         <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Programs and tracks"
@@ -220,5 +220,3 @@ export default function AcademyPage() {
     </>
   );
 }
-
-

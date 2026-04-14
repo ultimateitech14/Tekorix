@@ -124,7 +124,7 @@ export default function AdminDashboardPage() {
           className={cn(
             "backdrop-blur-xl xl:col-span-3",
             ENABLE_ADMIN_UI_REFRESH
-              ? "border-[#D4E8FC] bg-[linear-gradient(150deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025))]"
+              ? "border-[#D4E8FC] bg-[linear-gradient(145deg,#F9FCFF_0%,#EDF6FF_100%)]"
               : "border-[#D4E8FC] bg-[#F8FBFF]",
           )}
         >
@@ -133,10 +133,10 @@ export default function AdminDashboardPage() {
               Applications per day
             </CardTitle>
           </CardHeader>
-          <CardContent className="h-[280px] pt-2 sm:h-[300px]">
+          <CardContent className="h-[280px] pt-4 sm:h-[300px]">
             {chartsReady ? (
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={applicationsByDay}>
+                <LineChart data={applicationsByDay} margin={{ top: 20, right: 10, left: 0, bottom: 0 }}>
                   <XAxis dataKey="day" stroke="#94a3b8" tickLine={false} axisLine={false} tick={{ fontSize: 12 }} />
                   <YAxis stroke="#94a3b8" tickLine={false} axisLine={false} tick={{ fontSize: 12 }} />
                   <Tooltip
@@ -168,7 +168,7 @@ export default function AdminDashboardPage() {
           className={cn(
             "backdrop-blur-xl xl:col-span-2",
             ENABLE_ADMIN_UI_REFRESH
-              ? "border-[#D4E8FC] bg-[linear-gradient(150deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025))]"
+              ? "border-[#D4E8FC] bg-[linear-gradient(145deg,#F9FCFF_0%,#EDF6FF_100%)]"
               : "border-[#D4E8FC] bg-[#F8FBFF]",
           )}
         >

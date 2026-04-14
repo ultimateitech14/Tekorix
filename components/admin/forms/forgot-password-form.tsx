@@ -60,14 +60,14 @@ export function ForgotPasswordForm() {
   return (
     <form className="space-y-5" onSubmit={handleSubmit} noValidate>
       {formError ? (
-        <Alert className="border-red-400/50 bg-red-500/10 text-red-100">
+        <Alert className="border-red-300 bg-red-50 text-red-700">
           <AlertTitle>Request failed</AlertTitle>
           <AlertDescription>{formError}</AlertDescription>
         </Alert>
       ) : null}
 
       <div className="space-y-2">
-        <Label htmlFor="forgot-email" className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+        <Label htmlFor="forgot-email" className="text-xs uppercase tracking-[0.16em] text-slate-600">
           Account email
         </Label>
         <Input
@@ -76,10 +76,10 @@ export function ForgotPasswordForm() {
           value={values.email}
           onChange={(event) => updateEmail(event.target.value)}
           placeholder="you@company.com"
-          className="bg-background/60"
+          className="border-[#BED9F3] bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-[#1B66B3]"
           aria-invalid={Boolean(errors.email)}
         />
-        {errors.email ? <p className="text-xs text-red-300">{errors.email}</p> : null}
+        {errors.email ? <p className="text-xs text-red-600">{errors.email}</p> : null}
       </div>
 
       <Button type="submit" disabled={isLoading} className="w-full">

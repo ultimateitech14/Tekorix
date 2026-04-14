@@ -43,6 +43,15 @@ export function Navbar() {
     setMobileOpenMenu(null);
   }
 
+  function scrollToTopIfSameRoute(href: string) {
+    const [targetPathWithQuery] = href.split("#");
+    const targetPath = targetPathWithQuery.split("?")[0];
+
+    if (pathname === targetPath) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
   return (
     <header className="fixed inset-x-0 top-0 z-40 bg-white/95 shadow-[0_18px_42px_-32px_rgba(15,23,42,0.28)] backdrop-blur-xl">
       <div className="site-container flex h-20 items-center justify-between gap-6">
@@ -109,7 +118,10 @@ export function Navbar() {
                       {item.featured ? (
                         <Link
                           href={item.href}
-                          onClick={() => setDesktopOpenMenu(null)}
+                          onClick={() => {
+                            setDesktopOpenMenu(null);
+                            scrollToTopIfSameRoute(item.href);
+                          }}
                           className="block rounded-[1.1rem] bg-[#F3F8FF] px-4 py-3 transition-colors hover:bg-[#F8FBFF]"
                         >
                           <p className="text-lg font-semibold text-slate-900">{item.featured.label}</p>
@@ -120,9 +132,12 @@ export function Navbar() {
                       <div className="grid gap-1.5 md:grid-cols-2">
                         {item.children.map((child) => (
                           <Link
-                            key={child.href}
+                            key={`${child.href}-${child.label}`}
                             href={child.href}
-                            onClick={() => setDesktopOpenMenu(null)}
+                            onClick={() => {
+                              setDesktopOpenMenu(null);
+                              scrollToTopIfSameRoute(child.href);
+                            }}
                             className="group flex items-start gap-3 rounded-[1rem] px-3 py-3 transition-colors hover:bg-[#F3F8FF]"
                           >
                             <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F8FBFF] text-[#1B66B3]">
@@ -223,7 +238,10 @@ export function Navbar() {
                           {item.featured ? (
                             <Link
                               href={item.href}
-                              onClick={closeMobileMenu}
+                              onClick={() => {
+                                closeMobileMenu();
+                                scrollToTopIfSameRoute(item.href);
+                              }}
                               className="rounded-xl bg-[#F3F8FF] px-4 py-3"
                             >
                               <p className="text-sm font-semibold text-slate-900">{item.featured.label}</p>
@@ -233,9 +251,12 @@ export function Navbar() {
 
                           {item.children.map((child) => (
                             <Link
-                              key={child.href}
+                              key={`${child.href}-${child.label}`}
                               href={child.href}
-                              onClick={closeMobileMenu}
+                              onClick={() => {
+                                closeMobileMenu();
+                                scrollToTopIfSameRoute(child.href);
+                              }}
                               className="rounded-xl bg-white px-4 py-3 transition-colors hover:bg-[#F3F8FF]"
                             >
                               <div className="flex items-start gap-3">

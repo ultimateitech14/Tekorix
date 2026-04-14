@@ -17,8 +17,8 @@ export function StatCard({ label, value, detail, icon: Icon }: StatCardProps) {
       className={cn(
         "backdrop-blur-xl",
         ENABLE_ADMIN_UI_REFRESH
-          ? "border-[#D4E8FC] bg-[linear-gradient(145deg,#F9FCFF_0%,#EDF6FF_100%)]"
-          : "border-[#D4E8FC] bg-[#F8FBFF]",
+          ? "border-[#D4E8FC] bg-[linear-gradient(165deg,#FBFDFF_0%,#F5FAFF_58%,#EEF6FF_100%)]"
+          : "border-[#D4E8FC] bg-[linear-gradient(165deg,#FCFEFF_0%,#F7FBFF_100%)]",
       )}
     >
       <CardContent className="p-5">

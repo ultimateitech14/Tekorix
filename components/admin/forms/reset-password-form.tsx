@@ -72,7 +72,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   if (!hasToken) {
     return (
-      <Alert className="border-red-400/50 bg-red-500/10 text-red-100">
+      <Alert className="border-red-300 bg-red-50 text-red-700">
         <AlertTitle>Missing reset token</AlertTitle>
         <AlertDescription>Use the full password reset link from your email and try again.</AlertDescription>
       </Alert>
@@ -82,14 +82,14 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   return (
     <form className="space-y-5" onSubmit={handleSubmit} noValidate>
       {formError ? (
-        <Alert className="border-red-400/50 bg-red-500/10 text-red-100">
+        <Alert className="border-red-300 bg-red-50 text-red-700">
           <AlertTitle>Reset failed</AlertTitle>
           <AlertDescription>{formError}</AlertDescription>
         </Alert>
       ) : null}
 
       <div className="space-y-2">
-        <Label htmlFor="reset-password" className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+        <Label htmlFor="reset-password" className="text-xs uppercase tracking-[0.16em] text-slate-600">
           New password
         </Label>
         <Input
@@ -98,16 +98,16 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           value={fields.password}
           onChange={(event) => updateField("password", event.target.value)}
           placeholder="Enter a strong password"
-          className="bg-background/60"
+          className="border-[#BED9F3] bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-[#1B66B3]"
           aria-invalid={Boolean(errors.password)}
         />
-        {errors.password ? <p className="text-xs text-red-300">{errors.password}</p> : null}
+        {errors.password ? <p className="text-xs text-red-600">{errors.password}</p> : null}
       </div>
 
       <div className="space-y-2">
         <Label
           htmlFor="reset-confirm-password"
-          className="text-xs uppercase tracking-[0.16em] text-muted-foreground"
+          className="text-xs uppercase tracking-[0.16em] text-slate-600"
         >
           Confirm password
         </Label>
@@ -117,10 +117,10 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           value={fields.confirmPassword}
           onChange={(event) => updateField("confirmPassword", event.target.value)}
           placeholder="Re-enter your password"
-          className="bg-background/60"
+          className="border-[#BED9F3] bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-[#1B66B3]"
           aria-invalid={Boolean(errors.confirmPassword)}
         />
-        {errors.confirmPassword ? <p className="text-xs text-red-300">{errors.confirmPassword}</p> : null}
+        {errors.confirmPassword ? <p className="text-xs text-red-600">{errors.confirmPassword}</p> : null}
       </div>
 
       <Button type="submit" disabled={isLoading} className="w-full">

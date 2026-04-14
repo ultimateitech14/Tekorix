@@ -161,7 +161,7 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
         ) : null}
       </div>
 
-      <nav className="flex-1 space-y-1.5 overflow-y-auto pr-1">
+      <nav className="admin-scrollbar flex-1 space-y-1.5 overflow-y-auto pr-1">
         {adminNavSections.map((section) => {
           const Icon = section.icon;
           const hasChildren = !collapsed && section.children.length > 0;
@@ -256,10 +256,16 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
       </nav>
 
       <div className="mt-4 space-y-3 border-t border-[#D4E8FC] pt-4">
-        <div
+        <Link
+          href="/admin/profile"
+          onClick={() => onNavigate?.()}
           className={cn(
-            "rounded-xl border p-3",
-            ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC] bg-[#F1F7FF]" : "border-[#D4E8FC] bg-[#F8FBFF]",
+            "block rounded-xl border p-3 transition-colors",
+            pathname === "/admin/profile"
+              ? "border-[#1B66B3]/35 bg-[#EAF4FF]"
+              : ENABLE_ADMIN_UI_REFRESH
+                ? "border-[#D4E8FC] bg-[#F1F7FF] hover:border-[#C3DDF9] hover:bg-[#EAF4FF]"
+                : "border-[#D4E8FC] bg-[#F8FBFF] hover:border-[#C3DDF9] hover:bg-[#EAF4FF]",
             collapsed && "flex justify-center px-1.5 py-2.5",
           )}
         >
@@ -271,10 +277,11 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
                   TekOrix Admin
                 </p>
                 <p className="text-xs text-slate-500">admin@tekorix.com</p>
+                <p className="mt-1 text-xs text-[#1B66B3]">View profile</p>
               </div>
             ) : null}
           </div>
-        </div>
+        </Link>
 
         <Button
           type="button"

@@ -36,11 +36,11 @@ export const navigationItems: NavigationItem[] = [
     icon: BriefcaseBusiness,
     featured: {
       label: "All Services",
-      description: "Explore HR consulting, business support, industries coverage, and academy pathways.",
+      description: "Explore HR, Business, Academy, and Industries pathways.",
     },
     children: [
       {
-        label: "HR Consulting",
+        label: "HR",
         href: "/services/consulting-services",
         description: "People strategy, hiring support, and workforce consulting for growth teams.",
         icon: Users2,
@@ -52,16 +52,16 @@ export const navigationItems: NavigationItem[] = [
         icon: BriefcaseBusiness,
       },
       {
-        label: "Industries We Serve",
-        href: "/industries",
-        description: "Sector-focused support across technology, BFSI, healthcare, and manufacturing.",
-        icon: Layers,
-      },
-      {
         label: "Academy",
         href: "/academy",
         description: "Learning programs for corporate training, upskilling, and certification readiness.",
         icon: Building2,
+      },
+      {
+        label: "Industries We Serve",
+        href: "/industries",
+        description: "Sector-focused support across technology, BFSI, healthcare, and manufacturing.",
+        icon: Layers,
       },
     ],
   },
@@ -76,19 +76,19 @@ export const navigationItems: NavigationItem[] = [
     children: [
       {
         label: "Corporate Training",
-        href: "/academy#workshops",
+        href: "/academy",
         description: "Structured training programs for teams to improve delivery readiness.",
         icon: Building2,
       },
       {
-        label: "Upskill Yourself",
-        href: "/academy#engineering-foundations",
+        label: "Upskilling",
+        href: "/academy",
         description: "Role-based learning paths to grow technical and professional capability.",
         icon: GraduationCap,
       },
       {
         label: "Certification",
-        href: "/academy#certification-support",
+        href: "/academy",
         description: "Guided preparation support for recognized technical certifications.",
         icon: Award,
       },

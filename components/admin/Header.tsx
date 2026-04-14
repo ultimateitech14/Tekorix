@@ -496,8 +496,8 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
               type="button"
               variant="ghost"
               className={cn(
-                "h-10 gap-2 rounded-full border border-[#D4E8FC] bg-[#F8FBFF] px-3 text-slate-900 hover:bg-[#EDF5FF]",
-                ENABLE_ADMIN_UI_REFRESH && "bg-[#F1F7FF] hover:bg-[#EAF4FF]",
+                "h-10 gap-2 rounded-full border border-[#C8DEF6] bg-[#F1F7FF] px-3 text-slate-900 transition-colors hover:border-[#B6D3F2] hover:bg-[#E6F2FF] data-[state=open]:border-[#B6D3F2] data-[state=open]:bg-[#E6F2FF]",
+                ENABLE_ADMIN_UI_REFRESH && "bg-[#EDF5FF] hover:bg-[#E3F0FF] data-[state=open]:bg-[#E3F0FF]",
               )}
             >
               <UserCircle2 className="h-5 w-5 text-[#1B66B3]" />

@@ -1,5 +1,14 @@
 [
   {
+    "id": "5b81ad2d-f6b6-41f0-afa8-2bd9df1dc33a",
+    "category": "activity",
+    "module": "Applications",
+    "action": "Marked Application As Read",
+    "actor": "TekOrix Admin",
+    "target": "APP-9001",
+    "createdAt": "2026-04-14T09:53:59.124Z"
+  },
+  {
     "id": "0e10df3b-11fb-434f-995d-84303f2284fc",
     "category": "activity",
     "module": "Applications",
