@@ -25,8 +25,7 @@ export function ContactQuickBlock() {
         {quickItems.map((item) => (
           <div
             key={item.title}
-            className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-5 shadow-[0_18px_44px_-40px_rgba(15,23,42,0.24)]"
-            style={{ borderColor: colors.border }}
+            className="rounded-[1.5rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EEF7FF_100%)] px-5 py-5 shadow-[0_24px_56px_-40px_rgba(15,23,42,0.28)]"
           >
             <p
               className="text-sm font-semibold uppercase tracking-[0.18em]"

@@ -25,7 +25,7 @@ export function ContactInquiryGrid() {
           {trustBadges.map((badge) => (
             <div
               key={badge}
-              className="rounded-full border bg-[#DCEEFF] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600"
+              className="rounded-full border bg-[#F8FBFF] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600"
               style={{ borderColor: colors.border }}
             >
               {badge}

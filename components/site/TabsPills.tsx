@@ -31,7 +31,7 @@ export function TabsPills({ tabs }: TabsPillsProps) {
   return (
     <div className="space-y-5">
       <div className="overflow-x-auto pb-1">
-        <div className="inline-flex min-w-full gap-2 rounded-full border border-slate-200 bg-[#DCEEFF] p-1.5 shadow-[0_16px_34px_-28px_rgba(15,23,42,0.14)]">
+        <div className="inline-flex min-w-full gap-2 rounded-full border border-slate-200 bg-[#F8FBFF] p-1.5 shadow-[0_16px_34px_-28px_rgba(15,23,42,0.14)]">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -50,7 +50,7 @@ export function TabsPills({ tabs }: TabsPillsProps) {
         </div>
       </div>
 
-      <div className="rounded-[1.5rem] border border-slate-200 bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)] sm:p-8">
+      <div className="rounded-[1.5rem] border border-slate-200 bg-[#F8FBFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)] sm:p-8">
         <h3 className="type-h3">{activeTab.title}</h3>
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
           {activeTab.description}

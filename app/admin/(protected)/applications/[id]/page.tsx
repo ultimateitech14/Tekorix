@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
@@ -208,16 +208,16 @@ export default function ApplicationDetailsPage() {
 
   if (isLoading) {
     return (
-      <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
-        <CardContent className="p-6 text-sm text-slate-300">Loading application details...</CardContent>
+      <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
+        <CardContent className="p-6 text-sm text-slate-600">Loading application details...</CardContent>
       </Card>
     );
   }
 
   if (!application) {
     return (
-      <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
-        <CardContent className="p-6 text-sm text-slate-300">Application not found.</CardContent>
+      <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
+        <CardContent className="p-6 text-sm text-slate-600">Application not found.</CardContent>
       </Card>
     );
   }
@@ -225,19 +225,19 @@ export default function ApplicationDetailsPage() {
   return (
     <div className="grid gap-4 xl:grid-cols-3">
       <div className="space-y-4 xl:col-span-2">
-        <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+        <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
           <CardHeader className="pb-4">
-            <CardTitle className="text-xl text-white">Candidate Profile</CardTitle>
+            <CardTitle className="text-xl text-slate-900">Candidate Profile</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-amber-300/40 bg-amber-300/20 text-amber-200">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-amber-300/40 bg-amber-300/20 text-amber-700">
                   <UserCircle2 className="h-7 w-7" />
                 </span>
                 <div>
-                  <p className="text-lg font-semibold text-slate-100">{application.fullName}</p>
-                  <p className="text-sm text-slate-400">
+                  <p className="text-lg font-semibold text-slate-900">{application.fullName}</p>
+                  <p className="text-sm text-slate-500">
                     Applied for {application.jobTitle} ({application.jobLocation})
                   </p>
                 </div>
@@ -246,17 +246,17 @@ export default function ApplicationDetailsPage() {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-                <p className="mb-1 text-xs uppercase tracking-[0.14em] text-slate-400">Email</p>
-                <p className="inline-flex items-center gap-2 text-sm text-slate-200">
-                  <Mail className="h-4 w-4 text-amber-200" />
+              <div className="rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-3">
+                <p className="mb-1 text-xs uppercase tracking-[0.14em] text-slate-500">Email</p>
+                <p className="inline-flex items-center gap-2 text-sm text-slate-700">
+                  <Mail className="h-4 w-4 text-amber-700" />
                   {application.email}
                 </p>
               </div>
-              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-                <p className="mb-1 text-xs uppercase tracking-[0.14em] text-slate-400">Phone</p>
-                <p className="inline-flex items-center gap-2 text-sm text-slate-200">
-                  <Phone className="h-4 w-4 text-amber-200" />
+              <div className="rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-3">
+                <p className="mb-1 text-xs uppercase tracking-[0.14em] text-slate-500">Phone</p>
+                <p className="inline-flex items-center gap-2 text-sm text-slate-700">
+                  <Phone className="h-4 w-4 text-amber-700" />
                   {application.phone}
                 </p>
               </div>
@@ -271,16 +271,16 @@ export default function ApplicationDetailsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+        <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
           <CardHeader>
-            <CardTitle className="text-xl text-white">Internal Notes</CardTitle>
+            <CardTitle className="text-xl text-slate-900">Internal Notes</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <Textarea
               value={notes}
               onChange={(event) => setNotes(event.target.value)}
               placeholder="Add recruiter notes..."
-              className="min-h-40 border-white/15 bg-white/5 text-slate-100 placeholder:text-slate-400"
+              className="min-h-40 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900 placeholder:text-slate-500"
             />
             <div className="flex justify-end">
               <Button variant="outline">Save Notes</Button>
@@ -290,9 +290,9 @@ export default function ApplicationDetailsPage() {
       </div>
 
       <div className="space-y-4">
-        <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+        <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
           <CardHeader>
-            <CardTitle className="text-lg text-white">Application Timeline</CardTitle>
+            <CardTitle className="text-lg text-slate-900">Application Timeline</CardTitle>
           </CardHeader>
           <CardContent>
             <ol className="space-y-4">
@@ -307,8 +307,8 @@ export default function ApplicationDetailsPage() {
                         className={cn(
                           "inline-flex h-8 w-8 items-center justify-center rounded-full border",
                           step.complete
-                            ? "border-amber-300/45 bg-amber-300/15 text-amber-100"
-                            : "border-white/20 bg-white/5 text-slate-300",
+                            ? "border-amber-300/45 bg-amber-300/15 text-amber-700"
+                            : "border-[#C3DDF9] bg-[#F8FBFF] text-slate-600",
                         )}
                       >
                         <Icon className="h-4 w-4" />
@@ -316,8 +316,8 @@ export default function ApplicationDetailsPage() {
                       {!isLast ? <span className="mt-2 h-8 w-px bg-white/15" /> : null}
                     </div>
                     <div>
-                      <p className="font-medium text-slate-100">{step.label}</p>
-                      <p className="text-xs text-slate-400">{step.date}</p>
+                      <p className="font-medium text-slate-900">{step.label}</p>
+                      <p className="text-xs text-slate-500">{step.date}</p>
                     </div>
                   </li>
                 );
@@ -326,9 +326,9 @@ export default function ApplicationDetailsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+        <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
           <CardHeader>
-            <CardTitle className="text-lg text-white">Update Status</CardTitle>
+            <CardTitle className="text-lg text-slate-900">Update Status</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <Button
@@ -340,7 +340,7 @@ export default function ApplicationDetailsPage() {
             </Button>
             <Button
               variant="outline"
-              className="w-full justify-center text-rose-100 hover:text-rose-50"
+              className="w-full justify-center text-rose-700 hover:text-rose-800"
               disabled={isUpdatingStatus || status === "rejected"}
               onClick={() => handleStatusUpdate("rejected")}
             >
@@ -360,3 +360,6 @@ export default function ApplicationDetailsPage() {
     </div>
   );
 }
+
+
+

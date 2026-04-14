@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -87,32 +87,32 @@ function formatStatus(value: string) {
 
 function getSubmissionBadgeClass(submissionType: AdminCandidateLead["submissionType"]) {
   if (submissionType === "market-resume") {
-    return "border-fuchsia-300/35 bg-fuchsia-300/12 text-fuchsia-100";
+    return "border-fuchsia-300/35 bg-fuchsia-300/12 text-fuchsia-700";
   }
 
   if (submissionType === "resume-submission") {
-    return "border-cyan-300/35 bg-cyan-300/12 text-cyan-100";
+    return "border-cyan-300/35 bg-cyan-300/12 text-cyan-700";
   }
 
-  return "border-violet-300/35 bg-violet-300/12 text-violet-100";
+  return "border-violet-300/35 bg-violet-300/12 text-violet-700";
 }
 
 function getSourceBadgeClass(sourcePage: AdminCandidateLead["sourcePage"]) {
   if (sourcePage === "find-job") {
-    return "border-cyan-300/35 bg-cyan-300/12 text-cyan-100";
+    return "border-cyan-300/35 bg-cyan-300/12 text-cyan-700";
   }
 
   if (sourcePage === "contact") {
-    return "border-violet-300/35 bg-violet-300/12 text-violet-100";
+    return "border-violet-300/35 bg-violet-300/12 text-violet-700";
   }
 
-  return "border-slate-300/30 bg-slate-300/10 text-slate-200";
+  return "border-slate-300/30 bg-slate-300/10 text-slate-700";
 }
 
 function getReadBadgeClass(isRead: boolean) {
   return isRead
-    ? "border-emerald-300/35 bg-emerald-300/12 text-emerald-100"
-    : "border-amber-300/40 bg-amber-300/15 text-amber-100";
+    ? "border-emerald-300/35 bg-emerald-300/12 text-emerald-700"
+    : "border-amber-300/40 bg-amber-300/15 text-amber-700";
 }
 
 function isPdfResume(contentType: string) {
@@ -336,16 +336,16 @@ export function AdminCandidateLeadsPage() {
           />
         </section>
 
-        <Card className="border-white/[0.12] bg-[linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] backdrop-blur-xl">
+        <Card className="border-[#D4E8FC] bg-[linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] backdrop-blur-xl">
           <CardHeader>
-            <CardTitle className="text-[1.2rem] font-semibold text-white">Candidate Leads</CardTitle>
-            <p className="text-[0.9rem] leading-relaxed text-slate-400">
+            <CardTitle className="text-xl font-semibold text-slate-900">Candidate Leads</CardTitle>
+            <p className="text-sm leading-relaxed text-slate-500">
               Candidate submissions from contact, submit-resume, and market-my-resume flows.
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
             {loadError ? (
-              <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-3 text-sm text-rose-100">
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-3 text-sm text-rose-700">
                 <span>{loadError}</span>
                 <Button size="sm" variant="outline" onClick={() => void loadCandidateLeads()}>
                   Retry
@@ -353,53 +353,53 @@ export function AdminCandidateLeadsPage() {
               </div>
             ) : null}
 
-            <div className="overflow-hidden rounded-lg border border-white/[0.12]">
+            <div className="overflow-hidden rounded-lg border border-[#D4E8FC]">
               <Table>
                 <TableHeader>
-                  <TableRow className="border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.04]">
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                  <TableRow className="border-[#D4E8FC] bg-[#F4F9FF] hover:bg-[#F4F9FF]">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Candidate
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Submission
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Role / Targets
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Profile
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Created
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Actions
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {isLoading ? (
-                    <TableRow className="border-white/[0.12]">
-                      <TableCell colSpan={6} className="py-8 text-center text-sm text-slate-400">
+                    <TableRow className="border-[#D4E8FC]">
+                      <TableCell colSpan={6} className="py-8 text-center text-sm text-slate-500">
                         Loading candidate leads...
                       </TableCell>
                     </TableRow>
                   ) : items.length ? (
                     items.map((item) => (
-                      <TableRow key={item.id} className="border-white/[0.12] hover:bg-white/[0.06]">
-                        <TableCell className="py-3 text-[0.92rem] text-slate-200">
+                      <TableRow key={item.id} className="border-[#D4E8FC] hover:bg-[#F1F7FF]">
+                        <TableCell className="py-3 text-sm text-slate-700">
                           <div className="space-y-2">
                             <div>
-                              <p className="font-semibold text-slate-100">{item.fullName}</p>
-                              <p className="text-xs text-slate-400">{item.email}</p>
-                              <p className="text-xs text-slate-400">{item.phone}</p>
+                              <p className="font-semibold text-slate-900">{item.fullName}</p>
+                              <p className="text-xs text-slate-500">{item.email}</p>
+                              <p className="text-xs text-slate-500">{item.phone}</p>
                             </div>
                             <Badge variant="outline" className={getReadBadgeClass(item.isRead)}>
                               {item.isRead ? "Read" : "Unread"}
                             </Badge>
                           </div>
                         </TableCell>
-                        <TableCell className="py-3 text-[0.92rem] text-slate-200">
+                        <TableCell className="py-3 text-sm text-slate-700">
                           <div className="space-y-2">
                             <div className="flex flex-wrap gap-2">
                               <Badge variant="outline" className={getSubmissionBadgeClass(item.submissionType)}>
@@ -411,34 +411,34 @@ export function AdminCandidateLeadsPage() {
                             </div>
                             <div className="flex flex-wrap gap-2">
                               <StatusChip status={formatStatus(item.status)} />
-                              <p className="text-xs text-slate-400">
+                              <p className="text-xs text-slate-500">
                                 {item.experience ? `Experience: ${item.experience}` : "Experience not provided"}
                               </p>
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell className="py-3 text-[0.92rem] text-slate-200">
+                        <TableCell className="py-3 text-sm text-slate-700">
                           <div className="space-y-2">
-                            <p className="font-medium text-slate-100">{item.role}</p>
+                            <p className="font-medium text-slate-900">{item.role}</p>
                             {item.desiredLocation ? (
-                              <p className="text-xs text-slate-400">Location: {item.desiredLocation}</p>
+                              <p className="text-xs text-slate-500">Location: {item.desiredLocation}</p>
                             ) : null}
                             {item.desiredSalaryRange ? (
-                              <p className="text-xs text-slate-400">Salary: {item.desiredSalaryRange}</p>
+                              <p className="text-xs text-slate-500">Salary: {item.desiredSalaryRange}</p>
                             ) : null}
                             {item.skills ? (
-                              <p className="line-clamp-2 text-xs text-slate-400">Skills: {item.skills}</p>
+                              <p className="line-clamp-2 text-xs text-slate-500">Skills: {item.skills}</p>
                             ) : null}
                           </div>
                         </TableCell>
-                        <TableCell className="py-3 text-[0.92rem] text-slate-300">
+                        <TableCell className="py-3 text-sm text-slate-600">
                           <div className="flex flex-wrap gap-2">
                             {item.linkedInUrl ? (
                               <Button
                                 asChild
                                 size="sm"
                                 variant="outline"
-                                className="h-8 border-white/20 bg-white/5 text-slate-100 hover:bg-white/10"
+                                className="h-8 border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
                               >
                                 <a href={item.linkedInUrl} target="_blank" rel="noreferrer">
                                   <Link2 className="h-4 w-4" />
@@ -450,7 +450,7 @@ export function AdminCandidateLeadsPage() {
                               <>
                                 <Badge
                                   variant="outline"
-                                  className="max-w-[15rem] gap-1 overflow-hidden border-white/15 bg-white/5 text-slate-100"
+                                  className="max-w-[15rem] gap-1 overflow-hidden border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                                   title={item.resume.fileName}
                                 >
                                   <Paperclip className="h-3.5 w-3.5 shrink-0" />
@@ -459,7 +459,7 @@ export function AdminCandidateLeadsPage() {
                                 <Button
                                   size="sm"
                                   variant="outline"
-                                  className="h-8 border-white/20 bg-white/5 text-slate-100 hover:bg-white/10"
+                                  className="h-8 border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
                                   onClick={() => void handleResumeAction(item)}
                                   disabled={resumeActionLeadId === item.id}
                                 >
@@ -475,10 +475,10 @@ export function AdminCandidateLeadsPage() {
                             ) : null}
                           </div>
                         </TableCell>
-                        <TableCell className="py-3 text-[0.86rem] text-slate-400">
+                        <TableCell className="py-3 text-sm text-slate-500">
                           {formatDate(item.createdAt)}
                         </TableCell>
-                        <TableCell className="py-3 text-[0.92rem] text-slate-200">
+                        <TableCell className="py-3 text-sm text-slate-700">
                           <Button size="sm" variant="outline" onClick={() => void openLeadDetail(item.id)}>
                             {detailState.open && detailState.leadId === item.id && detailState.isLoading ? (
                               <LoaderCircle className="h-4 w-4 animate-spin" />
@@ -491,8 +491,8 @@ export function AdminCandidateLeadsPage() {
                       </TableRow>
                     ))
                   ) : (
-                    <TableRow className="border-white/[0.12]">
-                      <TableCell colSpan={6} className="py-8 text-center text-sm text-slate-400">
+                    <TableRow className="border-[#D4E8FC]">
+                      <TableCell colSpan={6} className="py-8 text-center text-sm text-slate-500">
                         No candidate leads captured yet.
                       </TableCell>
                     </TableRow>
@@ -505,55 +505,55 @@ export function AdminCandidateLeadsPage() {
       </div>
 
       <Dialog open={detailState.open} onOpenChange={handleDetailOpenChange}>
-        <DialogContent className="border-white/[0.12] bg-[linear-gradient(145deg,#081423,#0a1a2b)] text-white sm:max-w-3xl">
+        <DialogContent className="border-[#D4E8FC] bg-[linear-gradient(145deg,#F9FCFF_0%,#EDF6FF_100%)] text-slate-900 sm:max-w-3xl">
           <DialogHeader>
-            <DialogTitle className="text-[1.35rem] font-semibold text-white">
+            <DialogTitle className="text-2xl font-semibold text-slate-900">
               {detailLead ? detailLead.fullName : "Candidate lead details"}
             </DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogDescription className="text-slate-500">
               {detailLead ? `${detailLead.email} | ${detailLead.role}` : "Inspect profile details and update read state."}
             </DialogDescription>
           </DialogHeader>
 
           {detailState.isLoading && !detailLead ? (
-            <div className="flex items-center gap-2 py-8 text-sm text-slate-300">
+            <div className="flex items-center gap-2 py-8 text-sm text-slate-600">
               <LoaderCircle className="h-4 w-4 animate-spin" />
               Loading candidate lead details...
             </div>
           ) : detailState.error && !detailLead ? (
-            <div className="rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-4 text-sm text-rose-100">
+            <div className="rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-4 text-sm text-rose-700">
               {detailState.error}
             </div>
           ) : detailLead ? (
             <div className="space-y-5">
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Contact
                   </p>
-                  <div className="mt-3 space-y-2 text-sm text-slate-200">
+                  <div className="mt-3 space-y-2 text-sm text-slate-700">
                     <p>
-                      <span className="text-slate-400">Name:</span> {detailLead.fullName}
+                      <span className="text-slate-500">Name:</span> {detailLead.fullName}
                     </p>
                     <p>
-                      <span className="text-slate-400">Email:</span> {detailLead.email}
+                      <span className="text-slate-500">Email:</span> {detailLead.email}
                     </p>
                     <p>
-                      <span className="text-slate-400">Phone:</span> {detailLead.phone}
+                      <span className="text-slate-500">Phone:</span> {detailLead.phone}
                     </p>
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Submission
                   </p>
-                  <div className="mt-3 space-y-2 text-sm text-slate-200">
+                  <div className="mt-3 space-y-2 text-sm text-slate-700">
                     <p>
-                      <span className="text-slate-400">Type:</span> {candidateLeadSubmissionTypeLabels[detailLead.submissionType]}
+                      <span className="text-slate-500">Type:</span> {candidateLeadSubmissionTypeLabels[detailLead.submissionType]}
                     </p>
                     <p>
-                      <span className="text-slate-400">Source:</span> {formatSourcePage(detailLead.sourcePage)}
+                      <span className="text-slate-500">Source:</span> {formatSourcePage(detailLead.sourcePage)}
                     </p>
                     <div className="flex flex-wrap gap-2 pt-1">
                       <Badge variant="outline" className={getReadBadgeClass(detailLead.isRead)}>
@@ -566,25 +566,25 @@ export function AdminCandidateLeadsPage() {
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Profile
                   </p>
-                  <div className="mt-3 space-y-2 text-sm text-slate-200">
+                  <div className="mt-3 space-y-2 text-sm text-slate-700">
                     <p>
-                      <span className="text-slate-400">Role:</span> {detailLead.role}
+                      <span className="text-slate-500">Role:</span> {detailLead.role}
                     </p>
                     <p>
-                      <span className="text-slate-400">Experience:</span> {detailLead.experience || "Not provided"}
+                      <span className="text-slate-500">Experience:</span> {detailLead.experience || "Not provided"}
                     </p>
                     <p>
-                      <span className="text-slate-400">LinkedIn:</span>{" "}
+                      <span className="text-slate-500">LinkedIn:</span>{" "}
                       {detailLead.linkedInUrl ? (
                         <a
                           href={detailLead.linkedInUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-cyan-200 underline underline-offset-4"
+                          className="text-cyan-700 underline underline-offset-4"
                         >
                           Open profile
                         </a>
@@ -595,26 +595,26 @@ export function AdminCandidateLeadsPage() {
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Resume Metadata
                   </p>
                   {detailLead.resume ? (
-                    <div className="mt-3 space-y-2 text-sm text-slate-200">
+                    <div className="mt-3 space-y-2 text-sm text-slate-700">
                       <p>
-                        <span className="text-slate-400">File:</span> {detailLead.resume.fileName}
+                        <span className="text-slate-500">File:</span> {detailLead.resume.fileName}
                       </p>
                       <p>
-                        <span className="text-slate-400">Type:</span> {detailLead.resume.contentType}
+                        <span className="text-slate-500">Type:</span> {detailLead.resume.contentType}
                       </p>
                       <p className="break-all">
-                        <span className="text-slate-400">Object key:</span> {detailLead.resume.objectKey}
+                        <span className="text-slate-500">Object key:</span> {detailLead.resume.objectKey}
                       </p>
                       <div className="pt-2">
                         <Button
                           size="sm"
                           variant="outline"
-                          className="border-white/20 bg-white/5 text-slate-100 hover:bg-white/10"
+                          className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
                           onClick={() => void handleResumeAction(detailLead)}
                           disabled={resumeActionLeadId === detailLead.id}
                         >
@@ -626,45 +626,45 @@ export function AdminCandidateLeadsPage() {
                       </div>
                     </div>
                   ) : (
-                    <p className="mt-3 text-sm text-slate-400">No resume uploaded for this lead.</p>
+                    <p className="mt-3 text-sm text-slate-500">No resume uploaded for this lead.</p>
                   )}
                 </div>
               </div>
 
-              <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                   Targeting Details
                 </p>
                 <div className="mt-3 grid gap-3 md:grid-cols-2">
-                  <p className="text-sm text-slate-200">
-                    <span className="text-slate-400">Desired location:</span> {detailLead.desiredLocation || "Not provided"}
+                  <p className="text-sm text-slate-700">
+                    <span className="text-slate-500">Desired location:</span> {detailLead.desiredLocation || "Not provided"}
                   </p>
-                  <p className="text-sm text-slate-200">
-                    <span className="text-slate-400">Desired salary:</span> {detailLead.desiredSalaryRange || "Not provided"}
+                  <p className="text-sm text-slate-700">
+                    <span className="text-slate-500">Desired salary:</span> {detailLead.desiredSalaryRange || "Not provided"}
                   </p>
                 </div>
-                <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-6 text-slate-200">
-                  <span className="text-slate-400">Skills:</span> {detailLead.skills || "Not provided"}
+                <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-6 text-slate-700">
+                  <span className="text-slate-500">Skills:</span> {detailLead.skills || "Not provided"}
                 </p>
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Created
                   </p>
-                  <p className="mt-3 text-sm text-slate-200">{formatDate(detailLead.createdAt)}</p>
+                  <p className="mt-3 text-sm text-slate-700">{formatDate(detailLead.createdAt)}</p>
                 </div>
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Updated
                   </p>
-                  <p className="mt-3 text-sm text-slate-200">{formatDate(detailLead.updatedAt)}</p>
+                  <p className="mt-3 text-sm text-slate-700">{formatDate(detailLead.updatedAt)}</p>
                 </div>
               </div>
 
               {detailState.error ? (
-                <div className="rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-3 text-sm text-rose-100">
+                <div className="rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-3 text-sm text-rose-700">
                   {detailState.error}
                 </div>
               ) : null}
@@ -686,3 +686,5 @@ export function AdminCandidateLeadsPage() {
     </>
   );
 }
+
+

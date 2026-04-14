@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+﻿/* eslint-disable @next/next/no-img-element */
 
 "use client";
 
@@ -366,26 +366,26 @@ function SettingsPageContent() {
       </TabsList>
 
       <TabsContent value="company">
-        <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+        <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
           <CardHeader>
-            <CardTitle className="text-xl text-white">Company Profile</CardTitle>
+            <CardTitle className="text-xl text-slate-900">Company Profile</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Company Name</Label>
+              <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Company Name</Label>
               <Input
                 value={companyName}
                 onChange={(event) => {
                   setCompanyName(event.target.value);
                   setCompanyErrors((current) => ({ ...current, companyName: undefined }));
                 }}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
               {companyErrors.companyName ? <p className="text-xs text-red-300">{companyErrors.companyName}</p> : null}
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Email</Label>
+              <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Email</Label>
               <Input
                 type="email"
                 value={companyEmail}
@@ -393,23 +393,23 @@ function SettingsPageContent() {
                   setCompanyEmail(event.target.value);
                   setCompanyErrors((current) => ({ ...current, email: undefined }));
                 }}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
               {companyErrors.email ? <p className="text-xs text-red-300">{companyErrors.email}</p> : null}
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Phone</Label>
+              <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Phone</Label>
               <Input
                 type="tel"
                 value={companyPhone}
                 onChange={(event) => setCompanyPhone(event.target.value)}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Google Map Link</Label>
+              <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Google Map Link</Label>
               <Input
                 type="url"
                 value={companyGoogleMapLink}
@@ -417,9 +417,9 @@ function SettingsPageContent() {
                   setCompanyGoogleMapLink(event.target.value);
                   setCompanyErrors((current) => ({ ...current, googleMapLink: undefined }));
                 }}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 Paste a Google Maps share link. Example: https://maps.google.com/?q=...
               </p>
               {companyErrors.googleMapLink ? (
@@ -428,12 +428,12 @@ function SettingsPageContent() {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Address</Label>
+              <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Address</Label>
               <Textarea
                 rows={4}
                 value={companyAddress}
                 onChange={(event) => setCompanyAddress(event.target.value)}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
@@ -447,42 +447,42 @@ function SettingsPageContent() {
       </TabsContent>
 
       <TabsContent value="careers">
-        <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+        <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
           <CardHeader>
-            <CardTitle className="text-xl text-white">Careers Page Controls</CardTitle>
+            <CardTitle className="text-xl text-slate-900">Careers Page Controls</CardTitle>
           </CardHeader>
           <CardContent className="space-y-5">
             <div className="space-y-2">
-              <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Headline</Label>
+              <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Headline</Label>
               <Input
                 value={careersHeadline}
                 onChange={(event) => setCareersHeadline(event.target.value)}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Subtitle</Label>
+              <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Subtitle</Label>
               <Textarea
                 value={careersSubtitle}
                 onChange={(event) => setCareersSubtitle(event.target.value)}
-                className="min-h-28 border-white/15 bg-white/5 text-slate-100"
+                className="min-h-28 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+              <div className="rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-3">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-slate-100">Publish Careers Page</p>
-                    <p className="text-xs text-slate-400">{careersPublished ? "Published" : "Unpublished"}</p>
+                    <p className="text-sm font-semibold text-slate-900">Publish Careers Page</p>
+                    <p className="text-xs text-slate-500">{careersPublished ? "Published" : "Unpublished"}</p>
                   </div>
                   <button
                     type="button"
                     onClick={() => setCareersPublished((value) => !value)}
                     className={cn(
                       "relative inline-flex h-7 w-14 items-center rounded-full border transition-colors",
-                      careersPublished ? "border-amber-300/60 bg-amber-300/30" : "border-white/25 bg-slate-500/20",
+                      careersPublished ? "border-amber-300/60 bg-amber-300/30" : "border-[#BAD7F6] bg-slate-500/20",
                     )}
                     aria-label="Toggle careers published state"
                   >
@@ -496,11 +496,11 @@ function SettingsPageContent() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+              <div className="rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-3">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-slate-100">Show Team Photos</p>
-                    <p className="text-xs text-slate-400">{careersShowTeamPhotos ? "Enabled" : "Disabled"}</p>
+                    <p className="text-sm font-semibold text-slate-900">Show Team Photos</p>
+                    <p className="text-xs text-slate-500">{careersShowTeamPhotos ? "Enabled" : "Disabled"}</p>
                   </div>
                   <button
                     type="button"
@@ -509,7 +509,7 @@ function SettingsPageContent() {
                       "relative inline-flex h-7 w-14 items-center rounded-full border transition-colors",
                       careersShowTeamPhotos
                         ? "border-amber-300/60 bg-amber-300/30"
-                        : "border-white/25 bg-slate-500/20",
+                        : "border-[#BAD7F6] bg-slate-500/20",
                     )}
                     aria-label="Toggle team photos"
                   >
@@ -524,18 +524,18 @@ function SettingsPageContent() {
               </div>
             </div>
 
-            <div className="space-y-3 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+            <div className="space-y-3 rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <p className="text-sm font-semibold text-slate-100">Team Members</p>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-sm font-semibold text-slate-900">Team Members</p>
+                  <p className="text-xs text-slate-500">
                     Update team cards shown on the careers page. Add up to {MAX_TEAM_MEMBERS}.
                   </p>
                 </div>
                 <Button
                   type="button"
                   variant="outline"
-                  className="border-white/20 bg-white/[0.03] text-slate-100 hover:bg-white/[0.08]"
+                  className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-white/[0.08]"
                   onClick={addTeamMember}
                   disabled={careersTeamMembers.length >= MAX_TEAM_MEMBERS}
                 >
@@ -546,14 +546,14 @@ function SettingsPageContent() {
 
               <div className="space-y-3">
                 {careersTeamMembers.map((member, index) => (
-                  <div key={member.id} className="space-y-3 rounded-md border border-white/10 bg-white/[0.03] p-3">
+                  <div key={member.id} className="space-y-3 rounded-md border border-[#D4E8FC] bg-[#F8FBFF] p-3">
                     <div className="flex items-center justify-between gap-2">
-                      <p className="text-sm text-amber-200">Member {index + 1}</p>
+                      <p className="text-sm text-amber-700">Member {index + 1}</p>
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="border-white/20 bg-white/[0.03] text-slate-100 hover:bg-white/[0.08]"
+                        className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-white/[0.08]"
                         onClick={() => removeTeamMember(member.id)}
                       >
                         <Trash2 className="h-3.5 w-3.5" />
@@ -563,64 +563,64 @@ function SettingsPageContent() {
 
                     <div className="grid gap-3 md:grid-cols-2">
                       <div className="space-y-2">
-                        <Label className="text-xs text-slate-400">Name</Label>
+                        <Label className="text-xs text-slate-500">Name</Label>
                         <Input
                           value={member.name}
                           onChange={(event) => updateTeamMember(member.id, { name: event.target.value })}
-                          className="border-white/15 bg-white/[0.04] text-slate-100"
+                          className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-xs text-slate-400">Role</Label>
+                        <Label className="text-xs text-slate-500">Role</Label>
                         <Input
                           value={member.role}
                           onChange={(event) => updateTeamMember(member.id, { role: event.target.value })}
-                          className="border-white/15 bg-white/[0.04] text-slate-100"
+                          className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label className="text-xs text-slate-400">Photo URL / Path</Label>
+                      <Label className="text-xs text-slate-500">Photo URL / Path</Label>
                       <Input
                         value={member.photo}
                         onChange={(event) => updateTeamMember(member.id, { photo: event.target.value })}
                         placeholder={DEFAULT_PROFILE_IMAGE}
-                        className="border-white/15 bg-white/[0.04] text-slate-100"
+                        className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                       />
-                      <div className="flex items-center gap-3 rounded-md border border-white/10 bg-white/[0.02] p-2">
+                      <div className="flex items-center gap-3 rounded-md border border-[#D4E8FC] bg-white/[0.02] p-2">
                         {member.photo.trim() ? (
                           <img
                             src={member.photo}
                             alt={member.name ? `${member.name} preview` : `Member ${index + 1} preview`}
-                            className="h-12 w-12 rounded-full border border-white/15 object-cover"
+                            className="h-12 w-12 rounded-full border border-[#D4E8FC] object-cover"
                             onError={(event) => {
                               event.currentTarget.src = DEFAULT_PROFILE_IMAGE;
                             }}
                           />
                         ) : (
-                          <div className="h-12 w-12 rounded-full border border-white/15 bg-white/5" />
+                          <div className="h-12 w-12 rounded-full border border-[#D4E8FC] bg-[#F8FBFF]" />
                         )}
-                        <p className="text-xs text-slate-400">Photo preview</p>
+                        <p className="text-xs text-slate-500">Photo preview</p>
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-xs text-slate-400">Choose Image</Label>
+                        <Label className="text-xs text-slate-500">Choose Image</Label>
                         <Input
                           type="file"
                           accept="image/*"
-                          className="border-white/15 bg-white/[0.04] text-slate-100 file:mr-3 file:rounded-md file:border-0 file:bg-amber-300/15 file:px-3 file:py-1 file:text-xs file:text-amber-100"
+                          className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900 file:mr-3 file:rounded-md file:border-0 file:bg-amber-300/15 file:px-3 file:py-1 file:text-xs file:text-amber-700"
                           onChange={(event) => {
                             void handleTeamMemberPhotoUpload(member.id, event.target.files);
                             event.currentTarget.value = "";
                           }}
                         />
-                        <p className="text-xs text-slate-400">Allowed image size: minimum 50KB and maximum 800KB.</p>
+                        <p className="text-xs text-slate-500">Allowed image size: minimum 50KB and maximum 800KB.</p>
                         {isUploadedImage(member.photo) ? (
                           <Button
                             type="button"
                             variant="outline"
                             size="sm"
-                            className="border-white/20 bg-white/[0.03] text-slate-100 hover:bg-white/[0.08]"
+                            className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-white/[0.08]"
                             onClick={() => removeUploadedTeamMemberPhoto(member.id)}
                           >
                             Remove Uploaded Image
@@ -630,11 +630,11 @@ function SettingsPageContent() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label className="text-xs text-slate-400">Short Bio</Label>
+                      <Label className="text-xs text-slate-500">Short Bio</Label>
                       <Textarea
                         value={member.blurb}
                         onChange={(event) => updateTeamMember(member.id, { blurb: event.target.value })}
-                        className="min-h-20 border-white/15 bg-white/[0.04] text-slate-100"
+                        className="min-h-20 border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                       />
                     </div>
                   </div>
@@ -663,3 +663,5 @@ export default function SettingsPage() {
     </Suspense>
   );
 }
+
+

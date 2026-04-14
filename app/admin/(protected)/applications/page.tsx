@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -205,15 +205,15 @@ function ApplicationsPageContent() {
       header: "Candidate",
       cell: (row) => (
         <div>
-          <p className="font-medium text-slate-100">{row.fullName}</p>
-          <p className="text-xs text-slate-400">{row.id}</p>
+          <p className="font-medium text-slate-900">{row.fullName}</p>
+          <p className="text-xs text-slate-500">{row.id}</p>
         </div>
       ),
     },
     {
       id: "job",
       header: "Job",
-      cell: (row) => <span className="text-slate-300">{row.jobTitle}</span>,
+      cell: (row) => <span className="text-slate-600">{row.jobTitle}</span>,
     },
     {
       id: "status",
@@ -223,7 +223,7 @@ function ApplicationsPageContent() {
     {
       id: "date",
       header: "Date",
-      cell: (row) => <span className="text-slate-300">{formatDate(row.createdAt)}</span>,
+      cell: (row) => <span className="text-slate-600">{formatDate(row.createdAt)}</span>,
     },
     {
       id: "actions",
@@ -246,7 +246,7 @@ function ApplicationsPageContent() {
           <Button
             size="sm"
             variant="outline"
-            className="text-rose-100 hover:text-rose-50"
+            className="text-rose-700 hover:text-rose-800"
             disabled={updatingId === row.id || row.status === "rejected"}
             onClick={() => updateStatus(row.id, "rejected")}
           >
@@ -297,13 +297,13 @@ function ApplicationsPageContent() {
               type="date"
               value={dateFrom}
               onChange={(event) => setDateFrom(event.target.value)}
-              className="w-[154px] border-white/15 bg-white/5 text-slate-100"
+              className="w-[154px] border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
             />
             <Input
               type="date"
               value={dateTo}
               onChange={(event) => setDateTo(event.target.value)}
-              className="w-[154px] border-white/15 bg-white/5 text-slate-100"
+              className="w-[154px] border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
             />
           </>
         }
@@ -328,3 +328,6 @@ export default function ApplicationsPage() {
     </Suspense>
   );
 }
+
+
+

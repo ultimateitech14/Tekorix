@@ -27,7 +27,7 @@ export function FindJobSubmitResume() {
   const { colors } = themeTokens;
 
   return (
-    <section id="submit-resume" className="bg-[#CFE3FF] public-section">
+    <section id="submit-resume" className="bg-[#E6F1FF] public-section">
       <div className="site-container">
         <div className="grid gap-8 xl:grid-cols-[0.88fr_1.12fr]">
           <div className="space-y-6">
@@ -43,7 +43,7 @@ export function FindJobSubmitResume() {
             >
               <div className="space-y-4">
                 {resumeSupportItems.map((item) => (
-                  <div key={item.title} className="rounded-2xl border border-white bg-[#DCEEFF] px-4 py-4">
+                  <div key={item.title} className="rounded-2xl border border-white bg-[#F8FBFF] px-4 py-4">
                     <div className="flex items-start gap-3">
                       <span
                         className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white"

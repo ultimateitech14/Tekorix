@@ -44,8 +44,7 @@ export function ContactLinkedIn() {
           {profiles.map((item) => (
             <article
               key={item.title}
-              className="rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_50px_-44px_rgba(15,23,42,0.24)] sm:p-7"
-              style={{ borderColor: colors.border }}
+              className="rounded-[1.75rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EEF7FF_100%)] p-6 shadow-[0_26px_60px_-44px_rgba(15,23,42,0.3)] sm:p-7"
             >
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">LinkedIn</p>
               <h3 className="mt-4 font-display text-2xl font-semibold text-slate-950">{item.title}</h3>
@@ -55,7 +54,7 @@ export function ContactLinkedIn() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF]"
+                  className="w-full border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF]"
                 >
                   <Link href={item.href} target="_blank" rel="noreferrer">
                     {item.cta}

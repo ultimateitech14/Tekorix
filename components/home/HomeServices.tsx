@@ -30,7 +30,7 @@ const services = [
 
 export function HomeServices() {
   return (
-    <section className="bg-[#CFE3FF] public-section">
+    <section className="bg-[#E6F1FF] public-section">
       <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="Service lines"
@@ -43,19 +43,19 @@ export function HomeServices() {
             <article
               key={service.title}
               className={service.isCore
-                ? "rounded-xl border border-[#1B66B3] bg-[#C6E0FF] p-6 shadow-sm sm:p-7"
-                : "rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-6 shadow-sm sm:p-7"}
+                ? "rounded-xl border border-[#1B66B3] bg-[#EDF5FF] p-6 shadow-sm sm:p-7"
+                : "rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-6 shadow-sm sm:p-7"}
             >
               <div className="flex items-start justify-between gap-4">
                 <span
                   className={service.isCore
                     ? "inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#1B66B3] text-sm font-semibold text-white"
-                    : "inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#B5D5F8] text-sm font-semibold text-[#1B66B3]"}
+                    : "inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#EDF5FF] text-sm font-semibold text-[#1B66B3]"}
                 >
                   {service.number}
                 </span>
                 {service.isCore ? (
-                  <span className="rounded-full bg-[#B5D5F8] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#1B66B3]">
+                  <span className="rounded-full bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#1B66B3]">
                     Core service
                   </span>
                 ) : null}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { MailCheck, PencilLine, Plus, Power, Trash2 } from "lucide-react";
@@ -440,11 +440,11 @@ export default function EmailTemplatesPage() {
 
   return (
     <div className="space-y-4">
-      <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+      <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
         <CardHeader className="flex flex-row items-center justify-between space-y-0">
           <div>
-            <CardTitle className="text-xl text-white">Email Templates</CardTitle>
-            <p className="mt-1 text-sm text-slate-400">
+            <CardTitle className="text-xl text-slate-900">Email Templates</CardTitle>
+            <p className="mt-1 text-sm text-slate-500">
               Create, edit, activate, and send template emails directly from this page.
             </p>
           </div>
@@ -473,41 +473,41 @@ export default function EmailTemplatesPage() {
         </TabsList>
 
         <TabsContent value="library" className="grid gap-3 md:grid-cols-2">
-          {isLoading ? <p className="text-sm text-slate-400">Loading templates...</p> : null}
+          {isLoading ? <p className="text-sm text-slate-500">Loading templates...</p> : null}
 
           {!isLoading && !templates.length ? (
-              <Card className="border-white/10 bg-white/5 backdrop-blur-xl md:col-span-2">
-                <CardContent className="p-4 text-sm text-slate-400">
+              <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl md:col-span-2">
+                <CardContent className="p-4 text-sm text-slate-500">
                   No templates found. Click New Template to add one.
                 </CardContent>
               </Card>
             ) : null}
 
           {templates.map((template) => (
-            <Card key={template.id} className="border-white/10 bg-white/5 backdrop-blur-xl">
+            <Card key={template.id} className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
               <CardContent className="space-y-2 p-4">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <p className="text-sm font-semibold text-slate-100">{template.name}</p>
-                    <p className="text-xs text-slate-400">{template.id}</p>
+                    <p className="text-sm font-semibold text-slate-900">{template.name}</p>
+                    <p className="text-xs text-slate-500">{template.id}</p>
                   </div>
                   <div className="flex gap-1.5">
-                    <span className="rounded-full border border-amber-300/40 bg-amber-300/15 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-100">
+                    <span className="rounded-full border border-amber-300/40 bg-amber-300/15 px-2 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-amber-700">
                       {template.channel}
                     </span>
                     <span
                       className={cn(
-                        "rounded-full border px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.14em]",
+                        "rounded-full border px-2 py-1 text-xs font-semibold uppercase tracking-[0.14em]",
                         template.isActive
-                          ? "border-emerald-300/40 bg-emerald-300/15 text-emerald-100"
-                          : "border-slate-300/35 bg-slate-300/10 text-slate-300",
+                          ? "border-emerald-300/40 bg-emerald-300/15 text-emerald-700"
+                          : "border-slate-300/35 bg-slate-300/10 text-slate-600",
                       )}
                     >
                       {template.isActive ? "Active" : "Inactive"}
                     </span>
                   </div>
                 </div>
-                <p className="text-sm text-slate-300">{template.subject}</p>
+                <p className="text-sm text-slate-600">{template.subject}</p>
                 <p className="text-xs text-slate-500">Updated {formatDate(template.updatedAt)}</p>
                 <div className="flex flex-wrap gap-2 pt-1">
                   <Button
@@ -546,18 +546,18 @@ export default function EmailTemplatesPage() {
 
         <TabsContent value="preview" className="space-y-3">
           {!templates.length ? (
-            <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
-              <CardContent className="p-4 text-sm text-slate-400">No template available for preview.</CardContent>
+            <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
+              <CardContent className="p-4 text-sm text-slate-500">No template available for preview.</CardContent>
             </Card>
           ) : (
             <>
-              <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+              <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
                 <CardContent className="p-4">
-                  <Label className="text-xs uppercase tracking-[0.14em] text-slate-400">Choose template</Label>
+                  <Label className="text-xs uppercase tracking-[0.14em] text-slate-500">Choose template</Label>
                   <select
                     value={selectedTemplate?.id ?? ""}
                     onChange={(event) => setSelectedTemplateId(event.target.value)}
-                    className="mt-2 w-full rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-slate-100"
+                    className="mt-2 w-full rounded-md border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2 text-sm text-slate-900"
                   >
                     {templates.map((template) => (
                       <option key={template.id} value={template.id} className="bg-slate-900">
@@ -569,18 +569,18 @@ export default function EmailTemplatesPage() {
               </Card>
 
               {selectedTemplate ? (
-                <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+                <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
                   <CardHeader>
-                    <CardTitle className="text-lg text-white">{selectedTemplate.name} Preview</CardTitle>
+                    <CardTitle className="text-lg text-slate-900">{selectedTemplate.name} Preview</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3 text-sm text-slate-300">
-                    <div className="rounded-md border border-white/10 bg-white/5 p-3">
-                      <p className="text-xs text-slate-400">Subject</p>
-                      <p className="mt-1 text-slate-100">{selectedTemplate.subject}</p>
+                  <CardContent className="space-y-3 text-sm text-slate-600">
+                    <div className="rounded-md border border-[#D4E8FC] bg-[#F8FBFF] p-3">
+                      <p className="text-xs text-slate-500">Subject</p>
+                      <p className="mt-1 text-slate-900">{selectedTemplate.subject}</p>
                     </div>
-                    <div className="rounded-md border border-white/10 bg-[#0b1729]/80 p-3">
-                      <p className="text-xs text-slate-400">Body</p>
-                      <p className="mt-1 whitespace-pre-wrap text-slate-100">{selectedTemplate.body}</p>
+                    <div className="rounded-md border border-[#D4E8FC] bg-[#F8FBFF]/80 p-3">
+                      <p className="text-xs text-slate-500">Body</p>
+                      <p className="mt-1 whitespace-pre-wrap text-slate-900">{selectedTemplate.body}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -591,10 +591,10 @@ export default function EmailTemplatesPage() {
       </Tabs>
 
       <Dialog open={isEditorOpen} onOpenChange={setIsEditorOpen}>
-        <DialogContent className="max-w-3xl border-white/10 bg-[#0d1c31] text-slate-100">
+        <DialogContent className="max-w-3xl border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
           <DialogHeader>
-            <DialogTitle className="text-white">{editingTemplateId ? "Edit Email Template" : "New Email Template"}</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogTitle className="text-slate-900">{editingTemplateId ? "Edit Email Template" : "New Email Template"}</DialogTitle>
+            <DialogDescription className="text-slate-500">
               Configure subject and body format. You can use placeholders like {`{{candidate_name}}`} and{" "}
               {`{{job_title}}`}.
             </DialogDescription>
@@ -603,19 +603,19 @@ export default function EmailTemplatesPage() {
           <div className="space-y-3">
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label className="text-xs text-slate-400">Template Name</Label>
+                <Label className="text-xs text-slate-500">Template Name</Label>
                 <Input
                   value={templateName}
                   onChange={(event) => setTemplateName(event.target.value)}
-                  className="border-white/15 bg-white/5 text-slate-100"
+                  className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-xs text-slate-400">Status</Label>
+                <Label className="text-xs text-slate-500">Status</Label>
                 <select
                   value={templateIsActive ? "active" : "inactive"}
                   onChange={(event) => setTemplateIsActive(event.target.value === "active")}
-                  className="h-10 w-full rounded-md border border-white/15 bg-white/5 px-3 text-sm text-slate-100"
+                  className="h-10 w-full rounded-md border border-[#D4E8FC] bg-[#F8FBFF] px-3 text-sm text-slate-900"
                 >
                   <option value="active" className="bg-slate-900">
                     Active
@@ -628,20 +628,20 @@ export default function EmailTemplatesPage() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs text-slate-400">Email Subject</Label>
+              <Label className="text-xs text-slate-500">Email Subject</Label>
               <Input
                 value={templateSubject}
                 onChange={(event) => setTemplateSubject(event.target.value)}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs text-slate-400">Email Body</Label>
+              <Label className="text-xs text-slate-500">Email Body</Label>
               <Textarea
                 value={templateBody}
                 onChange={(event) => setTemplateBody(event.target.value)}
-                className="min-h-52 border-white/15 bg-white/5 text-slate-100"
+                className="min-h-52 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
@@ -658,10 +658,10 @@ export default function EmailTemplatesPage() {
       </Dialog>
 
       <Dialog open={isSendDialogOpen} onOpenChange={setIsSendDialogOpen}>
-        <DialogContent className="max-w-3xl border-white/10 bg-[#0d1c31] text-slate-100">
+        <DialogContent className="max-w-3xl border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
           <DialogHeader>
-            <DialogTitle className="text-white">Send Email From Template</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogTitle className="text-slate-900">Send Email From Template</DialogTitle>
+            <DialogDescription className="text-slate-500">
               Choose candidate email or enter manually, then send directly from here.
             </DialogDescription>
           </DialogHeader>
@@ -669,11 +669,11 @@ export default function EmailTemplatesPage() {
           <div className="space-y-3">
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label className="text-xs text-slate-400">Choose Candidate</Label>
+                <Label className="text-xs text-slate-500">Choose Candidate</Label>
                 <select
                   value={selectedRecipientId}
                   onChange={(event) => handleRecipientChange(event.target.value)}
-                  className="h-10 w-full rounded-md border border-white/15 bg-white/5 px-3 text-sm text-slate-100"
+                  className="h-10 w-full rounded-md border border-[#D4E8FC] bg-[#F8FBFF] px-3 text-sm text-slate-900"
                 >
                   <option value="manual" className="bg-slate-900">
                     Manual Email Entry
@@ -686,40 +686,40 @@ export default function EmailTemplatesPage() {
                 </select>
               </div>
               <div className="space-y-2">
-                <Label className="text-xs text-slate-400">To Email</Label>
+                <Label className="text-xs text-slate-500">To Email</Label>
                 <Input
                   value={toEmail}
                   onChange={(event) => setToEmail(event.target.value)}
                   placeholder="candidate@domain.com"
-                  className="border-white/15 bg-white/5 text-slate-100"
+                  className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs text-slate-400">From Email</Label>
+              <Label className="text-xs text-slate-500">From Email</Label>
               <Input
                 value={fromEmail}
                 onChange={(event) => setFromEmail(event.target.value)}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs text-slate-400">Subject</Label>
+              <Label className="text-xs text-slate-500">Subject</Label>
               <Input
                 value={sendSubject}
                 onChange={(event) => setSendSubject(event.target.value)}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs text-slate-400">Email Body</Label>
+              <Label className="text-xs text-slate-500">Email Body</Label>
               <Textarea
                 value={sendBody}
                 onChange={(event) => setSendBody(event.target.value)}
-                className="min-h-52 border-white/15 bg-white/5 text-slate-100"
+                className="min-h-52 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
@@ -737,3 +737,5 @@ export default function EmailTemplatesPage() {
     </div>
   );
 }
+
+

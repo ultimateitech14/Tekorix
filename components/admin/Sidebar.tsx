@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
@@ -133,7 +133,7 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
   }
 
   return (
-    <div className="flex h-full flex-col text-slate-100">
+    <div className="flex h-full flex-col text-slate-900">
       <div className={cn("mb-4 px-2 py-2", collapsed ? "flex justify-center" : "space-y-3")}>
         <Link
           href="/admin"
@@ -150,13 +150,13 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
           <div className="px-1">
             <p
               className={cn(
-                "text-[0.82rem] tracking-[0.06em] text-amber-200",
+                "text-sm tracking-[0.06em] text-[#1B66B3]",
                 ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
               )}
             >
               TekOrix Admin
             </p>
-            <p className="text-[0.8rem] text-slate-400">Hiring control center</p>
+            <p className="text-sm text-slate-500">Hiring control center</p>
           </div>
         ) : null}
       </div>
@@ -184,12 +184,12 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
                   onClick={() => toggleSection(section.href)}
                   aria-expanded={sectionExpanded}
                   className={cn(
-                    "flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left text-[0.98rem] transition-colors",
+                    "flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left text-base transition-colors",
                     sectionExpandedAndActive
-                      ? "border-amber-300/50 bg-amber-300/15 text-amber-200"
+                      ? "border-[#1B66B3]/35 bg-[#EAF4FF] text-[#1B66B3]"
                       : sectionExpanded || sectionActive
-                        ? "border-white/20 bg-white/[0.04] text-slate-100"
-                      : "border-transparent text-slate-300 hover:border-white/20 hover:bg-white/5 hover:text-white",
+                        ? "border-[#C3DDF9] bg-[#F4F9FF] text-slate-900"
+                      : "border-transparent text-slate-600 hover:border-[#C3DDF9] hover:bg-[#F8FBFF] hover:text-slate-900",
                     ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
                   )}
                 >
@@ -214,10 +214,10 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
                     onNavigate?.();
                   }}
                   className={cn(
-                    "flex items-center gap-3 rounded-xl border px-3 py-2.5 text-[0.98rem] transition-colors",
+                    "flex items-center gap-3 rounded-xl border px-3 py-2.5 text-base transition-colors",
                     sectionActive
-                      ? "border-amber-300/50 bg-amber-300/15 text-amber-200"
-                      : "border-transparent text-slate-300 hover:border-white/20 hover:bg-white/5 hover:text-white",
+                      ? "border-[#1B66B3]/35 bg-[#EAF4FF] text-[#1B66B3]"
+                      : "border-transparent text-slate-600 hover:border-[#C3DDF9] hover:bg-[#F8FBFF] hover:text-slate-900",
                     ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
                     collapsed && "justify-center px-0",
                   )}
@@ -238,10 +238,10 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
                         onNavigate?.();
                       }}
                       className={cn(
-                        "block rounded-md px-2 py-1.5 text-[0.86rem] transition-colors",
+                        "block rounded-md px-2 py-1.5 text-sm transition-colors",
                         isChildActive(pathname, currentQuery, item.href, hasQueryChildMatch)
-                          ? "bg-amber-200/10 text-amber-100"
-                          : "text-slate-400 hover:text-slate-200",
+                          ? "bg-[#EAF4FF] text-[#1B66B3]"
+                          : "text-slate-500 hover:text-slate-700",
                         ENABLE_ADMIN_LIGHTER_TYPE ? "font-normal" : "font-medium",
                       )}
                     >
@@ -255,22 +255,22 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
         })}
       </nav>
 
-      <div className="mt-4 space-y-3 border-t border-white/10 pt-4">
+      <div className="mt-4 space-y-3 border-t border-[#D4E8FC] pt-4">
         <div
           className={cn(
             "rounded-xl border p-3",
-            ENABLE_ADMIN_UI_REFRESH ? "border-white/[0.12] bg-white/[0.06]" : "border-white/10 bg-white/5",
+            ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC] bg-[#F1F7FF]" : "border-[#D4E8FC] bg-[#F8FBFF]",
             collapsed && "flex justify-center px-1.5 py-2.5",
           )}
         >
           <div className={cn("flex items-center gap-3", collapsed && "justify-center")}>
-            <UserCircle2 className="h-8 w-8 text-amber-200" />
+            <UserCircle2 className="h-8 w-8 text-[#1B66B3]" />
             {!collapsed ? (
               <div>
-                <p className={cn("text-sm text-white", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
+                <p className={cn("text-sm text-slate-900", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
                   TekOrix Admin
                 </p>
-                <p className="text-xs text-slate-400">admin@tekorix.com</p>
+                <p className="text-xs text-slate-500">admin@tekorix.com</p>
               </div>
             ) : null}
           </div>
@@ -280,7 +280,7 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
           type="button"
           variant="outline"
           className={cn(
-            "w-full justify-start border-amber-300/40 bg-amber-300/5 text-amber-100 hover:border-amber-200/60 hover:bg-amber-300/15",
+            "w-full justify-start border-[#1B66B3]/35 bg-[#EAF4FF] text-[#1B66B3] hover:border-[#145188]/50 hover:bg-[#DFEEFF]",
             ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
             collapsed && "justify-center px-0",
           )}
@@ -314,7 +314,7 @@ export function Sidebar({ collapsed, mobileOpen, onMobileOpenChange }: SidebarPr
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-40 hidden border-r p-3 backdrop-blur-xl lg:block",
-          ENABLE_ADMIN_UI_REFRESH ? "border-white/[0.12] bg-[#081528]/90" : "border-white/10 bg-[#081528]/80",
+          ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC] bg-[#F8FBFF]/90" : "border-[#D4E8FC] bg-[#F8FBFF]/80",
           collapsed ? "w-24" : "w-72",
         )}
       >
@@ -330,8 +330,8 @@ export function Sidebar({ collapsed, mobileOpen, onMobileOpenChange }: SidebarPr
         <SheetContent
           side="left"
           className={cn(
-            "w-[88vw] border-r p-3 text-white sm:max-w-sm",
-            ENABLE_ADMIN_UI_REFRESH ? "border-white/[0.12] bg-[#081528]/[0.96]" : "border-white/10 bg-[#081528]",
+            "w-[88vw] border-r p-3 text-slate-900 sm:max-w-sm",
+            ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC] bg-[#F8FBFF]/[0.96]" : "border-[#D4E8FC] bg-[#F8FBFF]",
           )}
         >
           <SheetTitle className="sr-only">Admin Navigation</SheetTitle>
@@ -347,3 +347,4 @@ export function Sidebar({ collapsed, mobileOpen, onMobileOpenChange }: SidebarPr
     </>
   );
 }
+

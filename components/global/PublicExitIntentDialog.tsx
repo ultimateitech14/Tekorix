@@ -129,7 +129,7 @@ export function PublicExitIntentDialog() {
             <Button
               asChild
               variant="outline"
-              className="border-[#7FB5EA] bg-[#E4F1FF] text-slate-950 hover:bg-[#CFE3FF]"
+              className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF]"
             >
               <Link href={config.secondaryHref}>{config.secondaryLabel}</Link>
             </Button>

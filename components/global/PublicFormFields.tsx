@@ -12,17 +12,17 @@ import {
 } from "@/lib/validators/public-form-fields";
 import { cn } from "@/lib/utils";
 
-export const publicFormEyebrowClass = "text-[0.72rem] font-semibold uppercase tracking-[0.22em]";
+export const publicFormEyebrowClass = "text-xs font-semibold uppercase tracking-[0.22em]";
 export const publicFormHeadingClass =
-  "font-display text-[1.9rem] font-semibold leading-tight tracking-tight text-slate-950 sm:text-[2.2rem]";
-export const publicFormDescriptionClass = "text-sm leading-6 text-slate-600 sm:text-[0.95rem]";
-export const publicFormLabelClass = "text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-700";
+  "font-display text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-4xl";
+export const publicFormDescriptionClass = "text-sm leading-6 text-slate-600 sm:text-base";
+export const publicFormLabelClass = "text-xs font-semibold uppercase tracking-[0.14em] text-slate-700";
 export const publicFormInputClass =
-  "h-12 rounded-2xl border-slate-300 bg-white px-4 text-[15px] text-slate-900 placeholder:text-slate-400 shadow-none transition hover:border-slate-400 focus-visible:border-[#2563EB] focus-visible:ring-2 focus-visible:ring-[#2563EB]/15 aria-[invalid=true]:border-red-400";
+  "h-12 rounded-2xl border-slate-300 bg-white px-4 text-base text-slate-900 placeholder:text-slate-400 shadow-none transition hover:border-slate-400 focus-visible:border-[#2563EB] focus-visible:ring-2 focus-visible:ring-[#2563EB]/15 aria-[invalid=true]:border-red-400";
 export const publicFormSelectTriggerClass =
-  "h-12 rounded-2xl border-slate-300 bg-white px-4 text-[15px] text-slate-900 shadow-none transition hover:border-slate-400 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 aria-[invalid=true]:border-red-400 data-[placeholder]:text-slate-400";
+  "h-12 rounded-2xl border-slate-300 bg-white px-4 text-base text-slate-900 shadow-none transition hover:border-slate-400 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 aria-[invalid=true]:border-red-400 data-[placeholder]:text-slate-400";
 export const publicFormTextareaClass =
-  "min-h-32 rounded-[1.1rem] border-slate-300 bg-white px-4 py-3 text-[15px] text-slate-900 placeholder:text-slate-400 shadow-none transition hover:border-slate-400 focus-visible:border-[#2563EB] focus-visible:ring-2 focus-visible:ring-[#2563EB]/15 aria-[invalid=true]:border-red-400";
+  "min-h-32 rounded-[1.1rem] border-slate-300 bg-white px-4 py-3 text-base text-slate-900 placeholder:text-slate-400 shadow-none transition hover:border-slate-400 focus-visible:border-[#2563EB] focus-visible:ring-2 focus-visible:ring-[#2563EB]/15 aria-[invalid=true]:border-red-400";
 export const publicFormFileInputClass =
   "block w-full rounded-[1.1rem] border border-slate-300 bg-white px-3 py-3 text-sm text-slate-700 transition hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/15 file:mr-3 file:rounded-xl file:border-0 file:bg-slate-900 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-white hover:file:bg-slate-800 aria-[invalid=true]:border-red-400";
 export const publicFormHelperTextClass = "text-xs leading-5 text-slate-500";

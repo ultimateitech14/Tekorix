@@ -29,6 +29,21 @@ const missionVision = [
   },
 ];
 
+const impactHighlights = [
+  {
+    value: "Multi-industry",
+    label: "Support model across SaaS, BFSI, healthcare, manufacturing, and enterprise programs.",
+  },
+  {
+    value: "Delivery-first",
+    label: "Hiring, staffing, and team support mapped to execution clarity instead of generic outsourcing.",
+  },
+  {
+    value: "Long-term fit",
+    label: "Structured capability support for short-term needs as well as scale-up programs.",
+  },
+];
+
 const industries = [
   {
     title: "SaaS and Tech Startups",
@@ -65,7 +80,7 @@ const industries = [
 export default function AboutPage() {
   return (
     <>
-      <section className="bg-[#CFE3FF] public-section">
+      <section className="bg-[#E6F1FF] public-section">
         <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="About Us"
@@ -75,18 +90,18 @@ export default function AboutPage() {
 
           <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div className="space-y-5">
-              <p className="text-base text-slate-600 leading-relaxed">
+              <p className="type-body text-slate-600">
                 We work with organizations that need dependable hiring and delivery support without unnecessary complexity.
                 Our approach is straightforward: understand the requirement, deploy the right capability, and keep execution
                 stable.
               </p>
-              <p className="text-base text-slate-600 leading-relaxed">
+              <p className="type-body text-slate-600">
                 From specialist staffing to team-level support, Tekorix focuses on outcomes that are measurable, sustainable,
                 and aligned with business timelines.
               </p>
             </div>
 
-            <div className="relative overflow-hidden rounded-[1.8rem] border border-[#7FB5EA] bg-[#DCEEFF] shadow-sm">
+            <div className="relative overflow-hidden rounded-[1.8rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#ECF5FF_100%)] shadow-[0_28px_64px_-48px_rgba(15,23,42,0.34)]">
               <Image
                 src="/images/commitment-professional.jpg"
                 alt="Tekorix team collaboration"
@@ -97,10 +112,22 @@ export default function AboutPage() {
               />
             </div>
           </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {impactHighlights.map((item) => (
+              <div
+                key={item.value}
+                className="rounded-[1.5rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EDF6FF_100%)] px-5 py-5 shadow-[0_24px_58px_-44px_rgba(15,23,42,0.3)]"
+              >
+                <p className="type-h3 text-slate-950">{item.value}</p>
+                <p className="type-body mt-2 text-slate-600">{item.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-[#CFE3FF] public-section">
+      <section className="bg-[#E6F1FF] public-section">
         <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Mission and Vision"
@@ -111,19 +138,22 @@ export default function AboutPage() {
 
           <div className="grid gap-5 md:grid-cols-2">
             {missionVision.map((item) => (
-              <div key={item.title} className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-6 shadow-sm">
+              <div
+                key={item.title}
+                className="rounded-[1.5rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#ECF5FF_100%)] p-6 shadow-[0_24px_58px_-44px_rgba(15,23,42,0.3)] sm:p-7"
+              >
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#1B66B3] text-white">
                   <item.icon className="h-5 w-5" />
                 </span>
-                <h2 className="mt-5 text-3xl font-semibold text-slate-900 md:text-4xl">{item.title}</h2>
-                <p className="mt-3 text-base text-slate-600 leading-relaxed">{item.description}</p>
+                <h2 className="type-h2 mt-5 text-slate-900">{item.title}</h2>
+                <p className="type-body mt-3 text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-[#CFE3FF] public-section">
+      <section className="bg-[#E6F1FF] public-section">
         <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Industries We Serve"
@@ -133,12 +163,15 @@ export default function AboutPage() {
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {industries.map((item) => (
-              <div key={item.title} className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-6 shadow-sm">
+              <div
+                key={item.title}
+                className="flex h-full flex-col rounded-[1.5rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EDF6FF_100%)] p-6 shadow-[0_24px_58px_-44px_rgba(15,23,42,0.3)]"
+              >
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#1B66B3] text-white">
                   <item.icon className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 text-xl font-semibold text-slate-900">{item.title}</h3>
-                <p className="mt-2 text-base text-slate-600 leading-relaxed">{item.description}</p>
+                <h3 className="type-h3 mt-4 text-slate-900">{item.title}</h3>
+                <p className="type-body mt-2 text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>

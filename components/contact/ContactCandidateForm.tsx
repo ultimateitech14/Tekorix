@@ -251,8 +251,7 @@ export function ContactCandidateForm() {
   return (
     <form
       id="candidate-inquiry"
-      className="rounded-[1.75rem] border bg-white p-6 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)] sm:p-7"
-      style={{ borderColor: colors.border }}
+      className="rounded-[1.75rem] bg-white p-6 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)] sm:p-7"
       onSubmit={handleSubmit}
       noValidate
     >

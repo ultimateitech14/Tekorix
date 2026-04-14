@@ -31,7 +31,7 @@ export function AdminHeader({ isAuthenticated }: AdminHeaderProps) {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em]",
+                    "rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em]",
                     "text-muted-foreground transition hover:text-foreground",
                   )}
                 >

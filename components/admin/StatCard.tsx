@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+﻿import type { LucideIcon } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { ENABLE_ADMIN_LIGHTER_TYPE, ENABLE_ADMIN_UI_REFRESH } from "@/lib/ui-flags";
@@ -17,8 +17,8 @@ export function StatCard({ label, value, detail, icon: Icon }: StatCardProps) {
       className={cn(
         "backdrop-blur-xl",
         ENABLE_ADMIN_UI_REFRESH
-          ? "border-white/[0.12] bg-[linear-gradient(140deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))]"
-          : "border-white/10 bg-white/5",
+          ? "border-[#D4E8FC] bg-[linear-gradient(145deg,#F9FCFF_0%,#EDF6FF_100%)]"
+          : "border-[#D4E8FC] bg-[#F8FBFF]",
       )}
     >
       <CardContent className="p-5">
@@ -26,7 +26,7 @@ export function StatCard({ label, value, detail, icon: Icon }: StatCardProps) {
           <div>
             <p
               className={cn(
-                "text-[0.8rem] tracking-[0.04em] text-slate-400",
+                "text-sm tracking-[0.04em] text-slate-500",
                 ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
               )}
             >
@@ -34,20 +34,20 @@ export function StatCard({ label, value, detail, icon: Icon }: StatCardProps) {
             </p>
             <p
               className={cn(
-                "mt-2 text-[2rem] leading-none text-white",
+                "mt-2 text-4xl leading-none text-slate-900",
                 ENABLE_ADMIN_LIGHTER_TYPE ? "font-semibold" : "font-bold",
               )}
             >
               {value}
             </p>
-            <p className="mt-1 text-[0.84rem] leading-relaxed text-slate-400">{detail}</p>
+            <p className="mt-1 text-sm leading-relaxed text-slate-500">{detail}</p>
           </div>
           <span
             className={cn(
-              "inline-flex h-10 w-10 items-center justify-center rounded-lg border text-amber-200",
+              "inline-flex h-10 w-10 items-center justify-center rounded-lg border text-[#1B66B3]",
               ENABLE_ADMIN_UI_REFRESH
-                ? "border-amber-300/35 bg-amber-300/[0.12]"
-                : "border-amber-300/40 bg-amber-300/15",
+                ? "border-[#1B66B3]/25 bg-[#EAF4FF]"
+                : "border-[#1B66B3]/30 bg-[#EAF4FF]",
             )}
           >
             <Icon className="h-5 w-5" />
@@ -57,3 +57,4 @@ export function StatCard({ label, value, detail, icon: Icon }: StatCardProps) {
     </Card>
   );
 }
+

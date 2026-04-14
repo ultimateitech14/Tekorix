@@ -18,7 +18,7 @@ const specialistPoints = [
 
 export function HomeDualPaths() {
   return (
-    <section className="bg-[#CFE3FF] public-section">
+    <section className="bg-[#E6F1FF] public-section">
       <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="Two clear journeys"
@@ -28,7 +28,7 @@ export function HomeDualPaths() {
         />
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <article className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-8 shadow-sm">
+          <article className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-8 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1B66B3]">
               For companies
             </p>
@@ -39,7 +39,7 @@ export function HomeDualPaths() {
             </p>
             <div className="mt-6 grid gap-3">
               {companyPoints.map((point) => (
-                <div key={point} className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] px-4 py-3 text-sm text-slate-600">
+                <div key={point} className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] px-4 py-3 text-sm text-slate-600">
                   {point}
                 </div>
               ))}
@@ -51,7 +51,7 @@ export function HomeDualPaths() {
             </div>
           </article>
 
-          <article className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-8 shadow-sm">
+          <article className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-8 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-600">For specialists</p>
             <h3 className="mt-4 text-xl font-semibold text-slate-900">Find a Job</h3>
             <p className="mt-4 max-w-xl text-base text-slate-600 leading-relaxed">
@@ -60,7 +60,7 @@ export function HomeDualPaths() {
             </p>
             <div className="mt-6 grid gap-3">
               {specialistPoints.map((point) => (
-                <div key={point} className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] px-4 py-3 text-sm text-slate-600">
+                <div key={point} className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] px-4 py-3 text-sm text-slate-600">
                   {point}
                 </div>
               ))}

@@ -23,7 +23,7 @@ const steps = [
 
 export function HomeProcess() {
   return (
-    <section className="bg-[#CFE3FF] public-section">
+    <section className="bg-[#E6F1FF] public-section">
       <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="How we work"
@@ -35,9 +35,9 @@ export function HomeProcess() {
           {steps.map((step) => (
             <article
               key={step.title}
-              className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-6 shadow-sm sm:p-7"
+              className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-6 shadow-sm sm:p-7"
             >
-              <div className="inline-flex rounded-full bg-[#B5D5F8] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#1B66B3]">
+              <div className="inline-flex rounded-full bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#1B66B3]">
                 Step {step.number}
               </div>
               <h3 className="mt-5 text-xl font-semibold text-slate-900">{step.title}</h3>

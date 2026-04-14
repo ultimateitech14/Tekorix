@@ -46,7 +46,7 @@ export function WhatsAppFAB() {
     <Link
       href={href}
       aria-label={ariaLabel}
-      className="fixed bottom-[calc(env(safe-area-inset-bottom)+2rem)] right-6 z-30 hidden items-center gap-2 rounded-full border border-[#7FB5EA] bg-[#378FDD] px-4 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5 xl:inline-flex"
+      className="fixed bottom-[calc(env(safe-area-inset-bottom)+2rem)] right-6 z-30 hidden items-center gap-2 rounded-full border border-[#BED9F3] bg-[#378FDD] px-4 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5 xl:inline-flex"
       target={hasWhatsAppHref ? "_blank" : undefined}
       rel={hasWhatsAppHref ? "noreferrer" : undefined}
     >

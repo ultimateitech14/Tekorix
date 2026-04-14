@@ -35,7 +35,7 @@ export function HomeSectionHeading({
       <div className="space-y-3">
         <h2
           className={cn(
-            "text-3xl font-semibold leading-tight text-slate-900 md:text-4xl",
+            "font-display text-[clamp(1.95rem,1.55rem+1.1vw,2.65rem)] font-semibold leading-tight text-slate-900",
             isDark && "text-white",
           )}
         >
@@ -43,7 +43,7 @@ export function HomeSectionHeading({
         </h2>
         <p
           className={cn(
-            "text-base leading-relaxed text-slate-600",
+            "text-base leading-relaxed text-slate-600 md:text-[1.02rem]",
             isDark && "text-slate-300",
           )}
         >

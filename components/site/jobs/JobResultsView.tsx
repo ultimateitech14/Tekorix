@@ -390,19 +390,19 @@ export function JobResultsView({
                 <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                   <div className="space-y-4">
                     <div className="flex flex-wrap gap-2">
-                      <span className="rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ backgroundColor: colors.surfaceAlt, color: colors.primary }}>
+                      <span className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em]" style={{ backgroundColor: colors.surfaceAlt, color: colors.primary }}>
                         Ref {refNumber(job.id)}
                       </span>
-                      <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-700">
+                      <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700">
                         {formatType(job.type)}
                       </span>
-                      <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-700">
+                      <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700">
                         {job.department}
                       </span>
                     </div>
 
                     <div className="space-y-2">
-                      <h3 className="font-display text-2xl font-semibold tracking-tight text-slate-950 sm:text-[1.8rem]">
+                      <h3 className="font-display text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
                         {job.title}
                       </h3>
                       <p className="max-w-3xl text-sm leading-7 text-slate-600">{job.description}</p>

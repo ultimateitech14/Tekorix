@@ -59,7 +59,7 @@ export default async function JobResultsPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-[#7FB5EA] public-section">
+      <section className="relative overflow-hidden border-b border-[#BED9F3] public-section">
         {ENABLE_3D_HERO_VIDEO ? (
           <HeroBackgroundVideo
             className="hero-fx-motion absolute inset-0 h-full w-full scale-[1.08] object-cover brightness-[0.9] saturate-95 contrast-90"
@@ -89,7 +89,7 @@ export default async function JobResultsPage() {
               preferred work style.
             </p>
             <div className="pt-2">
-              <Suspense fallback={<div className="h-[68px] rounded-2xl border border-[#7FB5EA] bg-[#DCEEFF]" />}>
+              <Suspense fallback={<div className="h-[68px] rounded-2xl border border-[#BED9F3] bg-[#F8FBFF]" />}>
                 <JobSearchPanel />
               </Suspense>
             </div>
@@ -97,7 +97,7 @@ export default async function JobResultsPage() {
         </Container>
       </section>
 
-      <section className="bg-[#CFE3FF] public-section">
+      <section className="bg-[#E6F1FF] public-section">
         <Container>
           <Suspense fallback={<p className="text-sm text-slate-600">Loading job search...</p>}>
             <JobResultsView talentNetworkHref="/find-job#submit-resume" />

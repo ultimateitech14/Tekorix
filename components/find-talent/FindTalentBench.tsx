@@ -32,7 +32,7 @@ export function FindTalentBench() {
             {benchRoles.map((role) => (
               <div
                 key={role}
-                className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-5 shadow-[0_18px_44px_-40px_rgba(15,23,42,0.28)]"
+                className="rounded-[1.5rem] border bg-[#F8FBFF] px-5 py-5 shadow-[0_18px_44px_-40px_rgba(15,23,42,0.28)]"
                 style={{ borderColor: colors.border }}
               >
                 <p className="text-sm font-semibold uppercase tracking-[0.16em]" style={{ color: colors.primaryDark }}>
@@ -44,7 +44,7 @@ export function FindTalentBench() {
           </div>
 
           <div
-            className="rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_50px_-42px_rgba(15,23,42,0.24)] sm:p-7"
+            className="rounded-[1.75rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_50px_-42px_rgba(15,23,42,0.24)] sm:p-7"
             style={{ borderColor: colors.border }}
           >
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Why this helps</p>
@@ -65,7 +65,7 @@ export function FindTalentBench() {
               <Button
                 asChild
                 variant="outline"
-                className="border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF]"
+                className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF]"
               >
                 <Link href="/contact">Talk to Us</Link>
               </Button>

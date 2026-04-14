@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { Suspense, useEffect, useMemo, useState } from "react";
@@ -507,35 +507,35 @@ function NotificationsPageContent() {
         </TabsList>
 
         <TabsContent value="providers" className="grid gap-4 xl:grid-cols-3">
-          <Card className="border-white/10 bg-white/5 backdrop-blur-xl xl:col-span-2">
+          <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl xl:col-span-2">
             <CardHeader>
-              <CardTitle className="text-xl text-white">Notification Providers</CardTitle>
+              <CardTitle className="text-xl text-slate-900">Notification Providers</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Email Provider</Label>
+                <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Email Provider</Label>
                 <Input
                   value={emailProvider}
                   onChange={(event) => setEmailProvider(event.target.value)}
-                  className="border-white/15 bg-white/5 text-slate-100"
+                  className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">API Key</Label>
+                <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">API Key</Label>
                 <Input
                   value={apiKey}
                   onChange={(event) => setApiKey(event.target.value)}
-                  className="border-white/15 bg-white/5 text-slate-100"
+                  className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">From Address</Label>
+                <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">From Address</Label>
                 <Input
                   value={fromEmail}
                   onChange={(event) => setFromEmail(event.target.value)}
-                  className="border-white/15 bg-white/5 text-slate-100"
+                  className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                 />
               </div>
 
@@ -549,48 +549,48 @@ function NotificationsPageContent() {
             </CardContent>
           </Card>
 
-          <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+          <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
             <CardHeader>
-              <CardTitle className="text-lg text-white">Channel Health</CardTitle>
+              <CardTitle className="text-lg text-slate-900">Channel Health</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3 text-sm text-slate-300">
-              <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+            <CardContent className="space-y-3 text-sm text-slate-600">
+              <div className="flex items-center justify-between rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2">
                 <span className="inline-flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-amber-200" />
+                  <Mail className="h-4 w-4 text-amber-700" />
                   Email
                 </span>
                 <CheckCircle2 className="h-4 w-4 text-emerald-300" />
               </div>
-              <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+              <div className="flex items-center justify-between rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2">
                 <span className="inline-flex items-center gap-2">
-                  <BellRing className="h-4 w-4 text-amber-200" />
+                  <BellRing className="h-4 w-4 text-amber-700" />
                   In-app
                 </span>
                 <CheckCircle2 className="h-4 w-4 text-emerald-300" />
               </div>
-              <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+              <div className="flex items-center justify-between rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2">
                 <span className="inline-flex items-center gap-2">
-                  <Send className="h-4 w-4 text-amber-200" />
+                  <Send className="h-4 w-4 text-amber-700" />
                   SMS
                 </span>
-                <span className="text-xs text-amber-200">Limited</span>
+                <span className="text-xs text-amber-700">Limited</span>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="logs">
-          <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+          <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
             <CardHeader>
-              <CardTitle className="text-xl text-white">Notification Logs</CardTitle>
+              <CardTitle className="text-xl text-slate-900">Notification Logs</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {isLoadingNotificationLogs ? (
-                <p className="text-sm text-slate-400">Loading notification logs...</p>
+                <p className="text-sm text-slate-500">Loading notification logs...</p>
               ) : null}
 
               {!isLoadingNotificationLogs && !notificationLogs.length ? (
-                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-slate-400">
+                <div className="rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-4 text-sm text-slate-500">
                   No notification logs found.
                 </div>
               ) : null}
@@ -601,21 +601,21 @@ function NotificationsPageContent() {
                 return (
                   <div
                     key={item.id}
-                    className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2"
+                    className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2"
                   >
                     <div>
-                      <p className="text-sm font-medium text-slate-100">{item.action}</p>
-                      <p className="text-xs text-slate-400">{item.target || "-"}</p>
+                      <p className="text-sm font-medium text-slate-900">{item.action}</p>
+                      <p className="text-xs text-slate-500">{item.target || "-"}</p>
                       <p className="text-xs text-slate-500">{new Date(item.createdAt).toLocaleString()}</p>
                     </div>
                     <span
                       className={cn(
-                        "rounded-full border px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.14em]",
+                        "rounded-full border px-2 py-1 text-xs font-semibold uppercase tracking-[0.14em]",
                         status === "Sent"
-                          ? "border-emerald-300/40 bg-emerald-300/15 text-emerald-100"
+                          ? "border-emerald-300/40 bg-emerald-300/15 text-emerald-700"
                           : status === "Failed"
-                            ? "border-rose-300/40 bg-rose-300/15 text-rose-100"
-                            : "border-amber-300/40 bg-amber-300/15 text-amber-100",
+                            ? "border-rose-300/40 bg-rose-300/15 text-rose-700"
+                            : "border-amber-300/40 bg-amber-300/15 text-amber-700",
                       )}
                     >
                       {status}
@@ -628,14 +628,14 @@ function NotificationsPageContent() {
         </TabsContent>
 
         <TabsContent value="contact-leads">
-          <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+          <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-xl text-white">Contact Form Submissions</CardTitle>
+              <CardTitle className="text-xl text-slate-900">Contact Form Submissions</CardTitle>
               <div className="flex flex-wrap gap-2">
                 <Button
                   type="button"
                   variant="outline"
-                  className="border-white/20 bg-white/5 text-slate-100 hover:bg-white/10"
+                  className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
                   onClick={markAllAsRead}
                   disabled={!unreadCount || isDeletingAll}
                 >
@@ -653,26 +653,26 @@ function NotificationsPageContent() {
             </CardHeader>
             <CardContent className="space-y-3">
               {isLoadingContacts ? (
-                <p className="text-sm text-slate-400">Loading contact submissions...</p>
+                <p className="text-sm text-slate-500">Loading contact submissions...</p>
               ) : null}
 
               {!isLoadingContacts && !contactSubmissions.length ? (
-                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-slate-400">
+                <div className="rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-4 text-sm text-slate-500">
                   No contact submissions yet.
                 </div>
               ) : null}
 
               {contactSubmissions.map((item) => (
-                <article key={item.id} className="space-y-3 rounded-lg border border-white/10 bg-white/5 p-4">
+                <article key={item.id} className="space-y-3 rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="space-y-1">
-                      <p className="text-sm font-medium text-slate-100">
+                      <p className="text-sm font-medium text-slate-900">
                         {item.firstName} {item.lastName} ({formatInquiryType(item.inquiryType)})
                       </p>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-slate-500">
                         {item.email} | {item.phonePrefix} {item.phoneNumber}
                       </p>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-slate-500">
                         {item.company} | {item.position} | {item.country} | {item.industry}
                       </p>
                       <p className="text-xs text-slate-500">
@@ -681,12 +681,12 @@ function NotificationsPageContent() {
                     </div>
                     <div className="flex items-center gap-2">
                       {!item.isRead ? (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-amber-300/35 bg-amber-300/15 px-2 py-1 text-[11px] text-amber-100">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-amber-300/35 bg-amber-300/15 px-2 py-1 text-xs text-amber-700">
                           <BellRing className="h-3.5 w-3.5" />
                           New
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-300/35 bg-emerald-300/15 px-2 py-1 text-[11px] text-emerald-100">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-300/35 bg-emerald-300/15 px-2 py-1 text-xs text-emerald-700">
                           <CheckCircle2 className="h-3.5 w-3.5" />
                           Read
                         </span>
@@ -695,7 +695,7 @@ function NotificationsPageContent() {
                         type="button"
                         size="sm"
                         variant="outline"
-                        className="border-white/20 bg-white/5 text-slate-100 hover:bg-white/10"
+                        className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
                         onClick={() => {
                           setSelectedContactSubmissionId(item.id);
                           if (!item.isRead) {
@@ -711,7 +711,7 @@ function NotificationsPageContent() {
                           type="button"
                           size="sm"
                           variant="outline"
-                          className="border-white/20 bg-white/5 text-slate-100 hover:bg-white/10"
+                          className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
                           onClick={() => markAsRead(item.id)}
                         >
                           Mark read
@@ -730,12 +730,12 @@ function NotificationsPageContent() {
                     </div>
                   </div>
 
-                  <div className="rounded-md border border-white/10 bg-[#0d1c31]/70 p-3">
-                    <p className="inline-flex items-center gap-1 text-xs font-medium text-slate-300">
-                      <MessageSquareText className="h-3.5 w-3.5 text-amber-200" />
+                  <div className="rounded-md border border-[#D4E8FC] bg-[#F8FBFF]/70 p-3">
+                    <p className="inline-flex items-center gap-1 text-xs font-medium text-slate-600">
+                      <MessageSquareText className="h-3.5 w-3.5 text-amber-700" />
                       Message
                     </p>
-                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-slate-200">{item.message}</p>
+                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-slate-700">{item.message}</p>
                   </div>
                 </article>
               ))}
@@ -748,77 +748,77 @@ function NotificationsPageContent() {
                   }
                 }}
               >
-                <DialogContent className="max-h-[88vh] max-w-4xl overflow-y-auto border-white/10 bg-[#0d1c31] text-slate-100">
+                <DialogContent className="max-h-[88vh] max-w-4xl overflow-y-auto border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
                   {selectedContactSubmission ? (
                     <div className="space-y-4">
                       <DialogHeader>
-                        <DialogTitle className="text-xl text-white">
+                        <DialogTitle className="text-xl text-slate-900">
                           {selectedContactSubmission.firstName} {selectedContactSubmission.lastName} -{" "}
                           {formatInquiryType(selectedContactSubmission.inquiryType)}
                         </DialogTitle>
-                        <DialogDescription className="text-slate-400">
+                        <DialogDescription className="text-slate-500">
                           Received: {new Date(selectedContactSubmission.createdAt).toLocaleString()}
                         </DialogDescription>
                       </DialogHeader>
 
                       <div className="grid gap-3 sm:grid-cols-2">
-                        <div className="rounded-md border border-white/10 bg-white/5 p-3 text-sm">
-                          <p className="text-xs text-slate-400">Email</p>
-                          <p className="text-slate-100">{selectedContactSubmission.email}</p>
+                        <div className="rounded-md border border-[#D4E8FC] bg-[#F8FBFF] p-3 text-sm">
+                          <p className="text-xs text-slate-500">Email</p>
+                          <p className="text-slate-900">{selectedContactSubmission.email}</p>
                         </div>
-                        <div className="rounded-md border border-white/10 bg-white/5 p-3 text-sm">
-                          <p className="text-xs text-slate-400">Phone</p>
-                          <p className="text-slate-100">
+                        <div className="rounded-md border border-[#D4E8FC] bg-[#F8FBFF] p-3 text-sm">
+                          <p className="text-xs text-slate-500">Phone</p>
+                          <p className="text-slate-900">
                             {selectedContactSubmission.phonePrefix} {selectedContactSubmission.phoneNumber}
                           </p>
                         </div>
-                        <div className="rounded-md border border-white/10 bg-white/5 p-3 text-sm">
-                          <p className="text-xs text-slate-400">Company / Position</p>
-                          <p className="text-slate-100">
+                        <div className="rounded-md border border-[#D4E8FC] bg-[#F8FBFF] p-3 text-sm">
+                          <p className="text-xs text-slate-500">Company / Position</p>
+                          <p className="text-slate-900">
                             {selectedContactSubmission.company} / {selectedContactSubmission.position}
                           </p>
                         </div>
-                        <div className="rounded-md border border-white/10 bg-white/5 p-3 text-sm">
-                          <p className="text-xs text-slate-400">Country / Industry</p>
-                          <p className="text-slate-100">
+                        <div className="rounded-md border border-[#D4E8FC] bg-[#F8FBFF] p-3 text-sm">
+                          <p className="text-xs text-slate-500">Country / Industry</p>
+                          <p className="text-slate-900">
                             {selectedContactSubmission.country} / {selectedContactSubmission.industry}
                           </p>
                         </div>
                       </div>
 
-                      <div className="rounded-md border border-white/10 bg-[#0b1729]/80 p-3">
-                        <p className="text-xs font-medium text-slate-300">Original Message</p>
-                        <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-slate-100">
+                      <div className="rounded-md border border-[#D4E8FC] bg-[#F8FBFF]/80 p-3">
+                        <p className="text-xs font-medium text-slate-600">Original Message</p>
+                        <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-slate-900">
                           {selectedContactSubmission.message}
                         </p>
                       </div>
 
-                      <div className="space-y-2 rounded-md border border-white/10 bg-white/5 p-3">
-                        <p className="text-xs font-medium text-slate-300">Reply History</p>
+                      <div className="space-y-2 rounded-md border border-[#D4E8FC] bg-[#F8FBFF] p-3">
+                        <p className="text-xs font-medium text-slate-600">Reply History</p>
                         {!selectedContactSubmission.replies?.length ? (
-                          <p className="text-sm text-slate-400">No replies yet.</p>
+                          <p className="text-sm text-slate-500">No replies yet.</p>
                         ) : (
                           <div className="space-y-2">
                             {selectedContactSubmission.replies.map((reply) => (
-                              <div key={reply.id} className="rounded-md border border-white/10 bg-[#0b1729]/80 p-3">
+                              <div key={reply.id} className="rounded-md border border-[#D4E8FC] bg-[#F8FBFF]/80 p-3">
                                 <div className="flex flex-wrap items-center justify-between gap-2">
-                                  <p className="text-xs text-slate-400">
+                                  <p className="text-xs text-slate-500">
                                     From: {reply.fromEmail} | To: {reply.toEmail}
                                   </p>
                                   <span
                                     className={cn(
-                                      "rounded-full border px-2 py-0.5 text-[11px]",
+                                      "rounded-full border px-2 py-0.5 text-xs",
                                       reply.deliveryStatus === "sent"
-                                        ? "border-emerald-300/35 bg-emerald-300/15 text-emerald-100"
+                                        ? "border-emerald-300/35 bg-emerald-300/15 text-emerald-700"
                                         : reply.deliveryStatus === "failed"
-                                          ? "border-rose-300/35 bg-rose-300/15 text-rose-100"
-                                          : "border-amber-300/35 bg-amber-300/15 text-amber-100",
+                                          ? "border-rose-300/35 bg-rose-300/15 text-rose-700"
+                                          : "border-amber-300/35 bg-amber-300/15 text-amber-700",
                                     )}
                                   >
                                     {formatReplyDeliveryStatus(reply.deliveryStatus)}
                                   </span>
                                 </div>
-                                <p className="mt-2 whitespace-pre-wrap text-sm text-slate-100">{reply.message}</p>
+                                <p className="mt-2 whitespace-pre-wrap text-sm text-slate-900">{reply.message}</p>
                                 <p className="mt-2 text-xs text-slate-500">
                                   {new Date(reply.sentAt).toLocaleString()}
                                 </p>
@@ -831,8 +831,8 @@ function NotificationsPageContent() {
                         )}
                       </div>
 
-                      <div className="space-y-2 rounded-md border border-white/10 bg-[#0b1729]/70 p-3">
-                        <Label className="text-xs text-slate-400">Reply from email</Label>
+                      <div className="space-y-2 rounded-md border border-[#D4E8FC] bg-[#F8FBFF]/70 p-3">
+                        <Label className="text-xs text-slate-500">Reply from email</Label>
                         <Input
                           value={replyFromEmails[selectedContactSubmission.id] ?? fromEmail}
                           onChange={(event) =>
@@ -842,9 +842,9 @@ function NotificationsPageContent() {
                             }))
                           }
                           placeholder="support@yourdomain.com"
-                          className="border-white/15 bg-white/[0.04] text-slate-100"
+                          className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                         />
-                        <Label className="text-xs text-slate-400">Reply message</Label>
+                        <Label className="text-xs text-slate-500">Reply message</Label>
                         <textarea
                           value={replyDrafts[selectedContactSubmission.id] ?? ""}
                           onChange={(event) =>
@@ -854,7 +854,7 @@ function NotificationsPageContent() {
                             }))
                           }
                           placeholder="Write your response..."
-                          className="min-h-24 w-full rounded-md border border-white/15 bg-white/[0.04] px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-amber-300/60 focus:outline-none"
+                          className="min-h-24 w-full rounded-md border border-[#D4E8FC] bg-[#F4F9FF] px-3 py-2 text-sm text-slate-900 placeholder:text-slate-500 focus:border-[#1B66B3]/55 focus:outline-none"
                         />
                         <div className="flex justify-end">
                           <Button
@@ -879,13 +879,13 @@ function NotificationsPageContent() {
         </TabsContent>
 
         <TabsContent value="job-applications">
-          <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+          <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-xl text-white">Job Application Notifications</CardTitle>
+              <CardTitle className="text-xl text-slate-900">Job Application Notifications</CardTitle>
               <Button
                 type="button"
                 variant="outline"
-                className="border-white/20 bg-white/5 text-slate-100 hover:bg-white/10"
+                className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
                 onClick={markAllApplicationsAsRead}
                 disabled={!applicationUnreadCount || markingAllApplicationsRead}
               >
@@ -894,25 +894,25 @@ function NotificationsPageContent() {
             </CardHeader>
             <CardContent className="space-y-3">
               {isLoadingApplications ? (
-                <p className="text-sm text-slate-400">Loading application notifications...</p>
+                <p className="text-sm text-slate-500">Loading application notifications...</p>
               ) : null}
 
               {!isLoadingApplications && !jobApplications.length ? (
-                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-slate-400">
+                <div className="rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-4 text-sm text-slate-500">
                   No job applications yet.
                 </div>
               ) : null}
 
               {jobApplications.map((item) => (
-                <article key={item.id} className="space-y-3 rounded-lg border border-white/10 bg-white/5 p-4">
+                <article key={item.id} className="space-y-3 rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] p-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="space-y-1">
-                      <p className="text-sm font-medium text-slate-100">{item.fullName}</p>
-                      <p className="inline-flex items-center gap-1 text-xs text-slate-400">
-                        <BriefcaseBusiness className="h-3.5 w-3.5 text-amber-200" />
+                      <p className="text-sm font-medium text-slate-900">{item.fullName}</p>
+                      <p className="inline-flex items-center gap-1 text-xs text-slate-500">
+                        <BriefcaseBusiness className="h-3.5 w-3.5 text-amber-700" />
                         {item.jobTitle}
                       </p>
-                      <p className="text-xs text-slate-400">{item.email}</p>
+                      <p className="text-xs text-slate-500">{item.email}</p>
                       <p className="text-xs text-slate-500">
                         Received: {new Date(item.createdAt).toLocaleString()}
                       </p>
@@ -921,12 +921,12 @@ function NotificationsPageContent() {
                     <div className="flex flex-wrap items-center gap-2">
                       <StatusChip status={formatApplicationStatus(item.status)} />
                       {!item.isRead ? (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-amber-300/35 bg-amber-300/15 px-2 py-1 text-[11px] text-amber-100">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-amber-300/35 bg-amber-300/15 px-2 py-1 text-xs text-amber-700">
                           <BellRing className="h-3.5 w-3.5" />
                           New
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-300/35 bg-emerald-300/15 px-2 py-1 text-[11px] text-emerald-100">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-300/35 bg-emerald-300/15 px-2 py-1 text-xs text-emerald-700">
                           <CheckCircle2 className="h-3.5 w-3.5" />
                           Read
                         </span>
@@ -935,7 +935,7 @@ function NotificationsPageContent() {
                   </div>
 
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <Link href={`/admin/applications/${item.id}`} className="text-xs text-amber-200 hover:text-amber-100">
+                    <Link href={`/admin/applications/${item.id}`} className="text-xs text-amber-700 hover:text-amber-700">
                       View application
                     </Link>
                     {!item.isRead ? (
@@ -943,7 +943,7 @@ function NotificationsPageContent() {
                         type="button"
                         size="sm"
                         variant="outline"
-                        className="border-white/20 bg-white/5 text-slate-100 hover:bg-white/10"
+                        className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
                         disabled={markingReadApplicationId === item.id}
                         onClick={() => markApplicationRead(item.id)}
                       >
@@ -963,8 +963,10 @@ function NotificationsPageContent() {
 
 export default function NotificationsPage() {
   return (
-    <Suspense fallback={<div className="h-10 w-56 rounded-md bg-white/5" />}>
+    <Suspense fallback={<div className="h-10 w-56 rounded-md bg-[#F8FBFF]" />}>
       <NotificationsPageContent />
     </Suspense>
   );
 }
+
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -306,7 +306,7 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
     <header
       className={cn(
         "sticky top-0 z-30 border-b backdrop-blur-xl",
-        ENABLE_ADMIN_UI_REFRESH ? "border-white/[0.12] bg-[#071423]/[0.88]" : "border-white/10 bg-[#071423]/80",
+        ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC] bg-[#F8FBFF]/[0.88]" : "border-[#D4E8FC] bg-[#F8FBFF]/80",
       )}
     >
       <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
@@ -315,8 +315,8 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
           variant="ghost"
           size="icon"
           className={cn(
-            "text-slate-200 hover:bg-white/10 hover:text-white lg:hidden",
-            ENABLE_ADMIN_UI_REFRESH && "hover:bg-white/[0.08]",
+            "text-slate-700 hover:bg-[#EDF5FF] hover:text-slate-900 lg:hidden",
+            ENABLE_ADMIN_UI_REFRESH && "hover:bg-[#EAF4FF]",
           )}
           onClick={onOpenMobileSidebar}
         >
@@ -329,8 +329,8 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
           variant="ghost"
           size="icon"
           className={cn(
-            "hidden text-slate-200 hover:bg-white/10 hover:text-white lg:inline-flex",
-            ENABLE_ADMIN_UI_REFRESH && "hover:bg-white/[0.08]",
+            "hidden text-slate-700 hover:bg-[#EDF5FF] hover:text-slate-900 lg:inline-flex",
+            ENABLE_ADMIN_UI_REFRESH && "hover:bg-[#EAF4FF]",
           )}
           onClick={onToggleCollapse}
         >
@@ -341,7 +341,7 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
         <div className="min-w-0">
           <p
             className={cn(
-              "text-[11px] tracking-[0.08em] text-amber-200/90",
+              "text-xs tracking-[0.08em] text-[#1B66B3]",
               ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
             )}
           >
@@ -349,21 +349,21 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
           </p>
           <h1
             className={cn(
-              "truncate text-base text-white sm:text-[1.08rem]",
+              "truncate text-base text-slate-900 sm:text-lg",
               ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
             )}
           >
             {title}
           </h1>
-          <nav className="hidden items-center gap-1 text-[12px] text-slate-400 md:flex">
+          <nav className="hidden items-center gap-1 text-xs text-slate-500 md:flex">
             {breadcrumbs.map((crumb, index) => (
               <div key={crumb.href} className="flex items-center gap-1">
                 {index > 0 ? <ChevronRight className="h-3 w-3" /> : null}
                 <Link
                   href={crumb.href}
                   className={cn(
-                    "hover:text-slate-100",
-                    index === breadcrumbs.length - 1 ? "text-slate-200" : "text-slate-400",
+                    "hover:text-slate-900",
+                    index === breadcrumbs.length - 1 ? "text-slate-700" : "text-slate-500",
                   )}
                 >
                   {crumb.label}
@@ -375,12 +375,12 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
 
         <div className="ml-auto hidden w-full max-w-sm items-center lg:flex">
           <div className="relative w-full">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
             <Input
               placeholder="Search jobs, candidates, applications..."
               className={cn(
-                "h-10 border-white/15 bg-white/5 pl-9 text-[0.95rem] text-slate-100 placeholder:text-slate-400 focus-visible:ring-amber-300/60",
-                ENABLE_ADMIN_UI_REFRESH && "bg-white/[0.06]",
+                "h-10 border-[#D4E8FC] bg-[#F8FBFF] pl-9 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-[#1B66B3]/40",
+                ENABLE_ADMIN_UI_REFRESH && "bg-[#F1F7FF]",
               )}
             />
           </div>
@@ -393,23 +393,23 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
               variant="ghost"
               size="icon"
               className={cn(
-                "relative text-slate-200 hover:bg-white/10 hover:text-white",
-                ENABLE_ADMIN_UI_REFRESH && "hover:bg-white/[0.08]",
+                "relative text-slate-700 hover:bg-[#EDF5FF] hover:text-slate-900",
+                ENABLE_ADMIN_UI_REFRESH && "hover:bg-[#EAF4FF]",
               )}
               aria-label="Notifications"
             >
-              <Bell className={cn("h-5 w-5", unreadNotifications > 0 && isBellBlinking && "animate-pulse text-amber-200")} />
+              <Bell className={cn("h-5 w-5", unreadNotifications > 0 && isBellBlinking && "animate-pulse text-[#1B66B3]")} />
               {unreadNotifications > 0 ? (
                 <span
                   className={cn(
-                    "absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-amber-300 px-1 text-[10px] font-semibold text-slate-900",
+                    "absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-[#1B66B3] px-1 text-xs font-semibold text-white",
                     isBellBlinking && "animate-pulse",
                   )}
                 >
                   {unreadNotifications > 99 ? "99+" : unreadNotifications}
                 </span>
               ) : (
-                <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-amber-300" />
+                <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#1B66B3]" />
               )}
               <span className="sr-only">Notifications</span>
             </Button>
@@ -418,25 +418,25 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
           <DropdownMenuContent
             align="end"
             className={cn(
-              "w-[360px] border text-slate-100",
+              "w-[360px] border text-slate-900",
               ENABLE_ADMIN_UI_REFRESH
-                ? "border-white/[0.12] bg-[#0d1c31]/[0.96]"
-                : "border-white/10 bg-[#0f1e32]",
+                ? "border-[#D4E8FC] bg-[#F8FBFF]/[0.96]"
+                : "border-[#D4E8FC] bg-[#F8FBFF]",
             )}
           >
             <div className="flex items-center justify-between px-2 pb-1 pt-1.5">
               <DropdownMenuLabel className="p-0">Notifications</DropdownMenuLabel>
-              <span className="text-[11px] text-slate-300">{unreadNotifications} unread</span>
+              <span className="text-xs text-slate-600">{unreadNotifications} unread</span>
             </div>
 
-            <DropdownMenuSeparator className="bg-white/10" />
+            <DropdownMenuSeparator className="bg-[#D4E8FC]" />
 
             <div className="flex gap-2 px-2 py-2">
               <Button
                 type="button"
                 size="sm"
                 variant="outline"
-                className="h-8 border-white/20 bg-white/5 px-2 text-xs text-slate-100 hover:bg-white/10"
+                className="h-8 border-[#C3DDF9] bg-[#F8FBFF] px-2 text-xs text-slate-900 hover:bg-[#EDF5FF]"
                 disabled={isMarkingAllRead || !visibleNotifications.length}
                 onClick={() => {
                   void handleMarkAllRead();
@@ -448,7 +448,7 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
                 type="button"
                 size="sm"
                 variant="outline"
-                className="h-8 border-white/20 bg-white/5 px-2 text-xs text-slate-100 hover:bg-white/10"
+                className="h-8 border-[#C3DDF9] bg-[#F8FBFF] px-2 text-xs text-slate-900 hover:bg-[#EDF5FF]"
                 disabled={isCleaningNotifications || !visibleNotifications.length}
                 onClick={handleCleanNotifications}
               >
@@ -456,35 +456,35 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
               </Button>
             </div>
 
-            <DropdownMenuSeparator className="bg-white/10" />
+            <DropdownMenuSeparator className="bg-[#D4E8FC]" />
 
             <div className="max-h-80 overflow-y-auto">
               {isLoadingNotifications ? (
-                <p className="px-3 py-3 text-sm text-slate-400">Loading notifications...</p>
+                <p className="px-3 py-3 text-sm text-slate-500">Loading notifications...</p>
               ) : !visibleNotifications.length ? (
-                <p className="px-3 py-3 text-sm text-slate-400">No notifications available.</p>
+                <p className="px-3 py-3 text-sm text-slate-500">No notifications available.</p>
               ) : (
                 visibleNotifications.map((item) => (
                   <DropdownMenuItem
                     key={item.id}
                     asChild
                     className={cn(
-                      "cursor-pointer items-start py-2 focus:bg-white/10",
-                      !item.isRead && "bg-amber-200/10",
+                      "cursor-pointer items-start py-2 focus:bg-[#EDF5FF]",
+                      !item.isRead && "bg-[#EAF4FF]",
                     )}
                   >
                     <Link href={item.href} className="w-full">
-                      <p className="text-sm font-medium text-slate-100">{item.title}</p>
-                      <p className="mt-0.5 text-xs text-slate-400">{item.description}</p>
-                      <p className="mt-1 text-[11px] text-slate-500">{formatNotificationTime(item.createdAt)}</p>
+                      <p className="text-sm font-medium text-slate-900">{item.title}</p>
+                      <p className="mt-0.5 text-xs text-slate-500">{item.description}</p>
+                      <p className="mt-1 text-xs text-slate-500">{formatNotificationTime(item.createdAt)}</p>
                     </Link>
                   </DropdownMenuItem>
                 ))
               )}
             </div>
 
-            <DropdownMenuSeparator className="bg-white/10" />
-            <DropdownMenuItem asChild className="cursor-pointer focus:bg-white/10">
+            <DropdownMenuSeparator className="bg-[#D4E8FC]" />
+            <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
               <Link href="/admin/notifications?tab=contact-leads">Open notification center</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -496,14 +496,14 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
               type="button"
               variant="ghost"
               className={cn(
-                "h-10 gap-2 rounded-full border border-white/15 bg-white/5 px-3 text-slate-100 hover:bg-white/10",
-                ENABLE_ADMIN_UI_REFRESH && "bg-white/[0.06] hover:bg-white/[0.12]",
+                "h-10 gap-2 rounded-full border border-[#D4E8FC] bg-[#F8FBFF] px-3 text-slate-900 hover:bg-[#EDF5FF]",
+                ENABLE_ADMIN_UI_REFRESH && "bg-[#F1F7FF] hover:bg-[#EAF4FF]",
               )}
             >
-              <UserCircle2 className="h-5 w-5 text-amber-200" />
+              <UserCircle2 className="h-5 w-5 text-[#1B66B3]" />
               <span
                 className={cn(
-                  "hidden text-[0.82rem] sm:inline-flex",
+                  "hidden text-sm sm:inline-flex",
                   ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
                 )}
               >
@@ -514,22 +514,22 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
           <DropdownMenuContent
             align="end"
             className={cn(
-              "w-48 border text-slate-100",
+              "w-48 border text-slate-900",
               ENABLE_ADMIN_UI_REFRESH
-                ? "border-white/[0.12] bg-[#0d1c31]/[0.96]"
-                : "border-white/10 bg-[#0f1e32]",
+                ? "border-[#D4E8FC] bg-[#F8FBFF]/[0.96]"
+                : "border-[#D4E8FC] bg-[#F8FBFF]",
             )}
           >
             <DropdownMenuLabel>Admin User</DropdownMenuLabel>
-            <DropdownMenuSeparator className="bg-white/10" />
-            <DropdownMenuItem asChild className="cursor-pointer focus:bg-white/10">
+            <DropdownMenuSeparator className="bg-[#D4E8FC]" />
+            <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
               <Link href="/admin/settings?tab=company">Account</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild className="cursor-pointer focus:bg-white/10">
+            <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
               <Link href="/admin/settings/security">Preferences</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="cursor-pointer focus:bg-white/10"
+              className="cursor-pointer focus:bg-[#EDF5FF]"
               disabled={isSigningOut}
               onSelect={(event) => {
                 event.preventDefault();
@@ -542,14 +542,14 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
         </DropdownMenu>
       </div>
 
-      <div className="border-t border-white/10 px-4 pb-3 pt-2 lg:hidden">
+      <div className="border-t border-[#D4E8FC] px-4 pb-3 pt-2 lg:hidden">
         <div className="relative">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
           <Input
             placeholder="Search..."
             className={cn(
-              "h-10 border-white/15 bg-white/5 pl-9 text-[0.95rem] text-slate-100 placeholder:text-slate-400 focus-visible:ring-amber-300/60",
-              ENABLE_ADMIN_UI_REFRESH && "bg-white/[0.06]",
+              "h-10 border-[#D4E8FC] bg-[#F8FBFF] pl-9 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-[#1B66B3]/40",
+              ENABLE_ADMIN_UI_REFRESH && "bg-[#F1F7FF]",
             )}
           />
         </div>
@@ -557,4 +557,5 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
     </header>
   );
 }
+
 

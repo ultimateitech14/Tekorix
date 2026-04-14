@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+﻿/* eslint-disable @next/next/no-img-element */
 
 "use client";
 
@@ -127,10 +127,10 @@ export function TalentProfilesSettings() {
   }
 
   return (
-    <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+    <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
       <CardHeader className="space-y-2">
-        <CardTitle className="text-xl text-white">Talent Profiles Section Controls</CardTitle>
-        <p className="text-sm text-slate-400">
+        <CardTitle className="text-xl text-slate-900">Talent Profiles Section Controls</CardTitle>
+        <p className="text-sm text-slate-500">
           Update the cards shown before footer on the website home page. Click save to apply.
         </p>
       </CardHeader>
@@ -140,15 +140,15 @@ export function TalentProfilesSettings() {
             {profiles.map((profile, index) => (
               <div
                 key={profile.id}
-                className="space-y-4 rounded-xl border border-white/10 bg-white/[0.04] p-4 md:p-5"
+                className="space-y-4 rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4 md:p-5"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-medium text-amber-200">Profile {index + 1}</p>
+                  <p className="text-sm font-medium text-amber-700">Profile {index + 1}</p>
                   <Button
                     type="button"
                     variant="outline"
                     size="sm"
-                    className="border-white/20 bg-white/[0.03] text-slate-100 hover:bg-white/[0.08]"
+                    className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-white/[0.08]"
                     onClick={() => removeProfile(profile.id)}
                     disabled={profiles.length <= 1}
                   >
@@ -159,23 +159,23 @@ export function TalentProfilesSettings() {
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label className="text-xs text-slate-400">Name</Label>
+                    <Label className="text-xs text-slate-500">Name</Label>
                     <Input
                       value={profile.name}
                       onChange={(event) => updateProfile(profile.id, { name: event.target.value })}
-                      className="border-white/15 bg-white/[0.04] text-slate-100"
+                      className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-slate-400">Role</Label>
+                    <Label className="text-xs text-slate-500">Role</Label>
                     <Input
                       value={profile.role}
                       onChange={(event) => updateProfile(profile.id, { role: event.target.value })}
-                      className="border-white/15 bg-white/[0.04] text-slate-100"
+                      className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-slate-400">Years Of Experience</Label>
+                    <Label className="text-xs text-slate-500">Years Of Experience</Label>
                     <Input
                       type="number"
                       min={1}
@@ -187,11 +187,11 @@ export function TalentProfilesSettings() {
                           yearsOfExperience: nextValue === "" ? 0 : Number(nextValue),
                         });
                       }}
-                      className="border-white/15 bg-white/[0.04] text-slate-100"
+                      className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-slate-400">Rating (1-5)</Label>
+                    <Label className="text-xs text-slate-500">Rating (1-5)</Label>
                     <Input
                       type="number"
                       min={1}
@@ -203,52 +203,52 @@ export function TalentProfilesSettings() {
                           rating: nextValue === "" ? 0 : Number(nextValue),
                         });
                       }}
-                      className="border-white/15 bg-white/[0.04] text-slate-100"
+                      className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-xs text-slate-400">Avatar Path / URL</Label>
+                  <Label className="text-xs text-slate-500">Avatar Path / URL</Label>
                   <Input
                     value={profile.avatar}
                     onChange={(event) => updateProfile(profile.id, { avatar: event.target.value })}
                     placeholder={DEFAULT_PROFILE_IMAGE}
-                    className="border-white/15 bg-white/[0.04] text-slate-100"
+                    className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                   />
-                  <div className="flex items-center gap-3 rounded-md border border-white/10 bg-white/[0.02] p-2">
+                  <div className="flex items-center gap-3 rounded-md border border-[#D4E8FC] bg-white/[0.02] p-2">
                     {profile.avatar.trim() ? (
                       <img
                         src={profile.avatar}
                         alt={profile.name ? `${profile.name} avatar preview` : `Profile ${index + 1} avatar preview`}
-                        className="h-12 w-12 rounded-full border border-white/15 object-cover"
+                        className="h-12 w-12 rounded-full border border-[#D4E8FC] object-cover"
                         onError={(event) => {
                           event.currentTarget.src = DEFAULT_PROFILE_IMAGE;
                         }}
                       />
                     ) : (
-                      <div className="h-12 w-12 rounded-full border border-white/15 bg-white/5" />
+                      <div className="h-12 w-12 rounded-full border border-[#D4E8FC] bg-[#F8FBFF]" />
                     )}
-                    <p className="text-xs text-slate-400">Avatar preview</p>
+                    <p className="text-xs text-slate-500">Avatar preview</p>
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-slate-400">Choose Image</Label>
+                    <Label className="text-xs text-slate-500">Choose Image</Label>
                     <Input
                       type="file"
                       accept="image/*"
-                      className="border-white/15 bg-white/[0.04] text-slate-100 file:mr-3 file:rounded-md file:border-0 file:bg-amber-300/15 file:px-3 file:py-1 file:text-xs file:text-amber-100"
+                      className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900 file:mr-3 file:rounded-md file:border-0 file:bg-amber-300/15 file:px-3 file:py-1 file:text-xs file:text-amber-700"
                       onChange={(event) => {
                         void handleAvatarUpload(profile.id, event.target.files);
                         event.currentTarget.value = "";
                       }}
                     />
-                    <p className="text-xs text-slate-400">Allowed image size: minimum 50KB and maximum 800KB.</p>
+                    <p className="text-xs text-slate-500">Allowed image size: minimum 50KB and maximum 800KB.</p>
                     {isUploadedImage(profile.avatar) ? (
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="border-white/20 bg-white/[0.03] text-slate-100 hover:bg-white/[0.08]"
+                        className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-white/[0.08]"
                         onClick={() => removeUploadedAvatar(profile.id)}
                       >
                         Remove Uploaded Image
@@ -258,38 +258,38 @@ export function TalentProfilesSettings() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-xs text-slate-400">Summary</Label>
+                  <Label className="text-xs text-slate-500">Summary</Label>
                   <Textarea
                     value={profile.summary}
                     onChange={(event) => updateProfile(profile.id, { summary: event.target.value })}
-                    className="min-h-20 border-white/15 bg-white/[0.04] text-slate-100"
+                    className="min-h-20 border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-xs text-slate-400">Detailed Summary</Label>
+                  <Label className="text-xs text-slate-500">Detailed Summary</Label>
                   <Textarea
                     value={profile.detailedSummary}
                     onChange={(event) => updateProfile(profile.id, { detailedSummary: event.target.value })}
-                    className="min-h-24 border-white/15 bg-white/[0.04] text-slate-100"
+                    className="min-h-24 border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-xs text-slate-400">Expertise (comma separated)</Label>
+                  <Label className="text-xs text-slate-500">Expertise (comma separated)</Label>
                   <Input
                     value={skillsToText(profile.expertise)}
                     onChange={(event) => updateProfile(profile.id, { expertise: parseSkills(event.target.value) })}
-                    className="border-white/15 bg-white/[0.04] text-slate-100"
+                    className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-xs text-slate-400">Button Label</Label>
+                  <Label className="text-xs text-slate-500">Button Label</Label>
                   <Input
                     value={profile.resumeCtaLabel}
                     onChange={(event) => updateProfile(profile.id, { resumeCtaLabel: event.target.value })}
-                    className="border-white/15 bg-white/[0.04] text-slate-100"
+                    className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                   />
                 </div>
               </div>
@@ -299,7 +299,7 @@ export function TalentProfilesSettings() {
               <Button
                 type="button"
                 variant="outline"
-                className="border-white/20 bg-white/[0.03] text-slate-100 hover:bg-white/[0.08]"
+                className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-white/[0.08]"
                 onClick={addProfile}
                 disabled={profiles.length >= MAX_TALENT_PROFILES}
               >
@@ -310,7 +310,7 @@ export function TalentProfilesSettings() {
                 type="button"
                 variant="outline"
                 className={cn(
-                  "border-white/20 bg-white/[0.03] text-slate-100 hover:bg-white/[0.08]",
+                  "border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-white/[0.08]",
                   !hasChanges && "opacity-70",
                 )}
                 onClick={resetDefaults}
@@ -323,9 +323,11 @@ export function TalentProfilesSettings() {
             </div>
           </>
         ) : (
-          <p className="text-sm text-slate-400">Loading profile controls...</p>
+          <p className="text-sm text-slate-500">Loading profile controls...</p>
         )}
       </CardContent>
     </Card>
   );
 }
+
+

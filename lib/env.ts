@@ -1,5 +1,5 @@
 const DEFAULT_SITE_URL = "http://localhost:3000";
-const DEFAULT_API_BASE_URL = "http://127.0.0.1:8787";
+const DEFAULT_API_BASE_URL = "http://127.0.0.1:4001";
 
 type AppEnv = {
   NODE_ENV: "development" | "test" | "production";

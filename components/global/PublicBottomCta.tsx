@@ -23,9 +23,9 @@ export function PublicBottomCta({
   eyebrow = "Next step",
 }: PublicBottomCtaProps) {
   return (
-    <section className="bg-[#CFE3FF] pb-10 pt-4 sm:pb-12 sm:pt-8">
+    <section className="bg-[#E6F1FF] pb-10 pt-4 sm:pb-12 sm:pt-8">
       <div className="site-container">
-        <div className="relative overflow-hidden rounded-[2rem] border border-[#7FB5EA] bg-[#DCEEFF] px-6 py-10 text-center shadow-sm sm:px-10 sm:py-12">
+        <div className="relative overflow-hidden rounded-[2rem] border border-[#BED9F3] bg-[#F8FBFF] px-6 py-10 text-center shadow-sm sm:px-10 sm:py-12">
           <div className="pointer-events-none absolute -left-8 top-0 h-44 w-44 rounded-full bg-sky-100/80 blur-3xl" />
           <div className="pointer-events-none absolute bottom-0 right-0 h-48 w-48 rounded-full bg-blue-100/70 blur-3xl" />
           <p className="relative text-sm font-semibold uppercase tracking-[0.24em] text-[#1B66B3]">

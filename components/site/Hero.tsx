@@ -31,7 +31,7 @@ export function Hero({
   children,
 }: HeroProps) {
   return (
-    <section className={cn("relative overflow-hidden border-b border-[#7FB5EA] public-hero-space", className)}>
+    <section className={cn("relative overflow-hidden border-b border-[#BED9F3] public-hero-space", className)}>
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(220,238,255,0.98)_0%,rgba(207,227,255,0.98)_100%)]" />
       <div className="pointer-events-none absolute -left-32 -top-20 h-72 w-72 rounded-full bg-sky-200/60 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-blue-200/50 blur-3xl" />
@@ -62,7 +62,7 @@ export function Hero({
                   asChild
                   size="lg"
                   variant={secondaryCta.variant ?? "outline"}
-                  className="border-[#7FB5EA] bg-[#DCEEFF] text-[#1B66B3] hover:bg-[#CFE3FF]"
+                  className="border-[#BED9F3] bg-[#F8FBFF] text-[#1B66B3] hover:bg-[#E6F1FF]"
                 >
                   <Link href={secondaryCta.href}>{secondaryCta.label}</Link>
                 </Button>

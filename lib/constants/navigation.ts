@@ -41,7 +41,7 @@ export const navigationItems: NavigationItem[] = [
     children: [
       {
         label: "HR Consulting",
-        href: "/services#consulting-services",
+        href: "/services/consulting-services",
         description: "People strategy, hiring support, and workforce consulting for growth teams.",
         icon: Users2,
       },

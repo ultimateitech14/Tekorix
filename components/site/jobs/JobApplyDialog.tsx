@@ -259,7 +259,7 @@ export function JobApplyDialog({ job, open, onOpenChange }: JobApplyDialogProps)
         <div className="h-1.5" style={{ backgroundColor: colors.primary }} />
         <div className="space-y-6 px-6 pb-6 pt-6 sm:px-8 sm:pb-8 sm:pt-7">
           <DialogHeader className="space-y-2 text-left">
-            <DialogTitle className="font-display text-[1.85rem] leading-tight tracking-tight text-slate-950 sm:text-[2.15rem]">
+            <DialogTitle className="font-display text-3xl leading-tight tracking-tight text-slate-950 sm:text-4xl">
               Apply for {job?.title ?? "this role"}
             </DialogTitle>
             {job ? (

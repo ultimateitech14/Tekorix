@@ -110,7 +110,7 @@ export default function AcademyPage() {
         panelNoteDescription="This page should feel useful now while remaining easy to deepen later with actual program detail."
       />
 
-      <section className="bg-[#CFE3FF] public-section">
+      <section className="bg-[#E6F1FF] public-section">
         <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Programs and tracks"
@@ -123,7 +123,7 @@ export default function AcademyPage() {
               <div
                 key={item.title}
                 id={item.id}
-                className="scroll-mt-28 rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                className="scroll-mt-28 rounded-[1.5rem] border bg-[#F8FBFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <span
@@ -132,10 +132,10 @@ export default function AcademyPage() {
                 >
                   <item.icon className="h-5 w-5" />
                 </span>
-                <h2 className="mt-5 font-display text-2xl font-semibold tracking-tight text-slate-950">
+                <h2 className="type-h3 mt-5 text-slate-950">
                   {item.title}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                <p className="type-body mt-3 text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>
@@ -156,25 +156,25 @@ export default function AcademyPage() {
               <div
                 key={item.title}
                 id={item.id}
-                className="scroll-mt-28 rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                className="scroll-mt-28 rounded-[1.5rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <p
-                  className="text-sm font-semibold uppercase tracking-[0.18em]"
+                  className="type-body-sm font-semibold uppercase tracking-[0.18em]"
                   style={{ color: index === 1 ? colors.accent : colors.primary }}
                 >
                   Format 0{index + 1}
                 </p>
-                <h2 className="mt-4 font-display text-2xl font-semibold tracking-tight text-slate-950">
+                <h2 className="type-h3 mt-4 text-slate-950">
                   {item.title}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                <p className="type-body mt-3 text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>
 
           <div
-            className="rounded-[2rem] border bg-[#DCEEFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
+            className="rounded-[2rem] border bg-[#F8FBFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
             style={{ borderColor: colors.border }}
           >
             <HomeSectionHeading
@@ -187,7 +187,7 @@ export default function AcademyPage() {
               {supportBlocks.map((item, index) => (
                 <div
                   key={item.title}
-                  className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-6"
+                  className="rounded-[1.5rem] border bg-[#F8FBFF] px-5 py-6"
                   style={{
                     borderColor: colors.border,
                     backgroundColor: index === 0 ? colors.surfaceAlt : colors.surfaceCard,
@@ -202,8 +202,8 @@ export default function AcademyPage() {
                   >
                     <item.icon className="h-5 w-5" />
                   </span>
-                  <h3 className="mt-4 font-display text-2xl font-semibold text-slate-950">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                  <h3 className="type-h3 mt-4 text-slate-950">{item.title}</h3>
+                  <p className="type-body mt-3 text-slate-600">{item.description}</p>
                 </div>
               ))}
             </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
@@ -577,25 +577,25 @@ function CandidatesPageContent() {
       header: "Candidate",
       cell: (row) => (
         <div>
-          <p className="font-medium text-slate-100">{row.name}</p>
-          <p className="text-xs text-slate-400">{row.id}</p>
+          <p className="font-medium text-slate-900">{row.name}</p>
+          <p className="text-xs text-slate-500">{row.id}</p>
         </div>
       ),
     },
     {
       id: "role",
       header: "Role",
-      cell: (row) => <span className="text-slate-300">{row.role}</span>,
+      cell: (row) => <span className="text-slate-600">{row.role}</span>,
     },
     {
       id: "location",
       header: "Location",
-      cell: (row) => <span className="text-slate-300">{row.location}</span>,
+      cell: (row) => <span className="text-slate-600">{row.location}</span>,
     },
     {
       id: "experience",
       header: "Experience",
-      cell: (row) => <span className="text-slate-300">{row.experience}</span>,
+      cell: (row) => <span className="text-slate-600">{row.experience}</span>,
     },
     {
       id: "status",
@@ -688,10 +688,10 @@ function CandidatesPageContent() {
         </TabsContent>
 
         <TabsContent value="resumes" className="space-y-3">
-          {isLoadingResumeBank ? <p className="text-sm text-slate-400">Loading resume bank...</p> : null}
+          {isLoadingResumeBank ? <p className="text-sm text-slate-500">Loading resume bank...</p> : null}
 
           {!isLoadingResumeBank && !resumeBank.length ? (
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               No resumes in the bank yet. Download a resume from an application to add it here.
             </p>
           ) : null}
@@ -719,9 +719,9 @@ function CandidatesPageContent() {
 
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {resumeBank.map((resume) => (
-              <Card key={resume.applicationId} className="border-white/10 bg-white/5 backdrop-blur-xl">
+              <Card key={resume.applicationId} className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
                 <CardContent className="space-y-2 p-4">
-                  <label className="inline-flex items-center gap-2 text-xs text-slate-300">
+                  <label className="inline-flex items-center gap-2 text-xs text-slate-600">
                     <input
                       type="checkbox"
                       checked={selectedResumeIds.includes(resume.applicationId)}
@@ -729,8 +729,8 @@ function CandidatesPageContent() {
                     />
                     Select
                   </label>
-                  <p className="text-sm font-semibold text-slate-100">{resume.fullName}</p>
-                  <p className="text-xs text-slate-400">{resume.jobTitle}</p>
+                  <p className="text-sm font-semibold text-slate-900">{resume.fullName}</p>
+                  <p className="text-xs text-slate-500">{resume.jobTitle}</p>
                   <p className="text-xs text-slate-500">Updated {formatDate(resume.updatedAt)}</p>
                   <div className="flex flex-wrap gap-2">
                     <Button asChild size="sm" variant="outline" className="mt-1">
@@ -767,10 +767,10 @@ function CandidatesPageContent() {
           }
         }}
       >
-        <DialogContent className="max-w-3xl border-white/10 bg-[#0d1c31] text-slate-100">
+        <DialogContent className="max-w-3xl border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
           <DialogHeader>
-            <DialogTitle className="text-white">Send Message</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogTitle className="text-slate-900">Send Message</DialogTitle>
+            <DialogDescription className="text-slate-500">
               Send email to {messageCandidate?.name ?? "candidate"} using an active email template.
             </DialogDescription>
           </DialogHeader>
@@ -778,15 +778,15 @@ function CandidatesPageContent() {
           <div className="space-y-3">
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label className="text-xs text-slate-400">To Email</Label>
-                <Input value={messageCandidate?.email ?? ""} readOnly className="border-white/15 bg-white/5 text-slate-100" />
+                <Label className="text-xs text-slate-500">To Email</Label>
+                <Input value={messageCandidate?.email ?? ""} readOnly className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900" />
               </div>
               <div className="space-y-2">
-                <Label className="text-xs text-slate-400">Template</Label>
+                <Label className="text-xs text-slate-500">Template</Label>
                 <select
                   value={selectedTemplateId}
                   onChange={(event) => applyTemplate(event.target.value)}
-                  className="h-10 w-full rounded-md border border-white/15 bg-white/5 px-3 text-sm text-slate-100"
+                  className="h-10 w-full rounded-md border border-[#D4E8FC] bg-[#F8FBFF] px-3 text-sm text-slate-900"
                 >
                   <option value="" className="bg-slate-900">
                     Select Active Template
@@ -801,29 +801,29 @@ function CandidatesPageContent() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs text-slate-400">From Email</Label>
+              <Label className="text-xs text-slate-500">From Email</Label>
               <Input
                 value={messageFromEmail}
                 onChange={(event) => setMessageFromEmail(event.target.value)}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs text-slate-400">Subject</Label>
+              <Label className="text-xs text-slate-500">Subject</Label>
               <Input
                 value={messageSubject}
                 onChange={(event) => setMessageSubject(event.target.value)}
-                className="border-white/15 bg-white/5 text-slate-100"
+                className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs text-slate-400">Body</Label>
+              <Label className="text-xs text-slate-500">Body</Label>
               <Textarea
                 value={messageBody}
                 onChange={(event) => setMessageBody(event.target.value)}
-                className="min-h-48 border-white/15 bg-white/5 text-slate-100"
+                className="min-h-48 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
 
@@ -845,8 +845,9 @@ function CandidatesPageContent() {
 
 export default function CandidatesPage() {
   return (
-    <Suspense fallback={<p className="text-sm text-slate-400">Loading candidates...</p>}>
+    <Suspense fallback={<p className="text-sm text-slate-500">Loading candidates...</p>}>
       <CandidatesPageContent />
     </Suspense>
   );
 }
+

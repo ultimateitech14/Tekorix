@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -242,22 +242,22 @@ export default function AdminJobsPage() {
     {
       id: "title",
       header: "Title",
-      cell: (row) => <p className="font-medium text-slate-100">{row.title}</p>,
+      cell: (row) => <p className="font-medium text-slate-900">{row.title}</p>,
     },
     {
       id: "department",
       header: "Department",
-      cell: (row) => <span className="text-slate-300">{row.department}</span>,
+      cell: (row) => <span className="text-slate-600">{row.department}</span>,
     },
     {
       id: "location",
       header: "Location",
-      cell: (row) => <span className="text-slate-300">{row.location}</span>,
+      cell: (row) => <span className="text-slate-600">{row.location}</span>,
     },
     {
       id: "type",
       header: "Type",
-      cell: (row) => <span className="text-slate-300">{row.type}</span>,
+      cell: (row) => <span className="text-slate-600">{row.type}</span>,
     },
     {
       id: "status",
@@ -267,7 +267,7 @@ export default function AdminJobsPage() {
     {
       id: "updated",
       header: "Updated",
-      cell: (row) => <span className="text-slate-300">{row.updated}</span>,
+      cell: (row) => <span className="text-slate-600">{row.updated}</span>,
     },
     {
       id: "actions",
@@ -284,20 +284,20 @@ export default function AdminJobsPage() {
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size="icon" variant="ghost" className="text-slate-100 hover:bg-white/10">
+              <Button size="icon" variant="ghost" className="text-slate-900 hover:bg-[#EDF5FF]">
                 <MoreHorizontal className="h-4 w-4" />
                 <span className="sr-only">Open actions</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="border-white/10 bg-[#0f1e32] text-slate-100">
-              <DropdownMenuItem asChild className="cursor-pointer focus:bg-white/10">
+            <DropdownMenuContent align="end" className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
+              <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
                 <Link href={`/admin/jobs/${row.id}/edit`}>View</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild className="cursor-pointer focus:bg-white/10">
+              <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
                 <Link href={`/admin/jobs/${row.id}/edit`}>Edit</Link>
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="cursor-pointer focus:bg-white/10"
+                className="cursor-pointer focus:bg-[#EDF5FF]"
                 onClick={() => handleTogglePublish(source)}
                 disabled={actionJobId === row.id}
               >
@@ -305,7 +305,7 @@ export default function AdminJobsPage() {
               </DropdownMenuItem>
               <DropdownMenuSeparator className="bg-white/10" />
               <DropdownMenuItem
-                className="cursor-pointer text-rose-200 focus:bg-rose-400/15 focus:text-rose-100"
+                className="cursor-pointer text-rose-200 focus:bg-rose-400/15 focus:text-rose-700"
                 onClick={() => setDeleteTarget(source)}
                 disabled={actionJobId === row.id}
               >
@@ -396,7 +396,7 @@ export default function AdminJobsPage() {
         emptyMessage={isLoading ? "Loading jobs..." : "No jobs match your filters."}
         footer={
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               Showing {startResult}-{endResult} of {filteredJobs.length}
             </p>
             <div className="flex items-center gap-1">
@@ -435,12 +435,12 @@ export default function AdminJobsPage() {
       />
 
       <Dialog open={Boolean(deleteTarget)} onOpenChange={(open) => !open && setDeleteTarget(null)}>
-        <DialogContent className="border-white/10 bg-[#0f1e32] text-slate-100">
+        <DialogContent className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
           <DialogHeader>
             <DialogTitle>Delete Job</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogDescription className="text-slate-500">
               This action removes{" "}
-              <span className="font-medium text-slate-200">{deleteTarget?.title}</span> from the list.
+              <span className="font-medium text-slate-700">{deleteTarget?.title}</span> from the list.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -460,3 +460,5 @@ export default function AdminJobsPage() {
     </div>
   );
 }
+
+

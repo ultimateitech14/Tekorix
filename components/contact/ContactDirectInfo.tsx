@@ -29,7 +29,7 @@ export function ContactDirectInfo() {
   const { colors } = themeTokens;
 
   return (
-    <section className="bg-[#CFE3FF] public-section">
+    <section className="bg-[#E6F1FF] public-section">
       <div className="site-container grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
         <div className="public-stack">
           <HomeSectionHeading
@@ -42,8 +42,7 @@ export function ContactDirectInfo() {
             {contactCards.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-5 shadow-[0_18px_44px_-40px_rgba(15,23,42,0.28)]"
-                style={{ borderColor: colors.border }}
+                className="rounded-[1.5rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EEF7FF_100%)] px-5 py-5 shadow-[0_24px_56px_-40px_rgba(15,23,42,0.3)]"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                   {item.label}
@@ -64,10 +63,7 @@ export function ContactDirectInfo() {
           </div>
         </div>
 
-        <div
-          className="rounded-[2rem] border bg-[#DCEEFF] p-7 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.2)] sm:p-8"
-          style={{ borderColor: colors.border }}
-        >
+        <div className="rounded-[2rem] bg-[#F8FBFF] p-7 shadow-[0_28px_68px_-44px_rgba(15,23,42,0.28)] sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.22em]" style={{ color: colors.primary }}>
             Get in touch
           </p>
@@ -91,7 +87,7 @@ export function ContactDirectInfo() {
             <Button
               asChild
               variant="outline"
-              className="border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF] hover:text-slate-950"
+              className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF] hover:text-slate-950"
             >
               <Link href="#candidate-inquiry">Apply Now</Link>
             </Button>

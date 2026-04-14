@@ -141,23 +141,23 @@ export const serviceCatalog: ServiceCatalogItem[] = [
   },
   {
     id: "consulting-services",
-    title: "Consulting Services",
+    title: "HR Consulting",
     shortDescription:
-      "Use advisory support for discovery, operating model decisions, and transformation planning around team and delivery design.",
+      "People strategy, hiring process design, and workforce consulting support for teams that need structured growth.",
     description:
-      "Consulting services help organizations define the right hiring model, operating structure, and transformation path before execution gets expensive or unclear. Tekorix uses consulting to sharpen decisions, not overcomplicate them.",
+      "Tekorix HR Consulting supports organizations with practical people and hiring decisions before scaling delivery. The focus stays on workforce planning, role clarity, hiring process improvement, and team design so growth can happen without execution confusion.",
     icon: Target,
     features: [
-      "Discovery and requirement clarification",
-      "Operating model and team-structure guidance",
-      "Transformation planning for hiring and delivery",
-      "Advisory support tied to practical execution paths",
+      "Workforce planning and headcount strategy for growth stages",
+      "Role design and competency mapping across critical functions",
+      "Hiring process improvement (screening, interview flow, offer conversion)",
+      "Compensation and talent benchmarking inputs for market-aligned hiring",
     ],
     benefits: [
-      "Clearer decisions before scaling investment",
-      "Better alignment between hiring and delivery design",
-      "Reduced ambiguity in transformation planning",
-      "Consulting that leads into actionable next steps",
+      "Clear hiring roadmap aligned to business growth goals",
+      "Faster recruitment cycles with better candidate quality",
+      "Improved role clarity across hiring managers and teams",
+      "Lower hiring friction with actionable, implementation-ready recommendations",
     ],
   },
 ];

@@ -38,7 +38,7 @@ export function FindTalentOptions() {
   const { colors } = themeTokens;
 
   return (
-    <section className="bg-[#CFE3FF] public-section">
+    <section className="bg-[#E6F1FF] public-section">
       <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="Build or reshape"
@@ -75,7 +75,7 @@ export function FindTalentOptions() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF]"
+                  className="w-full border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF]"
                 >
                   <Link href="#company-lead-form">{option.cta}</Link>
                 </Button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -58,7 +58,7 @@ const columns: DataTableColumn<ApplicationRow>[] = [
     id: "candidate",
     header: "Candidate",
     cell: (row) => (
-      <p className={cn("text-slate-100", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
+      <p className={cn("text-slate-900", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
         {row.candidate}
       </p>
     ),
@@ -66,7 +66,7 @@ const columns: DataTableColumn<ApplicationRow>[] = [
   {
     id: "job",
     header: "Job role",
-    cell: (row) => <p className="text-[0.9rem] text-slate-300">{row.job}</p>,
+    cell: (row) => <p className="text-sm text-slate-600">{row.job}</p>,
   },
   {
     id: "status",
@@ -76,7 +76,7 @@ const columns: DataTableColumn<ApplicationRow>[] = [
   {
     id: "date",
     header: "Applied on",
-    cell: (row) => <span className="text-[0.86rem] text-slate-300">{row.date}</span>,
+    cell: (row) => <span className="text-sm text-slate-600">{row.date}</span>,
   },
   {
     id: "actions",
@@ -85,14 +85,14 @@ const columns: DataTableColumn<ApplicationRow>[] = [
     className: "text-right",
     cell: (row) => (
       <div className="flex justify-end gap-2">
-        <Button asChild size="sm" variant="outline" className="h-8 text-[0.8rem] font-medium">
+        <Button asChild size="sm" variant="outline" className="h-8 text-sm font-medium">
           <Link href={`/admin/applications/${row.id}`}>View</Link>
         </Button>
-        <Button size="sm" variant="outline" className="h-8 text-[0.8rem] font-medium">
+        <Button size="sm" variant="outline" className="h-8 text-sm font-medium">
           <ClipboardCheck className="h-4 w-4" />
           Shortlist
         </Button>
-        <Button size="sm" variant="outline" className="h-8 text-[0.8rem] font-medium text-rose-100 hover:text-rose-50">
+        <Button size="sm" variant="outline" className="h-8 text-sm font-medium text-rose-700 hover:text-rose-800">
           Reject
         </Button>
         <Button size="icon" variant="ghost" aria-label="Download resume">
@@ -124,12 +124,12 @@ export default function AdminDashboardPage() {
           className={cn(
             "backdrop-blur-xl xl:col-span-3",
             ENABLE_ADMIN_UI_REFRESH
-              ? "border-white/[0.12] bg-[linear-gradient(150deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025))]"
-              : "border-white/10 bg-white/5",
+              ? "border-[#D4E8FC] bg-[linear-gradient(150deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025))]"
+              : "border-[#D4E8FC] bg-[#F8FBFF]",
           )}
         >
           <CardHeader className="pb-2">
-            <CardTitle className={cn("text-[1.2rem] text-white", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
+            <CardTitle className={cn("text-xl text-slate-900", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
               Applications per day
             </CardTitle>
           </CardHeader>
@@ -142,24 +142,24 @@ export default function AdminDashboardPage() {
                   <Tooltip
                     contentStyle={{
                       borderRadius: "10px",
-                      border: "1px solid rgba(255,255,255,0.15)",
-                      background: "#0f1e32",
-                      color: "#e2e8f0",
+                      border: "1px solid #cbdff6",
+                      background: "#f8fbff",
+                      color: "#0f172a",
                       fontSize: "12px",
                     }}
                   />
                   <Line
                     type="monotone"
                     dataKey="count"
-                    stroke="#f4c84c"
+                    stroke="#1B66B3"
                     strokeWidth={2.5}
-                    dot={{ fill: "#f4c84c", r: 4 }}
+                    dot={{ fill: "#1B66B3", r: 4 }}
                     activeDot={{ r: 6 }}
                   />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full w-full rounded-lg border border-white/10 bg-white/[0.03]" />
+              <div className="h-full w-full rounded-lg border border-[#D4E8FC] bg-[#F8FBFF]" />
             )}
           </CardContent>
         </Card>
@@ -168,12 +168,12 @@ export default function AdminDashboardPage() {
           className={cn(
             "backdrop-blur-xl xl:col-span-2",
             ENABLE_ADMIN_UI_REFRESH
-              ? "border-white/[0.12] bg-[linear-gradient(150deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025))]"
-              : "border-white/10 bg-white/5",
+              ? "border-[#D4E8FC] bg-[linear-gradient(150deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025))]"
+              : "border-[#D4E8FC] bg-[#F8FBFF]",
           )}
         >
           <CardHeader className="pb-2">
-            <CardTitle className={cn("text-[1.2rem] text-white", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
+            <CardTitle className={cn("text-xl text-slate-900", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
               Status distribution
             </CardTitle>
           </CardHeader>
@@ -208,17 +208,17 @@ export default function AdminDashboardPage() {
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-full w-full rounded-lg border border-white/10 bg-white/[0.03]" />
+                <div className="h-full w-full rounded-lg border border-[#D4E8FC] bg-[#F8FBFF]" />
               )}
             </div>
             <div className="grid grid-cols-2 gap-2">
               {distribution.map((item) => (
-                <div key={item.name} className="rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-2">
-                  <p className="flex items-center gap-2 text-[0.8rem] text-slate-300">
+                <div key={item.name} className="rounded-md border border-[#D4E8FC] bg-[#F4F9FF] px-2.5 py-2">
+                  <p className="flex items-center gap-2 text-sm text-slate-600">
                     <span className="inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: item.color }} />
                     {item.name}
                   </p>
-                  <p className={cn("mt-1 text-[0.95rem] text-white", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
+                  <p className={cn("mt-1 text-base text-slate-900", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
                     {Math.round((item.value / totalDistribution) * 100)}%
                   </p>
                 </div>
@@ -238,3 +238,6 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
+
+
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -47,29 +47,29 @@ const columns: DataTableColumn<LogRow>[] = [
   {
     id: "module",
     header: "Module",
-    cell: (row) => <span className="font-medium text-amber-100">{row.module}</span>,
+    cell: (row) => <span className="font-medium text-amber-700">{row.module}</span>,
   },
   {
     id: "change",
     header: "What Changed",
     className: "max-w-[260px] whitespace-normal break-words",
-    cell: (row) => <span className="font-medium text-slate-100">{row.change}</span>,
+    cell: (row) => <span className="font-medium text-slate-900">{row.change}</span>,
   },
   {
     id: "details",
     header: "Details",
     className: "max-w-[420px] whitespace-normal break-words",
-    cell: (row) => <span className="text-slate-300">{row.details}</span>,
+    cell: (row) => <span className="text-slate-600">{row.details}</span>,
   },
   {
     id: "actor",
     header: "By",
-    cell: (row) => <span className="text-slate-300">{row.actor}</span>,
+    cell: (row) => <span className="text-slate-600">{row.actor}</span>,
   },
   {
     id: "time",
     header: "Timestamp",
-    cell: (row) => <span className="text-slate-300">{row.time}</span>,
+    cell: (row) => <span className="text-slate-600">{row.time}</span>,
   },
 ];
 
@@ -316,7 +316,7 @@ function LogsPageContent() {
             <Button
               type="button"
               variant="outline"
-              className="border-white/25 text-slate-100 hover:bg-white/10"
+              className="border-[#BAD7F6] text-slate-900 hover:bg-[#EDF5FF]"
               disabled={isClearingActivityLogs || isLoading}
               onClick={() => handleClear("activity")}
             >
@@ -338,7 +338,7 @@ function LogsPageContent() {
             <Button
               type="button"
               variant="outline"
-              className="border-white/25 text-slate-100 hover:bg-white/10"
+              className="border-[#BAD7F6] text-slate-900 hover:bg-[#EDF5FF]"
               disabled={isClearingAuditTrail || isLoading}
               onClick={() => handleClear("audit")}
             >
@@ -360,7 +360,7 @@ function LogsPageContent() {
             <Button
               type="button"
               variant="outline"
-              className="border-white/25 text-slate-100 hover:bg-white/10"
+              className="border-[#BAD7F6] text-slate-900 hover:bg-[#EDF5FF]"
               disabled={isClearingNotificationLogs || isLoading}
               onClick={() => handleClear("notifications")}
             >
@@ -384,3 +384,5 @@ export default function LogsPage() {
     </Suspense>
   );
 }
+
+

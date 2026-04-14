@@ -115,7 +115,7 @@ export default function IndustriesPage() {
         panelNoteDescription="This page keeps the vertical story clear without overclaiming deep sector proof before final case-study content is added."
       />
 
-      <section className="bg-[#CFE3FF] public-section">
+      <section className="bg-[#E6F1FF] public-section">
         <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Industries overview"
@@ -127,7 +127,7 @@ export default function IndustriesPage() {
             {industries.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.5rem] border bg-[#F8FBFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <span
@@ -159,7 +159,7 @@ export default function IndustriesPage() {
             {deliveryThemes.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.5rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-950">{item.title}</h2>
@@ -169,7 +169,7 @@ export default function IndustriesPage() {
           </div>
 
           <div
-            className="rounded-[2rem] border bg-[#DCEEFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
+            className="rounded-[2rem] border bg-[#F8FBFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
             style={{ borderColor: colors.border }}
           >
             <HomeSectionHeading
@@ -182,7 +182,7 @@ export default function IndustriesPage() {
               {engagementPatterns.map((item, index) => (
                 <div
                   key={item.title}
-                  className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-6"
+                  className="rounded-[1.5rem] border bg-[#F8FBFF] px-5 py-6"
                   style={{
                     borderColor: colors.border,
                   }}

@@ -207,7 +207,7 @@ export function FindTalentLeadForm() {
               <Button
                 asChild
                 variant="outline"
-                className="border-[#7FB5EA] bg-[#E4F1FF] text-slate-950 hover:bg-[#CFE3FF] hover:text-slate-950"
+                className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF] hover:text-slate-950"
               >
                 <Link href="/contact">Talk to Us</Link>
               </Button>

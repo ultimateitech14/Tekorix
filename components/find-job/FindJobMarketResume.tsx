@@ -42,14 +42,14 @@ export function FindJobMarketResume() {
             />
 
             <div
-              className="rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_60px_-48px_rgba(15,23,42,0.2)]"
+              className="rounded-[1.75rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_60px_-48px_rgba(15,23,42,0.2)]"
               style={{ borderColor: colors.border }}
             >
               <div className="space-y-4">
                 {marketSignals.map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-2xl border bg-[#DCEEFF] px-4 py-4"
+                    className="rounded-2xl border bg-[#F8FBFF] px-4 py-4"
                     style={{
                       borderColor: colors.border,
                     }}

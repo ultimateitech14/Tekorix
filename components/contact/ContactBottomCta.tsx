@@ -7,7 +7,7 @@ export function ContactBottomCta() {
   const { colors } = themeTokens;
 
   return (
-    <section className="bg-[#CFE3FF] pb-10 pt-4 sm:pb-12 sm:pt-8">
+    <section className="bg-[#E6F1FF] pb-10 pt-4 sm:pb-12 sm:pt-8">
       <div className="site-container">
         <div
           className="relative overflow-hidden rounded-[2rem] border px-6 py-10 text-center shadow-[0_28px_70px_-44px_rgba(15,23,42,0.22)] sm:px-10 sm:py-12"
@@ -42,7 +42,7 @@ export function ContactBottomCta() {
               asChild
               size="lg"
               variant="outline"
-              className="border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF] hover:text-slate-950"
+              className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF] hover:text-slate-950"
             >
               <Link href="#candidate-inquiry">Apply Now</Link>
             </Button>

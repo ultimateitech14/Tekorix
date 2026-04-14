@@ -104,7 +104,7 @@ export default function TechnologiesPage() {
         panelNoteDescription="This page supports both services and find-talent conversations by showing where Tekorix can position technical depth."
       />
 
-      <section className="bg-[#CFE3FF] public-section">
+      <section className="bg-[#E6F1FF] public-section">
         <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Technology categories"
@@ -116,7 +116,7 @@ export default function TechnologiesPage() {
             {technologyGroups.map((group) => (
               <div
                 key={group.title}
-                className="rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.75rem] border bg-[#F8FBFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <span
@@ -132,7 +132,7 @@ export default function TechnologiesPage() {
                   {group.items.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full border border-slate-200 bg-[#DCEEFF] px-3 py-1.5 text-xs font-medium text-slate-700"
+                      className="rounded-full border border-slate-200 bg-[#F8FBFF] px-3 py-1.5 text-xs font-medium text-slate-700"
                     >
                       {item}
                     </span>
@@ -157,7 +157,7 @@ export default function TechnologiesPage() {
             {capabilityLanes.map((item, index) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.5rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <p

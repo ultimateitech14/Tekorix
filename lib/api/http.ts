@@ -1,6 +1,9 @@
 import { env } from "@/lib/env";
 import { getAuthToken } from "@/lib/auth/store";
 
+const LEGACY_LOCAL_API_BASE_URLS = new Set(["http://127.0.0.1:8787", "http://localhost:8787"]);
+const EXPRESS_LOCAL_API_BASE_URL = "http://127.0.0.1:4001";
+
 export class ApiError extends Error {
   status: number;
 
@@ -25,8 +28,36 @@ type RequestOptions<TBody> = {
   signal?: AbortSignal;
 };
 
-function buildUrl(path: string) {
-  return `${env.NEXT_PUBLIC_API_BASE_URL}${path}`;
+function normalizeBaseUrl(url: string) {
+  return url.replace(/\/$/, "");
+}
+
+function buildUrl(path: string, baseUrl = env.NEXT_PUBLIC_API_BASE_URL) {
+  return `${normalizeBaseUrl(baseUrl)}${path}`;
+}
+
+function shouldRetryWithExpressFallback(error: unknown) {
+  if (env.NODE_ENV !== "development") {
+    return false;
+  }
+
+  if (!(error instanceof TypeError)) {
+    return false;
+  }
+
+  return LEGACY_LOCAL_API_BASE_URLS.has(normalizeBaseUrl(env.NEXT_PUBLIC_API_BASE_URL));
+}
+
+async function fetchWithLocalFallback(path: string, init: RequestInit) {
+  try {
+    return await fetch(buildUrl(path), init);
+  } catch (error) {
+    if (!shouldRetryWithExpressFallback(error)) {
+      throw error;
+    }
+
+    return fetch(buildUrl(path, EXPRESS_LOCAL_API_BASE_URL), init);
+  }
 }
 
 function getAuthHeaders(auth: boolean, token?: string | null) {
@@ -67,7 +98,7 @@ export async function requestApi<TResponse, TBody extends Record<string, unknown
   const headers = getAuthHeaders(auth, token);
   headers.set("Content-Type", "application/json");
 
-  const response = await fetch(buildUrl(path), {
+  const response = await fetchWithLocalFallback(path, {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
@@ -97,7 +128,7 @@ export async function requestApi<TResponse, TBody extends Record<string, unknown
 export async function requestBinary(path: string, options: Omit<RequestOptions<undefined>, "body"> = {}) {
   const { method = "GET", auth = false, token, signal } = options;
   const headers = getAuthHeaders(auth, token);
-  const response = await fetch(buildUrl(path), {
+  const response = await fetchWithLocalFallback(path, {
     method,
     headers,
     cache: "no-store",

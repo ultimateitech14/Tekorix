@@ -21,7 +21,7 @@ export function ContactLocation() {
   const { colors } = themeTokens;
 
   return (
-    <section className="bg-[#CFE3FF] public-section">
+    <section className="bg-[#E6F1FF] public-section">
       <div className="site-container grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div className="public-stack">
           <HomeSectionHeading
@@ -34,8 +34,7 @@ export function ContactLocation() {
             {officeItems.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-5 shadow-[0_18px_44px_-40px_rgba(15,23,42,0.28)]"
-                style={{ borderColor: colors.border }}
+                className="rounded-[1.5rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EEF7FF_100%)] px-5 py-5 shadow-[0_24px_56px_-40px_rgba(15,23,42,0.3)]"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                   {item.label}
@@ -47,15 +46,12 @@ export function ContactLocation() {
         </div>
 
         <div
-          className="rounded-[2rem] border p-6 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.24)] sm:p-8"
-          style={{
-            borderColor: colors.border,
-            backgroundColor: colors.surfaceAlt,
-          }}
+          className="rounded-[2rem] p-6 shadow-[0_28px_68px_-44px_rgba(15,23,42,0.28)] sm:p-8"
+          style={{ backgroundColor: "#F8FBFF" }}
         >
           <div
-            className="flex min-h-[320px] items-center justify-center rounded-[1.5rem] border border-dashed text-center"
-            style={{ borderColor: colors.primary }}
+            className="flex min-h-[320px] items-center justify-center rounded-[1.5rem] text-center outline outline-1 outline-dashed"
+            style={{ outlineColor: colors.primary }}
           >
             <div className="max-w-sm space-y-3 px-6">
               <p

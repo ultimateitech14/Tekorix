@@ -64,7 +64,7 @@ export function FindTalentHero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF] hover:text-slate-950"
+                className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF] hover:text-slate-950"
               >
                 <Link href="/contact">Talk to Us</Link>
               </Button>
@@ -74,7 +74,7 @@ export function FindTalentHero() {
               {heroSignals.map((signal) => (
                 <div
                   key={signal}
-                  className="rounded-2xl border bg-[#DCEEFF]/90 px-4 py-3 text-sm font-medium text-slate-700 shadow-[0_22px_48px_-40px_rgba(15,23,42,0.28)] backdrop-blur-sm"
+                  className="rounded-2xl border bg-[#F8FBFF]/90 px-4 py-3 text-sm font-medium text-slate-700 shadow-[0_22px_48px_-40px_rgba(15,23,42,0.28)] backdrop-blur-sm"
                   style={{
                     borderColor: colors.border,
                   }}
@@ -86,7 +86,7 @@ export function FindTalentHero() {
           </div>
 
           <div
-            className="rounded-[2rem] border bg-[#DCEEFF]/92 p-6 shadow-[0_32px_80px_-46px_rgba(15,23,42,0.26)] backdrop-blur-sm sm:p-8"
+            className="rounded-[2rem] border bg-[#F8FBFF]/92 p-6 shadow-[0_32px_80px_-46px_rgba(15,23,42,0.26)] backdrop-blur-sm sm:p-8"
             style={{
               borderColor: colors.border,
             }}

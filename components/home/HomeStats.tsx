@@ -7,12 +7,12 @@ const stats = [
 
 export function HomeStats() {
   return (
-    <section className="border-y border-[#7FB5EA] bg-[#CFE3FF]">
+    <section className="border-y border-[#BED9F3] bg-[#E6F1FF]">
       <div className="site-container grid gap-6 py-6 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((item) => (
           <div
             key={item.label}
-            className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] px-5 py-5 text-center shadow-sm lg:text-left"
+            className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] px-5 py-5 text-center shadow-sm lg:text-left"
           >
             <p className="text-3xl font-semibold tracking-tight text-[#378FDD] sm:text-4xl">
               {item.value}

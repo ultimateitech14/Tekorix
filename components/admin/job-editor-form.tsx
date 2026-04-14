@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -264,16 +264,16 @@ export function JobEditorForm({ mode, jobId }: JobEditorFormProps) {
 
   if (isLoading) {
     return (
-      <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
-        <CardContent className="p-6 text-sm text-slate-400">Loading job...</CardContent>
+      <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
+        <CardContent className="p-6 text-sm text-slate-500">Loading job...</CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+    <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
       <CardHeader>
-        <CardTitle className="text-xl text-white">
+        <CardTitle className="text-xl text-slate-900">
           {mode === "create" ? "Create New Job" : `Edit Job ${jobId ?? ""}`}
         </CardTitle>
       </CardHeader>
@@ -287,38 +287,38 @@ export function JobEditorForm({ mode, jobId }: JobEditorFormProps) {
 
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Title</Label>
+            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Title</Label>
             <Input
               value={values.title}
               onChange={(event) => updateField("title", event.target.value)}
               placeholder="Product Designer"
-              className="border-white/15 bg-white/5 text-slate-100 placeholder:text-slate-400"
+              className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900 placeholder:text-slate-500"
               aria-invalid={Boolean(errors.title)}
             />
             {errors.title ? <p className="text-xs text-red-300">{errors.title}</p> : null}
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Department</Label>
+            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Department</Label>
             <Input
               value={values.department}
               onChange={(event) => updateField("department", event.target.value)}
               placeholder="Design"
-              className="border-white/15 bg-white/5 text-slate-100 placeholder:text-slate-400"
+              className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900 placeholder:text-slate-500"
               aria-invalid={Boolean(errors.department)}
             />
             {errors.department ? <p className="text-xs text-red-300">{errors.department}</p> : null}
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Country</Label>
+            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Country</Label>
             <Select value={values.country} onValueChange={(value) => updateCountry(value as JobCountry)}>
-              <SelectTrigger className="border-white/15 bg-white/5 text-slate-100">
+              <SelectTrigger className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
                 <SelectValue placeholder="Select country" />
               </SelectTrigger>
-              <SelectContent className="border-white/10 bg-[#0f1e32] text-slate-100">
+              <SelectContent className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
                 {jobCountries.map((country) => (
-                  <SelectItem key={country} value={country} className="focus:bg-white/10">
+                  <SelectItem key={country} value={country} className="focus:bg-[#EDF5FF]">
                     {country}
                   </SelectItem>
                 ))}
@@ -328,14 +328,14 @@ export function JobEditorForm({ mode, jobId }: JobEditorFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">City</Label>
+            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">City</Label>
             <Select value={values.city} onValueChange={updateCity}>
-              <SelectTrigger className="border-white/15 bg-white/5 text-slate-100">
+              <SelectTrigger className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
                 <SelectValue placeholder="Select city" />
               </SelectTrigger>
-              <SelectContent className="border-white/10 bg-[#0f1e32] text-slate-100">
+              <SelectContent className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
                 {cityOptions.map((city) => (
-                  <SelectItem key={city} value={city} className="focus:bg-white/10">
+                  <SelectItem key={city} value={city} className="focus:bg-[#EDF5FF]">
                     {city}
                   </SelectItem>
                 ))}
@@ -345,19 +345,19 @@ export function JobEditorForm({ mode, jobId }: JobEditorFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Job Type</Label>
+            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Job Type</Label>
             <Select value={values.type} onValueChange={(value) => updateField("type", value as JobFormValues["type"])}>
-              <SelectTrigger className="border-white/15 bg-white/5 text-slate-100">
+              <SelectTrigger className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
                 <SelectValue placeholder="Select type" />
               </SelectTrigger>
-              <SelectContent className="border-white/10 bg-[#0f1e32] text-slate-100">
-                <SelectItem value="full-time" className="focus:bg-white/10">
+              <SelectContent className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
+                <SelectItem value="full-time" className="focus:bg-[#EDF5FF]">
                   Full-time
                 </SelectItem>
-                <SelectItem value="part-time" className="focus:bg-white/10">
+                <SelectItem value="part-time" className="focus:bg-[#EDF5FF]">
                   Part-time
                 </SelectItem>
-                <SelectItem value="contract" className="focus:bg-white/10">
+                <SelectItem value="contract" className="focus:bg-[#EDF5FF]">
                   Contract
                 </SelectItem>
               </SelectContent>
@@ -365,42 +365,42 @@ export function JobEditorForm({ mode, jobId }: JobEditorFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Experience</Label>
+            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Experience</Label>
             <Input
               value={values.experience}
               onChange={(event) => updateField("experience", event.target.value)}
               placeholder="3+ years"
-              className="border-white/15 bg-white/5 text-slate-100 placeholder:text-slate-400"
+              className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900 placeholder:text-slate-500"
               aria-invalid={Boolean(errors.experience)}
             />
             {errors.experience ? <p className="text-xs text-red-300">{errors.experience}</p> : null}
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Salary Range</Label>
+            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Salary Range</Label>
             <Input
               value={values.salaryRange}
               onChange={(event) => updateField("salaryRange", event.target.value)}
               placeholder="$90k - $120k"
-              className="border-white/15 bg-white/5 text-slate-100 placeholder:text-slate-400"
+              className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900 placeholder:text-slate-500"
               aria-invalid={Boolean(errors.salaryRange)}
             />
             {errors.salaryRange ? <p className="text-xs text-red-300">{errors.salaryRange}</p> : null}
           </div>
         </div>
 
-        <div className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-slate-300">
-          Location saved as: <span className="font-semibold text-slate-100">{buildJobLocation(values.country, values.city)}</span>
+        <div className="rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2 text-xs text-slate-600">
+          Location saved as: <span className="font-semibold text-slate-900">{buildJobLocation(values.country, values.city)}</span>
         </div>
 
         <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Skills</Label>
+          <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Skills</Label>
           <div className="flex flex-wrap gap-2">
             {values.skills.map((skill) => (
               <Badge
                 key={skill}
                 variant="outline"
-                className="gap-1 border-amber-300/35 bg-amber-300/10 px-2 py-1 text-xs text-amber-100"
+                className="gap-1 border-amber-300/35 bg-amber-300/10 px-2 py-1 text-xs text-amber-700"
               >
                 {skill}
                 <button
@@ -425,7 +425,7 @@ export function JobEditorForm({ mode, jobId }: JobEditorFormProps) {
                 }
               }}
               placeholder="Add skill and press Enter"
-              className="border-white/15 bg-white/5 text-slate-100 placeholder:text-slate-400"
+              className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900 placeholder:text-slate-500"
             />
             <Button type="button" variant="outline" onClick={addSkill}>
               Add
@@ -435,21 +435,21 @@ export function JobEditorForm({ mode, jobId }: JobEditorFormProps) {
         </div>
 
         <div className="space-y-2">
-          <Label className="text-xs uppercase tracking-[0.16em] text-slate-400">Description</Label>
+          <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Description</Label>
           <Textarea
             value={values.description}
             onChange={(event) => updateField("description", event.target.value)}
             placeholder="Describe responsibilities, requirements, and expectations."
-            className="min-h-36 border-white/15 bg-white/5 text-slate-100 placeholder:text-slate-400"
+            className="min-h-36 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900 placeholder:text-slate-500"
             aria-invalid={Boolean(errors.description)}
           />
           {errors.description ? <p className="text-xs text-red-300">{errors.description}</p> : null}
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] px-4 py-3">
           <div>
-            <p className="text-sm font-semibold text-white">Published</p>
-            <p className="text-xs text-slate-400">Control whether this job appears on the careers page.</p>
+            <p className="text-sm font-semibold text-slate-900">Published</p>
+            <p className="text-xs text-slate-500">Control whether this job appears on the careers page.</p>
           </div>
           <button
             type="button"
@@ -458,7 +458,7 @@ export function JobEditorForm({ mode, jobId }: JobEditorFormProps) {
               "relative inline-flex h-7 w-14 items-center rounded-full border transition-colors",
               values.status === "published"
                 ? "border-amber-300/60 bg-amber-300/30"
-                : "border-white/25 bg-slate-500/20",
+                : "border-[#BAD7F6] bg-slate-500/20",
             )}
             aria-label="Toggle published state"
           >
@@ -483,3 +483,5 @@ export function JobEditorForm({ mode, jobId }: JobEditorFormProps) {
     </Card>
   );
 }
+
+

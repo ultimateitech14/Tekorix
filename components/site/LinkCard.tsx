@@ -21,7 +21,7 @@ export function LinkCard({
   return (
     <Card
       className={cn(
-        "group rounded-[1.5rem] border border-slate-200 bg-[#DCEEFF] shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]",
+        "group rounded-[1.5rem] border border-slate-200 bg-[#F8FBFF] shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]",
         className,
       )}
     >

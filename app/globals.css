@@ -82,7 +82,7 @@
   h4,
   h5,
   h6 {
-    @apply font-display text-foreground tracking-tight;
+    @apply font-display tracking-tight;
     font-weight: var(--fw-semibold);
     line-height: var(--lh-heading);
     text-transform: none;
@@ -147,6 +147,18 @@
     box-shadow: 0 20px 44px -32px hsl(var(--accent) / 0.42);
   }
 
+  .site-shell :where(h1, h2, h3, h4, h5, h6) {
+    color: #0f172a;
+  }
+
+  /* Keep public card surfaces clean without visible border lines */
+  .site-shell :where(article, section, div, aside, form, a)[class*="rounded-[1.5rem]"][class*="border"],
+  .site-shell :where(article, section, div, aside, form, a)[class*="rounded-[1.75rem]"][class*="border"],
+  .site-shell :where(article, section, div, aside, form, a)[class*="rounded-[2rem]"][class*="border"],
+  .site-shell :where(article, section, div, aside, form, a)[class*="rounded-xl border"][class*="bg-"] {
+    border-color: transparent !important;
+  }
+
   .pill-outline {
     @apply border border-border/70 bg-transparent text-muted-foreground;
   }
@@ -175,7 +187,7 @@
   }
 
   .type-display {
-    @apply font-display text-foreground tracking-tight;
+    @apply font-display tracking-tight;
     font-size: var(--fs-display);
     font-weight: var(--fw-semibold);
     line-height: var(--lh-tight);
@@ -183,7 +195,7 @@
   }
 
   .type-h1 {
-    @apply font-display text-foreground tracking-tight;
+    @apply font-display tracking-tight;
     font-size: var(--fs-h1);
     font-weight: var(--fw-semibold);
     line-height: var(--lh-heading);
@@ -191,7 +203,7 @@
   }
 
   .type-h2 {
-    @apply font-display text-foreground tracking-tight;
+    @apply font-display tracking-tight;
     font-size: var(--fs-h2);
     font-weight: var(--fw-medium);
     line-height: var(--lh-heading);
@@ -199,7 +211,7 @@
   }
 
   .type-h3 {
-    @apply font-display text-foreground tracking-tight;
+    @apply font-display tracking-tight;
     font-size: var(--fs-h3);
     font-weight: var(--fw-medium);
     line-height: 1.35;
@@ -222,6 +234,57 @@
     font-size: var(--fs-lead);
     line-height: var(--lh-body);
     font-weight: var(--fw-medium);
+  }
+
+  /* Project-wide font-size normalization aligned with home-page rhythm */
+  .text-xs {
+    font-size: 0.8125rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .text-sm {
+    font-size: var(--fs-body-sm) !important;
+    line-height: 1.55 !important;
+  }
+
+  .text-base {
+    font-size: var(--fs-body) !important;
+    line-height: var(--lh-body) !important;
+  }
+
+  .text-lg {
+    font-size: var(--fs-lead) !important;
+    line-height: var(--lh-body) !important;
+  }
+
+  .text-xl {
+    font-size: var(--fs-h4) !important;
+    line-height: 1.4 !important;
+  }
+
+  .text-2xl {
+    font-size: var(--fs-h3) !important;
+    line-height: 1.35 !important;
+  }
+
+  .text-3xl {
+    font-size: var(--fs-h2) !important;
+    line-height: var(--lh-heading) !important;
+  }
+
+  .text-4xl {
+    font-size: var(--fs-h1) !important;
+    line-height: var(--lh-heading) !important;
+  }
+
+  .text-5xl {
+    font-size: var(--fs-display) !important;
+    line-height: var(--lh-tight) !important;
+  }
+
+  .text-6xl {
+    font-size: clamp(2.2rem, 1.85rem + 1.5vw, 3.35rem) !important;
+    line-height: var(--lh-tight) !important;
   }
 
   .uppercase {

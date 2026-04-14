@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -86,20 +86,20 @@ function formatStatus(value: string) {
 
 function getSourceBadgeClass(sourcePage: AdminCompanyLead["sourcePage"]) {
   if (sourcePage === "find-talent") {
-    return "border-cyan-300/35 bg-cyan-300/12 text-cyan-100";
+    return "border-cyan-300/35 bg-cyan-300/12 text-cyan-700";
   }
 
   if (sourcePage === "contact") {
-    return "border-violet-300/35 bg-violet-300/12 text-violet-100";
+    return "border-violet-300/35 bg-violet-300/12 text-violet-700";
   }
 
-  return "border-slate-300/30 bg-slate-300/10 text-slate-200";
+  return "border-slate-300/30 bg-slate-300/10 text-slate-700";
 }
 
 function getReadBadgeClass(isRead: boolean) {
   return isRead
-    ? "border-emerald-300/35 bg-emerald-300/12 text-emerald-100"
-    : "border-amber-300/40 bg-amber-300/15 text-amber-100";
+    ? "border-emerald-300/35 bg-emerald-300/12 text-emerald-700"
+    : "border-amber-300/40 bg-amber-300/15 text-amber-700";
 }
 
 export function AdminCompanyLeadsPage() {
@@ -270,16 +270,16 @@ export function AdminCompanyLeadsPage() {
           />
         </section>
 
-        <Card className="border-white/[0.12] bg-[linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] backdrop-blur-xl">
+        <Card className="border-[#D4E8FC] bg-[linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] backdrop-blur-xl">
           <CardHeader>
-            <CardTitle className="text-[1.2rem] font-semibold text-white">Company Leads</CardTitle>
-            <p className="text-[0.9rem] leading-relaxed text-slate-400">
+            <CardTitle className="text-xl font-semibold text-slate-900">Company Leads</CardTitle>
+            <p className="text-sm leading-relaxed text-slate-500">
               Requests from companies looking for specialists, staffing support, or team-building help.
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
             {loadError ? (
-              <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-3 text-sm text-rose-100">
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-3 text-sm text-rose-700">
                 <span>{loadError}</span>
                 <Button size="sm" variant="outline" onClick={() => void loadCompanyLeads()}>
                   Retry
@@ -287,75 +287,75 @@ export function AdminCompanyLeadsPage() {
               </div>
             ) : null}
 
-            <div className="overflow-hidden rounded-lg border border-white/[0.12]">
+            <div className="overflow-hidden rounded-lg border border-[#D4E8FC]">
               <Table>
                 <TableHeader>
-                  <TableRow className="border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.04]">
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                  <TableRow className="border-[#D4E8FC] bg-[#F4F9FF] hover:bg-[#F4F9FF]">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Contact
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Company
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Need
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Message
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Created
                     </TableHead>
-                    <TableHead className="text-[0.78rem] font-semibold tracking-[0.04em] text-slate-400">
+                    <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">
                       Actions
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {isLoading ? (
-                    <TableRow className="border-white/[0.12]">
-                      <TableCell colSpan={6} className="py-8 text-center text-sm text-slate-400">
+                    <TableRow className="border-[#D4E8FC]">
+                      <TableCell colSpan={6} className="py-8 text-center text-sm text-slate-500">
                         Loading company leads...
                       </TableCell>
                     </TableRow>
                   ) : items.length ? (
                     items.map((item) => (
-                      <TableRow key={item.id} className="border-white/[0.12] hover:bg-white/[0.06]">
-                        <TableCell className="py-3 text-[0.92rem] text-slate-200">
+                      <TableRow key={item.id} className="border-[#D4E8FC] hover:bg-[#F1F7FF]">
+                        <TableCell className="py-3 text-sm text-slate-700">
                           <div className="space-y-2">
                             <div>
-                              <p className="font-semibold text-slate-100">{item.name}</p>
-                              <p className="text-xs text-slate-400">{item.email}</p>
-                              <p className="text-xs text-slate-400">{item.phone}</p>
+                              <p className="font-semibold text-slate-900">{item.name}</p>
+                              <p className="text-xs text-slate-500">{item.email}</p>
+                              <p className="text-xs text-slate-500">{item.phone}</p>
                             </div>
                             <Badge variant="outline" className={getReadBadgeClass(item.isRead)}>
                               {item.isRead ? "Read" : "Unread"}
                             </Badge>
                           </div>
                         </TableCell>
-                        <TableCell className="py-3 text-[0.92rem] text-slate-200">
+                        <TableCell className="py-3 text-sm text-slate-700">
                           <div className="space-y-2">
-                            <p className="font-medium text-slate-100">{item.companyName}</p>
+                            <p className="font-medium text-slate-900">{item.companyName}</p>
                             <Badge variant="outline" className={getSourceBadgeClass(item.sourcePage)}>
                               {formatSourcePage(item.sourcePage)}
                             </Badge>
                           </div>
                         </TableCell>
-                        <TableCell className="py-3 text-[0.92rem] text-slate-200">
+                        <TableCell className="py-3 text-sm text-slate-700">
                           <div className="space-y-2">
-                            <Badge variant="outline" className="border-white/15 bg-white/5 text-slate-100">
+                            <Badge variant="outline" className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
                               {companyLeadNeedLabels[item.need]}
                             </Badge>
                             <StatusChip status={formatStatus(item.status)} />
                           </div>
                         </TableCell>
-                        <TableCell className="max-w-md py-3 text-[0.92rem] text-slate-300">
+                        <TableCell className="max-w-md py-3 text-sm text-slate-600">
                           <p className="whitespace-pre-wrap break-words text-sm leading-6">{item.message}</p>
                         </TableCell>
-                        <TableCell className="py-3 text-[0.86rem] text-slate-400">
+                        <TableCell className="py-3 text-sm text-slate-500">
                           {formatDate(item.createdAt)}
                         </TableCell>
-                        <TableCell className="py-3 text-[0.92rem] text-slate-200">
+                        <TableCell className="py-3 text-sm text-slate-700">
                           <Button size="sm" variant="outline" onClick={() => void openLeadDetail(item.id)}>
                             {detailState.open && detailState.leadId === item.id && detailState.isLoading ? (
                               <LoaderCircle className="h-4 w-4 animate-spin" />
@@ -368,8 +368,8 @@ export function AdminCompanyLeadsPage() {
                       </TableRow>
                     ))
                   ) : (
-                    <TableRow className="border-white/[0.12]">
-                      <TableCell colSpan={6} className="py-8 text-center text-sm text-slate-400">
+                    <TableRow className="border-[#D4E8FC]">
+                      <TableCell colSpan={6} className="py-8 text-center text-sm text-slate-500">
                         No company leads captured yet.
                       </TableCell>
                     </TableRow>
@@ -382,12 +382,12 @@ export function AdminCompanyLeadsPage() {
       </div>
 
       <Dialog open={detailState.open} onOpenChange={handleDetailOpenChange}>
-        <DialogContent className="border-white/[0.12] bg-[linear-gradient(145deg,#081423,#0a1a2b)] text-white sm:max-w-3xl">
+        <DialogContent className="border-[#D4E8FC] bg-[linear-gradient(145deg,#F9FCFF_0%,#EDF6FF_100%)] text-slate-900 sm:max-w-3xl">
           <DialogHeader>
-            <DialogTitle className="text-[1.35rem] font-semibold text-white">
+            <DialogTitle className="text-2xl font-semibold text-slate-900">
               {detailLead ? detailLead.companyName : "Company lead details"}
             </DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogDescription className="text-slate-500">
               {detailLead
                 ? `${detailLead.name} | ${detailLead.email}`
                 : "Inspect request details and update read state."}
@@ -395,44 +395,44 @@ export function AdminCompanyLeadsPage() {
           </DialogHeader>
 
           {detailState.isLoading && !detailLead ? (
-            <div className="flex items-center gap-2 py-8 text-sm text-slate-300">
+            <div className="flex items-center gap-2 py-8 text-sm text-slate-600">
               <LoaderCircle className="h-4 w-4 animate-spin" />
               Loading company lead details...
             </div>
           ) : detailState.error && !detailLead ? (
-            <div className="rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-4 text-sm text-rose-100">
+            <div className="rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-4 text-sm text-rose-700">
               {detailState.error}
             </div>
           ) : detailLead ? (
             <div className="space-y-5">
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Contact
                   </p>
-                  <div className="mt-3 space-y-2 text-sm text-slate-200">
+                  <div className="mt-3 space-y-2 text-sm text-slate-700">
                     <p>
-                      <span className="text-slate-400">Name:</span> {detailLead.name}
+                      <span className="text-slate-500">Name:</span> {detailLead.name}
                     </p>
                     <p>
-                      <span className="text-slate-400">Email:</span> {detailLead.email}
+                      <span className="text-slate-500">Email:</span> {detailLead.email}
                     </p>
                     <p>
-                      <span className="text-slate-400">Phone:</span> {detailLead.phone}
+                      <span className="text-slate-500">Phone:</span> {detailLead.phone}
                     </p>
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Company
                   </p>
-                  <div className="mt-3 space-y-2 text-sm text-slate-200">
+                  <div className="mt-3 space-y-2 text-sm text-slate-700">
                     <p>
-                      <span className="text-slate-400">Company:</span> {detailLead.companyName}
+                      <span className="text-slate-500">Company:</span> {detailLead.companyName}
                     </p>
                     <p>
-                      <span className="text-slate-400">Need:</span> {companyLeadNeedLabels[detailLead.need]}
+                      <span className="text-slate-500">Need:</span> {companyLeadNeedLabels[detailLead.need]}
                     </p>
                     <div className="flex flex-wrap gap-2 pt-1">
                       <Badge variant="outline" className={getSourceBadgeClass(detailLead.sourcePage)}>
@@ -447,32 +447,32 @@ export function AdminCompanyLeadsPage() {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                   Message
                 </p>
-                <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-6 text-slate-200">
+                <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-6 text-slate-700">
                   {detailLead.message}
                 </p>
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Created
                   </p>
-                  <p className="mt-3 text-sm text-slate-200">{formatDate(detailLead.createdAt)}</p>
+                  <p className="mt-3 text-sm text-slate-700">{formatDate(detailLead.createdAt)}</p>
                 </div>
-                <div className="rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                <div className="rounded-xl border border-[#D4E8FC] bg-[#F4F9FF] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                     Updated
                   </p>
-                  <p className="mt-3 text-sm text-slate-200">{formatDate(detailLead.updatedAt)}</p>
+                  <p className="mt-3 text-sm text-slate-700">{formatDate(detailLead.updatedAt)}</p>
                 </div>
               </div>
 
               {detailState.error ? (
-                <div className="rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-3 text-sm text-rose-100">
+                <div className="rounded-lg border border-rose-300/20 bg-rose-300/10 px-4 py-3 text-sm text-rose-700">
                   {detailState.error}
                 </div>
               ) : null}
@@ -494,3 +494,5 @@ export function AdminCompanyLeadsPage() {
     </>
   );
 }
+
+

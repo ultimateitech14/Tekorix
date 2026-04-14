@@ -37,6 +37,10 @@ export const publicSocialLinks = {
   linkedinCompany: "https://www.linkedin.com/",
   linkedinLeadership: "https://www.linkedin.com/",
   linkedinUpdates: "https://www.linkedin.com/",
+  x: "https://x.com/",
+  instagram: "https://www.instagram.com/",
+  facebook: "https://www.facebook.com/",
+  youtube: "https://www.youtube.com/",
 } as const;
 
 export const publicLeadershipPlaceholders = [

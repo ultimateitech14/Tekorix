@@ -58,19 +58,14 @@ export function ContactHero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-[#7FB5EA] bg-[#DCEEFF] text-slate-950 hover:bg-[#CFE3FF] hover:text-slate-950"
+                className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF] hover:text-slate-950"
               >
                 <Link href="#candidate-inquiry">Candidate Inquiry</Link>
               </Button>
             </div>
           </div>
 
-          <div
-            className="rounded-[2rem] border bg-[#DCEEFF]/92 p-6 shadow-[0_32px_80px_-46px_rgba(15,23,42,0.26)] backdrop-blur-sm sm:p-8"
-            style={{
-              borderColor: colors.border,
-            }}
-          >
+          <div className="rounded-[2rem] bg-[#F8FBFF]/96 p-6 shadow-[0_34px_84px_-44px_rgba(15,23,42,0.32)] backdrop-blur-sm sm:p-8">
             <div className="space-y-4">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">
                 Trust-first contact flow
@@ -84,23 +79,14 @@ export function ContactHero() {
               {heroSignals.map((signal) => (
                 <div
                   key={signal}
-                  className="rounded-2xl border bg-[#EEF6FF]/90 px-4 py-4 text-sm text-slate-700"
-                  style={{
-                    borderColor: colors.border,
-                  }}
+                  className="rounded-2xl bg-white px-4 py-4 text-sm text-slate-700 shadow-[0_14px_34px_-28px_rgba(15,23,42,0.34)]"
                 >
                   {signal}
                 </div>
               ))}
             </div>
 
-            <div
-              className="mt-6 rounded-2xl border px-5 py-4"
-              style={{
-                borderColor: colors.border,
-                backgroundColor: colors.surfaceAlt,
-              }}
-            >
+            <div className="mt-6 rounded-2xl bg-[#EEF6FF] px-5 py-4 shadow-[inset_0_0_0_1px_rgba(190,217,243,0.85)]">
               <p className="text-sm font-semibold" style={{ color: colors.primary }}>
                 Typical response pattern
               </p>

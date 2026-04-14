@@ -65,7 +65,7 @@ export function JobSearchPanel({ basePath = "/careers/job-results" }: JobSearchP
   return (
     <form
       onSubmit={handleSubmit}
-      className="grid gap-3 rounded-2xl border bg-[#E4F1FF] p-3 sm:p-4 md:grid-cols-[200px_1fr_auto]"
+      className="grid gap-3 rounded-2xl border bg-[#F8FBFF] p-3 sm:p-4 md:grid-cols-[200px_1fr_auto]"
       style={{ borderColor: colors.border }}
     >
       <label className="sr-only" htmlFor="job-search-location">

@@ -119,7 +119,7 @@ export default function BusinessConsultingPage() {
         panelNoteDescription="The page stays useful because it links consulting language back to real operating and delivery choices clients have to make."
       />
 
-      <section className="bg-[#CFE3FF] public-section">
+      <section className="bg-[#E6F1FF] public-section">
         <div className="site-container public-stack">
           <HomeSectionHeading
             eyebrow="Consulting overview"
@@ -131,7 +131,7 @@ export default function BusinessConsultingPage() {
             {advisoryAreas.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.75rem] border bg-[#DCEEFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.75rem] border bg-[#F8FBFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <span
@@ -163,7 +163,7 @@ export default function BusinessConsultingPage() {
             {capabilityHighlights.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                className="rounded-[1.5rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
                 style={{ borderColor: colors.border }}
               >
                 <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em]" style={{ color: colors.accent }}>
@@ -179,7 +179,7 @@ export default function BusinessConsultingPage() {
           </div>
 
           <div
-            className="rounded-[2rem] border bg-[#DCEEFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
+            className="rounded-[2rem] border bg-[#F8FBFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
             style={{ borderColor: colors.border }}
           >
             <HomeSectionHeading
@@ -192,7 +192,7 @@ export default function BusinessConsultingPage() {
               {advisoryFlow.map((item, index) => (
                 <div
                   key={item.label}
-                  className="rounded-[1.5rem] border bg-[#DCEEFF] px-5 py-6"
+                  className="rounded-[1.5rem] border bg-[#F8FBFF] px-5 py-6"
                   style={{
                     borderColor: colors.border,
                     backgroundColor: index === 0 ? colors.surfaceAlt : colors.surfaceCard,

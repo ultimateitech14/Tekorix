@@ -143,7 +143,7 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <>
-      <section className="border-b border-[#7FB5EA] bg-[#CFE3FF] py-10 sm:py-12">
+      <section className="border-b border-[#BED9F3] bg-[#E6F1FF] py-10 sm:py-12">
         <div className="site-container">
           <p className="type-eyebrow">Search</p>
           <h1 className="type-h1 mt-2">Find pages, services, and jobs</h1>
@@ -159,7 +159,7 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
                 name="q"
                 defaultValue={query}
                 placeholder="Search jobs, services, insights, contact..."
-                className="h-11 w-full rounded-lg border border-[#7FB5EA] bg-[#DCEEFF] px-4 pr-24 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#1B66B3] focus:outline-none"
+                className="h-11 w-full rounded-lg border border-[#BED9F3] bg-[#F8FBFF] px-4 pr-24 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#1B66B3] focus:outline-none"
               />
               <button
                 type="submit"
@@ -172,9 +172,9 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
         </div>
       </section>
 
-      <section className="bg-[#CFE3FF] py-8 sm:py-10">
+      <section className="bg-[#E6F1FF] py-8 sm:py-10">
         <div className="site-container space-y-4">
-          <article className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]">
+          <article className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <Badge className="border border-slate-200 bg-transparent text-xs font-medium text-slate-900">
@@ -189,7 +189,7 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
               </div>
               <Link
                 href={jobSearchLink}
-                className="rounded-md border border-[#7FB5EA] bg-[#DCEEFF] px-3 py-2 text-sm font-medium text-slate-900 hover:border-[#1B66B3]"
+                className="rounded-md border border-[#BED9F3] bg-[#F8FBFF] px-3 py-2 text-sm font-medium text-slate-900 hover:border-[#1B66B3]"
               >
                 View jobs
               </Link>
@@ -201,7 +201,7 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
               {ranked.map((result) => (
                 <article
                   key={`${result.href}-${result.title}`}
-                  className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]"
+                  className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <h3 className="text-base font-medium text-slate-950">{result.title}</h3>
@@ -217,7 +217,7 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
               ))}
             </div>
           ) : (
-            <article className="rounded-xl border border-[#7FB5EA] bg-[#DCEEFF] p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]">
+            <article className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-5 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.18)]">
               <h3 className="text-base font-medium text-slate-950">No direct matches found</h3>
               <p className="mt-2 text-sm text-slate-600">
                 Try a broader term like consulting, jobs, talent, healthcare, or contact.

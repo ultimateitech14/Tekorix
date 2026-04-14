@@ -27,7 +27,7 @@ export function FindJobCareerUpgrade() {
   const { colors } = themeTokens;
 
   return (
-    <section className="bg-[#CFE3FF] public-section">
+    <section className="bg-[#E6F1FF] public-section">
       <div className="site-container public-stack">
         <HomeSectionHeading
           eyebrow="Upgrade career"
@@ -40,7 +40,7 @@ export function FindJobCareerUpgrade() {
           {advisoryTracks.map((item) => (
             <div
               key={item.title}
-              className="rounded-[1.5rem] border bg-[#DCEEFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.25)]"
+              className="rounded-[1.5rem] border bg-[#F8FBFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.25)]"
               style={{ borderColor: colors.border }}
             >
               <span
@@ -58,7 +58,7 @@ export function FindJobCareerUpgrade() {
         </div>
 
         <div
-          className="rounded-[2rem] border bg-[#DCEEFF] px-6 py-8 shadow-[0_28px_80px_-54px_rgba(15,23,42,0.22)] sm:px-8"
+          className="rounded-[2rem] border bg-[#F8FBFF] px-6 py-8 shadow-[0_28px_80px_-54px_rgba(15,23,42,0.22)] sm:px-8"
           style={{ borderColor: colors.border }}
         >
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -66,7 +66,7 @@ export function FindJobCareerUpgrade() {
               <p className="text-sm font-semibold uppercase tracking-[0.22em]" style={{ color: colors.primary }}>
                 Career review
               </p>
-              <h3 className="font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-[2.2rem]">
+              <h3 className="font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
                 Want a clearer path before you apply broadly?
               </h3>
               <p className="max-w-3xl text-base leading-7 text-slate-600">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type { ReactNode } from "react";
 
@@ -41,8 +41,8 @@ export function DataTable<T>({
       className={cn(
         "backdrop-blur-xl",
         ENABLE_ADMIN_UI_REFRESH
-          ? "border-white/[0.12] bg-[linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))]"
-          : "border-white/10 bg-white/5",
+          ? "border-[#D4E8FC] bg-[linear-gradient(145deg,#F9FCFF_0%,#EDF6FF_100%)]"
+          : "border-[#D4E8FC] bg-[#F8FBFF]",
       )}
     >
       {title || actions ? (
@@ -52,14 +52,14 @@ export function DataTable<T>({
               {title ? (
                 <CardTitle
                   className={cn(
-                    "text-[1.2rem] text-white",
+                    "text-xl text-slate-900",
                     ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
                   )}
                 >
                   {title}
                 </CardTitle>
               ) : null}
-              {description ? <p className="mt-1 text-[0.9rem] leading-relaxed text-slate-400">{description}</p> : null}
+              {description ? <p className="mt-1 text-sm leading-relaxed text-slate-500">{description}</p> : null}
             </div>
             {actions}
           </div>
@@ -70,7 +70,7 @@ export function DataTable<T>({
         <div
           className={cn(
             "overflow-hidden rounded-lg border",
-            ENABLE_ADMIN_UI_REFRESH ? "border-white/[0.12]" : "border-white/10",
+            ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC]" : "border-[#D4E8FC]",
           )}
         >
           <Table>
@@ -78,14 +78,14 @@ export function DataTable<T>({
               <TableRow
                 className={cn(
                   "hover:bg-transparent",
-                  ENABLE_ADMIN_UI_REFRESH ? "border-white/[0.12] bg-white/[0.04]" : "border-white/10",
+                  ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC] bg-[#F4F9FF]" : "border-[#D4E8FC]",
                 )}
               >
                 {columns.map((column) => (
                   <TableHead
                     key={column.id}
                     className={cn(
-                      "text-[0.78rem] tracking-[0.04em] text-slate-400",
+                      "text-xs tracking-[0.04em] text-slate-500",
                       ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
                       column.headerClassName,
                     )}
@@ -101,20 +101,20 @@ export function DataTable<T>({
                   <TableRow
                     key={getRowId(row)}
                     className={cn(
-                      "hover:bg-white/[0.06]",
-                      ENABLE_ADMIN_UI_REFRESH ? "border-white/[0.12]" : "border-white/10",
+                      "hover:bg-[#F1F7FF]",
+                      ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC]" : "border-[#D4E8FC]",
                     )}
                   >
                     {columns.map((column) => (
-                      <TableCell key={column.id} className={cn("py-3 text-[0.92rem] text-slate-200", column.className)}>
+                      <TableCell key={column.id} className={cn("py-3 text-sm text-slate-700", column.className)}>
                         {column.cell(row)}
                       </TableCell>
                     ))}
                   </TableRow>
                 ))
               ) : (
-                <TableRow className={cn(ENABLE_ADMIN_UI_REFRESH ? "border-white/[0.12]" : "border-white/10")}>
-                  <TableCell colSpan={columns.length} className="py-8 text-center text-sm text-slate-400">
+                <TableRow className={cn(ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC]" : "border-[#D4E8FC]")}>
+                  <TableCell colSpan={columns.length} className="py-8 text-center text-sm text-slate-500">
                     {emptyMessage}
                   </TableCell>
                 </TableRow>
@@ -127,3 +127,4 @@ export function DataTable<T>({
     </Card>
   );
 }
+
