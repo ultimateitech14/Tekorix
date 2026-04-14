@@ -76,19 +76,19 @@ export const navigationItems: NavigationItem[] = [
     children: [
       {
         label: "Corporate Training",
-        href: "/academy",
+        href: "/academy/corporate-training",
         description: "Structured training programs for teams to improve delivery readiness.",
         icon: Building2,
       },
       {
         label: "Upskilling",
-        href: "/academy",
+        href: "/academy/upskilling",
         description: "Role-based learning paths to grow technical and professional capability.",
         icon: GraduationCap,
       },
       {
         label: "Certification",
-        href: "/academy",
+        href: "/academy/certification",
         description: "Guided preparation support for recognized technical certifications.",
         icon: Award,
       },

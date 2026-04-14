@@ -13,12 +13,8 @@ export const metadata: Metadata = buildMetadata({
 
 export default function ForgotPasswordPage() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#E6F1FF] py-10 sm:py-12">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(220,238,255,0.96)_0%,rgba(207,227,255,0.98)_100%)]" />
-      <div className="absolute -left-10 top-10 h-64 w-64 rounded-full bg-[rgba(45,143,229,0.14)] blur-3xl" />
-      <div className="absolute right-0 top-0 h-80 w-80 rounded-full bg-[rgba(83,174,250,0.2)] blur-3xl" />
-
-      <div className="site-container relative">
+    <section className="min-h-screen bg-[#E6F1FF] py-10 sm:py-12">
+      <div className="site-container">
         <div className="mx-auto grid max-w-md gap-6">
           <div className="space-y-3 text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#1B66B3]">Admin Access</p>
