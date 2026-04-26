@@ -23,6 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ApiError } from "@/lib/api/http";
 import { submitCompanyLead } from "@/lib/api/company-leads";
 import { themeTokens } from "@/lib/theme/tokens";
+import { cn } from "@/lib/utils";
 import {
   companyLeadNeedLabels,
   companyLeadNeedValues,
@@ -63,7 +64,11 @@ function mapZodErrors(error: z.ZodError<CompanyLeadState>) {
   }, {});
 }
 
-export function ContactCompanyForm() {
+type ContactCompanyFormProps = {
+  isActive?: boolean;
+};
+
+export function ContactCompanyForm({ isActive = false }: ContactCompanyFormProps) {
   const { colors } = themeTokens;
   const initialPhone = splitPublicPhoneValue(initialValues.phone);
   const [values, setValues] = useState<CompanyLeadState>(initialValues);
@@ -142,7 +147,12 @@ export function ContactCompanyForm() {
   return (
     <form
       id="company-inquiry"
-      className="rounded-[1.75rem] bg-white p-6 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)] sm:p-7"
+      className={cn(
+        "rounded-[1.75rem] border bg-white p-6 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B6D5F6] hover:shadow-[0_28px_66px_-42px_rgba(27,102,179,0.2)] sm:p-7",
+        isActive
+          ? "border-[#1B66B3] bg-[linear-gradient(180deg,#FFFFFF_0%,#F7FBFF_100%)] shadow-[0_28px_68px_-40px_rgba(27,102,179,0.28)] ring-2 ring-[#D7E8FA]"
+          : "border-transparent",
+      )}
       onSubmit={handleSubmit}
       noValidate
     >
@@ -216,7 +226,7 @@ export function ContactCompanyForm() {
           onCountryCodeChange={(value) => updatePhone(value, phoneNumber)}
           onPhoneNumberChange={(value) => updatePhone(phonePrefix, value)}
           error={errors.phone}
-          helperText="Use a direct work number for faster follow-up from the Tekorix team."
+          showSupportText={false}
           onBlur={() => handleFieldBlur("phone")}
         />
       </div>

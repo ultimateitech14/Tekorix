@@ -48,11 +48,11 @@ const siteSearchIndex: SearchEntry[] = [
     keywords: ["consulting", "solutions", "talent", "academy", "digital", "cloud"],
   },
   {
-    title: "Consulting Services",
-    description: "Strategic advisory and transformation delivery for enterprise programs.",
-    href: "/services/consulting-services",
+    title: "HR Consulting",
+    description: "Workforce planning, hiring process design, and people advisory for growing teams.",
+    href: "/hr-consulting",
     category: "Services",
-    keywords: ["consulting", "advisory", "strategy", "transformation"],
+    keywords: ["hr", "hiring", "recruitment", "people advisory", "workforce planning"],
   },
   {
     title: "Product Engineering",

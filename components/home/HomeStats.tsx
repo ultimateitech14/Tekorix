@@ -12,7 +12,7 @@ export function HomeStats() {
         {stats.map((item) => (
           <div
             key={item.label}
-            className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] px-5 py-5 text-center shadow-sm lg:text-left"
+            className="rounded-xl border border-[#BED9F3] bg-[#F8FBFF] px-5 py-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#9CC6F1] hover:bg-white hover:shadow-[0_24px_56px_-42px_rgba(27,102,179,0.24)] lg:text-left"
           >
             <p className="text-3xl font-semibold tracking-tight text-[#378FDD] sm:text-4xl">
               {item.value}

@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { HomeSectionHeading } from "@/components/home/HomeSectionHeading";
-import { Button } from "@/components/ui/button";
 import { publicContactContent } from "@/lib/constants/public-content";
 import { themeTokens } from "@/lib/theme/tokens";
 
@@ -10,18 +9,15 @@ const contactCards = [
     label: "Email",
     value: publicContactContent.email,
     href: `mailto:${publicContactContent.email}`,
-    detail: "General inquiries, hiring requests, and delivery conversations.",
   },
   {
     label: "Phone",
     value: publicContactContent.phone,
     href: `tel:${publicContactContent.phone.replace(/\s+/g, "")}`,
-    detail: "Business hours support for direct discussions and call-backs.",
   },
   {
     label: "Office hours",
     value: publicContactContent.officeHours,
-    detail: "Use forms any time and Tekorix can follow up in the next active window.",
   },
 ];
 
@@ -38,26 +34,25 @@ export function ContactDirectInfo() {
             description="Use these direct contact details when you already know the conversation you want to start."
           />
 
-          <div className="grid gap-4">
-            {contactCards.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-[1.5rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EEF7FF_100%)] px-5 py-5 shadow-[0_24px_56px_-40px_rgba(15,23,42,0.3)]"
-              >
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                  {item.label}
-                </p>
-                {item.href ? (
-                  <a
-                    href={item.href}
-                    className="mt-3 block text-lg font-semibold text-slate-950 hover:text-[#1B66B3]"
-                  >
-                    {item.value}
-                  </a>
-                ) : (
-                  <p className="mt-3 text-lg font-semibold text-slate-950">{item.value}</p>
-                )}
-                <p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p>
+          <div className="overflow-hidden rounded-[1.75rem] bg-[linear-gradient(165deg,#F9FCFF_0%,#EEF7FF_100%)] shadow-[0_24px_56px_-40px_rgba(15,23,42,0.3)]">
+            {contactCards.map((item, index) => (
+              <div key={item.label} className="px-5 py-5 sm:px-6">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    {item.label}
+                  </p>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="text-lg font-semibold text-slate-950 transition-colors hover:text-[#1B66B3]"
+                    >
+                      {item.value}
+                    </a>
+                  ) : (
+                    <p className="text-lg font-semibold text-slate-950">{item.value}</p>
+                  )}
+                </div>
+                {index < contactCards.length - 1 ? <div className="mt-5 h-px bg-[#DCEBFA]" /> : null}
               </div>
             ))}
           </div>
@@ -76,21 +71,35 @@ export function ContactDirectInfo() {
             needed.
           </p>
 
-          <div className="mt-8 grid gap-3">
-            <Button
-              asChild
-              className="border-0 text-white shadow-[0_20px_40px_-22px_rgba(37,99,235,0.65)] hover:opacity-95"
-              style={{ backgroundColor: colors.primary }}
+          <div className="mt-8 grid gap-4">
+            <Link
+              href="#company-inquiry"
+              className="group flex items-center justify-between rounded-[1.35rem] border border-[#BED9F3] bg-white px-5 py-4 transition-colors hover:bg-[#EEF6FF]"
             >
-              <Link href="#company-inquiry">Get My Team</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF] hover:text-slate-950"
+              <span>
+                <span className="block text-sm font-semibold uppercase tracking-[0.16em]" style={{ color: colors.primary }}>
+                  Company path
+                </span>
+                <span className="mt-1 block text-base font-semibold text-slate-950">Get My Team</span>
+              </span>
+              <span className="text-sm font-semibold text-[#1B66B3] transition-transform group-hover:translate-x-0.5">
+                Open
+              </span>
+            </Link>
+            <Link
+              href="#candidate-inquiry"
+              className="group flex items-center justify-between rounded-[1.35rem] border border-[#BED9F3] bg-white px-5 py-4 transition-colors hover:bg-[#EEF6FF]"
             >
-              <Link href="#candidate-inquiry">Apply Now</Link>
-            </Button>
+              <span>
+                <span className="block text-sm font-semibold uppercase tracking-[0.16em]" style={{ color: colors.primary }}>
+                  Candidate path
+                </span>
+                <span className="mt-1 block text-base font-semibold text-slate-950">Apply Now</span>
+              </span>
+              <span className="text-sm font-semibold text-[#1B66B3] transition-transform group-hover:translate-x-0.5">
+                Open
+              </span>
+            </Link>
           </div>
         </div>
       </div>

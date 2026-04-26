@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { BrandLogo } from "@/components/global/BrandLogo";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -15,16 +15,49 @@ export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopOpenMenu, setDesktopOpenMenu] = useState<string | null>(null);
-  const [desktopPinnedMenu, setDesktopPinnedMenu] = useState<string | null>(null);
   const [mobileOpenMenu, setMobileOpenMenu] = useState<string | null>(null);
+  const desktopMenuCloseTimeoutRef = useRef<number | null>(null);
   const hasDesktopOpenMenu = desktopOpenMenu !== null;
 
+  function clearDesktopMenuCloseTimeout() {
+    if (desktopMenuCloseTimeoutRef.current === null) {
+      return;
+    }
+
+    window.clearTimeout(desktopMenuCloseTimeoutRef.current);
+    desktopMenuCloseTimeoutRef.current = null;
+  }
+
+  function openDesktopMenu(href: string) {
+    clearDesktopMenuCloseTimeout();
+    setDesktopOpenMenu(href);
+  }
+
+  function closeDesktopMenu(href: string) {
+    clearDesktopMenuCloseTimeout();
+    setDesktopOpenMenu((current) => (current === href ? null : current));
+  }
+
+  function scheduleDesktopMenuClose(href: string) {
+    clearDesktopMenuCloseTimeout();
+    desktopMenuCloseTimeoutRef.current = window.setTimeout(() => {
+      setDesktopOpenMenu((current) => (current === href ? null : current));
+      desktopMenuCloseTimeoutRef.current = null;
+    }, 120);
+  }
+
   useEffect(() => {
+    clearDesktopMenuCloseTimeout();
     setMobileOpen(false);
     setDesktopOpenMenu(null);
-    setDesktopPinnedMenu(null);
     setMobileOpenMenu(null);
   }, [pathname]);
+
+  useEffect(() => {
+    return () => {
+      clearDesktopMenuCloseTimeout();
+    };
+  }, []);
 
   function isActivePath(href: string) {
     if (!pathname) {
@@ -68,8 +101,8 @@ export function Navbar() {
             const isActive = isActivePath(item.href);
             const isOpen = desktopOpenMenu === item.href;
             const isDesktopHighlighted = item.children?.length
-              ? isOpen || desktopPinnedMenu === item.href || (isActive && !hasDesktopOpenMenu && !desktopPinnedMenu)
-              : isActive && !hasDesktopOpenMenu && !desktopPinnedMenu;
+              ? isOpen || (isActive && !hasDesktopOpenMenu)
+              : isActive && !hasDesktopOpenMenu;
             const ItemIcon = item.icon;
 
             if (item.children?.length) {
@@ -79,17 +112,20 @@ export function Navbar() {
                   modal={false}
                   open={isOpen}
                   onOpenChange={(open) => {
-                    setDesktopOpenMenu(open ? item.href : null);
-
                     if (open) {
-                      setDesktopPinnedMenu(item.href);
+                      openDesktopMenu(item.href);
+                      return;
                     }
+
+                    closeDesktopMenu(item.href);
                   }}
                 >
                   <DropdownMenuTrigger asChild>
                     <button
                       type="button"
                       aria-current={isActive ? "page" : undefined}
+                      onPointerEnter={() => openDesktopMenu(item.href)}
+                      onPointerLeave={() => scheduleDesktopMenuClose(item.href)}
                       className={cn(
                         "group inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors 2xl:px-3.5 2xl:text-sm",
                         isDesktopHighlighted
@@ -112,9 +148,11 @@ export function Navbar() {
                     align="center"
                     collisionPadding={16}
                     sideOffset={12}
-                    className="w-[min(38rem,calc(100vw-2rem))] rounded-[1.5rem] bg-white p-3 text-slate-900 shadow-[0_24px_60px_-34px_rgba(15,23,42,0.2)]"
+                    onPointerEnter={() => openDesktopMenu(item.href)}
+                    onPointerLeave={() => scheduleDesktopMenuClose(item.href)}
+                    className="w-[min(31rem,calc(100vw-2rem))] rounded-[1.2rem] bg-white p-2.5 text-slate-900 shadow-[0_22px_54px_-36px_rgba(15,23,42,0.22)]"
                   >
-                    <div className="space-y-3">
+                    <div className="space-y-2.5">
                       {item.featured ? (
                         <Link
                           href={item.href}
@@ -122,10 +160,10 @@ export function Navbar() {
                             setDesktopOpenMenu(null);
                             scrollToTopIfSameRoute(item.href);
                           }}
-                          className="block rounded-[1.1rem] bg-[#F3F8FF] px-4 py-3 transition-colors hover:bg-[#F8FBFF]"
+                          className="block rounded-[0.95rem] bg-[#F3F8FF] px-3.5 py-2.5 transition-colors hover:bg-[#F8FBFF]"
                         >
-                          <p className="text-lg font-semibold text-slate-900">{item.featured.label}</p>
-                          <p className="mt-1 text-sm text-slate-600 leading-relaxed">{item.featured.description}</p>
+                          <p className="text-base font-semibold text-slate-900">{item.featured.label}</p>
+                          <p className="mt-1 text-xs leading-relaxed text-slate-600">{item.featured.description}</p>
                         </Link>
                       ) : null}
 
@@ -138,14 +176,18 @@ export function Navbar() {
                               setDesktopOpenMenu(null);
                               scrollToTopIfSameRoute(child.href);
                             }}
-                            className="group flex items-start gap-3 rounded-[1rem] px-3 py-3 transition-colors hover:bg-[#F3F8FF]"
+                            className="group flex items-start gap-2.5 rounded-[0.95rem] px-2.5 py-2.5 transition-colors hover:bg-[#F3F8FF]"
                           >
-                            <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F8FBFF] text-[#1B66B3]">
-                              <child.icon className="h-4 w-4" />
+                            <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F8FBFF] text-[#1B66B3]">
+                              <child.icon className="h-3.5 w-3.5" />
                             </span>
                             <span className="min-w-0">
-                              <span className="block text-base font-semibold leading-6 text-slate-900">{child.label}</span>
-                              <span className="mt-0.5 block text-sm text-slate-600 leading-relaxed">{child.description}</span>
+                              <span className="block text-[0.95rem] font-semibold leading-6 text-slate-900">
+                                {child.label}
+                              </span>
+                              <span className="mt-0.5 block text-xs leading-relaxed text-slate-600">
+                                {child.description}
+                              </span>
                             </span>
                           </Link>
                         ))}
@@ -160,7 +202,6 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={() => setDesktopPinnedMenu(null)}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "group inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors 2xl:px-3.5 2xl:text-sm",

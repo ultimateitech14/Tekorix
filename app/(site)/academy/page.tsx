@@ -46,7 +46,7 @@ export default function AcademyPage() {
               <Link
                 key={item.id}
                 href={`/academy/${item.id}`}
-                className="group flex h-full flex-col rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-6 shadow-sm transition-colors hover:bg-[#EDF5FF] sm:p-7"
+                className="group flex h-full flex-col rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#A9CEF5] hover:bg-[#EDF5FF] hover:shadow-[0_28px_62px_-42px_rgba(27,102,179,0.24)] sm:p-7"
               >
                 <div className="flex items-start gap-3">
                   <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EDF5FF] text-[#1B66B3]">

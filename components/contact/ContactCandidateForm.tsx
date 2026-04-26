@@ -25,6 +25,7 @@ import {
   uploadCandidateResumeToR2,
 } from "@/lib/api/candidate-leads";
 import { themeTokens } from "@/lib/theme/tokens";
+import { cn } from "@/lib/utils";
 import {
   candidateLeadExperienceLabels,
   candidateLeadExperienceValues,
@@ -93,7 +94,11 @@ function getSubmitButtonLabel(stage: SubmissionStage) {
   }
 }
 
-export function ContactCandidateForm() {
+type ContactCandidateFormProps = {
+  isActive?: boolean;
+};
+
+export function ContactCandidateForm({ isActive = false }: ContactCandidateFormProps) {
   const { colors } = themeTokens;
   const initialPhone = splitPublicPhoneValue(initialValues.phone);
   const [values, setValues] = useState<CandidateLeadState>(initialValues);
@@ -251,7 +256,12 @@ export function ContactCandidateForm() {
   return (
     <form
       id="candidate-inquiry"
-      className="rounded-[1.75rem] bg-white p-6 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)] sm:p-7"
+      className={cn(
+        "rounded-[1.75rem] border bg-white p-6 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B6D5F6] hover:shadow-[0_28px_66px_-42px_rgba(27,102,179,0.2)] sm:p-7",
+        isActive
+          ? "border-[#1B66B3] bg-[linear-gradient(180deg,#FFFFFF_0%,#F7FBFF_100%)] shadow-[0_28px_68px_-40px_rgba(27,102,179,0.28)] ring-2 ring-[#D7E8FA]"
+          : "border-transparent",
+      )}
       onSubmit={handleSubmit}
       noValidate
     >
@@ -308,7 +318,7 @@ export function ContactCandidateForm() {
           onCountryCodeChange={(value) => updatePhone(value, phoneNumber)}
           onPhoneNumberChange={(value) => updatePhone(phonePrefix, value)}
           error={errors.phone}
-          helperText="Use a number where recruiters can reach you for screening and follow-up."
+          showSupportText={false}
           onBlur={() => handleFieldBlur("phone")}
         />
 

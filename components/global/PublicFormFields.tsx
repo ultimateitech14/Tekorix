@@ -49,6 +49,7 @@ type PublicPhoneFieldProps = {
   disabled?: boolean;
   className?: string;
   onBlur?: () => void;
+  showSupportText?: boolean;
 };
 
 export function PublicFieldMessages({ error, helperText, note, className }: PublicFieldMessageProps) {
@@ -78,6 +79,7 @@ export function PublicPhoneField({
   disabled,
   className,
   onBlur,
+  showSupportText = true,
 }: PublicPhoneFieldProps) {
   const metadata = getPublicPhoneMetadata(countryCode);
   const effectivePlaceholder = placeholder || metadata.placeholder;
@@ -126,8 +128,8 @@ export function PublicPhoneField({
       </div>
       <PublicFieldMessages
         error={error}
-        helperText={helperText}
-        note={`${metadata.helperText} ${getPublicPhoneLengthMessage(countryCode)}`}
+        helperText={showSupportText ? helperText : undefined}
+        note={showSupportText ? `${metadata.helperText} ${getPublicPhoneLengthMessage(countryCode)}` : undefined}
       />
     </div>
   );

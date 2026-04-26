@@ -44,13 +44,13 @@ export function ContactLinkedIn() {
           {profiles.map((item) => (
             <article
               key={item.title}
-              className="rounded-[1.75rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EEF7FF_100%)] p-6 shadow-[0_26px_60px_-44px_rgba(15,23,42,0.3)] sm:p-7"
+              className="flex h-full flex-col rounded-[1.75rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EEF7FF_100%)] p-6 shadow-[0_26px_60px_-44px_rgba(15,23,42,0.3)] sm:p-7"
             >
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">LinkedIn</p>
               <h3 className="mt-4 font-display text-2xl font-semibold text-slate-950">{item.title}</h3>
               <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
 
-              <div className="mt-8">
+              <div className="mt-auto pt-8">
                 <Button
                   asChild
                   variant="outline"

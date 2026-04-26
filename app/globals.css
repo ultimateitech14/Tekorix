@@ -159,6 +159,51 @@
     border-color: transparent !important;
   }
 
+  @media (hover: hover) and (pointer: fine) {
+    .site-shell :where(article, section, div, aside, form, a, li):is(
+      [class*="rounded-xl"][class*="bg-"][class*="border"],
+      [class*="rounded-xl"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.35rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.35rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.4rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.4rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.5rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.5rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.75rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.75rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.8rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.8rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[2rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[2rem]"][class*="bg-"][class*="shadow"]
+    ) {
+      transition-property: transform, box-shadow, border-color, background-color;
+      transition-duration: 280ms;
+      transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, box-shadow;
+    }
+
+    .site-shell :where(article, section, div, aside, form, a, li):is(
+      [class*="rounded-xl"][class*="bg-"][class*="border"],
+      [class*="rounded-xl"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.35rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.35rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.4rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.4rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.5rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.5rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.75rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.75rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[1.8rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[1.8rem]"][class*="bg-"][class*="shadow"],
+      [class*="rounded-[2rem]"][class*="bg-"][class*="border"],
+      [class*="rounded-[2rem]"][class*="bg-"][class*="shadow"]
+    ):hover {
+      transform: translateY(-4px);
+      border-color: #A9CEF5 !important;
+      box-shadow: 0 28px 68px -46px rgba(27, 102, 179, 0.26);
+    }
+  }
+
   .pill-outline {
     @apply border border-border/70 bg-transparent text-muted-foreground;
   }

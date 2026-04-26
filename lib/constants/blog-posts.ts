@@ -67,7 +67,7 @@ export const blogPosts: BlogPost[] = [
     title: "What strong candidates do before applying for modern engineering roles.",
     description:
       "The preparation patterns that help professionals stand out across product, cloud, data, and AI hiring.",
-    coverImage: "/images/hero-fallback.svg",
+    coverImage: "/images/commitment-professional.jpg",
     coverAlt: "Candidate preparing portfolio for engineering interview",
     intro:
       "Good candidates are not only technically ready, they are context ready. Teams now expect professionals to connect their skills with product outcomes, delivery constraints, and collaboration habits.",
@@ -108,7 +108,7 @@ export const blogPosts: BlogPost[] = [
     title: "Why contract staffing works best when scope and ownership are defined early.",
     description:
       "How companies can use flexible hiring support without creating confusion across teams and timelines.",
-    coverImage: "/images/magazine-placeholder.svg",
+    coverImage: "/images/commitment-professional.jpg",
     coverAlt: "Delivery planning board with milestones and ownership lanes",
     intro:
       "Contract staffing creates real value when it is treated as a delivery strategy, not just a headcount patch. Clear scope, explicit interfaces, and operational discipline are the main difference makers.",
@@ -149,7 +149,7 @@ export const blogPosts: BlogPost[] = [
     title: "How salary benchmarking helps product teams hire with less negotiation churn.",
     description:
       "Compensation bands backed by market context reduce offer drop-offs and shorten hiring cycles.",
-    coverImage: "/images/hero-fallback.svg",
+    coverImage: "/images/commitment-professional.jpg",
     coverAlt: "Compensation benchmarking report on a laptop screen",
     intro:
       "Compensation uncertainty is one of the most common reasons offers stall. Teams that maintain clear benchmarking ranges usually close roles faster and with better candidate experience.",
@@ -178,7 +178,7 @@ export const blogPosts: BlogPost[] = [
     title: "A practical AI recruiting playbook for faster shortlisting and better candidate quality.",
     description:
       "Where automation helps in sourcing and screening, and where human judgment should remain central.",
-    coverImage: "/images/magazine-placeholder.svg",
+    coverImage: "/images/commitment-professional.jpg",
     coverAlt: "Recruiter reviewing AI-assisted candidate shortlists",
     intro:
       "AI can reduce repetitive recruiting work, but it should support decisions instead of replacing decision quality. The right model is human-led hiring with automation at the right touchpoints.",
@@ -204,4 +204,3 @@ export const blogPosts: BlogPost[] = [
 export function getBlogPostBySlug(slug: string) {
   return blogPosts.find((post) => post.slug === slug);
 }
-

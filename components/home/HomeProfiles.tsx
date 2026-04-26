@@ -2,10 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { HomeSectionHeading } from "@/components/home/HomeSectionHeading";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const profiles = [
@@ -115,7 +114,7 @@ export function HomeProfiles() {
             {profiles.map((profile) => (
               <article
                 key={profile.name}
-                className="flex min-h-[23.25rem] w-[min(88vw,22rem)] shrink-0 snap-start flex-col rounded-xl bg-[#F8FBFF] p-6 shadow-sm md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
+                className="group flex min-h-[23.25rem] w-[min(88vw,22rem)] shrink-0 snap-start flex-col rounded-[1.4rem] border border-[#D7E8FA] bg-[#F8FBFF] p-6 shadow-[0_22px_50px_-42px_rgba(15,23,42,0.24)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A9CEF5] hover:shadow-[0_28px_62px_-40px_rgba(27,102,179,0.28)] md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
               >
                 <div className="flex items-center justify-between gap-3">
                   <span className="rounded-full bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#1B66B3]">
@@ -137,7 +136,7 @@ export function HomeProfiles() {
                     {profile.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-full border border-[#BED9F3] bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600"
+                        className="rounded-full border border-[#BED9F3] bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 transition-colors group-hover:bg-white"
                       >
                         {skill}
                       </span>
@@ -145,9 +144,13 @@ export function HomeProfiles() {
                   </div>
 
                   <div className="mt-auto pt-6">
-                    <Button asChild variant="outline" className="w-full">
-                      <Link href="/contact">View Resume</Link>
-                    </Button>
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-[#1B66B3] transition-colors hover:text-[#145188]"
+                    >
+                      View Resume
+                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
                   </div>
                 </div>
               </article>
@@ -167,16 +170,6 @@ export function HomeProfiles() {
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
-
-        <p className="text-sm leading-relaxed text-slate-600">
-          Scroll cards to explore more specialist profiles. Resume buttons stay aligned across all cards
-          for a cleaner comparison view.
-        </p>
-
-        <p className="text-sm text-slate-600 leading-relaxed">
-          These illustrative profiles show the kinds of specialist capability Tekorix can position into
-          teams. Detailed profile sharing can happen through a direct inquiry path.
-        </p>
       </div>
     </section>
   );

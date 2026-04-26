@@ -91,7 +91,10 @@ export default function AcademyProgramDetailPage({ params }: AcademyProgramDetai
                 <h2 className="type-h2 text-slate-950">Program focus</h2>
                 <div className="mt-6 grid gap-4 md:grid-cols-2">
                   {program.focusPoints.map((point) => (
-                    <div key={point} className="flex items-start gap-3 rounded-xl bg-[#EDF5FF] px-4 py-4">
+                    <div
+                      key={point}
+                      className="flex items-start gap-3 rounded-xl bg-[#EDF5FF] px-4 py-4 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.24)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#E6F1FF] hover:shadow-[0_26px_56px_-38px_rgba(27,102,179,0.22)]"
+                    >
                       <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#1B66B3]" />
                       <span className="type-body-sm text-slate-700">{point}</span>
                     </div>
@@ -103,7 +106,10 @@ export default function AcademyProgramDetailPage({ params }: AcademyProgramDetai
                 <h2 className="type-h2 text-slate-950">Outcomes</h2>
                 <div className="mt-6 space-y-4">
                   {program.outcomes.map((outcome) => (
-                    <div key={outcome} className="flex items-start gap-3 rounded-xl bg-[#EDF5FF] px-4 py-4">
+                    <div
+                      key={outcome}
+                      className="flex items-start gap-3 rounded-xl bg-[#EDF5FF] px-4 py-4 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.24)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#E6F1FF] hover:shadow-[0_26px_56px_-38px_rgba(27,102,179,0.22)]"
+                    >
                       <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#1B66B3]" />
                       <span className="type-body-sm text-slate-700">{outcome}</span>
                     </div>
@@ -137,7 +143,7 @@ export default function AcademyProgramDetailPage({ params }: AcademyProgramDetai
                       <Link
                         key={item.id}
                         href={`/academy/${item.id}`}
-                        className="block rounded-xl bg-[#EDF5FF] px-4 py-4 transition-colors hover:bg-[#E6F1FF]"
+                        className="block rounded-xl bg-[#EDF5FF] px-4 py-4 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.22)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#E6F1FF] hover:shadow-[0_26px_56px_-38px_rgba(27,102,179,0.22)]"
                       >
                         <div className="flex items-center gap-3">
                           <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#EDF5FF] text-[#1B66B3]">

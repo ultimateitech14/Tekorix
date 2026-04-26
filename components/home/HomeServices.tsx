@@ -43,8 +43,8 @@ export function HomeServices() {
             <article
               key={service.title}
               className={service.isCore
-                ? "rounded-xl border border-[#1B66B3] bg-[#EDF5FF] p-6 shadow-sm sm:p-7"
-                : "rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-6 shadow-sm sm:p-7"}
+                ? "rounded-xl border border-[#1B66B3] bg-[#EDF5FF] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-[#F4F9FF] hover:shadow-[0_24px_58px_-40px_rgba(27,102,179,0.28)] sm:p-7"
+                : "rounded-xl border border-[#BED9F3] bg-[#F8FBFF] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#9CC6F1] hover:bg-white hover:shadow-[0_24px_58px_-40px_rgba(27,102,179,0.22)] sm:p-7"}
             >
               <div className="flex items-start justify-between gap-4">
                 <span

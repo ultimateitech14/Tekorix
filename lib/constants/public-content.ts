@@ -20,9 +20,10 @@ export const publicOfficeContent = {
 
 export const publicContactContent = {
   companyName: publicBrandContent.companyName,
-  email: "hello@tekorix.com",
-  phone: "+91 80 0000 0000",
-  whatsAppHref: "",
+  email: "contact@tekorix.com",
+  phone: "8595163184",
+  whatsAppHref: "+91 73570 68694",
+  whatsAppDisplay: "+91 73570 68694",
   officeHours: publicOfficeContent.officeHours,
   primaryOffice: publicOfficeContent.displayAddress,
   addressLines: publicOfficeContent.addressLines,
