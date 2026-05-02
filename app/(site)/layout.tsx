@@ -15,7 +15,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
     <div className="site-shell relative flex min-h-screen flex-col bg-[#E6F1FF] text-slate-900">
       <Navbar />
       <RouteScrollManager />
-      <main className="type-body flex-1 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-20 sm:pb-[calc(7rem+env(safe-area-inset-bottom))] xl:pb-10">
+      <main className="type-body flex-1 pb-[calc(6.25rem+env(safe-area-inset-bottom))] pt-[4.5rem] sm:pb-[calc(7rem+env(safe-area-inset-bottom))] sm:pt-20 xl:pb-10">
         {children}
       </main>
       <Footer />

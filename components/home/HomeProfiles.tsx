@@ -90,7 +90,7 @@ export function HomeProfiles() {
         <HomeSectionHeading
           eyebrow="Representative profiles"
           title="Illustrative specialist profiles aligned to modern delivery needs."
-          description="These cards show the type of vetted expertise Tekorix can position into teams, GCC pods, and specialist hiring plans."
+          description="Expert profiles designed to match evolving project needs, combining the right skills and experience for modern digital delivery."
         />
 
         <div className="relative">
@@ -136,7 +136,7 @@ export function HomeProfiles() {
                     {profile.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-full border border-[#BED9F3] bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 transition-colors group-hover:bg-white"
+                        className="rounded-full border border-[#BED9F3] bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 transition-colors group-hover:bg-[#EAF4FF]"
                       >
                         {skill}
                       </span>

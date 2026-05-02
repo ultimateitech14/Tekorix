@@ -99,24 +99,6 @@ export default function BusinessConsultingPage() {
         primaryCta={{ label: "Talk to Us", href: "/contact" }}
         secondaryCta={{ label: "View Services", href: "/services" }}
         signals={["Advisory plus execution positioning", "Team structuring and transformation support", "Aligned with wider Tekorix services story"]}
-        panelEyebrow="Consulting page role"
-        panelTitle="This page explains how Tekorix can help shape decisions, not only fill delivery capacity."
-        panelItems={[
-          {
-            title: "Business and delivery alignment",
-            description: "Support leaders who need a clearer route from strategic intent to workable execution structure.",
-          },
-          {
-            title: "Team design decisions",
-            description: "Help define whether to hire, restructure, augment, or stand up a more formal delivery pod or GCC extension.",
-          },
-          {
-            title: "Execution-ready advisory",
-            description: "Consulting can flow directly into staffing or engineering support when the work needs to move beyond planning.",
-          },
-        ]}
-        panelNoteTitle="Advisory with a practical edge"
-        panelNoteDescription="The page stays useful because it links consulting language back to real operating and delivery choices clients have to make."
       />
 
       <section className="bg-[#E6F1FF] public-section">

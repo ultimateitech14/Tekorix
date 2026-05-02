@@ -7,6 +7,8 @@ type HomeSectionHeadingProps = {
   align?: "left" | "center";
   theme?: "light" | "dark";
   className?: string;
+  titleClassName?: string;
+  descriptionClassName?: string;
 };
 
 export function HomeSectionHeading({
@@ -16,35 +18,41 @@ export function HomeSectionHeading({
   align = "left",
   theme = "light",
   className,
+  titleClassName,
+  descriptionClassName,
 }: HomeSectionHeadingProps) {
   const isDark = theme === "dark";
-  const alignmentClasses = align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl";
+  const alignmentClasses = align === "center" ? "mx-auto max-w-[48rem] text-center" : "max-w-[48rem]";
 
   return (
-    <div className={cn("space-y-4", alignmentClasses, className)}>
+    <div className={cn("space-y-4 sm:space-y-5", alignmentClasses, className)}>
       {eyebrow ? (
         <p
           className={cn(
-            "text-sm font-semibold uppercase tracking-[0.24em]",
-            isDark ? "text-[#378FDD]" : "text-[#1B66B3]",
+            "inline-flex w-fit items-center rounded-full bg-[#EDF5FF] px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1B66B3] sm:px-4 sm:py-1.5 sm:text-sm sm:tracking-[0.18em]",
+            align === "center" && "mx-auto",
+            isDark && "bg-white/12 text-[#7DB8F1]",
           )}
         >
           {eyebrow}
         </p>
       ) : null}
-      <div className="space-y-3">
+      <div className="space-y-3.5">
         <h2
           className={cn(
-            "font-display text-[clamp(1.95rem,1.55rem+1.1vw,2.65rem)] font-semibold leading-tight text-slate-900",
+            "text-balance font-display text-[clamp(1.85rem,1.35rem+1.45vw,2.9rem)] font-semibold leading-[1.07] tracking-[-0.03em] text-slate-900",
             isDark && "text-white",
+            titleClassName,
           )}
         >
           {title}
         </h2>
         <p
           className={cn(
-            "text-base leading-relaxed text-slate-600 md:text-[1.02rem]",
+            "max-w-2xl text-[0.98rem] leading-relaxed text-slate-600 sm:text-base md:text-[1.02rem]",
+            align === "center" && "mx-auto",
             isDark && "text-slate-300",
+            descriptionClassName,
           )}
         >
           {description}

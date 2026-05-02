@@ -87,6 +87,15 @@ const hrAdvisoryFlow = [
   },
 ];
 
+const advisoryCardClassName =
+  "group relative flex h-full flex-col overflow-hidden rounded-[1.65rem] border bg-[linear-gradient(180deg,rgba(248,251,255,0.98)_0%,rgba(241,247,255,0.98)_100%)] p-5 shadow-[0_22px_58px_-44px_rgba(15,23,42,0.22)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A9CEF5] hover:shadow-[0_28px_68px_-40px_rgba(27,102,179,0.24)] active:-translate-y-0.5 sm:p-6";
+
+const highlightCardClassName =
+  "group relative flex h-full flex-col overflow-hidden rounded-[1.55rem] border bg-[linear-gradient(180deg,rgba(248,251,255,0.98)_0%,rgba(243,248,255,0.98)_100%)] p-5 shadow-[0_20px_54px_-42px_rgba(15,23,42,0.2)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A9CEF5] hover:shadow-[0_28px_66px_-40px_rgba(27,102,179,0.24)] active:-translate-y-0.5 sm:p-6";
+
+const flowCardClassName =
+  "group relative overflow-hidden rounded-[1.45rem] border px-5 py-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#A9CEF5] hover:shadow-[0_24px_54px_-36px_rgba(27,102,179,0.22)] active:-translate-y-0.5";
+
 export default function HrConsultingPage() {
   const { colors } = themeTokens;
 
@@ -99,24 +108,6 @@ export default function HrConsultingPage() {
         primaryCta={{ label: "Talk to Us", href: "/contact" }}
         secondaryCta={{ label: "View Services", href: "/services" }}
         signals={["Workforce planning and hiring design", "Practical HR plus staffing positioning", "Built for growing teams and delivery pressure"]}
-        panelEyebrow="HR page role"
-        panelTitle="This page explains how Tekorix can help shape people, hiring, and HR operating decisions."
-        panelItems={[
-          {
-            title: "Growth-stage workforce planning",
-            description: "Support companies that need a clearer headcount shape, hiring sequence, and team model before scaling.",
-          },
-          {
-            title: "Better recruitment operating flow",
-            description: "Improve the way sourcing, evaluation, shortlisting, and offer conversion work across key roles.",
-          },
-          {
-            title: "Execution-ready advisory",
-            description: "HR consulting can move naturally into staffing, consultant deployment, or team-building support when needed.",
-          },
-        ]}
-        panelNoteTitle="People advisory with commercial practicality"
-        panelNoteDescription="The page stays strong because it connects HR decisions to real hiring outcomes, workforce stability, and delivery continuity."
       />
 
       <section className="bg-[#E6F1FF] public-section">
@@ -127,23 +118,27 @@ export default function HrConsultingPage() {
             description="The page is organized around the decisions growing companies usually need help with before hiring volume increases or delivery pressure exposes process gaps."
           />
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
             {hrAdvisoryAreas.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.75rem] border bg-[#F8FBFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                className={advisoryCardClassName}
                 style={{ borderColor: colors.border }}
               >
+                <div
+                  aria-hidden="true"
+                  className="absolute right-0 top-0 h-28 w-28 rounded-full bg-[rgba(83,174,250,0.12)] blur-3xl"
+                />
                 <span
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full text-white"
+                  className="relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12"
                   style={{ backgroundColor: colors.primary }}
                 >
                   <item.icon className="h-5 w-5" />
                 </span>
-                <h2 className="mt-5 font-display text-2xl font-semibold tracking-tight text-slate-950">
+                <h2 className="relative z-10 mt-5 font-display text-[1.18rem] font-semibold leading-snug tracking-[-0.02em] text-slate-950 sm:text-2xl">
                   {item.title}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                <p className="relative z-10 mt-3 text-sm leading-7 text-slate-600 sm:text-base">{item.description}</p>
               </div>
             ))}
           </div>
@@ -159,27 +154,28 @@ export default function HrConsultingPage() {
             align="center"
           />
 
-          <div className="grid gap-5 lg:grid-cols-3">
+          <div className="grid gap-4 lg:grid-cols-3 xl:gap-6">
             {hrCapabilityHighlights.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_55px_-44px_rgba(15,23,42,0.22)]"
+                className={highlightCardClassName}
                 style={{ borderColor: colors.border }}
               >
-                <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em]" style={{ color: colors.accent }}>
+                <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-[rgba(27,102,179,0.1)] blur-3xl" aria-hidden="true" />
+                <div className="relative z-10 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em]" style={{ color: colors.accent }}>
                   Highlight
                   <ArrowUpRight className="h-4 w-4" />
                 </div>
-                <h2 className="mt-4 font-display text-2xl font-semibold tracking-tight text-slate-950">
+                <h2 className="relative z-10 mt-4 font-display text-[1.18rem] font-semibold leading-snug tracking-[-0.02em] text-slate-950 sm:text-2xl">
                   {item.title}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                <p className="relative z-10 mt-3 text-sm leading-7 text-slate-600 sm:text-base">{item.description}</p>
               </div>
             ))}
           </div>
 
           <div
-            className="rounded-[2rem] border bg-[#F8FBFF] p-6 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
+            className="rounded-[1.85rem] border bg-[linear-gradient(180deg,rgba(248,251,255,0.98)_0%,rgba(239,246,255,0.98)_100%)] p-5 shadow-[0_28px_70px_-50px_rgba(15,23,42,0.2)] sm:p-8"
             style={{ borderColor: colors.border }}
           >
             <HomeSectionHeading
@@ -188,11 +184,11 @@ export default function HrConsultingPage() {
               description="This keeps the page consistent with the broader Tekorix approach of turning advisory conversations into clear next-step decisions."
             />
 
-            <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            <div className="mt-8 grid gap-4 lg:grid-cols-3 xl:gap-5">
               {hrAdvisoryFlow.map((item, index) => (
                 <div
                   key={item.label}
-                  className="rounded-[1.5rem] border bg-[#F8FBFF] px-5 py-6"
+                  className={flowCardClassName}
                   style={{
                     borderColor: colors.border,
                     backgroundColor: index === 0 ? colors.surfaceAlt : colors.surfaceCard,
@@ -201,8 +197,10 @@ export default function HrConsultingPage() {
                   <p className="text-sm font-semibold uppercase tracking-[0.18em]" style={{ color: colors.primary }}>
                     0{index + 1}
                   </p>
-                  <h3 className="mt-4 font-display text-2xl font-semibold text-slate-950">{item.label}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                  <h3 className="mt-4 font-display text-[1.18rem] font-semibold leading-snug text-slate-950 sm:text-2xl">
+                    {item.label}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">{item.description}</p>
                 </div>
               ))}
             </div>

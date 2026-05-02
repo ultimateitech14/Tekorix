@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Eye, Factory, Landmark, Shield, Stethoscope, Target, TrendingUp, Waypoints } from "lucide-react";
+import { Eye, Factory, Landmark, Stethoscope, Target, TrendingUp, Waypoints } from "lucide-react";
 
 import { PublicBottomCta } from "@/components/global/PublicBottomCta";
 import { HomeSectionHeading } from "@/components/home/HomeSectionHeading";
 import { buildMetadata } from "@/lib/seo";
+import { themeTokens } from "@/lib/theme/tokens";
 
 export const metadata: Metadata = buildMetadata({
   title: "About Us",
@@ -51,14 +52,9 @@ const industries = [
     icon: TrendingUp,
   },
   {
-    title: "ISVs",
-    description: "Product-focused organizations scaling platform and release capacity.",
+    title: "ISVs, GCCs & GSIs",
+    description: "Software vendors, GCC teams, and partner ecosystems scaling platform, release, and specialist capacity.",
     icon: Waypoints,
-  },
-  {
-    title: "GSIs",
-    description: "Large ecosystems that need specialist talent and flexible support models.",
-    icon: Shield,
   },
   {
     title: "BFSI",
@@ -75,39 +71,49 @@ const industries = [
     description: "Organizations modernizing operations and product engineering workflows.",
     icon: Factory,
   },
+  {
+    title: "Public Sector",
+    description: "Programmes that need operating discipline, continuity, and stakeholder-visible delivery progress.",
+    icon: Landmark,
+  },
 ];
 
 export default function AboutPage() {
+  const { colors } = themeTokens;
+
   return (
     <>
       <section className="bg-[#E6F1FF] public-section">
         <div className="site-container public-stack">
-          <HomeSectionHeading
-            eyebrow="About Us"
-            title="A practical partner for staffing, team building, and execution support."
-            description="Tekorix helps companies with the right talent and structured delivery support so projects can move faster with less risk."
-          />
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,0.96fr)_minmax(19rem,0.82fr)] lg:items-start lg:gap-8">
+            <div className="space-y-5 sm:space-y-6">
+              <HomeSectionHeading
+                eyebrow="About Us"
+                title="A practical partner for staffing, team building, and execution support."
+                description="Tekorix helps companies with the right talent and structured delivery support so projects can move faster with less risk."
+                className="max-w-4xl"
+              />
 
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div className="space-y-5">
-              <p className="type-body text-slate-600">
-                We work with organizations that need dependable hiring and delivery support without unnecessary complexity.
-                Our approach is straightforward: understand the requirement, deploy the right capability, and keep execution
-                stable.
-              </p>
-              <p className="type-body text-slate-600">
-                From specialist staffing to team-level support, Tekorix focuses on outcomes that are measurable, sustainable,
-                and aligned with business timelines.
-              </p>
+              <div className="space-y-4">
+                <p className="type-body text-slate-600">
+                  We work with organizations that need dependable hiring and delivery support without unnecessary complexity.
+                  Our approach is straightforward: understand the requirement, deploy the right capability, and keep execution
+                  stable.
+                </p>
+                <p className="type-body text-slate-600">
+                  From specialist staffing to team-level support, Tekorix focuses on outcomes that are measurable, sustainable,
+                  and aligned with business timelines.
+                </p>
+              </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-[1.8rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#ECF5FF_100%)] shadow-[0_28px_64px_-48px_rgba(15,23,42,0.34)]">
+            <div className="relative w-full max-w-[33rem] overflow-hidden rounded-[1.6rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#ECF5FF_100%)] shadow-[0_24px_54px_-42px_rgba(15,23,42,0.28)] lg:ml-auto">
               <Image
                 src="/images/commitment-professional.jpg"
                 alt="Tekorix team collaboration"
                 width={960}
                 height={720}
-                className="h-[280px] w-full object-cover sm:h-[340px]"
+                className="h-[220px] w-full object-cover object-center sm:h-[280px] lg:h-[300px]"
                 priority
               />
             </div>
@@ -165,13 +171,14 @@ export default function AboutPage() {
             {industries.map((item) => (
               <div
                 key={item.title}
-                className="flex h-full flex-col rounded-[1.5rem] bg-[linear-gradient(160deg,#F9FCFF_0%,#EDF6FF_100%)] p-6 shadow-[0_24px_58px_-44px_rgba(15,23,42,0.3)]"
+                className="rounded-[1.5rem] border bg-[#F8FBFF] p-6 shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]"
+                style={{ borderColor: colors.border }}
               >
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#1B66B3] text-white">
                   <item.icon className="h-5 w-5" />
                 </span>
-                <h3 className="type-h3 mt-4 text-slate-900">{item.title}</h3>
-                <p className="type-body mt-2 text-slate-600">{item.description}</p>
+                <h3 className="mt-5 font-display text-2xl font-semibold tracking-tight text-slate-950">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>

@@ -24,7 +24,7 @@ export function ContactHero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden border-b" style={{ backgroundColor: colors.page, borderColor: colors.border }}>
+    <section className="relative overflow-hidden" style={{ backgroundColor: colors.page }}>
       <div
         className="absolute inset-0"
         style={{
@@ -43,7 +43,7 @@ export function ContactHero() {
       <div className="site-container relative public-hero-space">
         <div className="max-w-4xl public-stack">
           <div className="space-y-5">
-            <p className="text-sm font-semibold uppercase tracking-[0.26em]" style={{ color: colors.primary }}>
+            <p className="inline-flex w-fit items-center rounded-full bg-[#EDF5FF] px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1B66B3] sm:px-4 sm:py-1.5 sm:text-sm sm:tracking-[0.18em]">
               Contact
             </p>
             <h1 className="font-display text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">

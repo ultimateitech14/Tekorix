@@ -54,7 +54,7 @@ export function HomeBlog() {
           <HomeSectionHeading
             eyebrow="Blog"
             title="Latest articles, hiring ideas, and career insights."
-            description="A clean editorial section for practical content around hiring, delivery teams, and job growth."
+            description="Stay informed with expert perspectives, industry trends, and practical knowledge."
             className="max-w-3xl"
           />
 

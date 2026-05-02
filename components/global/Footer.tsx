@@ -15,7 +15,7 @@ const socialMediaLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-[#BED9F3] bg-[#E6F1FF] text-slate-900">
+    <footer data-site-footer className="border-t border-[#BED9F3] bg-[#E6F1FF] text-slate-900">
       <div className="site-container grid gap-6 py-8 lg:grid-cols-[1.1fr_0.8fr_0.7fr] lg:py-9">
         <div className="space-y-3">
           <Link
@@ -51,7 +51,7 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={item.label}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[#BED9F3] bg-white/90 px-3 py-1 text-xs font-medium text-slate-600 transition-colors hover:bg-[#F1F7FF] hover:text-slate-900"
+                className="inline-flex items-center gap-1.5 rounded-full border border-[#BED9F3] bg-[#EDF5FF] px-3 py-1 text-xs font-medium text-slate-600 transition-colors hover:bg-[#EAF4FF] hover:text-slate-900"
               >
                 <item.icon className="h-3.5 w-3.5 text-[#1B66B3]" />
                 {item.label}

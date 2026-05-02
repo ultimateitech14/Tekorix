@@ -87,13 +87,14 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 bg-white/95 shadow-[0_18px_42px_-32px_rgba(15,23,42,0.28)] backdrop-blur-xl">
-      <div className="site-container flex h-20 items-center justify-between gap-6">
+      <div className="site-container flex h-[4.5rem] items-center justify-between gap-4 sm:h-20 sm:gap-6">
         <Link
           href="/"
           onClick={closeMobileMenu}
+          data-no-surface-wave="true"
           className="inline-flex shrink-0 items-center transition-opacity hover:opacity-95"
         >
-          <BrandLogo priority className="h-12 sm:h-[3.35rem]" />
+          <BrandLogo priority className="h-10 sm:h-[3.35rem]" />
         </Link>
 
         <nav className="hidden flex-1 items-center justify-end gap-2 lg:flex">
@@ -124,6 +125,7 @@ export function Navbar() {
                     <button
                       type="button"
                       aria-current={isActive ? "page" : undefined}
+                      data-no-surface-wave="true"
                       onPointerEnter={() => openDesktopMenu(item.href)}
                       onPointerLeave={() => scheduleDesktopMenuClose(item.href)}
                       className={cn(
@@ -156,6 +158,7 @@ export function Navbar() {
                       {item.featured ? (
                         <Link
                           href={item.href}
+                          data-no-surface-wave="true"
                           onClick={() => {
                             setDesktopOpenMenu(null);
                             scrollToTopIfSameRoute(item.href);
@@ -172,6 +175,7 @@ export function Navbar() {
                           <Link
                             key={`${child.href}-${child.label}`}
                             href={child.href}
+                            data-no-surface-wave="true"
                             onClick={() => {
                               setDesktopOpenMenu(null);
                               scrollToTopIfSameRoute(child.href);
@@ -203,6 +207,7 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
+                data-no-surface-wave="true"
                 className={cn(
                   "group inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors 2xl:px-3.5 2xl:text-sm",
                   isDesktopHighlighted
@@ -226,7 +231,8 @@ export function Navbar() {
           type="button"
           variant="outline"
           size="icon"
-          className="bg-white text-slate-900 hover:bg-slate-100 hover:text-slate-900 lg:hidden"
+          data-no-surface-wave="true"
+          className="h-11 w-11 rounded-[1.35rem] bg-white text-slate-900 hover:bg-slate-100 hover:text-slate-900 sm:h-12 sm:w-12 lg:hidden"
           onClick={() => setMobileOpen((current) => !current)}
           aria-expanded={mobileOpen}
           aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
@@ -236,9 +242,9 @@ export function Navbar() {
       </div>
 
       {mobileOpen ? (
-        <div className="bg-white lg:hidden">
-          <div className="site-container py-4">
-            <nav className="grid gap-2">
+        <div className="border-t border-slate-100 bg-white lg:hidden">
+          <div className="site-container max-h-[calc(100svh-4.5rem)] overflow-y-auto overscroll-contain pb-[calc(env(safe-area-inset-bottom)+0.85rem)] pt-3 pr-0.5">
+            <nav className="grid gap-2.5">
               {navigationItems.map((item) => {
                 const isActive = isActivePath(item.href);
                 const ItemIcon = item.icon;
@@ -249,15 +255,16 @@ export function Navbar() {
                   return (
                     <div
                       key={item.href}
-                      className="overflow-hidden rounded-[1.5rem] bg-white"
+                      className="overflow-hidden rounded-[1.35rem] border border-[#D8E8FB] bg-[#FCFDFF] shadow-[0_16px_40px_-34px_rgba(15,23,42,0.16)]"
                     >
                       <button
                         type="button"
+                        data-no-surface-wave="true"
                         className={cn(
-                          "flex w-full items-center justify-between px-4 py-3 text-left text-sm transition-colors",
+                          "flex w-full items-center justify-between px-4 py-3 text-left text-sm transition-colors sm:px-5",
                           isActive || isExpanded
                             ? "bg-[#F8FBFF] font-semibold text-slate-900"
-                            : "font-medium text-slate-600",
+                            : "font-medium text-slate-600 hover:bg-[#F8FBFF]",
                         )}
                         onClick={() => setMobileOpenMenu((current) => (current === item.href ? null : item.href))}
                         aria-expanded={isExpanded}
@@ -275,15 +282,16 @@ export function Navbar() {
                       </button>
 
                       {isExpanded ? (
-                        <div className="grid gap-2 px-3 pb-3">
+                        <div className="grid gap-2 px-3 pb-3 pt-1">
                           {item.featured ? (
                             <Link
                               href={item.href}
+                              data-no-surface-wave="true"
                               onClick={() => {
                                 closeMobileMenu();
                                 scrollToTopIfSameRoute(item.href);
                               }}
-                              className="rounded-xl bg-[#F3F8FF] px-4 py-3"
+                              className="rounded-[1.15rem] border border-[#DCEBFB] bg-[#F3F8FF] px-4 py-3 shadow-[0_14px_34px_-32px_rgba(27,102,179,0.32)]"
                             >
                               <p className="text-sm font-semibold text-slate-900">{item.featured.label}</p>
                               <p className="mt-1 text-xs text-slate-600 leading-relaxed">{item.featured.description}</p>
@@ -294,11 +302,12 @@ export function Navbar() {
                             <Link
                               key={`${child.href}-${child.label}`}
                               href={child.href}
+                              data-no-surface-wave="true"
                               onClick={() => {
                                 closeMobileMenu();
                                 scrollToTopIfSameRoute(child.href);
                               }}
-                              className="rounded-xl bg-white px-4 py-3 transition-colors hover:bg-[#F3F8FF]"
+                              className="rounded-[1.15rem] border border-[#E5EFFB] bg-white px-4 py-3 transition-colors hover:bg-[#F3F8FF] active:bg-[#EEF6FF]"
                             >
                               <div className="flex items-start gap-3">
                                 <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F8FBFF] text-[#1B66B3]">
@@ -323,6 +332,7 @@ export function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
+                    data-no-surface-wave="true"
                     onClick={closeMobileMenu}
                     aria-current={isActive ? "page" : undefined}
                     className={cn(

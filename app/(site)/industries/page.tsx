@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Factory, Landmark, Shield, Stethoscope, TrendingUp, Waypoints } from "lucide-react";
+import { Factory, Landmark, Stethoscope, TrendingUp, Waypoints } from "lucide-react";
 
 import { PublicBottomCta } from "@/components/global/PublicBottomCta";
 import { PublicPageHero } from "@/components/global/PublicPageHero";
@@ -23,13 +23,8 @@ const industries = [
   },
   {
     icon: Waypoints,
-    title: "ISVs",
-    description: "Software vendors looking for stronger release capacity, platform modernization, and specialist team support.",
-  },
-  {
-    icon: Shield,
-    title: "GSIs",
-    description: "Larger delivery ecosystems that need flexible engineering capacity, niche specialists, and partner-side continuity.",
+    title: "ISVs, GCCs & GSIs",
+    description: "Software vendors, GCC teams, and larger partner ecosystems that need stronger release capacity, platform modernization, specialist support, and delivery continuity.",
   },
   {
     icon: Landmark,
@@ -95,24 +90,6 @@ export default function IndustriesPage() {
         primaryCta={{ label: "Talk to Us", href: "/contact" }}
         secondaryCta={{ label: "View Services", href: "/services" }}
         signals={["Startup to enterprise support", "Staffing, consulting, and team-building", "Designed for cross-industry delivery contexts"]}
-        panelEyebrow="What changes by sector"
-        panelTitle="The delivery environment influences the engagement model, the talent mix, and the operating pace."
-        panelItems={[
-          {
-            title: "Regulated environments",
-            description: "Sectors like BFSI, healthcare, and public programmes require greater visibility and continuity.",
-          },
-          {
-            title: "High-change platforms",
-            description: "SaaS, ISVs, and tech-led teams need faster hiring and stronger engineering throughput.",
-          },
-          {
-            title: "Complex partner ecosystems",
-            description: "GSIs and manufacturing programmes often need blended support across specialist and team-based models.",
-          },
-        ]}
-        panelNoteTitle="Industry-aware positioning"
-        panelNoteDescription="This page keeps the vertical story clear without overclaiming deep sector proof before final case-study content is added."
       />
 
       <section className="bg-[#E6F1FF] public-section">

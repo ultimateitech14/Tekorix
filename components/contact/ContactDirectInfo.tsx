@@ -34,9 +34,9 @@ export function ContactDirectInfo() {
             description="Use these direct contact details when you already know the conversation you want to start."
           />
 
-          <div className="overflow-hidden rounded-[1.75rem] bg-[linear-gradient(165deg,#F9FCFF_0%,#EEF7FF_100%)] shadow-[0_24px_56px_-40px_rgba(15,23,42,0.3)]">
-            {contactCards.map((item, index) => (
-              <div key={item.label} className="px-5 py-5 sm:px-6">
+          <div className="grid gap-3 rounded-[1.75rem] bg-[linear-gradient(165deg,#F7FBFF_0%,#ECF5FF_100%)] p-4 shadow-[0_24px_56px_-40px_rgba(15,23,42,0.3)] sm:p-5">
+            {contactCards.map((item) => (
+              <div key={item.label} className="rounded-[1.2rem] bg-[linear-gradient(180deg,rgba(248,251,255,0.98)_0%,rgba(238,246,255,0.98)_100%)] px-5 py-4 shadow-[0_16px_34px_-30px_rgba(15,23,42,0.2)] sm:px-6">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                     {item.label}
@@ -52,14 +52,16 @@ export function ContactDirectInfo() {
                     <p className="text-lg font-semibold text-slate-950">{item.value}</p>
                   )}
                 </div>
-                {index < contactCards.length - 1 ? <div className="mt-5 h-px bg-[#DCEBFA]" /> : null}
               </div>
             ))}
           </div>
         </div>
 
-        <div className="rounded-[2rem] bg-[#F8FBFF] p-7 shadow-[0_28px_68px_-44px_rgba(15,23,42,0.28)] sm:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.22em]" style={{ color: colors.primary }}>
+        <div className="rounded-[2rem] bg-[linear-gradient(165deg,#F7FBFF_0%,#ECF5FF_100%)] p-7 shadow-[0_28px_68px_-44px_rgba(15,23,42,0.28)] sm:p-8">
+          <p
+            className="inline-flex rounded-full bg-[#EDF5FF] px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] sm:px-4 sm:py-1.5 sm:text-sm sm:tracking-[0.18em]"
+            style={{ color: colors.primary }}
+          >
             Get in touch
           </p>
           <h3 className="mt-4 font-display text-3xl font-semibold text-slate-950">
@@ -74,7 +76,7 @@ export function ContactDirectInfo() {
           <div className="mt-8 grid gap-4">
             <Link
               href="#company-inquiry"
-              className="group flex items-center justify-between rounded-[1.35rem] border border-[#BED9F3] bg-white px-5 py-4 transition-colors hover:bg-[#EEF6FF]"
+              className="group flex items-center justify-between gap-4 rounded-[1.45rem] bg-[linear-gradient(135deg,rgba(227,240,255,0.95)_0%,rgba(248,251,255,0.98)_100%)] px-5 py-4 shadow-[0_18px_38px_-30px_rgba(27,102,179,0.24)] transition-all hover:-translate-y-0.5 hover:shadow-[0_24px_46px_-30px_rgba(27,102,179,0.28)]"
             >
               <span>
                 <span className="block text-sm font-semibold uppercase tracking-[0.16em]" style={{ color: colors.primary }}>
@@ -82,13 +84,13 @@ export function ContactDirectInfo() {
                 </span>
                 <span className="mt-1 block text-base font-semibold text-slate-950">Get My Team</span>
               </span>
-              <span className="text-sm font-semibold text-[#1B66B3] transition-transform group-hover:translate-x-0.5">
+              <span className="inline-flex min-w-[4.9rem] items-center justify-center rounded-full bg-[#EDF5FF] px-3 py-2 text-sm font-semibold text-[#1B66B3] transition-transform group-hover:translate-x-0.5">
                 Open
               </span>
             </Link>
             <Link
               href="#candidate-inquiry"
-              className="group flex items-center justify-between rounded-[1.35rem] border border-[#BED9F3] bg-white px-5 py-4 transition-colors hover:bg-[#EEF6FF]"
+              className="group flex items-center justify-between gap-4 rounded-[1.45rem] bg-[linear-gradient(135deg,rgba(227,240,255,0.95)_0%,rgba(248,251,255,0.98)_100%)] px-5 py-4 shadow-[0_18px_38px_-30px_rgba(27,102,179,0.24)] transition-all hover:-translate-y-0.5 hover:shadow-[0_24px_46px_-30px_rgba(27,102,179,0.28)]"
             >
               <span>
                 <span className="block text-sm font-semibold uppercase tracking-[0.16em]" style={{ color: colors.primary }}>
@@ -96,7 +98,7 @@ export function ContactDirectInfo() {
                 </span>
                 <span className="mt-1 block text-base font-semibold text-slate-950">Apply Now</span>
               </span>
-              <span className="text-sm font-semibold text-[#1B66B3] transition-transform group-hover:translate-x-0.5">
+              <span className="inline-flex min-w-[4.9rem] items-center justify-center rounded-full bg-[#EDF5FF] px-3 py-2 text-sm font-semibold text-[#1B66B3] transition-transform group-hover:translate-x-0.5">
                 Open
               </span>
             </Link>

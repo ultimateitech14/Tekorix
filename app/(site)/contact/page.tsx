@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { ContactDirectInfo } from "@/components/contact/ContactDirectInfo";
 import { ContactHero } from "@/components/contact/ContactHero";
 import { ContactInquiryGrid } from "@/components/contact/ContactInquiryGrid";
-import { ContactLinkedIn } from "@/components/contact/ContactLinkedIn";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -19,7 +18,6 @@ export default function ContactPage() {
     <>
       <ContactHero />
       <ContactInquiryGrid />
-      <ContactLinkedIn />
       <ContactDirectInfo />
     </>
   );
