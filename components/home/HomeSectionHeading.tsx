@@ -22,7 +22,7 @@ export function HomeSectionHeading({
   descriptionClassName,
 }: HomeSectionHeadingProps) {
   const isDark = theme === "dark";
-  const alignmentClasses = align === "center" ? "mx-auto max-w-[48rem] text-center" : "max-w-[48rem]";
+  const alignmentClasses = align === "center" ? "mx-auto max-w-[52rem] text-center" : "max-w-[52rem]";
 
   return (
     <div className={cn("space-y-4 sm:space-y-5", alignmentClasses, className)}>
@@ -40,7 +40,7 @@ export function HomeSectionHeading({
       <div className="space-y-3.5">
         <h2
           className={cn(
-            "text-balance font-display text-[clamp(1.85rem,1.35rem+1.45vw,2.9rem)] font-semibold leading-[1.07] tracking-[-0.03em] text-slate-900",
+            "text-balance font-display text-[clamp(1.72rem,1.28rem+1.18vw,2.55rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-slate-900",
             isDark && "text-white",
             titleClassName,
           )}

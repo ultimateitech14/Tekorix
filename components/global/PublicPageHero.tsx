@@ -55,7 +55,7 @@ export function PublicPageHero({
               <p className="inline-flex w-fit items-center rounded-full bg-[#EDF5FF] px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1B66B3] sm:px-4 sm:py-1.5 sm:text-sm sm:tracking-[0.18em]">
                 {eyebrow}
               </p>
-              <h1 className="text-balance font-display text-[clamp(2.35rem,1.75rem+2.2vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-slate-900">
+              <h1 className="text-balance font-display text-[clamp(2rem,1.5rem+1.9vw,3.55rem)] font-semibold leading-[1.04] tracking-[-0.032em] text-slate-900">
                 {title}
               </h1>
               <p className="max-w-2xl text-[0.98rem] leading-relaxed text-slate-600 sm:text-[1.04rem]">

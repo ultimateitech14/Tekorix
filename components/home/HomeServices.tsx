@@ -36,7 +36,7 @@ export function HomeServices() {
           eyebrow="Service lines"
           title="Structured offers built for team building, delivery, and long-term capability."
           description="Tekorix combines consulting, staffing, IT services, and workforce development so clients can move from planning to execution without changing partners."
-          titleClassName="!max-w-[44rem] !text-[clamp(1.95rem,1.45rem+1.7vw,3rem)]"
+          titleClassName="!max-w-[50rem] !text-[clamp(1.72rem,1.28rem+1.15vw,2.45rem)]"
         />
 
         <div className="grid gap-4 md:grid-cols-2 xl:gap-6">

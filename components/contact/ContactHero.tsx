@@ -46,7 +46,7 @@ export function ContactHero() {
             <p className="inline-flex w-fit items-center rounded-full bg-[#EDF5FF] px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1B66B3] sm:px-4 sm:py-1.5 sm:text-sm sm:tracking-[0.18em]">
               Contact
             </p>
-            <h1 className="font-display text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+            <h1 className="font-display text-[clamp(2rem,1.48rem+2vw,3.6rem)] font-semibold leading-[1.05] tracking-tight text-slate-950">
               Let&apos;s build something together.
             </h1>
             <p className="max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
