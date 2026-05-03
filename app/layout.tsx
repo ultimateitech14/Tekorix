@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Manrope, Space_Mono } from "next/font/google";
 
-import { SurfaceInteractionEffects } from "@/components/global/SurfaceInteractionEffects";
 import { Toaster } from "@/components/ui/sonner";
 import { tekorixBrand } from "@/lib/constants/branding";
 import { publicBrandContent } from "@/lib/constants/public-content";
@@ -58,7 +57,6 @@ export default function RootLayout({
       <body
         className={`${display.variable} ${sans.variable} ${mono.variable} min-h-screen bg-[#E6F1FF] text-slate-900 antialiased`}
       >
-        <SurfaceInteractionEffects />
         {children}
         <Toaster richColors closeButton position="top-right" />
       </body>

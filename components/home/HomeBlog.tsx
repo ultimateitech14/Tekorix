@@ -83,7 +83,7 @@ export function HomeBlog() {
 
           <div
             ref={trackRef}
-            className="flex touch-pan-x snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 pl-0.5 pr-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex touch-auto snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 pl-0.5 pr-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {blogPosts.map((post) => (
               <Link
