@@ -22,6 +22,14 @@ type LoginResponse = {
   };
 };
 
+export type AdminMeResponse = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  passwordUpdatedAt?: string | null;
+};
+
 export async function loginAdmin(body: LoginValues): Promise<ApiResult> {
   const result = await requestApi<LoginResponse, LoginValues>("/api/auth/admin/login", {
     method: "POST",
@@ -83,7 +91,7 @@ export async function logoutAdmin(): Promise<ApiResult> {
 }
 
 export async function getAdminMe() {
-  const result = await requestApi<{ id: string; name: string; email: string; role: string }>(
+  const result = await requestApi<AdminMeResponse>(
     "/api/admin/me",
     {
       auth: true,

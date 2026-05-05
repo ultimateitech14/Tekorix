@@ -16,6 +16,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopOpenMenu, setDesktopOpenMenu] = useState<string | null>(null);
   const [mobileOpenMenu, setMobileOpenMenu] = useState<string | null>(null);
+  const [supportsDesktopHover, setSupportsDesktopHover] = useState(false);
   const desktopMenuCloseTimeoutRef = useRef<number | null>(null);
   const hasDesktopOpenMenu = desktopOpenMenu !== null;
 
@@ -54,6 +55,28 @@ export function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+    const syncHoverSupport = () => {
+      setSupportsDesktopHover(mediaQuery.matches);
+    };
+
+    syncHoverSupport();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncHoverSupport);
+      return () => {
+        mediaQuery.removeEventListener("change", syncHoverSupport);
+      };
+    }
+
+    mediaQuery.addListener(syncHoverSupport);
+    return () => {
+      mediaQuery.removeListener(syncHoverSupport);
+    };
+  }, []);
+
+  useEffect(() => {
     return () => {
       clearDesktopMenuCloseTimeout();
     };
@@ -74,6 +97,22 @@ export function Navbar() {
   function closeMobileMenu() {
     setMobileOpen(false);
     setMobileOpenMenu(null);
+  }
+
+  function handleDesktopMenuPointerEnter(href: string) {
+    if (!supportsDesktopHover) {
+      return;
+    }
+
+    openDesktopMenu(href);
+  }
+
+  function handleDesktopMenuPointerLeave(href: string) {
+    if (!supportsDesktopHover) {
+      return;
+    }
+
+    scheduleDesktopMenuClose(href);
   }
 
   function scrollToTopIfSameRoute(href: string) {
@@ -126,8 +165,8 @@ export function Navbar() {
                       type="button"
                       aria-current={isActive ? "page" : undefined}
                       data-no-surface-wave="true"
-                      onPointerEnter={() => openDesktopMenu(item.href)}
-                      onPointerLeave={() => scheduleDesktopMenuClose(item.href)}
+                      onPointerEnter={() => handleDesktopMenuPointerEnter(item.href)}
+                      onPointerLeave={() => handleDesktopMenuPointerLeave(item.href)}
                       className={cn(
                         "group inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors 2xl:px-3.5 2xl:text-sm",
                         isDesktopHighlighted
@@ -150,8 +189,8 @@ export function Navbar() {
                     align="center"
                     collisionPadding={16}
                     sideOffset={12}
-                    onPointerEnter={() => openDesktopMenu(item.href)}
-                    onPointerLeave={() => scheduleDesktopMenuClose(item.href)}
+                    onPointerEnter={() => handleDesktopMenuPointerEnter(item.href)}
+                    onPointerLeave={() => handleDesktopMenuPointerLeave(item.href)}
                     className="w-[min(31rem,calc(100vw-2rem))] rounded-[1.2rem] bg-white p-2.5 text-slate-900 shadow-[0_22px_54px_-36px_rgba(15,23,42,0.22)]"
                   >
                     <div className="space-y-2.5">

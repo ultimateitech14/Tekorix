@@ -3,9 +3,34 @@ import "server-only";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
+import {
+  defaultTalentProfiles,
+  normalizeTalentProfiles,
+  type TalentProfile,
+} from "@/lib/talent-profiles";
+import { defaultTalentProfilesSectionContent } from "@/lib/talent-profiles-section";
 import type { SiteSettingsUpdateInput } from "@/lib/validators/site-settings";
 
 const DEFAULT_PROFILE_IMAGE = "/images/profiles/profile-3.svg";
+
+function toCompanyNameFromEmail(email: string) {
+  const domain = email.split("@")[1] ?? "";
+  const namePart = domain.split(".")[0] ?? "";
+  const normalized = namePart
+    .split(/[-_]+/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`);
+
+  return normalized.join(" ") || "Company";
+}
+
+function toCareersDomain(email: string) {
+  const domain = email.split("@")[1] ?? "";
+  return domain ? `careers.${domain}` : "";
+}
+
+const adminEmail = process.env.ADMIN_EMAIL?.trim() || "";
 
 export type CareersTeamMember = {
   id: string;
@@ -19,6 +44,8 @@ export type SiteSettings = {
   companyName: string;
   companyEmail: string;
   companyPhone: string;
+  companyAddress: string;
+  companyGoogleMapLink: string;
   careersDomain: string;
   careersHeadline: string;
   careersSubtitle: string;
@@ -26,13 +53,22 @@ export type SiteSettings = {
   careersShowTeamPhotos: boolean;
   careersAutoPublishJobs: boolean;
   careersTeamMembers: CareersTeamMember[];
+  talentProfilesEyebrow: string;
+  talentProfilesHeadline: string;
+  talentProfilesDescription: string;
+  talentProfiles: TalentProfile[];
+  notificationEmailProvider: string;
+  notificationEmailApiKey: string;
+  notificationFromEmail: string;
 };
 
 export const defaultSiteSettings: SiteSettings = {
-  companyName: "StartupWork",
-  companyEmail: "hello@startupwork.dev",
-  companyPhone: "+1 555-100-2000",
-  careersDomain: "careers.startupwork.dev",
+  companyName: toCompanyNameFromEmail(adminEmail),
+  companyEmail: adminEmail,
+  companyPhone: "",
+  companyAddress: "",
+  companyGoogleMapLink: "",
+  careersDomain: toCareersDomain(adminEmail),
   careersHeadline: "Build products that help teams hire better.",
   careersSubtitle:
     "We are hiring across product, engineering, and operations. Join us to shape the future of recruiting.",
@@ -62,6 +98,13 @@ export const defaultSiteSettings: SiteSettings = {
       blurb: "Partners with hiring teams to build strong and inclusive pipelines.",
     },
   ],
+  talentProfilesEyebrow: defaultTalentProfilesSectionContent.eyebrow,
+  talentProfilesHeadline: defaultTalentProfilesSectionContent.title,
+  talentProfilesDescription: defaultTalentProfilesSectionContent.description,
+  talentProfiles: defaultTalentProfiles,
+  notificationEmailProvider: "",
+  notificationEmailApiKey: "",
+  notificationFromEmail: "",
 };
 
 const dataDir = path.join(process.cwd(), "data");
@@ -128,11 +171,18 @@ function normalizeSiteSettings(raw: unknown): SiteSettings {
 
   const value = raw as Partial<SiteSettings>;
   const normalizedMembers = normalizeTeamMembers(value.careersTeamMembers, defaultSiteSettings.careersTeamMembers);
+  const normalizedTalentProfiles = normalizeTalentProfiles(value.talentProfiles ?? defaultSiteSettings.talentProfiles);
 
   return {
     companyName: normalizeText(value.companyName, defaultSiteSettings.companyName, 120),
     companyEmail: normalizeText(value.companyEmail, defaultSiteSettings.companyEmail, 160),
     companyPhone: normalizeText(value.companyPhone, defaultSiteSettings.companyPhone, 40),
+    companyAddress: normalizeText(value.companyAddress, defaultSiteSettings.companyAddress, 600),
+    companyGoogleMapLink: normalizeText(
+      value.companyGoogleMapLink,
+      defaultSiteSettings.companyGoogleMapLink,
+      2_000,
+    ),
     careersDomain: normalizeText(value.careersDomain, defaultSiteSettings.careersDomain, 120),
     careersHeadline: normalizeText(value.careersHeadline, defaultSiteSettings.careersHeadline, 180),
     careersSubtitle: normalizeText(value.careersSubtitle, defaultSiteSettings.careersSubtitle, 500),
@@ -140,6 +190,37 @@ function normalizeSiteSettings(raw: unknown): SiteSettings {
     careersShowTeamPhotos: normalizeBoolean(value.careersShowTeamPhotos, defaultSiteSettings.careersShowTeamPhotos),
     careersAutoPublishJobs: normalizeBoolean(value.careersAutoPublishJobs, defaultSiteSettings.careersAutoPublishJobs),
     careersTeamMembers: normalizedMembers,
+    talentProfilesEyebrow: normalizeText(
+      value.talentProfilesEyebrow,
+      defaultSiteSettings.talentProfilesEyebrow,
+      160,
+    ),
+    talentProfilesHeadline: normalizeText(
+      value.talentProfilesHeadline,
+      defaultSiteSettings.talentProfilesHeadline,
+      500,
+    ),
+    talentProfilesDescription: normalizeText(
+      value.talentProfilesDescription,
+      defaultSiteSettings.talentProfilesDescription,
+      2_000,
+    ),
+    talentProfiles: normalizedTalentProfiles,
+    notificationEmailProvider: normalizeText(
+      value.notificationEmailProvider,
+      defaultSiteSettings.notificationEmailProvider,
+      160,
+    ),
+    notificationEmailApiKey: normalizeText(
+      value.notificationEmailApiKey,
+      defaultSiteSettings.notificationEmailApiKey,
+      2_000,
+    ),
+    notificationFromEmail: normalizeText(
+      value.notificationFromEmail,
+      defaultSiteSettings.notificationFromEmail,
+      320,
+    ),
   };
 }
 

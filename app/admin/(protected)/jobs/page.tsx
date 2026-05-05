@@ -1,8 +1,8 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { MoreHorizontal, Plus } from "lucide-react";
 import { toast } from "sonner";
 
@@ -10,6 +10,7 @@ import { DataTable, type DataTableColumn } from "@/components/admin/DataTable";
 import { FiltersBar } from "@/components/admin/FiltersBar";
 import { StatusChip } from "@/components/admin/status-chip";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -30,8 +31,10 @@ import { clearAuthToken } from "@/lib/auth/store";
 import {
   deleteAdminJob,
   getAdminJobs,
+  getAdminJobsMetadata,
   publishAdminJob,
   type AdminJob,
+  type AdminJobsMetadata,
 } from "@/lib/api/admin/jobs";
 import type { JobStatus } from "@/lib/validators/jobs";
 
@@ -87,9 +90,12 @@ function toRow(job: AdminJob): JobRow {
   };
 }
 
-export default function AdminJobsPage() {
+function AdminJobsPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isCategoriesView = (searchParams?.get("view") ?? "") === "categories";
   const [jobs, setJobs] = useState<AdminJob[]>([]);
+  const [metadata, setMetadata] = useState<AdminJobsMetadata | null>(null);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
   const [country, setCountry] = useState("all");
@@ -104,12 +110,16 @@ export default function AdminJobsPage() {
     setIsLoading(true);
 
     try {
-      const payload = await getAdminJobs({
-        page: 1,
-        pageSize: 500,
-      });
+      const [payload, meta] = await Promise.all([
+        getAdminJobs({
+          page: 1,
+          pageSize: 100,
+        }),
+        getAdminJobsMetadata(),
+      ]);
 
       setJobs(payload.items);
+      setMetadata(meta);
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) {
         clearAuthToken();
@@ -119,6 +129,7 @@ export default function AdminJobsPage() {
 
       toast.error(error instanceof Error ? error.message : "Unable to load jobs.");
       setJobs([]);
+      setMetadata(null);
     } finally {
       setIsLoading(false);
     }
@@ -319,120 +330,278 @@ export default function AdminJobsPage() {
   ];
 
   const rows = paginatedJobs.map(toRow);
+  const summary = metadata ?? {
+    totalJobs: 0,
+    publishedJobs: 0,
+    draftJobs: 0,
+    closedJobs: 0,
+    departments: [],
+    countries: [],
+    locations: [],
+    skills: [],
+    jobTypes: [],
+  };
 
   return (
     <div className="space-y-4">
-      <FiltersBar
-        searchValue={search}
-        onSearchChange={(value) => {
-          setSearch(value);
-          setPage(1);
-        }}
-        searchPlaceholder="Search jobs by title, location, or department"
-        filters={[
-          {
-            label: "Status",
-            value: status,
-            onChange: (value) => {
-              setStatus(value);
-              setPage(1);
-            },
-            options: [
-              { label: "All Statuses", value: "all" },
-              { label: "Published", value: "published" },
-              { label: "Draft", value: "draft" },
-            ],
-          },
-          {
-            label: "Country",
-            value: country,
-            onChange: setCountry,
-            options: countryOptions.map((option) => ({
-              label: option === "all" ? "All Countries" : option,
-              value: option,
-            })),
-          },
-          {
-            label: "Location",
-            value: location,
-            onChange: (value) => {
-              setLocation(value);
-              setPage(1);
-            },
-            options: locationOptions.map((option) => ({
-              label: option === "all" ? "All Locations" : option,
-              value: option,
-            })),
-          },
-          {
-            label: "Department",
-            value: department,
-            onChange: (value) => {
-              setDepartment(value);
-              setPage(1);
-            },
-            options: departmentOptions.map((option) => ({
-              label: option === "all" ? "All Departments" : option,
-              value: option,
-            })),
-          },
-        ]}
-        extra={
-          <Button asChild>
-            <Link href="/admin/jobs/new">
-              <Plus className="h-4 w-4" />
-              Create Job
-            </Link>
-          </Button>
-        }
-      />
-
-      <DataTable
-        title="All Jobs"
-        description="Manage openings, publishing status, and recruiter visibility."
-        columns={columns}
-        data={rows}
-        getRowId={(row) => row.id}
-        emptyMessage={isLoading ? "Loading jobs..." : "No jobs match your filters."}
-        footer={
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs text-slate-500">
-              Showing {startResult}-{endResult} of {filteredJobs.length}
-            </p>
-            <div className="flex items-center gap-1">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={page <= 1}
-                onClick={() => setPage((current) => Math.max(1, current - 1))}
-              >
-                Prev
+      {isCategoriesView ? (
+        <>
+          <div className="flex flex-wrap items-start justify-between gap-3 rounded-3xl border border-[#D4E8FC] bg-[#F8FBFF] p-5">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">Categories & Tags</h2>
+              <p className="mt-1 text-sm text-slate-500">
+                Live breakdown of departments, skills, locations, and job types from the jobs backend.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button variant="outline" asChild>
+                <Link href="/admin/jobs">Back to Jobs</Link>
               </Button>
-              {Array.from({ length: totalPages }).map((_, index) => {
-                const pageNumber = index + 1;
-                return (
-                  <Button
-                    key={pageNumber}
-                    size="sm"
-                    variant={pageNumber === page ? "default" : "outline"}
-                    onClick={() => setPage(pageNumber)}
-                  >
-                    {pageNumber}
-                  </Button>
-                );
-              })}
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={page >= totalPages}
-                onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
-              >
-                Next
+              <Button asChild>
+                <Link href="/admin/jobs/new">
+                  <Plus className="h-4 w-4" />
+                  Create Job
+                </Link>
               </Button>
             </div>
           </div>
-        }
-      />
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <Card className="border-[#D4E8FC] bg-[#F8FBFF]">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm text-slate-500">Total Jobs</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-semibold text-slate-900">{summary.totalJobs}</p>
+              </CardContent>
+            </Card>
+            <Card className="border-[#D4E8FC] bg-[#F8FBFF]">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm text-slate-500">Published</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-semibold text-slate-900">{summary.publishedJobs}</p>
+              </CardContent>
+            </Card>
+            <Card className="border-[#D4E8FC] bg-[#F8FBFF]">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm text-slate-500">Draft</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-semibold text-slate-900">{summary.draftJobs}</p>
+              </CardContent>
+            </Card>
+            <Card className="border-[#D4E8FC] bg-[#F8FBFF]">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm text-slate-500">Closed</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-semibold text-slate-900">{summary.closedJobs}</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid gap-4 xl:grid-cols-2">
+            <Card className="border-[#D4E8FC] bg-[#F8FBFF]">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900">Departments</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {(summary.departments.length ? summary.departments : []).slice(0, 8).map((item) => (
+                  <div key={item.key} className="flex items-center justify-between gap-3 rounded-xl border border-[#D4E8FC] px-3 py-2">
+                    <div>
+                      <p className="font-medium text-slate-900">{item.label}</p>
+                      <p className="text-xs text-slate-500">
+                        {item.published} published, {item.draft} draft, {item.closed} closed
+                      </p>
+                    </div>
+                    <p className="text-lg font-semibold text-slate-900">{item.total}</p>
+                  </div>
+                ))}
+                {!summary.departments.length ? <p className="text-sm text-slate-500">{isLoading ? "Loading departments..." : "No departments found."}</p> : null}
+              </CardContent>
+            </Card>
+
+            <Card className="border-[#D4E8FC] bg-[#F8FBFF]">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900">Top Skills</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {(summary.skills.length ? summary.skills : []).slice(0, 10).map((item) => (
+                  <div key={item.key} className="flex items-center justify-between gap-3 rounded-xl border border-[#D4E8FC] px-3 py-2">
+                    <div>
+                      <p className="font-medium text-slate-900">{item.label}</p>
+                      <p className="text-xs text-slate-500">
+                        {item.published} published, {item.draft} draft, {item.closed} closed
+                      </p>
+                    </div>
+                    <p className="text-lg font-semibold text-slate-900">{item.total}</p>
+                  </div>
+                ))}
+                {!summary.skills.length ? <p className="text-sm text-slate-500">{isLoading ? "Loading tags..." : "No skills/tags found."}</p> : null}
+              </CardContent>
+            </Card>
+
+            <Card className="border-[#D4E8FC] bg-[#F8FBFF]">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900">Countries & Locations</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  {(summary.countries.length ? summary.countries : []).slice(0, 6).map((item) => (
+                    <div key={item.key} className="flex items-center justify-between gap-3 rounded-xl border border-[#D4E8FC] px-3 py-2">
+                      <p className="font-medium text-slate-900">{item.label}</p>
+                      <p className="text-lg font-semibold text-slate-900">{item.total}</p>
+                    </div>
+                  ))}
+                  {!summary.countries.length ? <p className="text-sm text-slate-500">{isLoading ? "Loading countries..." : "No country data found."}</p> : null}
+                </div>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {summary.locations.slice(0, 8).map((item) => (
+                    <div key={item.key} className="rounded-xl border border-[#D4E8FC] px-3 py-2 text-sm text-slate-700">
+                      <span className="font-medium text-slate-900">{item.label}</span> ({item.total})
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-[#D4E8FC] bg-[#F8FBFF]">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900">Job Types</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {summary.jobTypes.map((item) => (
+                  <div key={item.type} className="flex items-center justify-between gap-3 rounded-xl border border-[#D4E8FC] px-3 py-2">
+                    <div>
+                      <p className="font-medium text-slate-900">{item.label}</p>
+                      <p className="text-xs text-slate-500">
+                        {item.published} published, {item.draft} draft, {item.closed} closed
+                      </p>
+                    </div>
+                    <p className="text-lg font-semibold text-slate-900">{item.total}</p>
+                  </div>
+                ))}
+                {!summary.jobTypes.length ? <p className="text-sm text-slate-500">{isLoading ? "Loading job types..." : "No job type data found."}</p> : null}
+              </CardContent>
+            </Card>
+          </div>
+        </>
+      ) : (
+        <>
+          <FiltersBar
+            searchValue={search}
+            onSearchChange={(value) => {
+              setSearch(value);
+              setPage(1);
+            }}
+            searchPlaceholder="Search jobs by title, location, or department"
+            filters={[
+              {
+                label: "Status",
+                value: status,
+                onChange: (value) => {
+                  setStatus(value);
+                  setPage(1);
+                },
+                options: [
+                  { label: "All Statuses", value: "all" },
+                  { label: "Published", value: "published" },
+                  { label: "Draft", value: "draft" },
+                ],
+              },
+              {
+                label: "Country",
+                value: country,
+                onChange: setCountry,
+                options: countryOptions.map((option) => ({
+                  label: option === "all" ? "All Countries" : option,
+                  value: option,
+                })),
+              },
+              {
+                label: "Location",
+                value: location,
+                onChange: (value) => {
+                  setLocation(value);
+                  setPage(1);
+                },
+                options: locationOptions.map((option) => ({
+                  label: option === "all" ? "All Locations" : option,
+                  value: option,
+                })),
+              },
+              {
+                label: "Department",
+                value: department,
+                onChange: (value) => {
+                  setDepartment(value);
+                  setPage(1);
+                },
+                options: departmentOptions.map((option) => ({
+                  label: option === "all" ? "All Departments" : option,
+                  value: option,
+                })),
+              },
+            ]}
+            extra={
+              <Button asChild>
+                <Link href="/admin/jobs/new">
+                  <Plus className="h-4 w-4" />
+                  Create Job
+                </Link>
+              </Button>
+            }
+          />
+
+          <DataTable
+            title="All Jobs"
+            description="Manage openings, publishing status, and recruiter visibility."
+            columns={columns}
+            data={rows}
+            getRowId={(row) => row.id}
+            emptyMessage={isLoading ? "Loading jobs..." : "No jobs match your filters."}
+            footer={
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="text-xs text-slate-500">
+                  Showing {startResult}-{endResult} of {filteredJobs.length}
+                </p>
+                <div className="flex items-center gap-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={page <= 1}
+                    onClick={() => setPage((current) => Math.max(1, current - 1))}
+                  >
+                    Prev
+                  </Button>
+                  {Array.from({ length: totalPages }).map((_, index) => {
+                    const pageNumber = index + 1;
+                    return (
+                      <Button
+                        key={pageNumber}
+                        size="sm"
+                        variant={pageNumber === page ? "default" : "outline"}
+                        onClick={() => setPage(pageNumber)}
+                      >
+                        {pageNumber}
+                      </Button>
+                    );
+                  })}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={page >= totalPages}
+                    onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
+            }
+          />
+        </>
+      )}
 
       <Dialog open={Boolean(deleteTarget)} onOpenChange={(open) => !open && setDeleteTarget(null)}>
         <DialogContent className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
@@ -458,6 +627,14 @@ export default function AdminJobsPage() {
         </DialogContent>
       </Dialog>
     </div>
+  );
+}
+
+export default function AdminJobsPage() {
+  return (
+    <Suspense fallback={<p className="text-sm text-slate-500">Loading jobs...</p>}>
+      <AdminJobsPageContent />
+    </Suspense>
   );
 }
 

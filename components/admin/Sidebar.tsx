@@ -9,6 +9,7 @@ import { adminNavSections, isPathActive } from "@/components/admin/nav-config";
 import { BrandLogo } from "@/components/global/BrandLogo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { useAdminShellData } from "@/lib/admin/use-admin-shell-data";
 import { clearAuthToken } from "@/lib/auth/store";
 import { ENABLE_ADMIN_LIGHTER_TYPE, ENABLE_ADMIN_UI_REFRESH } from "@/lib/ui-flags";
 import { cn } from "@/lib/utils";
@@ -23,6 +24,11 @@ type SidebarNavigationProps = {
   collapsed: boolean;
   pathname: string;
   currentSearch: string;
+  companyName: string;
+  companyMeta: string;
+  companySupportLine: string;
+  adminName: string;
+  adminEmail: string;
   onLogout: () => void;
   onNavigate?: () => void;
 };
@@ -69,7 +75,18 @@ function isChildActive(pathname: string, currentSearch: URLSearchParams, href: s
   return !siblingHasQueryMatch && currentSearch.toString().length === 0;
 }
 
-function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNavigate }: SidebarNavigationProps) {
+function SidebarNavigation({
+  collapsed,
+  pathname,
+  currentSearch,
+  companyName,
+  companyMeta,
+  companySupportLine,
+  adminName,
+  adminEmail,
+  onLogout,
+  onNavigate,
+}: SidebarNavigationProps) {
   const currentQuery = useMemo(() => new URLSearchParams(currentSearch), [currentSearch]);
   const activeSectionHref = useMemo(() => {
     const activeSection = adminNavSections.find(
@@ -134,11 +151,11 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
 
   return (
     <div className="flex h-full flex-col text-slate-900">
-      <div className={cn("mb-4 px-2 py-2", collapsed ? "flex justify-center" : "space-y-3")}>
+      <div className={cn("mb-4 px-2.5 pb-1 pt-1.5", collapsed ? "flex justify-center" : "space-y-3")}>
         <Link
           href="/admin"
           onClick={() => onNavigate?.()}
-          aria-label="Go to Tekorix admin dashboard"
+          aria-label="Go to admin dashboard"
           className={cn(
             "inline-flex items-center overflow-hidden transition-opacity hover:opacity-95",
             collapsed ? "justify-center" : "w-full",
@@ -147,21 +164,22 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
           <BrandLogo priority className={collapsed ? "h-10" : "h-14"} />
         </Link>
         {!collapsed ? (
-          <div className="px-1">
+          <div className="space-y-1.5 px-1">
             <p
               className={cn(
                 "text-sm tracking-[0.06em] text-[#1B66B3]",
                 ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
               )}
             >
-              TekOrix Admin
+              {companyName}
             </p>
-            <p className="text-sm text-slate-500">Hiring control center</p>
+            <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-500">{companySupportLine}</p>
+            <p className="text-sm text-slate-500">{companyMeta}</p>
           </div>
         ) : null}
       </div>
 
-      <nav className="admin-scrollbar flex-1 space-y-1.5 overflow-y-auto pr-1">
+      <nav className="admin-scrollbar flex-1 space-y-2 overflow-y-auto pr-1.5">
         {adminNavSections.map((section) => {
           const Icon = section.icon;
           const hasChildren = !collapsed && section.children.length > 0;
@@ -177,7 +195,7 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
           const sectionExpandedAndActive = activeExpandedSectionHref === section.href;
 
           return (
-            <div key={section.label} className="space-y-1">
+            <div key={section.label} className="space-y-1.5">
               {hasChildren ? (
                 <button
                   type="button"
@@ -228,7 +246,7 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
               )}
 
               {hasChildren && sectionExpanded ? (
-                <div className="space-y-1 pl-11">
+                <div className="ml-5 space-y-1 border-l border-[#D4E8FC] pl-4">
                   {section.children.map((item) => (
                     <Link
                       key={item.label}
@@ -238,7 +256,7 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
                         onNavigate?.();
                       }}
                       className={cn(
-                        "block rounded-md px-2 py-1.5 text-sm transition-colors",
+                        "block rounded-lg px-2.5 py-2 text-sm transition-colors",
                         isChildActive(pathname, currentQuery, item.href, hasQueryChildMatch)
                           ? "bg-[#EAF4FF] text-[#1B66B3]"
                           : "text-slate-500 hover:text-slate-700",
@@ -255,7 +273,7 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
         })}
       </nav>
 
-      <div className="mt-4 space-y-3 border-t border-[#D4E8FC] pt-4">
+      <div className="mt-5 space-y-3 border-t border-[#D4E8FC] pt-5">
         <Link
           href="/admin/profile"
           onClick={() => onNavigate?.()}
@@ -274,9 +292,9 @@ function SidebarNavigation({ collapsed, pathname, currentSearch, onLogout, onNav
             {!collapsed ? (
               <div>
                 <p className={cn("text-sm text-slate-900", ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold")}>
-                  TekOrix Admin
+                  {adminName}
                 </p>
-                <p className="text-xs text-slate-500">admin@tekorix.com</p>
+                <p className="text-xs text-slate-500">{adminEmail}</p>
                 <p className="mt-1 text-xs text-[#1B66B3]">View profile</p>
               </div>
             ) : null}
@@ -309,10 +327,16 @@ export function Sidebar({ collapsed, mobileOpen, onMobileOpenChange }: SidebarPr
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentSearch = searchParams?.toString() ?? "";
+  const shellData = useAdminShellData();
+  const companyName = shellData.companyName || shellData.profile?.name || "Admin";
+  const companyMeta = shellData.companyEmail || shellData.profile?.email || "Admin workspace";
+  const companySupportLine = shellData.companyName ? "Recruiting control center" : "Admin workspace";
+  const adminName = shellData.profile?.name || "Admin User";
+  const adminEmail = shellData.profile?.email || shellData.companyEmail || "admin";
 
   function handleLogout() {
     clearAuthToken();
-    router.push("/login");
+    router.push("/admin/login");
     router.refresh();
   }
 
@@ -320,7 +344,7 @@ export function Sidebar({ collapsed, mobileOpen, onMobileOpenChange }: SidebarPr
     <>
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 hidden border-r p-3 backdrop-blur-xl lg:block",
+          "fixed inset-y-0 left-0 z-40 hidden border-r p-4 backdrop-blur-xl lg:block",
           ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC] bg-[#F8FBFF]/90" : "border-[#D4E8FC] bg-[#F8FBFF]/80",
           collapsed ? "w-24" : "w-72",
         )}
@@ -329,6 +353,11 @@ export function Sidebar({ collapsed, mobileOpen, onMobileOpenChange }: SidebarPr
           collapsed={collapsed}
           pathname={pathname}
           currentSearch={currentSearch}
+          companyName={companyName}
+          companyMeta={companyMeta}
+          companySupportLine={companySupportLine}
+          adminName={adminName}
+          adminEmail={adminEmail}
           onLogout={handleLogout}
         />
       </aside>
@@ -337,7 +366,7 @@ export function Sidebar({ collapsed, mobileOpen, onMobileOpenChange }: SidebarPr
         <SheetContent
           side="left"
           className={cn(
-            "w-[88vw] border-r p-3 text-slate-900 sm:max-w-sm",
+            "w-[88vw] border-r p-4 text-slate-900 sm:max-w-sm",
             ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC] bg-[#F8FBFF]/[0.96]" : "border-[#D4E8FC] bg-[#F8FBFF]",
           )}
         >
@@ -346,6 +375,11 @@ export function Sidebar({ collapsed, mobileOpen, onMobileOpenChange }: SidebarPr
             collapsed={false}
             pathname={pathname}
             currentSearch={currentSearch}
+            companyName={companyName}
+            companyMeta={companyMeta}
+            companySupportLine={companySupportLine}
+            adminName={adminName}
+            adminEmail={adminEmail}
             onLogout={handleLogout}
             onNavigate={() => onMobileOpenChange(false)}
           />

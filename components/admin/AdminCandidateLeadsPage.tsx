@@ -313,7 +313,7 @@ export function AdminCandidateLeadsPage() {
           <StatCard
             label="Candidate Leads"
             value={isLoading ? "..." : String(items.length)}
-            detail="Newest first, Worker-backed."
+            detail="Newest first, Express-backed."
             icon={Users2}
           />
           <StatCard

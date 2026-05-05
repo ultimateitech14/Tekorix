@@ -16,6 +16,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { getAdminEmailTemplates, sendAdminTemplateEmail } from "@/lib/api/admin/email-templates";
+import { getAdminSiteSettings, type AdminSiteSettings } from "@/lib/api/admin/site-settings";
+import {
+  deleteAdminJobApplication,
+  deleteAllAdminJobApplications,
+  downloadAdminJobApplicationResume,
+  getAdminJobApplications,
+} from "@/lib/api/admin/job-applications";
+import {
+  clearAdminResumeBank,
+  deleteAdminResumeBankEntry,
+  deleteSelectedAdminResumeBankEntries,
+  getAdminResumeBank,
+} from "@/lib/api/admin/resume-bank";
 import type { JobApplicationStatus } from "@/lib/validators/job-applications";
 
 type Candidate = {
@@ -54,7 +68,6 @@ type EmailTemplate = {
 };
 
 type CandidateTab = "directory" | "resumes";
-const DEFAULT_FROM_EMAIL = "noreply@startupwork.dev";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -98,7 +111,7 @@ function formatDate(value: string) {
   return dateFormatter.format(date);
 }
 
-function fillTemplateVariables(value: string, candidate: Candidate | null) {
+function fillTemplateVariables(value: string, candidate: Candidate | null, recruiterName: string) {
   if (!candidate) {
     return value;
   }
@@ -106,7 +119,7 @@ function fillTemplateVariables(value: string, candidate: Candidate | null) {
   return value
     .replace(/\{\{\s*candidate_name\s*\}\}/gi, candidate.name)
     .replace(/\{\{\s*job_title\s*\}\}/gi, candidate.role)
-    .replace(/\{\{\s*recruiter_name\s*\}\}/gi, "TekOrix Admin");
+    .replace(/\{\{\s*recruiter_name\s*\}\}/gi, recruiterName);
 }
 
 function CandidatesPageContent() {
@@ -121,33 +134,31 @@ function CandidatesPageContent() {
   const [applications, setApplications] = useState<AdminApplication[]>([]);
   const [resumeBank, setResumeBank] = useState<ResumeBankItem[]>([]);
   const [templates, setTemplates] = useState<EmailTemplate[]>([]);
+  const [siteSettings, setSiteSettings] = useState<AdminSiteSettings | null>(null);
   const [isLoadingCandidates, setIsLoadingCandidates] = useState(true);
   const [isLoadingResumeBank, setIsLoadingResumeBank] = useState(true);
   const [isClearingCandidates, setIsClearingCandidates] = useState(false);
   const [deletingCandidateId, setDeletingCandidateId] = useState<string | null>(null);
   const [selectedResumeIds, setSelectedResumeIds] = useState<string[]>([]);
   const [deletingResumeId, setDeletingResumeId] = useState<string | null>(null);
+  const [downloadingResumeId, setDownloadingResumeId] = useState<string | null>(null);
   const [isDeletingSelectedResumes, setIsDeletingSelectedResumes] = useState(false);
   const [isClearingResumeBank, setIsClearingResumeBank] = useState(false);
 
   const [isMessageDialogOpen, setIsMessageDialogOpen] = useState(false);
   const [messageCandidate, setMessageCandidate] = useState<Candidate | null>(null);
   const [selectedTemplateId, setSelectedTemplateId] = useState("");
-  const [messageFromEmail, setMessageFromEmail] = useState(DEFAULT_FROM_EMAIL);
+  const [messageFromEmail, setMessageFromEmail] = useState("");
   const [messageSubject, setMessageSubject] = useState("");
   const [messageBody, setMessageBody] = useState("");
   const [isSendingMessage, setIsSendingMessage] = useState(false);
+  const recruiterName = siteSettings?.companyName.trim() || "Admin Team";
+  const defaultFromEmail = siteSettings?.notificationFromEmail.trim() || siteSettings?.companyEmail.trim() || "";
 
   const loadCandidates = useCallback(async () => {
     try {
-      const response = await fetch("/api/admin/job-applications", { cache: "no-store" });
-
-      if (!response.ok) {
-        throw new Error("Unable to load candidates.");
-      }
-
-      const payload = (await response.json()) as { items?: AdminApplication[] };
-      setApplications(payload.items ?? []);
+      const payload = await getAdminJobApplications();
+      setApplications((payload.items ?? []) as AdminApplication[]);
     } catch {
       setApplications([]);
     } finally {
@@ -182,16 +193,9 @@ function CandidatesPageContent() {
 
     async function loadResumeBank() {
       try {
-        const response = await fetch("/api/admin/resume-bank", { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error("Unable to load resume bank.");
-        }
-
-        const payload = (await response.json()) as { items?: ResumeBankItem[] };
-
+        const payload = await getAdminResumeBank();
         if (active) {
-          setResumeBank(payload.items ?? []);
+          setResumeBank((payload.items ?? []) as ResumeBankItem[]);
         }
       } catch {
         if (active) {
@@ -220,16 +224,9 @@ function CandidatesPageContent() {
 
     async function loadTemplates() {
       try {
-        const response = await fetch("/api/admin/email-templates", { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error("Unable to load templates.");
-        }
-
-        const payload = (await response.json()) as { items?: EmailTemplate[] };
-
+        const payload = await getAdminEmailTemplates();
         if (active) {
-          setTemplates(payload.items ?? []);
+          setTemplates((payload.items ?? []) as EmailTemplate[]);
         }
       } catch {
         if (active) {
@@ -239,6 +236,32 @@ function CandidatesPageContent() {
     }
 
     void loadTemplates();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadSiteSettings() {
+      try {
+        const settings = await getAdminSiteSettings();
+
+        if (!active) {
+          return;
+        }
+
+        setSiteSettings(settings);
+      } catch {
+        if (active) {
+          setSiteSettings(null);
+        }
+      }
+    }
+
+    void loadSiteSettings();
 
     return () => {
       active = false;
@@ -281,6 +304,14 @@ function CandidatesPageContent() {
   }, [resumeBank]);
 
   useEffect(() => {
+    if (!defaultFromEmail) {
+      return;
+    }
+
+    setMessageFromEmail((current) => current.trim() || defaultFromEmail);
+  }, [defaultFromEmail]);
+
+  useEffect(() => {
     if (!isMessageDialogOpen || !messageCandidate) {
       return;
     }
@@ -299,9 +330,9 @@ function CandidatesPageContent() {
     }
 
     setSelectedTemplateId(firstTemplate.id);
-    setMessageSubject(fillTemplateVariables(firstTemplate.subject, messageCandidate));
-    setMessageBody(fillTemplateVariables(firstTemplate.body, messageCandidate));
-  }, [activeTemplates, isMessageDialogOpen, messageCandidate, selectedTemplateId]);
+    setMessageSubject(fillTemplateVariables(firstTemplate.subject, messageCandidate, recruiterName));
+    setMessageBody(fillTemplateVariables(firstTemplate.body, messageCandidate, recruiterName));
+  }, [activeTemplates, isMessageDialogOpen, messageCandidate, recruiterName, selectedTemplateId]);
 
   function handleTabChange(nextValue: string) {
     const nextTab = parseTab(nextValue);
@@ -325,18 +356,7 @@ function CandidatesPageContent() {
     setDeletingCandidateId(id);
 
     try {
-      const response = await fetch("/api/admin/job-applications", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id, scope: "candidates" }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to delete candidate.");
-      }
-
+      await deleteAdminJobApplication(id, { scope: "candidates" });
       setApplications((current) => current.filter((item) => item.id !== id));
       setResumeBank((current) => current.filter((item) => item.applicationId !== id));
       toast.success("Candidate deleted.");
@@ -359,18 +379,7 @@ function CandidatesPageContent() {
     setIsClearingCandidates(true);
 
     try {
-      const response = await fetch("/api/admin/job-applications", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ deleteAll: true, scope: "candidates" }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to clear candidates.");
-      }
-
+      await deleteAllAdminJobApplications({ scope: "candidates" });
       setApplications([]);
       setResumeBank([]);
       toast.success("Candidate directory cleared.");
@@ -393,18 +402,7 @@ function CandidatesPageContent() {
     setDeletingResumeId(applicationId);
 
     try {
-      const response = await fetch("/api/admin/resume-bank", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ applicationId }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to delete resume entry.");
-      }
-
+      await deleteAdminResumeBankEntry(applicationId);
       setResumeBank((current) => current.filter((item) => item.applicationId !== applicationId));
       setSelectedResumeIds((current) => current.filter((item) => item !== applicationId));
       toast.success("Resume entry deleted.");
@@ -427,18 +425,7 @@ function CandidatesPageContent() {
     setIsDeletingSelectedResumes(true);
 
     try {
-      const response = await fetch("/api/admin/resume-bank", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ applicationIds: selectedResumeIds }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to delete selected resume entries.");
-      }
-
+      await deleteSelectedAdminResumeBankEntries(selectedResumeIds);
       const blocked = new Set(selectedResumeIds);
       setResumeBank((current) => current.filter((item) => !blocked.has(item.applicationId)));
       setSelectedResumeIds([]);
@@ -462,18 +449,7 @@ function CandidatesPageContent() {
     setIsClearingResumeBank(true);
 
     try {
-      const response = await fetch("/api/admin/resume-bank", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ deleteAll: true }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to clear resume bank.");
-      }
-
+      await clearAdminResumeBank();
       setResumeBank([]);
       setSelectedResumeIds([]);
       toast.success("Resume bank cleared.");
@@ -494,21 +470,21 @@ function CandidatesPageContent() {
       return;
     }
 
-    setMessageSubject(fillTemplateVariables(template.subject, messageCandidate));
-    setMessageBody(fillTemplateVariables(template.body, messageCandidate));
+    setMessageSubject(fillTemplateVariables(template.subject, messageCandidate, recruiterName));
+    setMessageBody(fillTemplateVariables(template.body, messageCandidate, recruiterName));
   }
 
   function openMessageDialog(candidate: Candidate) {
     setMessageCandidate(candidate);
     setIsMessageDialogOpen(true);
-    setMessageFromEmail(DEFAULT_FROM_EMAIL);
+    setMessageFromEmail(defaultFromEmail);
 
     const defaultTemplate = activeTemplates[0];
 
     if (defaultTemplate) {
       setSelectedTemplateId(defaultTemplate.id);
-      setMessageSubject(fillTemplateVariables(defaultTemplate.subject, candidate));
-      setMessageBody(fillTemplateVariables(defaultTemplate.body, candidate));
+      setMessageSubject(fillTemplateVariables(defaultTemplate.subject, candidate, recruiterName));
+      setMessageBody(fillTemplateVariables(defaultTemplate.body, candidate, recruiterName));
     } else {
       setSelectedTemplateId("");
       setMessageSubject("");
@@ -526,7 +502,7 @@ function CandidatesPageContent() {
       return;
     }
 
-    const normalizedFromEmail = messageFromEmail.trim() || DEFAULT_FROM_EMAIL;
+    const normalizedFromEmail = messageFromEmail.trim() || defaultFromEmail;
 
     if (!normalizedFromEmail.includes("@")) {
       toast.error("Enter a valid from email.");
@@ -541,33 +517,32 @@ function CandidatesPageContent() {
     setIsSendingMessage(true);
 
     try {
-      const response = await fetch("/api/admin/email-templates/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          templateId: selectedTemplateId,
-          toEmail: messageCandidate.email,
-          fromEmail: normalizedFromEmail,
-          subject: messageSubject.trim(),
-          body: messageBody.trim(),
-        }),
+      const result = await sendAdminTemplateEmail({
+        templateId: selectedTemplateId,
+        toEmail: messageCandidate.email,
+        fromEmail: normalizedFromEmail,
+        subject: messageSubject.trim(),
+        body: messageBody.trim(),
       });
 
-      const payload = (await response.json()) as { emailSent?: boolean; message?: string; emailError?: string | null };
-
-      if (!response.ok || !payload.emailSent) {
-        toast.error(payload.message ?? payload.emailError ?? "Unable to send email.");
-        return;
-      }
-
-      toast.success("Email sent.");
+      toast.success(result.message);
       setIsMessageDialogOpen(false);
-    } catch {
-      toast.error("Unable to send email right now.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to send email right now.");
     } finally {
       setIsSendingMessage(false);
+    }
+  }
+
+  async function handleDownloadResume(applicationId: string) {
+    setDownloadingResumeId(applicationId);
+
+    try {
+      await downloadAdminJobApplicationResume(applicationId);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to download resume.");
+    } finally {
+      setDownloadingResumeId(null);
     }
   }
 
@@ -733,11 +708,18 @@ function CandidatesPageContent() {
                   <p className="text-xs text-slate-500">{resume.jobTitle}</p>
                   <p className="text-xs text-slate-500">Updated {formatDate(resume.updatedAt)}</p>
                   <div className="flex flex-wrap gap-2">
-                    <Button asChild size="sm" variant="outline" className="mt-1">
-                      <a href={`/api/admin/job-applications/${resume.applicationId}/resume`}>
-                        <Download className="h-4 w-4" />
-                        Download
-                      </a>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="mt-1"
+                      disabled={downloadingResumeId === resume.applicationId}
+                      onClick={() => {
+                        void handleDownloadResume(resume.applicationId);
+                      }}
+                    >
+                      <Download className="h-4 w-4" />
+                      {downloadingResumeId === resume.applicationId ? "Downloading..." : "Download"}
                     </Button>
                     <Button
                       type="button"
@@ -805,6 +787,7 @@ function CandidatesPageContent() {
               <Input
                 value={messageFromEmail}
                 onChange={(event) => setMessageFromEmail(event.target.value)}
+                placeholder="recruitment@yourdomain.com"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -814,6 +797,7 @@ function CandidatesPageContent() {
               <Input
                 value={messageSubject}
                 onChange={(event) => setMessageSubject(event.target.value)}
+                placeholder="Enter the message subject"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -823,6 +807,7 @@ function CandidatesPageContent() {
               <Textarea
                 value={messageBody}
                 onChange={(event) => setMessageBody(event.target.value)}
+                placeholder="Write the message you want to send to the candidate"
                 className="min-h-48 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>

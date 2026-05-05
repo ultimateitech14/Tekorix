@@ -4,8 +4,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
-import { blogPosts, getBlogPostBySlug } from "@/lib/constants/blog-posts";
+import { getPublicBlogPostBySlug } from "@/lib/api/blog-posts";
+import { resolveAssetUrl } from "@/lib/asset-url";
+import { getBlogPostBySlug } from "@/lib/constants/blog-posts";
 import { buildMetadata } from "@/lib/seo";
+
+const AUTO_SECTION_HEADING = "Overview";
+
+type RenderedSection = {
+  heading: string;
+  paragraphs: string[];
+  bullets: string[] | undefined;
+};
 
 type BlogDetailPageProps = {
   params: {
@@ -13,12 +23,19 @@ type BlogDetailPageProps = {
   };
 };
 
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+async function resolveBlogPost(slug: string) {
+  try {
+    return await getPublicBlogPostBySlug(slug);
+  } catch {
+    return getBlogPostBySlug(slug) ?? null;
+  }
 }
 
-export function generateMetadata({ params }: BlogDetailPageProps): Metadata {
-  const post = getBlogPostBySlug(params.slug);
+export async function generateMetadata({ params }: BlogDetailPageProps): Promise<Metadata> {
+  const post = await resolveBlogPost(params.slug);
 
   if (!post) {
     return buildMetadata({
@@ -36,12 +53,32 @@ export function generateMetadata({ params }: BlogDetailPageProps): Metadata {
   });
 }
 
-export default function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const post = getBlogPostBySlug(params.slug);
+export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
+  const post = await resolveBlogPost(params.slug);
 
   if (!post) {
     notFound();
   }
+
+  const renderedSections = post.sections
+    .map((section) => {
+      const hideAutoHeading = post.sections.length === 1 && section.heading.trim() === AUTO_SECTION_HEADING;
+      const paragraphs =
+        hideAutoHeading && section.paragraphs[0]?.trim() === post.intro.trim()
+          ? section.paragraphs.slice(1)
+          : section.paragraphs;
+
+      if (!paragraphs.length && !(section.bullets?.length ?? 0)) {
+        return null;
+      }
+
+      return {
+        heading: hideAutoHeading ? "" : section.heading,
+        paragraphs,
+        bullets: section.bullets,
+      };
+    })
+    .filter((section): section is RenderedSection => Boolean(section));
 
   return (
     <article className="bg-[#E6F1FF] public-section">
@@ -72,21 +109,24 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
 
         <div className="relative h-[18rem] overflow-hidden rounded-2xl bg-[#F8FBFF] sm:h-[24rem] lg:h-[30rem]">
           <Image
-            src={post.coverImage}
+            src={resolveAssetUrl(post.coverImage)}
             alt={post.coverAlt}
             fill
             priority
             sizes="(min-width: 1024px) 80vw, 100vw"
             className="object-cover"
+            unoptimized
           />
         </div>
 
         <div className="space-y-8 rounded-2xl bg-[#F8FBFF] p-6 md:p-8">
           <p className="text-base leading-8 text-slate-700 md:text-lg">{post.intro}</p>
 
-          {post.sections.map((section) => (
-            <section key={section.heading} className="space-y-4">
-              <h2 className="text-2xl font-semibold leading-tight text-slate-900">{section.heading}</h2>
+          {renderedSections.map((section, index) => (
+            <section key={`${section.heading || "section"}-${index}`} className="space-y-4">
+              {section.heading ? (
+                <h2 className="text-2xl font-semibold leading-tight text-slate-900">{section.heading}</h2>
+              ) : null}
 
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph} className="text-base leading-8 text-slate-700">

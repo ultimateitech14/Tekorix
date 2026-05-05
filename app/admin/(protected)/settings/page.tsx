@@ -7,6 +7,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
+import { AdminImageUploadField } from "@/components/admin/AdminImageUploadField";
 import { TalentProfilesSettings } from "@/components/admin/TalentProfilesSettings";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { readFileAsDataUrl, validateImageUploadFile } from "@/lib/image-upload";
+import { requestApi } from "@/lib/api/http";
 import { cn } from "@/lib/utils";
 
 type SettingsTab = "company" | "careers" | "talent-profiles";
@@ -28,6 +29,11 @@ type CareersTeamMemberPayload = {
 };
 
 type SiteSettingsPayload = {
+  companyName: string;
+  companyEmail: string;
+  companyPhone: string;
+  companyAddress: string;
+  companyGoogleMapLink: string;
   careersHeadline: string;
   careersSubtitle: string;
   careersPublished: boolean;
@@ -45,7 +51,6 @@ type CompanyProfileData = {
 
 type CompanyProfileErrors = Partial<Record<keyof CompanyProfileData, string>>;
 const MAX_TEAM_MEMBERS = 8;
-const COMPANY_PROFILE_STORAGE_KEY = "company_profile";
 const DEFAULT_PROFILE_IMAGE = "/images/profiles/profile-3.svg";
 
 function parseSettingsTab(value: string | null): SettingsTab {
@@ -70,36 +75,6 @@ function createTeamMemberTemplate(index: number): CareersTeamMemberPayload {
     photo: DEFAULT_PROFILE_IMAGE,
     blurb: "",
   };
-}
-
-function getEmptyCompanyProfile(): CompanyProfileData {
-  return {
-    companyName: "",
-    email: "",
-    phone: "",
-    address: "",
-    googleMapLink: "",
-  };
-}
-
-function parseStoredCompanyProfile(raw: string | null): CompanyProfileData {
-  if (!raw) {
-    return getEmptyCompanyProfile();
-  }
-
-  try {
-    const parsed = JSON.parse(raw) as Partial<CompanyProfileData>;
-
-    return {
-      companyName: typeof parsed.companyName === "string" ? parsed.companyName : "",
-      email: typeof parsed.email === "string" ? parsed.email : "",
-      phone: typeof parsed.phone === "string" ? parsed.phone : "",
-      address: typeof parsed.address === "string" ? parsed.address : "",
-      googleMapLink: typeof parsed.googleMapLink === "string" ? parsed.googleMapLink : "",
-    };
-  } catch {
-    return getEmptyCompanyProfile();
-  }
 }
 
 function validateCompanyProfile(values: CompanyProfileData) {
@@ -152,38 +127,31 @@ function SettingsPageContent() {
   const [isSavingCareers, setIsSavingCareers] = useState(false);
 
   useEffect(() => {
-    const stored = parseStoredCompanyProfile(window.localStorage.getItem(COMPANY_PROFILE_STORAGE_KEY));
-
-    setCompanyName(stored.companyName);
-    setCompanyEmail(stored.email);
-    setCompanyPhone(stored.phone);
-    setCompanyAddress(stored.address);
-    setCompanyGoogleMapLink(stored.googleMapLink);
-  }, []);
-
-  useEffect(() => {
     let active = true;
 
     async function loadSettings() {
       setIsLoadingSettings(true);
 
       try {
-        const response = await fetch("/api/admin/site-settings", {
-          cache: "no-store",
-          credentials: "include",
+        const result = await requestApi<SiteSettingsPayload>("/api/admin/site-settings", {
+          auth: true,
         });
-        const payload = (await response.json()) as { data?: SiteSettingsPayload };
 
-        if (!response.ok || !payload.data || !active) {
+        if (!result.data || !active) {
           return;
         }
 
-        setCareersHeadline(payload.data.careersHeadline);
-        setCareersSubtitle(payload.data.careersSubtitle);
-        setCareersPublished(Boolean(payload.data.careersPublished));
-        setCareersShowTeamPhotos(Boolean(payload.data.careersShowTeamPhotos));
+        setCompanyName(result.data.companyName ?? "");
+        setCompanyEmail(result.data.companyEmail ?? "");
+        setCompanyPhone(result.data.companyPhone ?? "");
+        setCompanyAddress(result.data.companyAddress ?? "");
+        setCompanyGoogleMapLink(result.data.companyGoogleMapLink ?? "");
+        setCareersHeadline(result.data.careersHeadline);
+        setCareersSubtitle(result.data.careersSubtitle);
+        setCareersPublished(Boolean(result.data.careersPublished));
+        setCareersShowTeamPhotos(Boolean(result.data.careersShowTeamPhotos));
         setCareersTeamMembers(
-          payload.data.careersTeamMembers?.length ? payload.data.careersTeamMembers : [createTeamMemberTemplate(0)],
+          result.data.careersTeamMembers?.length ? result.data.careersTeamMembers : [createTeamMemberTemplate(0)],
         );
       } finally {
         if (active) {
@@ -217,38 +185,6 @@ function SettingsPageContent() {
     setCareersTeamMembers((current) => current.map((item) => (item.id === memberId ? { ...item, ...patch } : item)));
   }
 
-  function isUploadedImage(value: string) {
-    return value.trim().toLowerCase().startsWith("data:image/");
-  }
-
-  async function handleTeamMemberPhotoUpload(memberId: string, fileList: FileList | null) {
-    const file = fileList?.[0];
-
-    if (!file) {
-      return;
-    }
-
-    const error = validateImageUploadFile(file);
-
-    if (error) {
-      toast.error(error);
-      return;
-    }
-
-    try {
-      const dataUrl = await readFileAsDataUrl(file);
-      updateTeamMember(memberId, { photo: dataUrl });
-      toast.success("Team member image selected.");
-    } catch {
-      toast.error("Unable to read image file.");
-    }
-  }
-
-  function removeUploadedTeamMemberPhoto(memberId: string) {
-    updateTeamMember(memberId, { photo: "" });
-    toast.success("Uploaded image removed.");
-  }
-
   function addTeamMember() {
     setCareersTeamMembers((current) => {
       if (current.length >= MAX_TEAM_MEMBERS) {
@@ -270,7 +206,7 @@ function SettingsPageContent() {
     });
   }
 
-  function saveCompanyProfile() {
+  async function saveCompanyProfile() {
     setIsSavingCompany(true);
 
     const profile: CompanyProfileData = {
@@ -292,8 +228,20 @@ function SettingsPageContent() {
     setCompanyErrors({});
 
     try {
-      window.localStorage.setItem(COMPANY_PROFILE_STORAGE_KEY, JSON.stringify(profile));
-      toast.success("Company profile saved");
+      await requestApi("/api/admin/site-settings", {
+        auth: true,
+        method: "PUT",
+        body: {
+          companyName: profile.companyName,
+          companyEmail: profile.email,
+          companyPhone: profile.phone,
+          companyAddress: profile.address,
+          companyGoogleMapLink: profile.googleMapLink,
+        },
+      });
+
+      toast.success("Company profile saved.");
+      router.refresh();
     } catch {
       toast.error("Unable to save company profile.");
     } finally {
@@ -324,25 +272,17 @@ function SettingsPageContent() {
         })
         .filter((member) => member.name || member.role || member.blurb || member.photo);
 
-      const response = await fetch("/api/admin/site-settings", {
+      await requestApi("/api/admin/site-settings", {
+        auth: true,
         method: "PUT",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+        body: {
           careersHeadline,
           careersSubtitle,
           careersPublished,
           careersShowTeamPhotos,
           careersTeamMembers: sanitizedMembers,
-        }),
+        },
       });
-
-      if (!response.ok) {
-        const errorPayload = (await response.json().catch(() => null)) as { message?: string } | null;
-        throw new Error(errorPayload?.message ?? "Unable to save careers settings.");
-      }
 
       toast.success("Careers controls saved.");
       router.refresh();
@@ -379,6 +319,7 @@ function SettingsPageContent() {
                   setCompanyName(event.target.value);
                   setCompanyErrors((current) => ({ ...current, companyName: undefined }));
                 }}
+                placeholder="Enter company name"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
               {companyErrors.companyName ? <p className="text-xs text-red-300">{companyErrors.companyName}</p> : null}
@@ -393,6 +334,7 @@ function SettingsPageContent() {
                   setCompanyEmail(event.target.value);
                   setCompanyErrors((current) => ({ ...current, email: undefined }));
                 }}
+                placeholder="contact@yourcompany.com"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
               {companyErrors.email ? <p className="text-xs text-red-300">{companyErrors.email}</p> : null}
@@ -404,6 +346,7 @@ function SettingsPageContent() {
                 type="tel"
                 value={companyPhone}
                 onChange={(event) => setCompanyPhone(event.target.value)}
+                placeholder="+1 555 123 4567"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -417,6 +360,7 @@ function SettingsPageContent() {
                   setCompanyGoogleMapLink(event.target.value);
                   setCompanyErrors((current) => ({ ...current, googleMapLink: undefined }));
                 }}
+                placeholder="https://maps.google.com/?q=Your+Office"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
               <p className="text-xs text-slate-500">
@@ -433,6 +377,7 @@ function SettingsPageContent() {
                 rows={4}
                 value={companyAddress}
                 onChange={(event) => setCompanyAddress(event.target.value)}
+                placeholder="Enter the full office address"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -457,6 +402,7 @@ function SettingsPageContent() {
               <Input
                 value={careersHeadline}
                 onChange={(event) => setCareersHeadline(event.target.value)}
+                placeholder="e.g. Build your career with Tekorix"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -466,6 +412,7 @@ function SettingsPageContent() {
               <Textarea
                 value={careersSubtitle}
                 onChange={(event) => setCareersSubtitle(event.target.value)}
+                placeholder="Write a short introduction for the careers page"
                 className="min-h-28 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -567,6 +514,7 @@ function SettingsPageContent() {
                         <Input
                           value={member.name}
                           onChange={(event) => updateTeamMember(member.id, { name: event.target.value })}
+                          placeholder="e.g. Priya Sharma"
                           className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                         />
                       </div>
@@ -575,65 +523,30 @@ function SettingsPageContent() {
                         <Input
                           value={member.role}
                           onChange={(event) => updateTeamMember(member.id, { role: event.target.value })}
+                          placeholder="e.g. Talent Acquisition Lead"
                           className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                         />
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label className="text-xs text-slate-500">Photo URL / Path</Label>
-                      <Input
-                        value={member.photo}
-                        onChange={(event) => updateTeamMember(member.id, { photo: event.target.value })}
-                        placeholder={DEFAULT_PROFILE_IMAGE}
-                        className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
-                      />
-                      <div className="flex items-center gap-3 rounded-md border border-[#D4E8FC] bg-white/[0.02] p-2">
-                        {member.photo.trim() ? (
-                          <img
-                            src={member.photo}
-                            alt={member.name ? `${member.name} preview` : `Member ${index + 1} preview`}
-                            className="h-12 w-12 rounded-full border border-[#D4E8FC] object-cover"
-                            onError={(event) => {
-                              event.currentTarget.src = DEFAULT_PROFILE_IMAGE;
-                            }}
-                          />
-                        ) : (
-                          <div className="h-12 w-12 rounded-full border border-[#D4E8FC] bg-[#F8FBFF]" />
-                        )}
-                        <p className="text-xs text-slate-500">Photo preview</p>
-                      </div>
-                      <div className="space-y-2">
-                        <Label className="text-xs text-slate-500">Choose Image</Label>
-                        <Input
-                          type="file"
-                          accept="image/*"
-                          className="border-[#D4E8FC] bg-[#F4F9FF] text-slate-900 file:mr-3 file:rounded-md file:border-0 file:bg-amber-300/15 file:px-3 file:py-1 file:text-xs file:text-amber-700"
-                          onChange={(event) => {
-                            void handleTeamMemberPhotoUpload(member.id, event.target.files);
-                            event.currentTarget.value = "";
-                          }}
-                        />
-                        <p className="text-xs text-slate-500">Allowed image size: minimum 50KB and maximum 800KB.</p>
-                        {isUploadedImage(member.photo) ? (
-                          <Button
-                            type="button"
-                            variant="outline"
-                            size="sm"
-                            className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-white/[0.08]"
-                            onClick={() => removeUploadedTeamMemberPhoto(member.id)}
-                          >
-                            Remove Uploaded Image
-                          </Button>
-                        ) : null}
-                      </div>
-                    </div>
+                    <AdminImageUploadField
+                      label="Team Member Photo"
+                      value={member.photo}
+                      folder="team"
+                      previewAlt={member.name ? `${member.name} preview` : `Member ${index + 1} preview`}
+                      fallbackPreviewSrc={DEFAULT_PROFILE_IMAGE}
+                      helperText="Upload the image that should appear on the careers page team card."
+                      recommendedSizeText="Recommended: square image for best crop."
+                      onChange={(nextValue) => updateTeamMember(member.id, { photo: nextValue })}
+                      removeLabel="Remove Photo"
+                    />
 
                     <div className="space-y-2">
                       <Label className="text-xs text-slate-500">Short Bio</Label>
                       <Textarea
                         value={member.blurb}
                         onChange={(event) => updateTeamMember(member.id, { blurb: event.target.value })}
+                        placeholder="Write a short bio for this team member"
                         className="min-h-20 border-[#D4E8FC] bg-[#F4F9FF] text-slate-900"
                       />
                     </div>

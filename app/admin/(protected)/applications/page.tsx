@@ -11,6 +11,11 @@ import { FiltersBar } from "@/components/admin/FiltersBar";
 import { StatusChip } from "@/components/admin/status-chip";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  downloadAdminJobApplicationResume,
+  getAdminJobApplications,
+  updateAdminJobApplicationStatus,
+} from "@/lib/api/admin/job-applications";
 import type { JobApplicationStatus } from "@/lib/validators/job-applications";
 
 type ApplicationStatusFilter = JobApplicationStatus | "all";
@@ -81,6 +86,7 @@ function ApplicationsPageContent() {
   const [dateTo, setDateTo] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [downloadingId, setDownloadingId] = useState<string | null>(null);
 
   const statusFromUrl = parseStatusFilter(searchParams?.get("status") ?? null);
 
@@ -93,16 +99,9 @@ function ApplicationsPageContent() {
 
     async function loadApplications() {
       try {
-        const response = await fetch("/api/admin/job-applications", { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error("Unable to load applications.");
-        }
-
-        const payload = (await response.json()) as { items?: AdminApplication[] };
-
+        const payload = await getAdminJobApplications();
         if (active) {
-          setRows(payload.items ?? []);
+          setRows((payload.items ?? []) as AdminApplication[]);
         }
       } catch {
         if (active) {
@@ -149,37 +148,25 @@ function ApplicationsPageContent() {
     setUpdatingId(applicationId);
 
     try {
-      const response = await fetch("/api/admin/job-applications", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: applicationId,
-          status: nextStatus,
-        }),
-      });
-
-      const payload = (await response.json()) as { success?: boolean; message?: string; item?: AdminApplication };
-
-      if (!response.ok || !payload.success) {
-        toast.error(payload.message ?? "Unable to update application status.");
-        return;
-      }
-
-      if (payload.item) {
-        setRows((current) => current.map((item) => (item.id === payload.item?.id ? payload.item : item)));
-      } else {
-        setRows((current) =>
-          current.map((item) => (item.id === applicationId ? { ...item, status: nextStatus, isRead: true } : item)),
-        );
-      }
-
-      toast.success(`Application marked as ${formatStatusLabel(nextStatus)}.`);
-    } catch {
-      toast.error("Unable to update application status.");
+      const result = await updateAdminJobApplicationStatus(applicationId, nextStatus);
+      setRows((current) => current.map((item) => (item.id === result.data.id ? (result.data as AdminApplication) : item)));
+      toast.success(result.message);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to update application status.");
     } finally {
       setUpdatingId(null);
+    }
+  }
+
+  async function handleDownloadResume(applicationId: string) {
+    setDownloadingId(applicationId);
+
+    try {
+      await downloadAdminJobApplicationResume(applicationId);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to download resume.");
+    } finally {
+      setDownloadingId(null);
     }
   }
 
@@ -252,10 +239,16 @@ function ApplicationsPageContent() {
           >
             Reject
           </Button>
-          <Button asChild size="icon" variant="ghost" aria-label="Download resume">
-            <a href={`/api/admin/job-applications/${row.id}/resume`}>
-              <Download className="h-4 w-4" />
-            </a>
+          <Button
+            size="icon"
+            variant="ghost"
+            aria-label="Download resume"
+            disabled={downloadingId === row.id}
+            onClick={() => {
+              void handleDownloadResume(row.id);
+            }}
+          >
+            <Download className="h-4 w-4" />
           </Button>
         </div>
       ),
@@ -297,12 +290,16 @@ function ApplicationsPageContent() {
               type="date"
               value={dateFrom}
               onChange={(event) => setDateFrom(event.target.value)}
+              placeholder="From date"
+              aria-label="Filter applications from date"
               className="w-[154px] border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
             />
             <Input
               type="date"
               value={dateTo}
               onChange={(event) => setDateTo(event.target.value)}
+              placeholder="To date"
+              aria-label="Filter applications to date"
               className="w-[154px] border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
             />
           </>

@@ -141,3 +141,37 @@ export async function requestBinary(path: string, options: Omit<RequestOptions<u
 
   return response;
 }
+
+export async function requestFormDataApi<TResponse>(
+  path: string,
+  body: FormData,
+  options: Omit<RequestOptions<undefined>, "body"> = {},
+): Promise<{ data: TResponse; message: string }> {
+  const { method = "POST", auth = false, token, signal } = options;
+  const headers = getAuthHeaders(auth, token);
+  const response = await fetchWithLocalFallback(path, {
+    method,
+    headers,
+    body,
+    cache: "no-store",
+    signal,
+  });
+
+  let payload: ApiEnvelope<TResponse> | null = null;
+
+  try {
+    payload = (await response.json()) as ApiEnvelope<TResponse>;
+  } catch {
+    payload = null;
+  }
+
+  if (!response.ok || !payload?.success) {
+    const message = payload?.message ?? "Request failed.";
+    throw new ApiError(response.status, message);
+  }
+
+  return {
+    data: payload.data as TResponse,
+    message: payload.message ?? "Success",
+  };
+}

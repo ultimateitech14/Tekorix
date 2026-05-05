@@ -10,7 +10,9 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Search,
+  Trash2,
   UserCircle2,
+  X,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -25,6 +27,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import {
+  deleteAdminContactSubmission,
+  deleteAllAdminContactSubmissions,
+  getAdminContactSubmissions,
+  markAllAdminContactSubmissionsRead,
+} from "@/lib/api/admin/contact-submissions";
+import {
+  deleteAdminJobApplication,
+  deleteAllAdminJobApplications,
+  getAdminJobApplications,
+  markAllAdminJobApplicationsRead,
+} from "@/lib/api/admin/job-applications";
+import { useAdminShellData } from "@/lib/admin/use-admin-shell-data";
 import { clearAuthToken } from "@/lib/auth/store";
 import { ENABLE_ADMIN_LIGHTER_TYPE, ENABLE_ADMIN_UI_REFRESH } from "@/lib/ui-flags";
 import { cn } from "@/lib/utils";
@@ -50,6 +65,8 @@ type JobApplicationNotification = {
 
 type HeaderNotificationItem = {
   id: string;
+  kind: "contact" | "application";
+  recordId: string;
   title: string;
   description: string;
   href: string;
@@ -69,8 +86,6 @@ const notificationTimeFormatter = new Intl.DateTimeFormat("en-US", {
   hour: "numeric",
   minute: "2-digit",
 });
-
-const dismissedNotificationsStorageKey = "admin_header_dismissed_notifications";
 
 function formatInquiryType(value: string) {
   if (value === "candidate") {
@@ -103,46 +118,37 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
   const pathname = usePathname() ?? "/admin";
   const title = getAdminPageTitle(pathname);
   const breadcrumbs = getAdminBreadcrumbs(pathname);
+  const shellData = useAdminShellData();
   const [notifications, setNotifications] = useState<HeaderNotificationItem[]>([]);
-  const [dismissedNotificationIds, setDismissedNotificationIds] = useState<string[]>([]);
   const [isLoadingNotifications, setIsLoadingNotifications] = useState(true);
   const [isMarkingAllRead, setIsMarkingAllRead] = useState(false);
   const [isCleaningNotifications, setIsCleaningNotifications] = useState(false);
+  const [deletingNotificationId, setDeletingNotificationId] = useState<string | null>(null);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isBellBlinking, setIsBellBlinking] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
 
-  const visibleNotifications = useMemo(() => {
-    const hidden = new Set(dismissedNotificationIds);
-    return notifications.filter((item) => !hidden.has(item.id));
-  }, [dismissedNotificationIds, notifications]);
-
   const unreadNotifications = useMemo(
-    () => visibleNotifications.filter((item) => !item.isRead).length,
-    [visibleNotifications],
+    () => notifications.filter((item) => !item.isRead).length,
+    [notifications],
   );
+  const workspaceLabel = shellData.companyName ? `${shellData.companyName} workspace` : "Admin workspace";
+  const profileLabel = shellData.profile?.name || shellData.companyName || "Admin profile";
 
   const loadNotifications = useCallback(async () => {
     try {
-      const [contactResponse, applicationResponse] = await Promise.all([
-        fetch("/api/admin/contact-submissions", { cache: "no-store" }),
-        fetch("/api/admin/job-applications", { cache: "no-store" }),
+      const [contactResult, applicationResult] = await Promise.all([
+        getAdminContactSubmissions(),
+        getAdminJobApplications(),
       ]);
 
-      let contactItems: ContactSubmissionNotification[] = [];
-      let applicationItems: JobApplicationNotification[] = [];
-
-      if (contactResponse.ok) {
-        const payload = (await contactResponse.json()) as { items?: ContactSubmissionNotification[] };
-        contactItems = payload.items ?? [];
-      }
-
-      if (applicationResponse.ok) {
-        const payload = (await applicationResponse.json()) as { items?: JobApplicationNotification[] };
-        applicationItems = payload.items ?? [];
-      }
+      const contactItems = (contactResult.items ?? []) as ContactSubmissionNotification[];
+      const applicationItems = (applicationResult.items ?? []) as JobApplicationNotification[];
 
       const contactNotifications: HeaderNotificationItem[] = contactItems.map((item) => ({
         id: `contact:${item.id}`,
+        kind: "contact",
+        recordId: item.id,
         title: `${item.firstName} ${item.lastName}`.trim() || "Contact lead",
         description: `${formatInquiryType(item.inquiryType)} inquiry - ${item.email}`,
         href: "/admin/notifications?tab=contact-leads",
@@ -152,6 +158,8 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
 
       const applicationNotifications: HeaderNotificationItem[] = applicationItems.map((item) => ({
         id: `application:${item.id}`,
+        kind: "application",
+        recordId: item.id,
         title: `${item.fullName} applied`,
         description: `${item.jobTitle} - ${item.email}`,
         href: "/admin/notifications?tab=job-applications",
@@ -164,41 +172,12 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
       );
 
       setNotifications(next);
-      setDismissedNotificationIds((current) => {
-        const allowed = new Set(next.map((item) => item.id));
-        return current.filter((item) => allowed.has(item));
-      });
     } catch {
       setNotifications([]);
     } finally {
       setIsLoadingNotifications(false);
     }
   }, []);
-
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(dismissedNotificationsStorageKey);
-
-      if (!raw) {
-        return;
-      }
-
-      const parsed = JSON.parse(raw) as unknown;
-
-      if (Array.isArray(parsed)) {
-        setDismissedNotificationIds(parsed.filter((item): item is string => typeof item === "string"));
-      }
-    } catch {
-      setDismissedNotificationIds([]);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem(
-      dismissedNotificationsStorageKey,
-      JSON.stringify(dismissedNotificationIds),
-    );
-  }, [dismissedNotificationIds]);
 
   useEffect(() => {
     void loadNotifications();
@@ -238,26 +217,7 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
     setIsMarkingAllRead(true);
 
     try {
-      const [contactResponse, applicationResponse] = await Promise.all([
-        fetch("/api/admin/contact-submissions", {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ markAll: true }),
-        }),
-        fetch("/api/admin/job-applications", {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ markAll: true }),
-        }),
-      ]);
-
-      if (!contactResponse.ok || !applicationResponse.ok) {
-        throw new Error("Unable to mark all notifications as read.");
-      }
+      await Promise.all([markAllAdminContactSubmissionsRead(), markAllAdminJobApplicationsRead()]);
 
       setNotifications((current) => current.map((item) => ({ ...item, isRead: true })));
       toast.success("All notifications marked as read.");
@@ -268,24 +228,42 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
     }
   }
 
-  function handleCleanNotifications() {
-    if (!visibleNotifications.length) {
+  async function handleDeleteNotification(item: HeaderNotificationItem) {
+    setDeletingNotificationId(item.id);
+
+    try {
+      if (item.kind === "contact") {
+        await deleteAdminContactSubmission(item.recordId);
+      } else {
+        await deleteAdminJobApplication(item.recordId);
+      }
+
+      setNotifications((current) => current.filter((entry) => entry.id !== item.id));
+      toast.success("Notification deleted.");
+    } catch {
+      toast.error("Unable to delete this notification right now.");
+    } finally {
+      setDeletingNotificationId(null);
+    }
+  }
+
+  async function handleCleanNotifications() {
+    if (!notifications.length) {
       toast.message("No notifications to clean.");
       return;
     }
 
     setIsCleaningNotifications(true);
-    setDismissedNotificationIds((current) => {
-      const next = new Set(current);
 
-      for (const item of visibleNotifications) {
-        next.add(item.id);
-      }
-
-      return Array.from(next);
-    });
-    setIsCleaningNotifications(false);
-    toast.success("Notification list cleaned.");
+    try {
+      await Promise.all([deleteAllAdminContactSubmissions(), deleteAllAdminJobApplications()]);
+      setNotifications([]);
+      toast.success("Notifications cleared from the database.");
+    } catch {
+      toast.error("Unable to clear notifications right now.");
+    } finally {
+      setIsCleaningNotifications(false);
+    }
   }
 
   function handleSignOut() {
@@ -297,7 +275,7 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
 
     clearAuthToken();
     toast.success("Signed out.");
-    router.push("/login");
+    router.push("/admin/login");
     router.refresh();
     setIsSigningOut(false);
   }
@@ -309,7 +287,7 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
         ENABLE_ADMIN_UI_REFRESH ? "border-[#D4E8FC] bg-[#F8FBFF]/[0.88]" : "border-[#D4E8FC] bg-[#F8FBFF]/80",
       )}
     >
-      <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
+      <div className="flex h-16 items-center gap-2 px-3 sm:gap-3 sm:px-5 lg:px-8">
         <Button
           type="button"
           variant="ghost"
@@ -338,14 +316,14 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
           <span className="sr-only">Toggle sidebar width</span>
         </Button>
 
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p
             className={cn(
               "text-xs tracking-[0.08em] text-[#1B66B3]",
               ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
             )}
           >
-            Recruiting workspace
+            {workspaceLabel}
           </p>
           <h1
             className={cn(
@@ -386,7 +364,7 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
           </div>
         </div>
 
-        <DropdownMenu>
+        <DropdownMenu open={isNotificationsOpen} onOpenChange={setIsNotificationsOpen}>
           <DropdownMenuTrigger asChild>
             <Button
               type="button"
@@ -418,26 +396,38 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
           <DropdownMenuContent
             align="end"
             className={cn(
-              "w-[360px] border text-slate-900",
+              "w-[min(24rem,calc(100vw-0.75rem))] border p-0 text-slate-900",
               ENABLE_ADMIN_UI_REFRESH
                 ? "border-[#D4E8FC] bg-[#F8FBFF]/[0.96]"
                 : "border-[#D4E8FC] bg-[#F8FBFF]",
             )}
           >
-            <div className="flex items-center justify-between px-2 pb-1 pt-1.5">
-              <DropdownMenuLabel className="p-0">Notifications</DropdownMenuLabel>
-              <span className="text-xs text-slate-600">{unreadNotifications} unread</span>
+            <div className="flex items-start justify-between gap-3 px-3 pb-2 pt-3">
+              <div className="min-w-0">
+                <DropdownMenuLabel className="p-0">Notifications</DropdownMenuLabel>
+                <p className="mt-0.5 text-xs text-slate-600">{unreadNotifications} unread</p>
+              </div>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 shrink-0 rounded-full text-slate-500 hover:bg-[#EDF5FF] hover:text-slate-900"
+                onClick={() => setIsNotificationsOpen(false)}
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close notifications</span>
+              </Button>
             </div>
 
             <DropdownMenuSeparator className="bg-[#D4E8FC]" />
 
-            <div className="flex gap-2 px-2 py-2">
+            <div className="flex flex-wrap gap-2 px-3 py-2">
               <Button
                 type="button"
                 size="sm"
                 variant="outline"
                 className="h-8 border-[#C3DDF9] bg-[#F8FBFF] px-2 text-xs text-slate-900 hover:bg-[#EDF5FF]"
-                disabled={isMarkingAllRead || !visibleNotifications.length}
+                disabled={isMarkingAllRead || !notifications.length}
                 onClick={() => {
                   void handleMarkAllRead();
                 }}
@@ -449,8 +439,10 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
                 size="sm"
                 variant="outline"
                 className="h-8 border-[#C3DDF9] bg-[#F8FBFF] px-2 text-xs text-slate-900 hover:bg-[#EDF5FF]"
-                disabled={isCleaningNotifications || !visibleNotifications.length}
-                onClick={handleCleanNotifications}
+                disabled={isCleaningNotifications || !notifications.length}
+                onClick={() => {
+                  void handleCleanNotifications();
+                }}
               >
                 {isCleaningNotifications ? "Cleaning..." : "Clean"}
               </Button>
@@ -458,35 +450,57 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
 
             <DropdownMenuSeparator className="bg-[#D4E8FC]" />
 
-            <div className="max-h-80 overflow-y-auto">
+            <div className="max-h-[min(24rem,calc(100vh-11rem))] overflow-y-auto">
               {isLoadingNotifications ? (
                 <p className="px-3 py-3 text-sm text-slate-500">Loading notifications...</p>
-              ) : !visibleNotifications.length ? (
+              ) : !notifications.length ? (
                 <p className="px-3 py-3 text-sm text-slate-500">No notifications available.</p>
               ) : (
-                visibleNotifications.map((item) => (
-                  <DropdownMenuItem
+                notifications.map((item) => (
+                  <div
                     key={item.id}
-                    asChild
                     className={cn(
-                      "cursor-pointer items-start py-2 focus:bg-[#EDF5FF]",
-                      !item.isRead && "bg-[#EAF4FF]",
+                      "flex items-start gap-3 px-3 py-3",
+                      !item.isRead ? "bg-[#EAF4FF]" : "bg-transparent",
                     )}
                   >
-                    <Link href={item.href} className="w-full">
+                    <Link
+                      href={item.href}
+                      className="min-w-0 flex-1 rounded-md pr-1 transition-colors hover:text-slate-900"
+                      onClick={() => setIsNotificationsOpen(false)}
+                    >
                       <p className="text-sm font-medium text-slate-900">{item.title}</p>
-                      <p className="mt-0.5 text-xs text-slate-500">{item.description}</p>
+                      <p className="mt-0.5 break-words text-xs leading-5 text-slate-500">{item.description}</p>
                       <p className="mt-1 text-xs text-slate-500">{formatNotificationTime(item.createdAt)}</p>
                     </Link>
-                  </DropdownMenuItem>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="mt-0.5 h-8 w-8 shrink-0 rounded-full text-slate-500 hover:bg-[#EDF5FF] hover:text-rose-600"
+                      disabled={deletingNotificationId === item.id || isCleaningNotifications}
+                      onClick={() => {
+                        void handleDeleteNotification(item);
+                      }}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      <span className="sr-only">Delete notification</span>
+                    </Button>
+                  </div>
                 ))
               )}
             </div>
 
             <DropdownMenuSeparator className="bg-[#D4E8FC]" />
-            <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
-              <Link href="/admin/notifications?tab=contact-leads">Open notification center</Link>
-            </DropdownMenuItem>
+            <div className="px-3 py-2">
+              <Link
+                href="/admin/notifications?tab=contact-leads"
+                className="block rounded-md px-2 py-2 text-sm text-slate-900 transition-colors hover:bg-[#EDF5FF]"
+                onClick={() => setIsNotificationsOpen(false)}
+              >
+                Open notification center
+              </Link>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
 
@@ -500,14 +514,14 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
                 ENABLE_ADMIN_UI_REFRESH && "bg-[#EDF5FF] hover:bg-[#E3F0FF] data-[state=open]:bg-[#E3F0FF]",
               )}
             >
-              <UserCircle2 className="h-5 w-5 text-[#1B66B3]" />
+                <UserCircle2 className="h-5 w-5 text-[#1B66B3]" />
               <span
                 className={cn(
                   "hidden text-sm sm:inline-flex",
                   ENABLE_ADMIN_LIGHTER_TYPE ? "font-medium" : "font-semibold",
                 )}
               >
-                My profile
+                {profileLabel}
               </span>
             </Button>
           </DropdownMenuTrigger>
@@ -519,14 +533,14 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
                 ? "border-[#D4E8FC] bg-[#F8FBFF]/[0.96]"
                 : "border-[#D4E8FC] bg-[#F8FBFF]",
             )}
-          >
-            <DropdownMenuLabel>Admin User</DropdownMenuLabel>
+            >
+            <DropdownMenuLabel>{profileLabel}</DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-[#D4E8FC]" />
             <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
-              <Link href="/admin/settings?tab=company">Account</Link>
+              <Link href="/admin/profile">Profile</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
-              <Link href="/admin/settings/security">Preferences</Link>
+              <Link href="/admin/settings?tab=company">Company Settings</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer focus:bg-[#EDF5FF]"
@@ -542,7 +556,7 @@ export function Header({ collapsed, onToggleCollapse, onOpenMobileSidebar }: Hea
         </DropdownMenu>
       </div>
 
-      <div className="border-t border-[#D4E8FC] px-4 pb-3 pt-2 lg:hidden">
+      <div className="border-t border-[#D4E8FC] px-3 pb-3 pt-2 sm:px-5 lg:hidden">
         <div className="relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
           <Input

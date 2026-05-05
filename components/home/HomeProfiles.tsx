@@ -1,55 +1,49 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 import { HomeSectionHeading } from "@/components/home/HomeSectionHeading";
+import { resolveAssetUrl } from "@/lib/asset-url";
+import type { TalentProfile } from "@/lib/talent-profiles";
+import { defaultTalentProfilesSectionContent } from "@/lib/talent-profiles-section";
 import { cn } from "@/lib/utils";
 
-const profiles = [
-  {
-    name: "Aarav Menon",
-    role: "Cloud & Data Architect",
-    summary: "12 years | Fintech, SaaS, and data platform modernization",
-    skills: ["AWS", "Snowflake", "Data Platforms", "Governance"],
-  },
-  {
-    name: "Naina Kapoor",
-    role: "Full-Stack Engineer",
-    summary: "8 years | B2B SaaS, enterprise portals, and digital products",
-    skills: ["React", "Next.js", "Node.js", "TypeScript"],
-  },
-  {
-    name: "Rohan Iyer",
-    role: "AI / ML Engineer",
-    summary: "9 years | GenAI, MLOps, and intelligent automation",
-    skills: ["Python", "LLMOps", "Azure AI", "MLOps"],
-  },
-  {
-    name: "Ishita Rao",
-    role: "Product Manager",
-    summary: "10 years | SaaS roadmap strategy, GTM alignment, and growth delivery",
-    skills: ["Roadmapping", "B2B SaaS", "Analytics", "Stakeholder Mgmt"],
-  },
-  {
-    name: "Karan Malhotra",
-    role: "DevOps Engineer",
-    summary: "7 years | CI/CD reliability, cloud security, and platform automation",
-    skills: ["AWS", "Terraform", "Kubernetes", "Observability"],
-  },
-  {
-    name: "Meera Khanna",
-    role: "QA Automation Lead",
-    summary: "9 years | Test strategy, CI pipelines, and release quality governance",
-    skills: ["Cypress", "Playwright", "API Testing", "CI/CD"],
-  },
-];
+const DEFAULT_PROFILE_IMAGE = "/images/profiles/profile-3.svg";
 
-export function HomeProfiles() {
+type HomeProfilesProps = {
+  profiles: TalentProfile[];
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+};
+
+function buildSummary(profile: TalentProfile) {
+  const parts: string[] = [];
+
+  if (profile.yearsOfExperience > 0) {
+    parts.push(`${profile.yearsOfExperience}+ years`);
+  }
+
+  if (profile.summary) {
+    parts.push(profile.summary);
+  } else if (profile.expertise.length) {
+    parts.push(profile.expertise.join(", "));
+  }
+
+  return parts.join(" | ");
+}
+
+export function HomeProfiles({ profiles, eyebrow, title, description }: HomeProfilesProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const visibleProfiles = profiles.filter((profile) => profile.name.trim() && profile.role.trim());
+  const resolvedEyebrow = eyebrow?.trim() || defaultTalentProfilesSectionContent.eyebrow;
+  const resolvedTitle = title?.trim() || defaultTalentProfilesSectionContent.title;
+  const resolvedDescription = description?.trim() || defaultTalentProfilesSectionContent.description;
 
   useEffect(() => {
     const node = trackRef.current;
@@ -71,7 +65,7 @@ export function HomeProfiles() {
       node.removeEventListener("scroll", updateScrollState);
       window.removeEventListener("resize", updateScrollState);
     };
-  }, []);
+  }, [visibleProfiles.length]);
 
   function scrollCards(direction: -1 | 1) {
     const node = trackRef.current;
@@ -84,13 +78,17 @@ export function HomeProfiles() {
     node.scrollBy({ left: amount, behavior: "smooth" });
   }
 
+  if (!visibleProfiles.length) {
+    return null;
+  }
+
   return (
     <section className="bg-[#E6F1FF] public-section">
       <div className="site-container public-stack">
         <HomeSectionHeading
-          eyebrow="Representative profiles"
-          title="Illustrative specialist profiles aligned to modern delivery needs."
-          description="Expert profiles designed to match evolving project needs, combining the right skills and experience for modern digital delivery."
+          eyebrow={resolvedEyebrow}
+          title={resolvedTitle}
+          description={resolvedDescription}
         />
 
         <div className="relative">
@@ -111,29 +109,40 @@ export function HomeProfiles() {
             ref={trackRef}
             className="flex touch-auto snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 pl-0.5 pr-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {profiles.map((profile) => (
+            {visibleProfiles.map((profile) => (
               <article
-                key={profile.name}
-                className="group flex min-h-[23.25rem] w-[min(88vw,22rem)] shrink-0 snap-start flex-col rounded-[1.4rem] border border-[#D7E8FA] bg-[#F8FBFF] p-6 shadow-[0_22px_50px_-42px_rgba(15,23,42,0.24)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A9CEF5] hover:shadow-[0_28px_62px_-40px_rgba(27,102,179,0.28)] md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
+                key={profile.id}
+                className="group flex min-h-[25rem] w-[min(88vw,22rem)] shrink-0 snap-start flex-col rounded-[1.4rem] border border-[#D7E8FA] bg-[#F8FBFF] p-6 shadow-[0_22px_50px_-42px_rgba(15,23,42,0.24)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A9CEF5] hover:shadow-[0_28px_62px_-40px_rgba(27,102,179,0.28)] md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
               >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="rounded-full bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#1B66B3]">
-                    Representative profile
-                  </span>
-                  <span className="text-xs font-medium uppercase tracking-[0.16em] text-slate-600">
-                    Talent ready
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src={resolveAssetUrl(profile.avatar || DEFAULT_PROFILE_IMAGE)}
+                      alt={profile.name}
+                      width={56}
+                      height={56}
+                      className="h-14 w-14 rounded-full border border-[#BED9F3] object-cover"
+                      unoptimized
+                    />
+                    <div>
+                      <h3 className="text-xl font-semibold text-slate-900">{profile.name}</h3>
+                      <p className="text-base font-medium text-[#1B66B3]">{profile.role}</p>
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#1B66B3]">
+                    <Star className="h-3.5 w-3.5 fill-current" />
+                    {profile.rating}/5
                   </span>
                 </div>
 
                 <div className="mt-6 flex flex-1 flex-col">
                   <div className="space-y-2">
-                    <h3 className="text-xl font-semibold text-slate-900">{profile.name}</h3>
-                    <p className="text-base font-medium text-[#1B66B3]">{profile.role}</p>
-                    <p className="text-base leading-relaxed text-slate-600">{profile.summary}</p>
+                    <p className="text-base leading-relaxed text-slate-600">{buildSummary(profile)}</p>
+                    <p className="text-sm leading-relaxed text-slate-600">{profile.detailedSummary}</p>
                   </div>
 
                   <div className="mt-6 flex flex-wrap gap-2">
-                    {profile.skills.map((skill) => (
+                    {profile.expertise.map((skill) => (
                       <span
                         key={skill}
                         className="rounded-full border border-[#BED9F3] bg-[#EDF5FF] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 transition-colors group-hover:bg-[#EAF4FF]"
@@ -148,7 +157,7 @@ export function HomeProfiles() {
                       href="/contact"
                       className="inline-flex items-center gap-2 text-sm font-semibold text-[#1B66B3] transition-colors hover:text-[#145188]"
                     >
-                      View Resume
+                      {profile.resumeCtaLabel || "View Resume"}
                       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
@@ -174,4 +183,3 @@ export function HomeProfiles() {
     </section>
   );
 }
-

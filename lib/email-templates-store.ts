@@ -62,7 +62,7 @@ function getDefaultTemplates(): EmailTemplate[] {
     {
       id: "TPL-1004",
       name: "Offer Letter",
-      subject: "Official offer from StartupWork",
+      subject: "Official offer for {{job_title}}",
       body: "Hi {{candidate_name}},\n\nWe are excited to extend an offer for the {{job_title}} role. Please review the attached details and respond.\n\nRegards,\n{{recruiter_name}}",
       channel: "Email",
       isActive: true,

@@ -1,0 +1,25 @@
+[
+  {
+    "id": "46763b65-99a0-4bbd-98e2-d6d16eea6851",
+    "fullName": "Aditya Pandey",
+    "email": "ap91137831@gmail.com",
+    "phone": "+91 7412589632",
+    "role": "Full Stack developer",
+    "experience": "6-9 years",
+    "linkedInUrl": "https://www.linkedin.com/in/aditya-devp/",
+    "desiredLocation": null,
+    "desiredSalaryRange": null,
+    "skills": null,
+    "submissionType": "contact-candidate",
+    "sourcePage": "contact",
+    "status": "new",
+    "isRead": false,
+    "resume": {
+      "objectKey": "candidate-leads/contact-candidate/2026-05/46763b65-99a0-4bbd-98e2-d6d16eea6851/answers-with-explanation.pdf",
+      "fileName": "answers_with_explanation.pdf",
+      "contentType": "application/pdf"
+    },
+    "createdAt": "2026-05-04T20:30:52.724Z",
+    "updatedAt": "2026-05-04T20:30:52.724Z"
+  }
+]

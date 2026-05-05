@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 
 import { AdminAuthGuard } from "@/components/admin/admin-auth-guard";
 import { Header } from "@/components/admin/Header";
+import { AdminScrollToTopButton } from "@/components/admin/AdminScrollToTopButton";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { ENABLE_ADMIN_UI_REFRESH } from "@/lib/ui-flags";
 import { cn } from "@/lib/utils";
@@ -36,13 +37,15 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
         <main
           className={cn(
-            "px-4 sm:px-6 lg:px-8",
-            ENABLE_ADMIN_UI_REFRESH ? "pb-10 pt-7 md:pt-8" : "pb-8 pt-6",
+            "px-3 sm:px-5 lg:px-8",
+            ENABLE_ADMIN_UI_REFRESH ? "pb-24 pt-7 sm:pb-28 md:pt-8 lg:pb-12" : "pb-24 pt-6 sm:pb-28 lg:pb-12",
           )}
         >
           <AdminAuthGuard />
           {children}
         </main>
+
+        <AdminScrollToTopButton />
       </div>
     </div>
   );

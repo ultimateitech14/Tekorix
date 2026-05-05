@@ -1,62 +1,7 @@
-"use client";
-
-import { useEffect, useMemo, useState } from "react";
-
 import { Button } from "@/components/ui/button";
 
-type CompanyProfile = {
-  companyName: string;
-  email: string;
-  phone: string;
-  address: string;
-  googleMapLink: string;
-};
-
-const COMPANY_PROFILE_STORAGE_KEY = "company_profile";
-
-const emptyCompanyProfile: CompanyProfile = {
-  companyName: "",
-  email: "",
-  phone: "",
-  address: "",
-  googleMapLink: "",
-};
-
-function normalizeText(value: unknown) {
-  return typeof value === "string" ? value.trim() : "";
-}
-
-function parseCompanyProfile(raw: string | null): CompanyProfile {
-  if (!raw) {
-    return emptyCompanyProfile;
-  }
-
-  try {
-    const parsed = JSON.parse(raw) as Partial<CompanyProfile>;
-
-    return {
-      companyName: normalizeText(parsed.companyName),
-      email: normalizeText(parsed.email),
-      phone: normalizeText(parsed.phone),
-      address: normalizeText(parsed.address),
-      googleMapLink: normalizeText(parsed.googleMapLink),
-    };
-  } catch {
-    return emptyCompanyProfile;
-  }
-}
-
-function useCompanyProfileField(field: keyof CompanyProfile, fallback: string) {
-  const normalizedFallback = useMemo(() => normalizeText(fallback), [fallback]);
-  const [value, setValue] = useState(normalizedFallback);
-
-  useEffect(() => {
-    const stored = parseCompanyProfile(window.localStorage.getItem(COMPANY_PROFILE_STORAGE_KEY));
-    const next = stored[field] || normalizedFallback;
-    setValue(next);
-  }, [field, normalizedFallback]);
-
-  return value;
+function normalizeText(value: string) {
+  return value.trim();
 }
 
 type CompanyNameTextProps = {
@@ -65,7 +10,7 @@ type CompanyNameTextProps = {
 };
 
 export function CompanyNameText({ fallback, className }: CompanyNameTextProps) {
-  const name = useCompanyProfileField("companyName", fallback);
+  const name = normalizeText(fallback);
 
   if (!className) {
     return <>{name}</>;
@@ -81,7 +26,7 @@ type CompanyEmailLinkProps = {
 };
 
 export function CompanyEmailLink({ fallback, className, prefix = "" }: CompanyEmailLinkProps) {
-  const email = useCompanyProfileField("email", fallback);
+  const email = normalizeText(fallback);
 
   return (
     <a href={`mailto:${email}`} className={className}>
@@ -97,7 +42,7 @@ type CompanyEmailButtonLinkProps = {
 };
 
 export function CompanyEmailButtonLink({ fallback, variant = "outline" }: CompanyEmailButtonLinkProps) {
-  const email = useCompanyProfileField("email", fallback);
+  const email = normalizeText(fallback);
 
   return (
     <Button asChild variant={variant}>
@@ -112,7 +57,7 @@ type CompanyPhoneLinkProps = {
 };
 
 export function CompanyPhoneLink({ fallback, className }: CompanyPhoneLinkProps) {
-  const phone = useCompanyProfileField("phone", fallback);
+  const phone = normalizeText(fallback);
 
   return (
     <a href={`tel:${phone}`} className={className}>
@@ -127,7 +72,7 @@ type CompanyAddressTextProps = {
 };
 
 export function CompanyAddressText({ fallback = "", className }: CompanyAddressTextProps) {
-  const address = useCompanyProfileField("address", fallback);
+  const address = normalizeText(fallback);
 
   if (!address) {
     return null;
@@ -147,7 +92,7 @@ type CompanyMapLinkProps = {
 };
 
 export function CompanyMapLink({ fallback = "", className, label = "View on Google Maps" }: CompanyMapLinkProps) {
-  const link = useCompanyProfileField("googleMapLink", fallback);
+  const link = normalizeText(fallback);
 
   if (!link || !link.toLowerCase().startsWith("http")) {
     return null;

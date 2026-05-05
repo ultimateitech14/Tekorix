@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { getPublicSiteSettings } from "@/lib/api/site-settings";
 import { absoluteUrl } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/site-settings-store";
 import { academyPrograms } from "@/lib/constants/academy-programs";
@@ -21,7 +22,7 @@ const careersRoutes = ["/careers", "/careers/job-results"];
 const academyProgramRoutes = academyPrograms.map((item) => `/academy/${item.id}`);
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteSettings = await getSiteSettings();
+  const siteSettings = await getPublicSiteSettings().catch(() => getSiteSettings());
   const publicRoutes = siteSettings.careersPublished
     ? [...baseRoutes, ...academyProgramRoutes, ...careersRoutes]
     : [...baseRoutes, ...academyProgramRoutes];

@@ -1,0 +1,248 @@
+
+> startupwork@0.1.0 dev
+> next dev --hostname 127.0.0.1 --port 3015
+
+  ▲ Next.js 14.2.35
+  - Local:        http://127.0.0.1:3015
+  - Network:      http://127.0.0.1:3015
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.6s
+ ○ Compiling / ...
+ ✓ Compiled / in 1599ms (952 modules)
+ GET / 200 in 2358ms
+ GET / 200 in 59ms
+ ○ Compiling /services ...
+ ✓ Compiled /services in 748ms (961 modules)
+ GET /services 200 in 998ms
+ ✓ Compiled /academy in 347ms (966 modules)
+ GET /academy 200 in 532ms
+ ○ Compiling /contact ...
+ ✓ Compiled /contact in 1545ms (1177 modules)
+ GET /contact 200 in 1825ms
+ ○ Compiling /find-job ...
+ ✓ Compiled /find-job in 1239ms (1226 modules)
+ GET /find-job 200 in 1545ms
+ ○ Compiling /find-talent ...
+ ✓ Compiled /find-talent in 1069ms (1239 modules)
+ GET /find-talent 200 in 1332ms
+ ○ Compiling /blog ...
+ ✓ Compiled /blog in 1577ms (1247 modules)
+ GET /blog 200 in 1962ms
+ ✓ Compiled /middleware in 212ms (118 modules)
+ ○ Compiling /login ...
+ ✓ Compiled /login in 803ms (1275 modules)
+ GET /login?next=%2Fadmin 200 in 1031ms
+ ✓ Compiled /about in 442ms (1285 modules)
+ GET /about 200 in 647ms
+ GET / 200 in 123ms
+ GET / 200 in 166ms
+ ✓ Compiled /favicon.ico in 480ms (575 modules)
+ GET /favicon.ico?v=20260505 200 in 582ms
+ GET /favicon.ico?v=20260505 200 in 20ms
+ GET / 200 in 421ms
+ GET /favicon.ico?v=20260505 200 in 30ms
+ GET /favicon.ico?v=20260505 200 in 29ms
+ GET / 200 in 301ms
+ GET /favicon.ico?v=20260505 200 in 26ms
+ GET /favicon.ico?v=20260505 200 in 21ms
+ GET / 200 in 131ms
+ GET /favicon.ico?v=20260505 200 in 20ms
+ GET /favicon.ico?v=20260505 200 in 19ms
+ ✓ Compiled /find-talent in 284ms (687 modules)
+ GET / 200 in 304ms
+ GET /favicon.ico?v=20260505 200 in 19ms
+ GET /favicon.ico?v=20260505 200 in 17ms
+ ✓ Compiled /find-job in 156ms (724 modules)
+ ✓ Compiled /login in 278ms (746 modules)
+ GET /login 200 in 509ms
+ GET /favicon.ico?v=20260505 200 in 39ms
+ GET /favicon.ico?v=20260505 200 in 17ms
+ ○ Compiling /admin ...
+ ✓ Compiled /admin in 3.4s (2322 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1546ms (2311 modules)
+ GET /favicon.ico?v=20260505 200 in 1149ms
+ GET /favicon.ico?v=20260505 200 in 1145ms
+ GET /favicon.ico?v=20260505 200 in 1164ms
+ GET /_next/static/webpack/b5b581b069abf89a.webpack.hot-update.json 404 in 1821ms
+ GET /_next/static/webpack/b5b581b069abf89a.webpack.hot-update.json 404 in 1820ms
+ GET /_next/static/webpack/b5b581b069abf89a.webpack.hot-update.json 404 in 1818ms
+ GET /_next/static/webpack/b5b581b069abf89a.webpack.hot-update.json 404 in 1821ms
+ GET /favicon.ico?v=20260505 200 in 180ms
+ GET /favicon.ico?v=20260505 200 in 180ms
+ GET /favicon.ico?v=20260505 200 in 181ms
+ GET /login 307 in 863ms
+ GET / 200 in 1358ms
+ GET / 200 in 1362ms
+ GET / 200 in 1367ms
+ GET /admin 200 in 808ms
+ GET /favicon.ico?v=20260505 200 in 60ms
+ GET /favicon.ico?v=20260505 200 in 73ms
+ GET /favicon.ico?v=20260505 200 in 94ms
+ GET /favicon.ico?v=20260505 200 in 57ms
+ GET /favicon.ico?v=20260505 200 in 54ms
+ GET /favicon.ico?v=20260505 200 in 29ms
+ GET /favicon.ico?v=20260505 200 in 22ms
+ GET /favicon.ico?v=20260505 200 in 25ms
+ GET /admin 200 in 74ms
+ GET /favicon.ico?v=20260505 200 in 18ms
+ GET /favicon.ico?v=20260505 200 in 25ms
+ GET /admin 200 in 119ms
+ GET /favicon.ico?v=20260505 200 in 25ms
+ GET /favicon.ico?v=20260505 200 in 22ms
+ GET / 200 in 84ms
+ GET / 200 in 135ms
+ GET /favicon.ico?v=20260505 200 in 23ms
+ GET /favicon.ico?v=20260505 200 in 18ms
+ ○ Compiling /business-consulting ...
+ ✓ Compiled /business-consulting in 1209ms (2260 modules)
+ GET / 200 in 235ms
+ GET /favicon.ico?v=20260505 200 in 39ms
+ GET /favicon.ico?v=20260505 200 in 30ms
+ GET / 200 in 104ms
+ GET /favicon.ico?v=20260505 200 in 18ms
+ GET /favicon.ico?v=20260505 200 in 19ms
+ ✓ Compiled /hr-consulting in 427ms (2266 modules)
+ GET / 200 in 334ms
+ GET /favicon.ico?v=20260505 200 in 27ms
+ GET /favicon.ico?v=20260505 200 in 20ms
+ ✓ Compiled /find-talent in 250ms (1243 modules)
+ GET / 200 in 249ms
+ GET /favicon.ico?v=20260505 200 in 23ms
+ GET /favicon.ico?v=20260505 200 in 21ms
+ ✓ Compiled /find-job in 264ms (1277 modules)
+ GET /login 200 in 111ms
+ GET /favicon.ico?v=20260505 200 in 27ms
+ GET /favicon.ico?v=20260505 200 in 16ms
+ GET /favicon.ico?v=20260505 200 in 23ms
+ GET /favicon.ico?v=20260505 200 in 25ms
+ GET /favicon.ico?v=20260505 200 in 31ms
+ ○ Compiling /admin/jobs ...
+ ✓ Compiled /admin/jobs in 1580ms (2340 modules)
+ GET /favicon.ico?v=20260505 200 in 32ms
+ GET /favicon.ico?v=20260505 200 in 35ms
+ ○ Compiling /admin/blog ...
+ ✓ Compiled /admin/blog in 892ms (2366 modules)
+ GET /admin 200 in 561ms
+ GET /favicon.ico?v=20260505 200 in 21ms
+ GET /favicon.ico?v=20260505 200 in 36ms
+ GET /favicon.ico?v=20260505 200 in 25ms
+ GET /favicon.ico?v=20260505 200 in 27ms
+ ○ Compiling /admin/settings ...
+ ✓ Compiled /admin/settings in 1186ms (2382 modules)
+ GET /admin 200 in 177ms
+ GET /favicon.ico?v=20260505 200 in 28ms
+ GET /favicon.ico?v=20260505 200 in 27ms
+ ✓ Compiled in 1435ms (1087 modules)
+ ✓ Compiled in 393ms (1087 modules)
+ ✓ Compiled in 1091ms (2254 modules)
+ ✓ Compiled in 1227ms (1088 modules)
+ ✓ Compiled in 1569ms (2254 modules)
+ ✓ Compiled in 1660ms (2254 modules)
+ ✓ Compiled in 1568ms (2254 modules)
+ ✓ Compiled in 1414ms (2254 modules)
+ ✓ Compiled in 823ms (1088 modules)
+ GET / 200 in 249ms
+ GET / 200 in 98ms
+ GET /login 200 in 87ms
+ ○ Compiling /contact ...
+ ✓ Compiled /contact in 727ms (1198 modules)
+ ✓ Compiled (1224 modules)
+ GET /favicon.ico?v=20260505 200 in 1509ms
+ GET /favicon.ico?v=20260505 200 in 66ms
+ ✓ Compiled /_not-found in 427ms (2301 modules)
+ OPTIONS /login 404 in 1700ms
+ GET /login 404 in 89ms
+ GET /login 404 in 62ms
+ GET /login 404 in 65ms
+ GET /login 404 in 59ms
+ GET /login 404 in 66ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 2.1s (2472 modules)
+ GET /login 404 in 2316ms
+ GET /login 404 in 132ms
+ GET /login 500 in 189ms
+ GET /login 500 in 30ms
+ GET /login 500 in 36ms
+ GET /login 500 in 34ms
+ GET /login 500 in 38ms
+ GET /login 500 in 44ms
+ GET /login 500 in 39ms
+ GET /login 500 in 43ms
+ GET /login 500 in 40ms
+ GET /login 500 in 32ms
+ GET /login 500 in 37ms
+ GET /login 500 in 28ms
+ GET /login 500 in 37ms
+ GET /login 500 in 61ms
+ GET /login 500 in 39ms
+ GET /login 500 in 28ms
+ GET /login 500 in 34ms
+ GET /login 500 in 32ms
+ GET /login 500 in 29ms
+ GET /login 500 in 28ms
+ GET /login 500 in 32ms
+ GET /login 500 in 35ms
+ GET /login 500 in 27ms
+ GET /login 500 in 26ms
+ GET /login 500 in 30ms
+ GET /login 500 in 34ms
+ GET /login 500 in 35ms
+ GET /login 404 in 28ms
+ GET /login 404 in 25ms
+ GET /login 404 in 22ms
+ GET /login 404 in 31ms
+ GET /login 404 in 27ms
+ GET /login 404 in 24ms
+ GET /login 404 in 26ms
+ GET /login 404 in 27ms
+ GET /login 404 in 22ms
+ GET /login 404 in 30ms
+ GET /login 404 in 23ms
+ GET /login 404 in 27ms
+ GET /login 404 in 45ms
+ GET /login 404 in 26ms
+ GET /login 404 in 26ms
+ GET /login 404 in 87ms
+ GET /login 404 in 54ms
+ GET /login 404 in 56ms
+ GET /login 404 in 70ms
+ GET /login 404 in 68ms
+ GET /login 404 in 77ms
+ GET /login 404 in 68ms
+ GET /login 404 in 73ms
+ GET /login 404 in 63ms
+ GET /login 404 in 52ms
+ GET /login 404 in 80ms
+ ✓ Compiled in 1864ms (1272 modules)
+ ✓ Compiled in 1261ms (1272 modules)
+ ✓ Compiled in 745ms (1272 modules)
+ ✓ Compiled in 682ms (1272 modules)
+ ✓ Compiled in 950ms (1272 modules)
+ ✓ Compiled in 1038ms (1272 modules)
+ ✓ Compiled in 1310ms (1272 modules)
+ ✓ Compiled in 898ms (1272 modules)
+ ✓ Compiled in 1622ms (1272 modules)
+ ✓ Compiled in 3.9s (2483 modules)
+ ✓ Compiled in 1105ms (1273 modules)
+ ✓ Compiled in 1511ms (1273 modules)
+ ✓ Compiled in 1061ms (1273 modules)
+ ✓ Compiled in 1396ms (2483 modules)
+ ✓ Compiled in 785ms (1273 modules)
+ ✓ Compiled in 1029ms (1273 modules)
+ ✓ Compiled in 1346ms (1273 modules)
+ ✓ Compiled in 1040ms (1273 modules)
+ ✓ Compiled in 1081ms (1273 modules)
+ ✓ Compiled in 1824ms (2486 modules)
+ ✓ Compiled in 880ms (2486 modules)
+ ✓ Compiled in 4.5s (2486 modules)
+ ✓ Compiled in 5.5s (2487 modules)
+ ✓ Compiled in 1190ms (1273 modules)
+ ✓ Compiled in 2.6s (2487 modules)
+ ✓ Compiled in 1114ms (2487 modules)
+ ✓ Compiled in 4.1s (2487 modules)
+ ✓ Compiled in 968ms (1273 modules)
+ ✓ Compiled in 738ms (1273 modules)
+ ✓ Compiled in 4.4s (2487 modules)

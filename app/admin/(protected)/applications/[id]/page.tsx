@@ -18,6 +18,13 @@ import { StatusChip } from "@/components/admin/status-chip";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  downloadAdminJobApplicationResume,
+  getAdminJobApplicationById,
+  markAdminJobApplicationRead,
+  updateAdminJobApplicationNotes,
+  updateAdminJobApplicationStatus,
+} from "@/lib/api/admin/job-applications";
 import { cn } from "@/lib/utils";
 import type { JobApplicationStatus } from "@/lib/validators/job-applications";
 
@@ -29,6 +36,7 @@ type ApplicationDetails = {
   location: string;
   experience: string;
   coverLetter: string;
+  adminNotes: string;
   jobTitle: string;
   jobLocation: string;
   status: JobApplicationStatus;
@@ -82,6 +90,8 @@ export default function ApplicationDetailsPage() {
   const [status, setStatus] = useState<JobApplicationStatus>("pending review");
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
+  const [isDownloadingResume, setIsDownloadingResume] = useState(false);
+  const [isSavingNotes, setIsSavingNotes] = useState(false);
   const [notes, setNotes] = useState("");
 
   useEffect(() => {
@@ -97,14 +107,7 @@ export default function ApplicationDetailsPage() {
       setIsLoading(true);
 
       try {
-        const response = await fetch(`/api/admin/job-applications/${applicationId}`, { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error("Application not found.");
-        }
-
-        const payload = (await response.json()) as { item?: ApplicationDetails };
-        const item = payload.item ?? null;
+        const item = (await getAdminJobApplicationById(applicationId)) as ApplicationDetails;
 
         if (active) {
           setApplication(item);
@@ -112,16 +115,11 @@ export default function ApplicationDetailsPage() {
           if (item) {
             setStatus(item.status);
             setNotes(
-              `Candidate location: ${item.location}\nExperience: ${item.experience}\n\nKey Skills:\n${item.coverLetter}`,
+              item.adminNotes ||
+                `Candidate location: ${item.location}\nExperience: ${item.experience}\n\nKey Skills:\n${item.coverLetter}`,
             );
 
-            void fetch(`/api/admin/job-applications/${applicationId}`, {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({}),
-            });
+            void markAdminJobApplicationRead(applicationId);
           }
         }
       } catch {
@@ -150,30 +148,49 @@ export default function ApplicationDetailsPage() {
     setIsUpdatingStatus(true);
 
     try {
-      const response = await fetch(`/api/admin/job-applications/${application.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          status: nextStatus,
-        }),
-      });
-
-      const payload = (await response.json()) as { success?: boolean; message?: string; item?: ApplicationDetails };
-
-      if (!response.ok || !payload.success || !payload.item) {
-        toast.error(payload.message ?? "Unable to update status.");
-        return;
-      }
-
-      setApplication(payload.item);
-      setStatus(payload.item.status);
-      toast.success(`Application marked as ${formatStatusLabel(nextStatus)}.`);
-    } catch {
-      toast.error("Unable to update status.");
+      const result = await updateAdminJobApplicationStatus(application.id, nextStatus);
+      setApplication(result.data as ApplicationDetails);
+      setStatus(result.data.status);
+      toast.success(result.message);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to update status.");
     } finally {
       setIsUpdatingStatus(false);
+    }
+  }
+
+  async function handleDownloadResume() {
+    if (!application) {
+      return;
+    }
+
+    setIsDownloadingResume(true);
+
+    try {
+      await downloadAdminJobApplicationResume(application.id);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to download resume.");
+    } finally {
+      setIsDownloadingResume(false);
+    }
+  }
+
+  async function handleSaveNotes() {
+    if (!application) {
+      return;
+    }
+
+    setIsSavingNotes(true);
+
+    try {
+      const result = await updateAdminJobApplicationNotes(application.id, notes.trim());
+      setApplication(result.data as ApplicationDetails);
+      setNotes(result.data.adminNotes || notes.trim());
+      toast.success(result.message);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to save notes.");
+    } finally {
+      setIsSavingNotes(false);
     }
   }
 
@@ -262,11 +279,9 @@ export default function ApplicationDetailsPage() {
               </div>
             </div>
 
-            <Button asChild>
-              <a href={`/api/admin/job-applications/${application.id}/resume`}>
-                <Download className="h-4 w-4" />
-                Download Resume
-              </a>
+            <Button type="button" onClick={() => void handleDownloadResume()} disabled={isDownloadingResume}>
+              <Download className="h-4 w-4" />
+              {isDownloadingResume ? "Downloading..." : "Download Resume"}
             </Button>
           </CardContent>
         </Card>
@@ -283,7 +298,9 @@ export default function ApplicationDetailsPage() {
               className="min-h-40 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900 placeholder:text-slate-500"
             />
             <div className="flex justify-end">
-              <Button variant="outline">Save Notes</Button>
+              <Button variant="outline" onClick={() => void handleSaveNotes()} disabled={isSavingNotes}>
+                {isSavingNotes ? "Saving..." : "Save Notes"}
+              </Button>
             </div>
           </CardContent>
         </Card>

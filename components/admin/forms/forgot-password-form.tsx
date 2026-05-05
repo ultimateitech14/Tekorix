@@ -50,8 +50,8 @@ export function ForgotPasswordForm() {
       toast.success(result.message);
       setValues(initialValues);
       setErrors({});
-    } catch {
-      setFormError("Could not connect to authentication service.");
+    } catch (error) {
+      setFormError(error instanceof Error ? error.message : "Could not connect to authentication service.");
     } finally {
       setIsLoading(false);
     }

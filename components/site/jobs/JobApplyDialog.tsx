@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { requestFormDataApi } from "@/lib/api/http";
 import { Textarea } from "@/components/ui/textarea";
 import type { PublicJob } from "@/lib/api/jobs";
 import { themeTokens } from "@/lib/theme/tokens";
@@ -232,22 +233,11 @@ export function JobApplyDialog({ job, open, onOpenChange }: JobApplyDialogProps)
       payload.set("coverLetter", validated.data.coverLetter);
       payload.set("resume", resumeFile);
 
-      const response = await fetch("/api/job-applications", {
-        method: "POST",
-        body: payload,
-      });
-
-      const result = (await response.json()) as { success?: boolean; message?: string };
-
-      if (!response.ok || !result.success) {
-        toast.error(result.message ?? "Unable to submit your application right now.");
-        return;
-      }
-
+      const result = await requestFormDataApi<{ id: string }>("/api/v1/job-applications", payload);
       toast.success(result.message ?? `Application submitted for ${job.title}.`);
       onOpenChange(false);
-    } catch {
-      toast.error("Unable to submit your application right now.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to submit your application right now.");
     } finally {
       setIsSubmitting(false);
     }

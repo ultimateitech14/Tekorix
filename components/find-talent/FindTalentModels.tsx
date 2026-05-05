@@ -55,11 +55,11 @@ export function FindTalentModels() {
           description="Tekorix supports permanent hiring, contractual deployment, and hourly engagement so companies can choose the right cost, speed, and continuity model."
         />
 
-        <div className="grid gap-5 xl:grid-cols-3">
+        <div className="grid items-stretch gap-5 xl:grid-cols-3">
           {models.map((model, index) => (
             <article
               key={model.title}
-              className="rounded-[1.75rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_50px_-44px_rgba(15,23,42,0.28)] sm:p-7"
+              className="flex h-full flex-col rounded-[1.75rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_50px_-44px_rgba(15,23,42,0.28)] sm:p-7"
               style={{
                 borderColor: index === 1 ? colors.primary : colors.border,
                 backgroundColor: index === 1 ? colors.surfaceAlt : colors.surfaceCard,
@@ -93,7 +93,7 @@ export function FindTalentModels() {
                 <p className="text-base leading-7 text-slate-600">{model.description}</p>
               </div>
 
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-6 flex-1 space-y-3">
                 {model.bullets.map((bullet) => (
                   <li key={bullet} className="flex items-start gap-3 text-sm leading-6 text-slate-600">
                     <span

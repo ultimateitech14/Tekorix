@@ -27,6 +27,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  deleteAdminContactSubmission,
+  deleteAllAdminContactSubmissions,
+  getAdminContactSubmissions,
+  markAdminContactSubmissionRead,
+  markAllAdminContactSubmissionsRead,
+  replyToAdminContactSubmission,
+} from "@/lib/api/admin/contact-submissions";
+import {
+  deleteAdminJobApplication,
+  deleteAllAdminJobApplications,
+  getAdminJobApplications,
+  markAdminJobApplicationRead,
+  markAllAdminJobApplicationsRead,
+} from "@/lib/api/admin/job-applications";
+import { clearAdminLogs, getAdminLogs } from "@/lib/api/admin/logs";
+import { requestApi } from "@/lib/api/http";
 import { cn } from "@/lib/utils";
 
 type ContactSubmission = {
@@ -70,6 +87,13 @@ type NotificationLogRecord = {
   action: string;
   target: string;
   createdAt: string;
+};
+
+type SiteSettingsPayload = {
+  companyEmail?: string;
+  notificationEmailProvider?: string;
+  notificationEmailApiKey?: string;
+  notificationFromEmail?: string;
 };
 
 const inquiryLabels: Record<string, string> = {
@@ -129,9 +153,9 @@ function formatNotificationStatus(item: NotificationLogRecord) {
 }
 
 function NotificationsPageContent() {
-  const [emailProvider, setEmailProvider] = useState("SendGrid");
-  const [apiKey, setApiKey] = useState("SG.mocked_api_key");
-  const [fromEmail, setFromEmail] = useState("noreply@startupwork.dev");
+  const [emailProvider, setEmailProvider] = useState("");
+  const [apiKey, setApiKey] = useState("");
+  const [fromEmail, setFromEmail] = useState("");
   const [activeTab, setActiveTab] = useState("providers");
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([]);
   const [jobApplications, setJobApplications] = useState<JobApplicationNotification[]>([]);
@@ -147,6 +171,12 @@ function NotificationsPageContent() {
   const [isLoadingNotificationLogs, setIsLoadingNotificationLogs] = useState(true);
   const [markingReadApplicationId, setMarkingReadApplicationId] = useState<string | null>(null);
   const [markingAllApplicationsRead, setMarkingAllApplicationsRead] = useState(false);
+  const [deletingApplicationId, setDeletingApplicationId] = useState<string | null>(null);
+  const [isDeletingAllApplications, setIsDeletingAllApplications] = useState(false);
+  const [isClearingNotificationLogs, setIsClearingNotificationLogs] = useState(false);
+  const [isLoadingProviderSettings, setIsLoadingProviderSettings] = useState(true);
+  const [isSavingProviderSettings, setIsSavingProviderSettings] = useState(false);
+  const [isSendingProviderTest, setIsSendingProviderTest] = useState(false);
 
   const selectedContactSubmission = useMemo(
     () => contactSubmissions.find((item) => item.id === selectedContactSubmissionId) ?? null,
@@ -175,6 +205,8 @@ function NotificationsPageContent() {
     [jobApplications],
   );
 
+  const hasProviderConfig = Boolean(emailProvider.trim() && fromEmail.trim());
+
   useEffect(() => {
     let active = true;
 
@@ -182,16 +214,9 @@ function NotificationsPageContent() {
       setIsLoadingContacts(true);
 
       try {
-        const response = await fetch("/api/admin/contact-submissions", { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error("Unable to fetch contact submissions.");
-        }
-
-        const payload = (await response.json()) as { items?: ContactSubmission[] };
-
         if (active) {
-          setContactSubmissions(payload.items ?? []);
+          const payload = await getAdminContactSubmissions();
+          setContactSubmissions((payload.items ?? []) as ContactSubmission[]);
         }
       } catch {
         if (active) {
@@ -208,16 +233,9 @@ function NotificationsPageContent() {
       setIsLoadingApplications(true);
 
       try {
-        const response = await fetch("/api/admin/job-applications", { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error("Unable to fetch job applications.");
-        }
-
-        const payload = (await response.json()) as { items?: JobApplicationNotification[] };
-
         if (active) {
-          setJobApplications(payload.items ?? []);
+          const payload = await getAdminJobApplications();
+          setJobApplications((payload.items ?? []) as JobApplicationNotification[]);
         }
       } catch {
         if (active) {
@@ -234,20 +252,9 @@ function NotificationsPageContent() {
       setIsLoadingNotificationLogs(true);
 
       try {
-        const response = await fetch("/api/admin/logs", { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error("Unable to fetch notification logs.");
-        }
-
-        const payload = (await response.json()) as {
-          data?: {
-            notifications?: NotificationLogRecord[];
-          };
-        };
-
         if (active) {
-          setNotificationLogs(payload.data?.notifications ?? []);
+          const payload = await getAdminLogs();
+          setNotificationLogs((payload.notifications ?? []) as NotificationLogRecord[]);
         }
       } catch {
         if (active) {
@@ -260,9 +267,36 @@ function NotificationsPageContent() {
       }
     }
 
+    async function loadProviderSettings() {
+      setIsLoadingProviderSettings(true);
+
+      try {
+        const result = await requestApi<SiteSettingsPayload>("/api/admin/site-settings", {
+          auth: true,
+        });
+
+        if (active) {
+          setEmailProvider(result.data.notificationEmailProvider ?? "");
+          setApiKey(result.data.notificationEmailApiKey ?? "");
+          setFromEmail(result.data.notificationFromEmail ?? result.data.companyEmail ?? "");
+        }
+      } catch {
+        if (active) {
+          setEmailProvider("");
+          setApiKey("");
+          setFromEmail("");
+        }
+      } finally {
+        if (active) {
+          setIsLoadingProviderSettings(false);
+        }
+      }
+    }
+
     loadContacts();
     loadJobApplications();
     loadNotificationLogs();
+    loadProviderSettings();
 
     return () => {
       active = false;
@@ -271,43 +305,21 @@ function NotificationsPageContent() {
 
   async function markAsRead(id: string) {
     try {
-      const response = await fetch("/api/admin/contact-submissions", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to update.");
-      }
-
+      await markAdminContactSubmissionRead(id);
       setContactSubmissions((current) => current.map((item) => (item.id === id ? { ...item, isRead: true } : item)));
       toast.success("Marked as read.");
-    } catch {
-      toast.error("Unable to mark as read right now.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to mark as read right now.");
     }
   }
 
   async function markAllAsRead() {
     try {
-      const response = await fetch("/api/admin/contact-submissions", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ markAll: true }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to update.");
-      }
-
+      await markAllAdminContactSubmissionsRead();
       setContactSubmissions((current) => current.map((item) => ({ ...item, isRead: true })));
       toast.success("All contact notifications marked as read.");
-    } catch {
-      toast.error("Unable to mark all as read.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to mark all as read.");
     }
   }
 
@@ -315,22 +327,11 @@ function NotificationsPageContent() {
     setMarkingReadApplicationId(id);
 
     try {
-      const response = await fetch("/api/admin/job-applications", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to update.");
-      }
-
+      await markAdminJobApplicationRead(id);
       setJobApplications((current) => current.map((item) => (item.id === id ? { ...item, isRead: true } : item)));
       toast.success("Application notification marked as read.");
-    } catch {
-      toast.error("Unable to mark notification as read.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to mark notification as read.");
     } finally {
       setMarkingReadApplicationId(null);
     }
@@ -340,24 +341,75 @@ function NotificationsPageContent() {
     setMarkingAllApplicationsRead(true);
 
     try {
-      const response = await fetch("/api/admin/job-applications", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ markAll: true }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to update.");
-      }
-
+      await markAllAdminJobApplicationsRead();
       setJobApplications((current) => current.map((item) => ({ ...item, isRead: true })));
       toast.success("All job application notifications marked as read.");
-    } catch {
-      toast.error("Unable to mark all as read.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to mark all as read.");
     } finally {
       setMarkingAllApplicationsRead(false);
+    }
+  }
+
+  async function deleteApplicationNotification(id: string) {
+    if (!window.confirm("Delete this job application notification? This action cannot be undone.")) {
+      return;
+    }
+
+    setDeletingApplicationId(id);
+
+    try {
+      await deleteAdminJobApplication(id);
+      setJobApplications((current) => current.filter((item) => item.id !== id));
+      toast.success("Application notification deleted.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to delete notification right now.");
+    } finally {
+      setDeletingApplicationId(null);
+    }
+  }
+
+  async function deleteAllApplicationNotifications() {
+    if (!jobApplications.length) {
+      return;
+    }
+
+    if (!window.confirm("Delete all job application notifications? This action cannot be undone.")) {
+      return;
+    }
+
+    setIsDeletingAllApplications(true);
+
+    try {
+      await deleteAllAdminJobApplications();
+      setJobApplications([]);
+      toast.success("All application notifications deleted.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to delete notifications right now.");
+    } finally {
+      setIsDeletingAllApplications(false);
+    }
+  }
+
+  async function clearNotificationLogItems() {
+    if (!notificationLogs.length) {
+      return;
+    }
+
+    if (!window.confirm("Clear notification logs from the database?")) {
+      return;
+    }
+
+    setIsClearingNotificationLogs(true);
+
+    try {
+      await clearAdminLogs("notifications");
+      setNotificationLogs([]);
+      toast.success("Notification logs cleared.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to clear notification logs right now.");
+    } finally {
+      setIsClearingNotificationLogs(false);
     }
   }
 
@@ -378,25 +430,11 @@ function NotificationsPageContent() {
     setSendingReplyFor(item.id);
 
     try {
-      const response = await fetch("/api/admin/contact-submissions", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: item.id, replyMessage, replyFromEmail }),
+      const result = await replyToAdminContactSubmission(item.id, {
+        replyMessage,
+        replyFromEmail,
       });
-
-      const payload = (await response.json()) as {
-        item?: ContactSubmission;
-        emailSent?: boolean;
-        emailError?: string | null;
-      };
-
-      if (!response.ok) {
-        throw new Error("Unable to send reply.");
-      }
-
-      const updated = payload.item;
+      const updated = result.data.item;
 
       setContactSubmissions((current) =>
         current.map((entry) => (entry.id === item.id ? { ...entry, ...(updated ?? {}), isRead: true } : entry)),
@@ -404,13 +442,13 @@ function NotificationsPageContent() {
       setReplyDrafts((current) => ({ ...current, [item.id]: "" }));
       setReplyFromEmails((current) => ({ ...current, [item.id]: replyFromEmail }));
 
-      if (payload.emailSent) {
+      if (result.data.emailSent) {
         toast.success("Reply sent successfully.");
       } else {
-        toast.error(payload.emailError ?? "Reply saved, but email could not be sent.");
+        toast.error(result.data.emailError ?? "Reply saved, but email could not be sent.");
       }
-    } catch {
-      toast.error("Unable to send reply right now.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to send reply right now.");
     } finally {
       setSendingReplyFor(null);
     }
@@ -424,18 +462,7 @@ function NotificationsPageContent() {
     setDeletingSubmissionId(id);
 
     try {
-      const response = await fetch("/api/admin/contact-submissions", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to delete submission.");
-      }
-
+      await deleteAdminContactSubmission(id);
       setContactSubmissions((current) => current.filter((item) => item.id !== id));
       setReplyDrafts((current) => {
         const next = { ...current };
@@ -449,8 +476,8 @@ function NotificationsPageContent() {
       });
       setSelectedContactSubmissionId((current) => (current === id ? null : current));
       toast.success("Submission deleted.");
-    } catch {
-      toast.error("Unable to delete submission right now.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to delete submission right now.");
     } finally {
       setDeletingSubmissionId(null);
     }
@@ -468,27 +495,90 @@ function NotificationsPageContent() {
     setIsDeletingAll(true);
 
     try {
-      const response = await fetch("/api/admin/contact-submissions", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ deleteAll: true }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to delete submissions.");
-      }
-
+      await deleteAllAdminContactSubmissions();
       setContactSubmissions([]);
       setReplyDrafts({});
       setReplyFromEmails({});
       setSelectedContactSubmissionId(null);
       toast.success("All submissions deleted.");
-    } catch {
-      toast.error("Unable to delete submissions right now.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to delete submissions right now.");
     } finally {
       setIsDeletingAll(false);
+    }
+  }
+
+  async function persistProviderSettings(showSuccessToast: boolean) {
+    const normalizedProvider = emailProvider.trim();
+    const normalizedApiKey = apiKey.trim();
+    const normalizedFromEmail = fromEmail.trim();
+
+    if (!normalizedProvider) {
+      toast.error("Provider name is required.");
+      return;
+    }
+
+    if (!normalizedFromEmail || !normalizedFromEmail.includes("@")) {
+      toast.error("Enter a valid from email.");
+      return false;
+    }
+
+    try {
+      await requestApi("/api/admin/site-settings", {
+        auth: true,
+        method: "PUT",
+        body: {
+          notificationEmailProvider: normalizedProvider,
+          notificationEmailApiKey: normalizedApiKey,
+          notificationFromEmail: normalizedFromEmail,
+        },
+      });
+
+      if (showSuccessToast) {
+        toast.success("Provider settings saved.");
+      }
+      return true;
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to save provider settings.");
+      return false;
+    }
+  }
+
+  async function saveProviderSettings() {
+    setIsSavingProviderSettings(true);
+
+    try {
+      await persistProviderSettings(true);
+    } finally {
+      setIsSavingProviderSettings(false);
+    }
+  }
+
+  async function sendProviderTest() {
+    setIsSendingProviderTest(true);
+
+    try {
+      const didSave = await persistProviderSettings(false);
+
+      if (!didSave) {
+        return;
+      }
+
+      const result = await requestApi<{
+        emailSent: boolean;
+        emailError?: string | null;
+      }>("/api/admin/notification-settings/test", {
+        auth: true,
+        method: "POST",
+      });
+
+      toast.success(result.message ?? "Test email sent.");
+      const logsPayload = await getAdminLogs();
+      setNotificationLogs((logsPayload.notifications ?? []) as NotificationLogRecord[]);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to send provider test email.");
+    } finally {
+      setIsSendingProviderTest(false);
     }
   }
 
@@ -517,15 +607,19 @@ function NotificationsPageContent() {
                 <Input
                   value={emailProvider}
                   onChange={(event) => setEmailProvider(event.target.value)}
+                  disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
+                  placeholder="e.g. Resend, SendGrid, SMTP"
                   className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">API Key</Label>
+                <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">API Key / Credential</Label>
                 <Input
                   value={apiKey}
                   onChange={(event) => setApiKey(event.target.value)}
+                  disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
+                  placeholder="Enter provider API key or SMTP credential"
                   className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                 />
               </div>
@@ -535,15 +629,36 @@ function NotificationsPageContent() {
                 <Input
                   value={fromEmail}
                   onChange={(event) => setFromEmail(event.target.value)}
+                  disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
+                  placeholder="notifications@yourdomain.com"
                   className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                 />
               </div>
 
+              {isLoadingProviderSettings ? (
+                <p className="text-sm text-slate-500">Loading provider settings...</p>
+              ) : null}
+
               <div className="flex flex-wrap gap-2">
-                <Button>Save Provider</Button>
-                <Button variant="outline">
+                <Button
+                  type="button"
+                  onClick={() => {
+                    void saveProviderSettings();
+                  }}
+                  disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
+                >
+                  {isSavingProviderSettings ? "Saving..." : "Save Provider"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    void sendProviderTest();
+                  }}
+                  disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest || !hasProviderConfig}
+                >
                   <Send className="h-4 w-4" />
-                  Send Test
+                  {isSendingProviderTest ? "Sending..." : "Send Test"}
                 </Button>
               </div>
             </CardContent>
@@ -559,21 +674,31 @@ function NotificationsPageContent() {
                   <Mail className="h-4 w-4 text-amber-700" />
                   Email
                 </span>
-                <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                {hasProviderConfig ? (
+                  <span className="inline-flex items-center gap-1 text-xs text-emerald-700">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                    Configured
+                  </span>
+                ) : (
+                  <span className="text-xs text-amber-700">Missing config</span>
+                )}
               </div>
               <div className="flex items-center justify-between rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2">
                 <span className="inline-flex items-center gap-2">
                   <BellRing className="h-4 w-4 text-amber-700" />
                   In-app
                 </span>
-                <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                <span className="inline-flex items-center gap-1 text-xs text-emerald-700">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                  Active
+                </span>
               </div>
               <div className="flex items-center justify-between rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2">
                 <span className="inline-flex items-center gap-2">
                   <Send className="h-4 w-4 text-amber-700" />
                   SMS
                 </span>
-                <span className="text-xs text-amber-700">Limited</span>
+                <span className="text-xs text-slate-500">Not configured</span>
               </div>
             </CardContent>
           </Card>
@@ -581,8 +706,19 @@ function NotificationsPageContent() {
 
         <TabsContent value="logs">
           <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
-            <CardHeader>
+            <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <CardTitle className="text-xl text-slate-900">Notification Logs</CardTitle>
+              <Button
+                type="button"
+                variant="outline"
+                className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
+                onClick={() => {
+                  void clearNotificationLogItems();
+                }}
+                disabled={!notificationLogs.length || isLoadingNotificationLogs || isClearingNotificationLogs}
+              >
+                {isClearingNotificationLogs ? "Clearing..." : "Clear logs"}
+              </Button>
             </CardHeader>
             <CardContent className="space-y-3">
               {isLoadingNotificationLogs ? (
@@ -629,7 +765,7 @@ function NotificationsPageContent() {
 
         <TabsContent value="contact-leads">
           <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <CardTitle className="text-xl text-slate-900">Contact Form Submissions</CardTitle>
               <div className="flex flex-wrap gap-2">
                 <Button
@@ -748,7 +884,7 @@ function NotificationsPageContent() {
                   }
                 }}
               >
-                <DialogContent className="max-h-[88vh] max-w-4xl overflow-y-auto border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
+                <DialogContent className="max-h-[88vh] w-[min(96vw,64rem)] overflow-y-auto border-[#D4E8FC] bg-[#F8FBFF] text-slate-900 sm:w-full sm:max-w-4xl">
                   {selectedContactSubmission ? (
                     <div className="space-y-4">
                       <DialogHeader>
@@ -880,17 +1016,29 @@ function NotificationsPageContent() {
 
         <TabsContent value="job-applications">
           <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <CardTitle className="text-xl text-slate-900">Job Application Notifications</CardTitle>
-              <Button
-                type="button"
-                variant="outline"
-                className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
-                onClick={markAllApplicationsAsRead}
-                disabled={!applicationUnreadCount || markingAllApplicationsRead}
-              >
-                {markingAllApplicationsRead ? "Marking..." : "Mark all as read"}
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
+                  onClick={markAllApplicationsAsRead}
+                  disabled={!applicationUnreadCount || markingAllApplicationsRead || isDeletingAllApplications}
+                >
+                  {markingAllApplicationsRead ? "Marking..." : "Mark all as read"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={() => {
+                    void deleteAllApplicationNotifications();
+                  }}
+                  disabled={!jobApplications.length || isDeletingAllApplications}
+                >
+                  {isDeletingAllApplications ? "Deleting..." : "Delete all"}
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="space-y-3">
               {isLoadingApplications ? (
@@ -938,18 +1086,32 @@ function NotificationsPageContent() {
                     <Link href={`/admin/applications/${item.id}`} className="text-xs text-amber-700 hover:text-amber-700">
                       View application
                     </Link>
-                    {!item.isRead ? (
+                    <div className="flex flex-wrap items-center gap-2">
+                      {!item.isRead ? (
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
+                          disabled={markingReadApplicationId === item.id || deletingApplicationId === item.id}
+                          onClick={() => markApplicationRead(item.id)}
+                        >
+                          {markingReadApplicationId === item.id ? "Marking..." : "Mark read"}
+                        </Button>
+                      ) : null}
                       <Button
                         type="button"
                         size="sm"
-                        variant="outline"
-                        className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]"
-                        disabled={markingReadApplicationId === item.id}
-                        onClick={() => markApplicationRead(item.id)}
+                        variant="destructive"
+                        disabled={deletingApplicationId === item.id || isDeletingAllApplications}
+                        onClick={() => {
+                          void deleteApplicationNotification(item.id);
+                        }}
                       >
-                        {markingReadApplicationId === item.id ? "Marking..." : "Mark read"}
+                        <Trash2 className="h-3.5 w-3.5" />
+                        {deletingApplicationId === item.id ? "Deleting..." : "Delete"}
                       </Button>
-                    ) : null}
+                    </div>
                   </div>
                 </article>
               ))}

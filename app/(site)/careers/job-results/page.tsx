@@ -8,6 +8,7 @@ import { CompanyEmailButtonLink, CompanyNameText } from "@/components/site/compa
 import { JobSearchPanel } from "@/components/site/jobs/JobSearchPanel";
 import { JobResultsView } from "@/components/site/jobs/JobResultsView";
 import { Button } from "@/components/ui/button";
+import { getPublicSiteSettings } from "@/lib/api/site-settings";
 import { buildMetadata } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/site-settings-store";
 import {
@@ -29,7 +30,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function JobResultsPage() {
-  const siteSettings = await getSiteSettings();
+  const siteSettings = await getPublicSiteSettings().catch(() => getSiteSettings());
 
   if (!siteSettings.careersPublished) {
     return (

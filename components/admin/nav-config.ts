@@ -3,6 +3,7 @@ import {
   Activity,
   BellRing,
   BriefcaseBusiness,
+  FileText,
   Inbox,
   LayoutDashboard,
   Mail,
@@ -50,6 +51,15 @@ export const adminNavSections: AdminNavSection[] = [
     ],
   },
   {
+    label: "Blog",
+    href: "/admin/blog",
+    icon: FileText,
+    children: [
+      { label: "All Posts", href: "/admin/blog" },
+      { label: "New Post", href: "/admin/blog?view=new" },
+    ],
+  },
+  {
     label: "Candidates",
     href: "/admin/candidates",
     icon: Users2,
@@ -93,6 +103,7 @@ export const adminNavSections: AdminNavSection[] = [
     children: [
       { label: "Company Profile", href: "/admin/settings" },
       { label: "Careers Page Controls", href: "/admin/settings?tab=careers" },
+      { label: "Talent Profiles Section", href: "/admin/settings?tab=talent-profiles" },
     ],
   },
 ];
@@ -102,6 +113,7 @@ const directTitles: Record<string, string> = {
   "/admin/jobs": "Jobs",
   "/admin/jobs/new": "Create Job",
   "/admin/applications": "Applications",
+  "/admin/blog": "Blog",
   "/admin/candidates": "Candidates",
   "/admin/leads": "Leads",
   "/admin/leads/company": "Company Leads",

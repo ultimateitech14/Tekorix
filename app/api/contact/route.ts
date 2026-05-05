@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 
-import { createContactSubmission } from "@/lib/contact-submissions-store";
-import { contactFormSchema } from "@/lib/validators/contact";
+const DEFAULT_API_BASE_URL = "http://127.0.0.1:4001";
+
+function resolveApiBaseUrl() {
+  return (process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? DEFAULT_API_BASE_URL).replace(/\/$/, "");
+}
 
 export async function POST(request: Request) {
   let payload: unknown;
@@ -18,22 +21,31 @@ export async function POST(request: Request) {
     );
   }
 
-  const parsed = contactFormSchema.safeParse(payload);
+  try {
+    const response = await fetch(`${resolveApiBaseUrl()}/api/v1/contact-submissions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
+    const responseText = await response.text();
 
-  if (!parsed.success) {
+    return new NextResponse(responseText, {
+      status: response.status,
+      headers: {
+        "Content-Type": response.headers.get("Content-Type") ?? "application/json",
+        "Cache-Control": "no-store, max-age=0",
+      },
+    });
+  } catch {
     return NextResponse.json(
       {
         success: false,
-        message: parsed.error.issues[0]?.message ?? "Invalid request.",
+        message: "Unable to submit your request right now. Please try again.",
       },
-      { status: 400 },
+      { status: 500 },
     );
   }
-
-  await createContactSubmission(parsed.data);
-
-  return NextResponse.json({
-    success: true,
-    message: "Thanks. Your request has been received and our team will follow up shortly.",
-  });
 }

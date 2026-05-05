@@ -78,7 +78,7 @@ const siteSearchIndex: SearchEntry[] = [
   {
     title: "Insights and Articles",
     description: "Ideas, stories, and industry perspectives from our teams.",
-    href: "/about",
+    href: "/blog",
     category: "Insights",
     keywords: ["insights", "blog", "articles", "thought leadership", "news"],
   },

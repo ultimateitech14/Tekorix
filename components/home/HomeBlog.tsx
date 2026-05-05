@@ -6,10 +6,15 @@ import Link from "next/link";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { HomeSectionHeading } from "@/components/home/HomeSectionHeading";
-import { blogPosts } from "@/lib/constants/blog-posts";
+import type { PublicBlogPost } from "@/lib/api/blog-posts";
+import { resolveAssetUrl } from "@/lib/asset-url";
 import { cn } from "@/lib/utils";
 
-export function HomeBlog() {
+type HomeBlogProps = {
+  posts: PublicBlogPost[];
+};
+
+export function HomeBlog({ posts }: HomeBlogProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -85,7 +90,7 @@ export function HomeBlog() {
             ref={trackRef}
             className="flex touch-auto snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 pl-0.5 pr-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {blogPosts.map((post) => (
+            {posts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -93,11 +98,12 @@ export function HomeBlog() {
               >
                 <div className="relative h-52">
                   <Image
-                    src={post.coverImage}
+                    src={resolveAssetUrl(post.coverImage)}
                     alt={post.coverAlt}
                     fill
                     sizes="(min-width: 768px) 24rem, 88vw"
                     className="object-cover"
+                    unoptimized
                   />
                 </div>
 

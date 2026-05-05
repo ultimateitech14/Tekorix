@@ -4,7 +4,9 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 import { HomeSectionHeading } from "@/components/home/HomeSectionHeading";
-import { blogPosts } from "@/lib/constants/blog-posts";
+import { listPublicBlogPosts } from "@/lib/api/blog-posts";
+import { resolveAssetUrl } from "@/lib/asset-url";
+import { blogPosts as fallbackBlogPosts } from "@/lib/constants/blog-posts";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -15,7 +17,12 @@ export const metadata: Metadata = buildMetadata({
   keywords: ["blog", "hiring insights", "staffing", "candidate preparation", "delivery operations"],
 });
 
-export default function BlogIndexPage() {
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default async function BlogIndexPage() {
+  const posts = await listPublicBlogPosts().catch(() => fallbackBlogPosts);
+
   return (
     <section className="bg-[#E6F1FF] public-section">
       <div className="site-container public-stack">
@@ -32,14 +39,14 @@ export default function BlogIndexPage() {
         />
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
               className="group flex min-h-[26rem] flex-col overflow-hidden rounded-xl bg-[#F8FBFF] shadow-sm transition-transform hover:-translate-y-1"
             >
               <div className="relative h-48">
-                <Image src={post.coverImage} alt={post.coverAlt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+                <Image src={resolveAssetUrl(post.coverImage)} alt={post.coverAlt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" unoptimized />
               </div>
 
               <div className="flex flex-1 flex-col p-6">

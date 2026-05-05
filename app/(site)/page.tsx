@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 
+import { listPublicBlogPosts } from "@/lib/api/blog-posts";
 import { HomeBlog } from "@/components/home/HomeBlog";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomeProfiles } from "@/components/home/HomeProfiles";
 import { HomeServices } from "@/components/home/HomeServices";
 import { HomeStats } from "@/components/home/HomeStats";
+import { getPublicSiteSettings } from "@/lib/api/site-settings";
+import { blogPosts as fallbackBlogPosts } from "@/lib/constants/blog-posts";
 import { tekorixBrand } from "@/lib/constants/branding";
 import { publicBrandContent, publicSocialLinks } from "@/lib/constants/public-content";
+import { getSiteSettings } from "@/lib/site-settings-store";
 import { absoluteUrl, buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -38,7 +42,15 @@ const websiteJsonLd = {
   },
 };
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default async function HomePage() {
+  const [siteSettings, publicBlogPosts] = await Promise.all([
+    getPublicSiteSettings().catch(() => getSiteSettings()),
+    listPublicBlogPosts().catch(() => fallbackBlogPosts),
+  ]);
+
   return (
     <>
       <script
@@ -53,8 +65,13 @@ export default function HomePage() {
       <HomeHero />
       <HomeStats />
       <HomeServices />
-      <HomeProfiles />
-      <HomeBlog />
+      <HomeProfiles
+        profiles={siteSettings.talentProfiles}
+        eyebrow={siteSettings.talentProfilesEyebrow}
+        title={siteSettings.talentProfilesHeadline}
+        description={siteSettings.talentProfilesDescription}
+      />
+      <HomeBlog posts={publicBlogPosts.slice(0, 5)} />
     </>
   );
 }

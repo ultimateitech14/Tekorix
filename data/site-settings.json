@@ -1,7 +1,9 @@
 {
-  "companyName": "StartupWork123",
-  "companyEmail": "hello@startupwork.dev",
-  "companyPhone": "+1 555-100-2000",
+  "companyName": "Tekorix",
+  "companyEmail": "contact@tekorix.com",
+  "companyPhone": "8595163184",
+  "companyAddress": "Bengaluru, Karnataka, India",
+  "companyGoogleMapLink": "",
   "careersDomain": "careers.startupwork.dev",
   "careersHeadline": "Build products that help teams hire better.",
   "careersSubtitle": "We are hiring across product, engineering, and operations. Join us to shape the future of recruiting.",
@@ -37,5 +39,85 @@
       "photo": "/images/profiles/profile-3.svg",
       "blurb": "Developer"
     }
-  ]
+  ],
+  "talentProfilesEyebrow": "Representative profiles",
+  "talentProfilesHeadline": "Illustrative specialist profiles aligned to modern delivery needs.",
+  "talentProfilesDescription": "Expert profiles designed to match evolving project needs, combining the right skills and experience for modern digital delivery.",
+  "talentProfiles": [
+    {
+      "id": "aarav-menon",
+      "name": "Aarav Menon",
+      "role": "Cloud & Data Architect",
+      "yearsOfExperience": 12,
+      "rating": 5,
+      "summary": "Fintech, SaaS, and data platform modernization",
+      "detailedSummary": "Supports cloud transformation, data platform modernization, and governance-heavy delivery programs for product-led teams.",
+      "expertise": ["AWS", "Snowflake", "Data Platforms", "Governance"],
+      "avatar": "/images/profiles/profile-1.svg",
+      "resumeCtaLabel": "View Resume"
+    },
+    {
+      "id": "naina-kapoor",
+      "name": "Naina Kapoor",
+      "role": "Full-Stack Engineer",
+      "yearsOfExperience": 8,
+      "rating": 5,
+      "summary": "B2B SaaS, enterprise portals, and digital products",
+      "detailedSummary": "Builds modern product interfaces and backend integrations for enterprise workflows, customer portals, and internal platforms.",
+      "expertise": ["React", "Next.js", "Node.js", "TypeScript"],
+      "avatar": "/images/profiles/profile-2.svg",
+      "resumeCtaLabel": "View Resume"
+    },
+    {
+      "id": "rohan-iyer",
+      "name": "Rohan Iyer",
+      "role": "AI / ML Engineer",
+      "yearsOfExperience": 9,
+      "rating": 5,
+      "summary": "GenAI, MLOps, and intelligent automation",
+      "detailedSummary": "Focuses on applied AI delivery, model operations, and automation initiatives that move from experimentation into production.",
+      "expertise": ["Python", "LLMOps", "Azure AI", "MLOps"],
+      "avatar": "/images/profiles/profile-3.svg",
+      "resumeCtaLabel": "View Resume"
+    },
+    {
+      "id": "ishita-rao",
+      "name": "Ishita Rao",
+      "role": "Product Manager",
+      "yearsOfExperience": 10,
+      "rating": 5,
+      "summary": "SaaS roadmap strategy, GTM alignment, and growth delivery",
+      "detailedSummary": "Drives cross-functional planning, prioritization, and commercial alignment for fast-moving B2B product programs.",
+      "expertise": ["Roadmapping", "B2B SaaS", "Analytics", "Stakeholder Mgmt"],
+      "avatar": "/images/profiles/profile-4.svg",
+      "resumeCtaLabel": "View Resume"
+    },
+    {
+      "id": "karan-malhotra",
+      "name": "Karan Malhotra",
+      "role": "DevOps Engineer",
+      "yearsOfExperience": 7,
+      "rating": 5,
+      "summary": "CI/CD reliability, cloud security, and platform automation",
+      "detailedSummary": "Improves deployment reliability, infrastructure automation, and cloud guardrails for engineering teams operating at scale.",
+      "expertise": ["AWS", "Terraform", "Kubernetes", "Observability"],
+      "avatar": "/images/profiles/profile-5.svg",
+      "resumeCtaLabel": "View Resume"
+    },
+    {
+      "id": "meera-khanna",
+      "name": "Meera Khanna",
+      "role": "QA Automation Lead",
+      "yearsOfExperience": 9,
+      "rating": 5,
+      "summary": "Test strategy, CI pipelines, and release quality governance",
+      "detailedSummary": "Leads quality automation strategy across web and API stacks with a focus on dependable release readiness.",
+      "expertise": ["Cypress", "Playwright", "API Testing", "CI/CD"],
+      "avatar": "/images/profiles/profile-3.svg",
+      "resumeCtaLabel": "View Resume"
+    }
+  ],
+  "notificationEmailProvider": "",
+  "notificationEmailApiKey": "",
+  "notificationFromEmail": ""
 }

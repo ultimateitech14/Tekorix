@@ -142,9 +142,9 @@ export function FindTalentLeadForm() {
 
   return (
     <section id="company-lead-form" style={{ backgroundColor: colors.surfaceAlt }} className="public-section">
-      <div className="site-container grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+      <div className="site-container grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
         <div
-          className="rounded-[2rem] border bg-white p-7 shadow-[0_28px_70px_-44px_rgba(15,23,42,0.22)] sm:p-8"
+          className="flex h-full flex-col rounded-[2rem] border bg-white p-7 shadow-[0_28px_70px_-44px_rgba(15,23,42,0.22)] sm:p-8"
           style={{
             borderColor: colors.border,
           }}
@@ -162,35 +162,25 @@ export function FindTalentLeadForm() {
             </p>
           </div>
 
-          <div className="mt-8 grid gap-3">
-            <div
-              className="rounded-2xl border bg-slate-50 px-4 py-4 text-sm text-slate-700"
-              style={{
-                borderColor: colors.border,
-              }}
-            >
+          <div
+            className="mt-7 overflow-hidden rounded-[1.5rem] border bg-[#F6FAFF]"
+            style={{
+              borderColor: colors.border,
+            }}
+          >
+            <div className="border-b border-[#D7E8FA] px-4 py-4 text-sm leading-6 text-slate-700">
               Permanent, contractual, hourly, and mixed engagement requests.
             </div>
-            <div
-              className="rounded-2xl border bg-slate-50 px-4 py-4 text-sm text-slate-700"
-              style={{
-                borderColor: colors.border,
-              }}
-            >
+            <div className="border-b border-[#D7E8FA] px-4 py-4 text-sm leading-6 text-slate-700">
               On-roll consultants, payroll, HR, and compliance coordination can stay with Tekorix.
             </div>
-            <div
-              className="rounded-2xl border bg-slate-50 px-4 py-4 text-sm text-slate-700"
-              style={{
-                borderColor: colors.border,
-              }}
-            >
+            <div className="px-4 py-4 text-sm leading-6 text-slate-700">
               Team build and restructure conversations are supported alongside individual hiring needs.
             </div>
           </div>
 
           <div
-            className="mt-8 rounded-2xl border px-5 py-4"
+            className="mt-auto rounded-2xl border px-5 py-4"
             style={{
               borderColor: colors.border,
               backgroundColor: colors.surfaceAlt,
@@ -216,7 +206,7 @@ export function FindTalentLeadForm() {
         </div>
 
         <form
-          className="rounded-[2rem] border bg-white p-6 shadow-[0_28px_70px_-48px_rgba(15,23,42,0.26)] sm:p-8"
+          className="flex h-full flex-col rounded-[2rem] border bg-white p-6 shadow-[0_28px_70px_-48px_rgba(15,23,42,0.26)] sm:p-8"
           style={{ borderColor: colors.border }}
           onSubmit={handleSubmit}
           noValidate
@@ -231,7 +221,7 @@ export function FindTalentLeadForm() {
             </p>
           </div>
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <div className="mt-8 grid flex-1 content-start gap-5 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="company-lead-name" className={publicFormLabelClass}>
                 Full Name

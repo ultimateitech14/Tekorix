@@ -262,12 +262,12 @@ export function FindJobCandidateLeadForm({ variant, buttonLabel }: FindJobCandid
 
   return (
     <form
-      className="rounded-[1.75rem] border bg-white p-6 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)] sm:p-7"
+      className="flex h-full flex-col rounded-[1.75rem] border bg-white p-6 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)] sm:p-7"
       style={{ borderColor: colors.border }}
       onSubmit={handleSubmit}
       noValidate
     >
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid flex-1 content-start gap-5 sm:grid-cols-2">
         <div className="space-y-2 sm:col-span-2">
           <Label htmlFor={`${variant}-full-name`} className={publicFormLabelClass}>
             Full Name

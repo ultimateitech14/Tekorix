@@ -2,6 +2,15 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  Compass,
+  GraduationCap,
+  ShieldCheck,
+  Sparkles,
+  Users2,
+} from "lucide-react";
 
 import { Hero } from "@/components/site/Hero";
 import { LinkCard } from "@/components/site/LinkCard";
@@ -10,6 +19,8 @@ import { TabsPills } from "@/components/site/TabsPills";
 import { CompanyEmailButtonLink, CompanyNameText } from "@/components/site/company-profile-client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { resolveAssetUrl } from "@/lib/asset-url";
+import { getPublicSiteSettings } from "@/lib/api/site-settings";
 import { buildMetadata } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/site-settings-store";
 
@@ -25,18 +36,22 @@ export const revalidate = 0;
 
 const whyJoinCards = [
   {
+    icon: Sparkles,
     title: "Meaningful Work",
     description: "Contribute to engineering programs that improve critical products and public services.",
   },
   {
+    icon: BriefcaseBusiness,
     title: "Modern Tooling",
     description: "Work with cloud-native stacks, AI-assisted workflows, and platform-first practices.",
   },
   {
+    icon: Users2,
     title: "Global Community",
     description: "Collaborate with multidisciplinary teams across regions, cultures, and domains.",
   },
   {
+    icon: Compass,
     title: "Growth Pathways",
     description: "Build your career through mentorship, certification tracks, and leadership programs.",
   },
@@ -52,6 +67,11 @@ const earlyCareerCards = [
     title: "Academy Tracks",
     description: "Hands-on pathways in cloud engineering, data platforms, and intelligent automation.",
     href: "/academy",
+  },
+  {
+    title: "Live Job Search",
+    description: "Browse current openings when you want to move directly from careers context into live roles.",
+    href: "/careers/job-results",
   },
 ];
 
@@ -79,10 +99,28 @@ const jobCategoryTabs = [
   },
 ];
 
+const careerSignals = [
+  {
+    icon: BriefcaseBusiness,
+    title: "Published roles",
+    description: "Browse active openings or move into the broader talent network when the right role is still forming.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Structured support",
+    description: "Tekorix combines team context, role visibility, and candidate guidance in one careers journey.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Learning paths",
+    description: "Career growth does not stop at one application. Academy and coaching routes stay connected.",
+  },
+];
+
 const DEFAULT_PROFILE_IMAGE = "/images/profiles/profile-3.svg";
 
 export default async function CareersPage() {
-  const siteSettings = await getSiteSettings();
+  const siteSettings = await getPublicSiteSettings().catch(() => getSiteSettings());
 
   if (!siteSettings.careersPublished) {
     return (
@@ -90,7 +128,7 @@ export default async function CareersPage() {
         <div className="site-container">
           <div className="max-w-3xl space-y-6">
             <p className="type-eyebrow">Careers</p>
-            <h1 className="type-display text-balance">The Careers Page Is Currently Unpublished</h1>
+            <h1 className="type-display text-balance">The careers page is currently unpublished</h1>
             <p className="type-lead text-slate-600">
               Hiring updates are temporarily unavailable. Please contact{" "}
               <CompanyNameText fallback={siteSettings.companyName} /> for the latest openings.
@@ -120,21 +158,71 @@ export default async function CareersPage() {
         secondaryCta={{ label: "Submit Resume", href: "/find-job#submit-resume", variant: "outline" }}
       >
         <Card className="rounded-[1.5rem] border border-slate-200 bg-[#F8FBFF] shadow-[0_24px_60px_-44px_rgba(15,23,42,0.2)]">
-          <CardContent className="space-y-3 p-6">
-            <p className="type-eyebrow">People promise</p>
-            <p className="text-sm leading-relaxed text-slate-600">
-              At <CompanyNameText fallback={siteSettings.companyName} />, we invest in growth, give teams space to
-              create, and celebrate practical excellence.
-            </p>
+          <CardContent className="space-y-5 p-6">
+            <div className="space-y-3">
+              <p className="type-eyebrow">People promise</p>
+              <p className="text-sm leading-relaxed text-slate-600">
+                At <CompanyNameText fallback={siteSettings.companyName} />, we invest in growth, give teams space to
+                create, and celebrate practical excellence.
+              </p>
+            </div>
+
+            <div className="grid gap-3">
+              {careerSignals.map((item) => (
+                <div key={item.title} className="rounded-2xl border border-[#D7E8FA] bg-white/80 px-4 py-4">
+                  <div className="flex items-start gap-3">
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1B66B3] text-white shadow-[0_18px_34px_-22px_rgba(27,102,179,0.58)]">
+                      <item.icon className="h-4.5 w-4.5" />
+                    </span>
+                    <div className="space-y-1.5">
+                      <p className="text-sm font-semibold text-slate-950">{item.title}</p>
+                      <p className="text-sm leading-6 text-slate-600">{item.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="/careers/job-results"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#1B66B3] transition-colors hover:text-[#145188]"
+            >
+              Explore live job search
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </CardContent>
         </Card>
       </Hero>
 
+      <section className="bg-[#F8FBFF] public-section">
+        <div className="site-container">
+          <div className="grid gap-4 lg:grid-cols-3">
+            {careerSignals.map((item) => (
+              <Card
+                key={`${item.title}-strip`}
+                className="rounded-[1.5rem] border border-slate-200 bg-[#F8FBFF] shadow-[0_22px_55px_-44px_rgba(15,23,42,0.18)]"
+              >
+                <CardContent className="flex h-full items-start gap-4 p-6">
+                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#EDF5FF] text-[#1B66B3]">
+                    <item.icon className="h-5 w-5" />
+                  </span>
+                  <div className="space-y-2">
+                    <h2 className="text-base font-semibold text-slate-950">{item.title}</h2>
+                    <p className="text-sm leading-relaxed text-slate-600">{item.description}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Section
         id="why-join-us"
+        className="bg-[#EAF4FF]"
         eyebrow="Why join us"
-        title="A Career Model Built for Growth and Impact"
-        description="From mentorship to mobility, we design environments where teams can do their best work."
+        title="A career model built for growth, visibility, and better role alignment."
+        description="From mentorship to mobility, we design environments where teams can do their best work without losing product context or career momentum."
       >
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {whyJoinCards.map((item) => (
@@ -142,9 +230,14 @@ export default async function CareersPage() {
               key={item.title}
               className="rounded-[1.5rem] border border-slate-200 bg-[#F8FBFF] shadow-[0_22px_55px_-44px_rgba(15,23,42,0.2)]"
             >
-              <CardContent className="space-y-3 p-6">
-                <h2 className="type-h3">{item.title}</h2>
-                <p className="text-sm leading-relaxed text-slate-600">{item.description}</p>
+              <CardContent className="space-y-4 p-6">
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#EDF5FF] text-[#1B66B3]">
+                  <item.icon className="h-5 w-5" />
+                </span>
+                <div className="space-y-3">
+                  <h2 className="type-h3">{item.title}</h2>
+                  <p className="text-sm leading-relaxed text-slate-600">{item.description}</p>
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -154,11 +247,10 @@ export default async function CareersPage() {
       {siteSettings.careersShowTeamPhotos && siteSettings.careersTeamMembers.length ? (
         <Section
           id="team"
-          className="pt-6"
           eyebrow="Meet the team"
           title={
             <>
-              People Building <CompanyNameText fallback={siteSettings.companyName} />
+              People building <CompanyNameText fallback={siteSettings.companyName} />
             </>
           }
           description="A quick look at team members behind delivery, product craft, and hiring."
@@ -172,7 +264,7 @@ export default async function CareersPage() {
                 <CardContent className="space-y-4 p-6">
                   <div className="flex items-center gap-3">
                     <img
-                      src={member.photo || DEFAULT_PROFILE_IMAGE}
+                      src={resolveAssetUrl(member.photo || DEFAULT_PROFILE_IMAGE)}
                       alt={member.name || "Team member"}
                       className="h-14 w-14 rounded-full border border-border/70 object-cover"
                       loading="lazy"
@@ -194,19 +286,28 @@ export default async function CareersPage() {
 
       <Section
         id="early-careers"
-        className="pt-6"
-        eyebrow="Early careers / Academy"
-        title="Start Strong and Keep Learning"
-        description="Programs designed for graduates and career switchers building modern engineering capability."
+        className="bg-[#F8FBFF]"
+        eyebrow="Career routes"
+        title="Start strong, keep learning, and move into stronger teams with more clarity."
+        description="Use the route that matches your stage, whether you are entering the market, reskilling, or looking for current published openings."
+        actions={
+          <Button
+            asChild
+            variant="outline"
+            className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF]"
+          >
+            <Link href="/academy">View Academy</Link>
+          </Button>
+        }
       >
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 xl:grid-cols-3">
           {earlyCareerCards.map((item) => (
             <LinkCard
               key={item.title}
               title={item.title}
               description={item.description}
               href={item.href}
-              ctaLabel="Explore path"
+              ctaLabel={item.href === "/careers/job-results" ? "Browse roles" : "Explore path"}
             />
           ))}
         </div>
@@ -214,38 +315,59 @@ export default async function CareersPage() {
 
       <Section
         id="job-categories"
-        className="pt-6"
         eyebrow="Job categories"
-        title="Explore Opportunity Areas"
-        description="Filter by category to preview the types of roles our teams are hiring for."
+        title="Explore opportunity areas without leaving the public careers journey."
+        description="Filter by category to preview the kinds of roles teams are hiring for before moving into the live search flow."
+        actions={
+          <Button
+            asChild
+            variant="outline"
+            className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF]"
+          >
+            <Link href="/careers/job-results">Open job search</Link>
+          </Button>
+        }
       >
         <TabsPills tabs={jobCategoryTabs} />
       </Section>
 
       <Section
         id="submit-resume"
-        className="pt-6"
+        className="bg-[#EAF4FF]"
         eyebrow="Talent network"
-        title="Submit Your Resume"
-        description="The primary candidate funnel now lives on the Find Job page, while careers content remains available here."
+        title="Keep your profile visible even before the next exact role appears."
+        description="The primary candidate funnel now lives on the Find Job page, while this careers page remains the context layer around roles, team information, and growth routes."
       >
         <Card className="rounded-[1.5rem] border border-slate-200 bg-[#F8FBFF] shadow-[0_22px_55px_-44px_rgba(15,23,42,0.2)]">
-          <CardContent className="grid gap-5 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
+          <CardContent className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div className="space-y-4">
               <h2 className="type-h2">Candidate profile</h2>
               <p className="text-sm leading-relaxed text-slate-600">
                 Use the newer Tekorix candidate funnel to browse published jobs, submit your resume, and
-                stay visible for future openings while this legacy careers overview remains available.
+                stay visible for future openings while this careers overview helps candidates understand the
+                team, role paths, and growth model first.
               </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl border border-[#D7E8FA] bg-white/80 px-4 py-4 text-sm text-slate-600">
+                  Published job discovery and direct application flow.
+                </div>
+                <div className="rounded-2xl border border-[#D7E8FA] bg-white/80 px-4 py-4 text-sm text-slate-600">
+                  Resume submission route for current and near-term openings.
+                </div>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="grid gap-3">
               <Button
                 asChild
                 className="border-0 bg-[#1B66B3] text-white shadow-[0_20px_40px_-22px_rgba(27,102,179,0.55)] hover:bg-[#145188]"
               >
                 <Link href="/find-job">View Find Job</Link>
               </Button>
-              <Button asChild variant="outline" className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF]">
+              <Button
+                asChild
+                variant="outline"
+                className="border-[#BED9F3] bg-[#F8FBFF] text-slate-950 hover:bg-[#E6F1FF]"
+              >
                 <Link href="/find-job#submit-resume">Submit Resume</Link>
               </Button>
             </div>
@@ -255,4 +377,3 @@ export default async function CareersPage() {
     </>
   );
 }
-

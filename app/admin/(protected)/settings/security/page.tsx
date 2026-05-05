@@ -1,32 +1,36 @@
-﻿import { Button } from "@/components/ui/button";
+import { ShieldCheck } from "lucide-react";
+
+import { ChangePasswordForm } from "@/components/admin/forms/change-password-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export default function AdminSecurityPage() {
   return (
-    <div className="max-w-3xl">
-      <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
-        <CardHeader>
-          <CardTitle className="text-xl text-slate-900">Security Settings</CardTitle>
+    <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+      <Card className="border-[#D4E8FC] bg-[#F8FBFF] shadow-[0_24px_60px_-46px_rgba(15,23,42,0.18)]">
+        <CardHeader className="space-y-4">
+          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#E8F2FF] text-[#1B66B3]">
+            <ShieldCheck className="h-5 w-5" />
+          </span>
+          <div className="space-y-2">
+            <CardTitle className="text-2xl text-slate-950">Security Settings</CardTitle>
+            <p className="text-sm leading-6 text-slate-600">
+              Rotate the admin password here when you need to secure access for the control center.
+            </p>
+          </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Current Password</Label>
-            <Input type="password" className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900" />
+        <CardContent className="space-y-4 text-sm leading-6 text-slate-600">
+          <div className="rounded-2xl border border-[#D4E8FC] bg-white/80 px-5 py-4">
+            Keep the password unique and share it only with the people responsible for the admin workspace.
           </div>
-          <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">New Password</Label>
-            <Input type="password" className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900" />
+          <div className="rounded-2xl border border-[#D4E8FC] bg-white/80 px-5 py-4">
+            Password updates are saved through the Express backend and take effect on the next sign-in.
           </div>
-          <div className="space-y-2">
-            <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Confirm New Password</Label>
-            <Input type="password" className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900" />
-          </div>
-          <Button>Update Password</Button>
         </CardContent>
       </Card>
+
+      <div className="rounded-[1.75rem] border border-[#D4E8FC] bg-[#F8FBFF] shadow-[0_24px_60px_-46px_rgba(15,23,42,0.18)]">
+        <ChangePasswordForm />
+      </div>
     </div>
   );
 }
-

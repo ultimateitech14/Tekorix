@@ -34,7 +34,18 @@ type CreateAdminAuditEntryInput = {
 const dataDir = path.join(process.cwd(), "data");
 const storageFilePath = path.join(dataDir, "admin-audit-trail.json");
 
-const DEFAULT_ADMIN_ACTOR = "TekOrix Admin";
+function toDisplayNameFromEmail(email: string) {
+  const localPart = email.split("@")[0] ?? "";
+  const normalized = localPart
+    .split(/[._-]+/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`);
+
+  return normalized.join(" ") || "Admin User";
+}
+
+const DEFAULT_ADMIN_ACTOR = toDisplayNameFromEmail(process.env.ADMIN_EMAIL?.trim() || "");
 
 function normalizeCategory(value: unknown): AdminLogCategory {
   if (value === "activity" || value === "audit" || value === "notification") {

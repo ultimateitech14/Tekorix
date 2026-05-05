@@ -17,6 +17,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  createAdminEmailTemplate,
+  deleteAdminEmailTemplate,
+  deleteAllAdminEmailTemplates,
+  getAdminEmailTemplates,
+  sendAdminTemplateEmail,
+  updateAdminEmailTemplate,
+} from "@/lib/api/admin/email-templates";
+import { getAdminJobApplications } from "@/lib/api/admin/job-applications";
+import { getAdminSiteSettings, type AdminSiteSettings } from "@/lib/api/admin/site-settings";
 import { cn } from "@/lib/utils";
 
 type EmailTemplate = {
@@ -52,9 +62,14 @@ function formatDate(value: string) {
   return dateFormatter.format(parsed);
 }
 
+function resolveDefaultFromEmail(settings: AdminSiteSettings | null) {
+  return settings?.notificationFromEmail.trim() || settings?.companyEmail.trim() || "";
+}
+
 export default function EmailTemplatesPage() {
   const [templates, setTemplates] = useState<EmailTemplate[]>([]);
   const [recipients, setRecipients] = useState<JobApplicationRecipient[]>([]);
+  const [siteSettings, setSiteSettings] = useState<AdminSiteSettings | null>(null);
   const [activeTab, setActiveTab] = useState<"library" | "preview">("library");
   const [selectedTemplateId, setSelectedTemplateId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -73,10 +88,11 @@ export default function EmailTemplatesPage() {
   const [sendingTemplateId, setSendingTemplateId] = useState<string | null>(null);
   const [selectedRecipientId, setSelectedRecipientId] = useState("manual");
   const [toEmail, setToEmail] = useState("");
-  const [fromEmail, setFromEmail] = useState("noreply@startupwork.dev");
+  const [fromEmail, setFromEmail] = useState("");
   const [sendSubject, setSendSubject] = useState("");
   const [sendBody, setSendBody] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const defaultFromEmail = resolveDefaultFromEmail(siteSettings);
 
   const selectedTemplate = useMemo(() => {
     if (!templates.length) {
@@ -95,14 +111,8 @@ export default function EmailTemplatesPage() {
 
     async function loadTemplates() {
       try {
-        const response = await fetch("/api/admin/email-templates", { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error("Unable to load templates.");
-        }
-
-        const payload = (await response.json()) as { items?: EmailTemplate[] };
-        const items = payload.items ?? [];
+        const payload = await getAdminEmailTemplates();
+        const items = (payload.items ?? []) as EmailTemplate[];
 
         if (active) {
           setTemplates(items);
@@ -129,14 +139,8 @@ export default function EmailTemplatesPage() {
 
     async function loadRecipients() {
       try {
-        const response = await fetch("/api/admin/job-applications", { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error("Unable to load recipients.");
-        }
-
-        const payload = (await response.json()) as { items?: JobApplicationRecipient[] };
-        const items = payload.items ?? [];
+        const payload = await getAdminJobApplications();
+        const items = (payload.items ?? []) as JobApplicationRecipient[];
         const seenEmails = new Set<string>();
 
         const unique = items.filter((item) => {
@@ -160,12 +164,34 @@ export default function EmailTemplatesPage() {
       }
     }
 
-    void Promise.all([loadTemplates(), loadRecipients()]);
+    async function loadSiteSettings() {
+      try {
+        const settings = await getAdminSiteSettings();
+
+        if (active) {
+          setSiteSettings(settings);
+        }
+      } catch {
+        if (active) {
+          setSiteSettings(null);
+        }
+      }
+    }
+
+    void Promise.all([loadTemplates(), loadRecipients(), loadSiteSettings()]);
 
     return () => {
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!defaultFromEmail) {
+      return;
+    }
+
+    setFromEmail((current) => current.trim() || defaultFromEmail);
+  }, [defaultFromEmail]);
 
   function openNewTemplateDialog() {
     setEditingTemplateId(null);
@@ -209,44 +235,38 @@ export default function EmailTemplatesPage() {
 
     try {
       const isEditing = Boolean(editingTemplateId);
-
-      const response = await fetch("/api/admin/email-templates", {
-        method: isEditing ? "PATCH" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...(editingTemplateId ? { id: editingTemplateId } : {}),
-          name,
-          subject,
-          body,
-          isActive: templateIsActive,
-        }),
-      });
-
-      const payload = (await response.json()) as { success?: boolean; message?: string; item?: EmailTemplate };
-
-      if (!response.ok || !payload.success || !payload.item) {
-        toast.error(payload.message ?? "Unable to save template.");
-        return;
-      }
+      const result = isEditing
+        ? await updateAdminEmailTemplate({
+            id: editingTemplateId!,
+            name,
+            subject,
+            body,
+            isActive: templateIsActive,
+          })
+        : await createAdminEmailTemplate({
+            name,
+            subject,
+            body,
+            isActive: templateIsActive,
+          });
+      const nextItem = result.data as EmailTemplate;
 
       setTemplates((current) => {
-        const existing = current.findIndex((item) => item.id === payload.item?.id);
+        const existing = current.findIndex((item) => item.id === nextItem.id);
 
         if (existing < 0) {
-          return [payload.item!, ...current];
+          return [nextItem, ...current];
         }
 
         const next = [...current];
-        next[existing] = payload.item!;
+        next[existing] = nextItem;
         return next.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
       });
-      setSelectedTemplateId(payload.item.id);
+      setSelectedTemplateId(nextItem.id);
       setIsEditorOpen(false);
       toast.success(isEditing ? "Template updated." : "Template created.");
-    } catch {
-      toast.error("Unable to save template right now.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to save template right now.");
     } finally {
       setIsSavingTemplate(false);
     }
@@ -260,18 +280,7 @@ export default function EmailTemplatesPage() {
     setDeletingTemplateId(id);
 
     try {
-      const response = await fetch("/api/admin/email-templates", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to delete template.");
-      }
-
+      await deleteAdminEmailTemplate(id);
       setTemplates((current) => {
         const next = current.filter((item) => item.id !== id);
         setSelectedTemplateId((selectedCurrent) => {
@@ -284,8 +293,8 @@ export default function EmailTemplatesPage() {
         return next;
       });
       toast.success("Template deleted.");
-    } catch {
-      toast.error("Unable to delete template.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to delete template.");
     } finally {
       setDeletingTemplateId(null);
     }
@@ -303,23 +312,12 @@ export default function EmailTemplatesPage() {
     setIsDeletingAll(true);
 
     try {
-      const response = await fetch("/api/admin/email-templates", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ deleteAll: true }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to clear templates.");
-      }
-
+      await deleteAllAdminEmailTemplates();
       setTemplates([]);
       setSelectedTemplateId(null);
       toast.success("All templates deleted.");
-    } catch {
-      toast.error("Unable to clear templates.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to clear templates.");
     } finally {
       setIsDeletingAll(false);
     }
@@ -327,28 +325,17 @@ export default function EmailTemplatesPage() {
 
   async function toggleTemplateActive(template: EmailTemplate) {
     try {
-      const response = await fetch("/api/admin/email-templates", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: template.id,
-          isActive: !template.isActive,
-        }),
+      const result = await updateAdminEmailTemplate({
+        id: template.id,
+        isActive: !template.isActive,
       });
 
-      const payload = (await response.json()) as { success?: boolean; message?: string; item?: EmailTemplate };
-
-      if (!response.ok || !payload.success || !payload.item) {
-        toast.error(payload.message ?? "Unable to update template status.");
-        return;
-      }
-
-      setTemplates((current) => current.map((item) => (item.id === payload.item?.id ? payload.item! : item)));
-      toast.success(payload.item.isActive ? "Template activated." : "Template deactivated.");
-    } catch {
-      toast.error("Unable to update template status.");
+      setTemplates((current) =>
+        current.map((item) => (item.id === result.data.id ? (result.data as EmailTemplate) : item)),
+      );
+      toast.success(result.data.isActive ? "Template activated." : "Template deactivated.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to update template status.");
     }
   }
 
@@ -356,6 +343,7 @@ export default function EmailTemplatesPage() {
     setSendingTemplateId(template.id);
     setSelectedRecipientId("manual");
     setToEmail("");
+    setFromEmail(defaultFromEmail);
     setSendSubject(template.subject);
     setSendBody(template.body);
     setIsSendDialogOpen(true);
@@ -403,36 +391,18 @@ export default function EmailTemplatesPage() {
     setIsSending(true);
 
     try {
-      const response = await fetch("/api/admin/email-templates/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          templateId,
-          toEmail: recipient,
-          fromEmail: sender,
-          subject,
-          body,
-        }),
+      const result = await sendAdminTemplateEmail({
+        templateId,
+        toEmail: recipient,
+        fromEmail: sender,
+        subject,
+        body,
       });
 
-      const payload = (await response.json()) as {
-        success?: boolean;
-        message?: string;
-        emailSent?: boolean;
-        emailError?: string | null;
-      };
-
-      if (!response.ok || !payload.emailSent) {
-        toast.error(payload.message ?? payload.emailError ?? "Unable to send email.");
-        return;
-      }
-
-      toast.success("Email sent successfully.");
+      toast.success(result.message);
       setIsSendDialogOpen(false);
-    } catch {
-      toast.error("Unable to send email right now.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to send email right now.");
     } finally {
       setIsSending(false);
     }
@@ -607,6 +577,7 @@ export default function EmailTemplatesPage() {
                 <Input
                   value={templateName}
                   onChange={(event) => setTemplateName(event.target.value)}
+                  placeholder="e.g. Shortlist Follow-up"
                   className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
                 />
               </div>
@@ -632,6 +603,7 @@ export default function EmailTemplatesPage() {
               <Input
                 value={templateSubject}
                 onChange={(event) => setTemplateSubject(event.target.value)}
+                placeholder="e.g. Update on your application for {{job_title}}"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -641,6 +613,7 @@ export default function EmailTemplatesPage() {
               <Textarea
                 value={templateBody}
                 onChange={(event) => setTemplateBody(event.target.value)}
+                placeholder="Write the email body here. You can use placeholders like {{candidate_name}} and {{job_title}}."
                 className="min-h-52 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -701,6 +674,7 @@ export default function EmailTemplatesPage() {
               <Input
                 value={fromEmail}
                 onChange={(event) => setFromEmail(event.target.value)}
+                placeholder="recruitment@yourdomain.com"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -710,6 +684,7 @@ export default function EmailTemplatesPage() {
               <Input
                 value={sendSubject}
                 onChange={(event) => setSendSubject(event.target.value)}
+                placeholder="Enter the email subject"
                 className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>
@@ -719,6 +694,7 @@ export default function EmailTemplatesPage() {
               <Textarea
                 value={sendBody}
                 onChange={(event) => setSendBody(event.target.value)}
+                placeholder="Write the message that should be sent to the recipient"
                 className="min-h-52 border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
               />
             </div>

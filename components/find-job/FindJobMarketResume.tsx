@@ -33,8 +33,11 @@ export function FindJobMarketResume() {
       style={{ backgroundColor: colors.surfaceAlt }}
     >
       <div className="site-container">
-        <div className="grid gap-8 xl:grid-cols-[0.92fr_1.08fr]">
-          <div className="space-y-6">
+        <div className="grid items-stretch gap-6 xl:grid-cols-2 xl:gap-8">
+          <div
+            className="flex h-full flex-col rounded-[1.75rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_60px_-48px_rgba(15,23,42,0.2)] sm:p-7"
+            style={{ borderColor: colors.border }}
+          >
             <HomeSectionHeading
               eyebrow="Market my resume"
               title="Share a stronger candidate brief for future matching and profile marketing."
@@ -42,36 +45,30 @@ export function FindJobMarketResume() {
             />
 
             <div
-              className="rounded-[1.75rem] border bg-[#F8FBFF] p-6 shadow-[0_22px_60px_-48px_rgba(15,23,42,0.2)]"
+              className="mt-8 overflow-hidden rounded-[1.5rem] border bg-white/70"
               style={{ borderColor: colors.border }}
             >
-              <div className="space-y-4">
-                {marketSignals.map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-2xl border bg-[#F8FBFF] px-4 py-4"
-                    style={{
-                      borderColor: colors.border,
-                    }}
-                  >
-                    <div className="flex items-start gap-3">
-                      <span
-                        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white"
-                        style={{
-                          backgroundColor:
-                            item.title === "Market your strengths" ? colors.accent : "rgba(255,255,255,0.14)",
-                        }}
-                      >
-                        <item.icon className="h-5 w-5" />
-                      </span>
-                      <div className="space-y-2">
-                        <p className="text-base font-semibold text-slate-950">{item.title}</p>
-                        <p className="text-sm leading-6 text-slate-600">{item.description}</p>
-                      </div>
+              {marketSignals.map((item, index) => (
+                <div
+                  key={item.title}
+                  className={index === marketSignals.length - 1 ? "px-5 py-5 sm:px-6" : "border-b border-[#E3EFFB] px-5 py-5 sm:px-6"}
+                >
+                  <div className="flex items-start gap-4">
+                    <span
+                      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white shadow-[0_18px_34px_-22px_rgba(37,99,235,0.52)]"
+                      style={{
+                        backgroundColor: item.title === "Market your strengths" ? colors.accent : colors.primary,
+                      }}
+                    >
+                      <item.icon className="h-5 w-5" />
+                    </span>
+                    <div className="space-y-2">
+                      <p className="text-base font-semibold text-slate-950">{item.title}</p>
+                      <p className="text-sm leading-6 text-slate-600">{item.description}</p>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
 

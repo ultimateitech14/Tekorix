@@ -1,17 +1,19 @@
-export const MIN_IMAGE_UPLOAD_SIZE_BYTES = 50 * 1024;
-export const MAX_IMAGE_UPLOAD_SIZE_BYTES = 800 * 1024;
+export const MAX_IMAGE_UPLOAD_SIZE_BYTES = 5 * 1024 * 1024;
+export const SUPPORTED_IMAGE_UPLOAD_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "image/avif",
+] as const;
 
 export function validateImageUploadFile(file: File) {
-  if (!file.type.toLowerCase().startsWith("image/")) {
-    return "Please choose a valid image file.";
-  }
-
-  if (file.size < MIN_IMAGE_UPLOAD_SIZE_BYTES) {
-    return "Image must be at least 50KB.";
+  if (!SUPPORTED_IMAGE_UPLOAD_TYPES.includes(file.type.toLowerCase() as (typeof SUPPORTED_IMAGE_UPLOAD_TYPES)[number])) {
+    return "Please choose a JPG, PNG, WEBP, GIF, or AVIF image.";
   }
 
   if (file.size > MAX_IMAGE_UPLOAD_SIZE_BYTES) {
-    return "Image must be 800KB or smaller.";
+    return "Image must be 5MB or smaller.";
   }
 
   return null;

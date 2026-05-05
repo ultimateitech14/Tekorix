@@ -27,7 +27,7 @@ export type ContactSubmission = ContactFormValues & {
 
 const dataDir = path.join(process.cwd(), "data");
 const storageFilePath = path.join(dataDir, "contact-submissions.json");
-const defaultFromEmail = "noreply@startupwork.dev";
+const defaultFromEmail = process.env.ADMIN_EMAIL?.trim() || "";
 
 function normalizeReplyStatus(value: unknown): ContactSubmissionReplyStatus {
   if (value === "sent" || value === "failed" || value === "saved") {

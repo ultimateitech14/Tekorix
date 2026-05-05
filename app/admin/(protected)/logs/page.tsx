@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { DataTable, type DataTableColumn } from "@/components/admin/DataTable";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { clearAdminLogs, getAdminLogs } from "@/lib/api/admin/logs";
 
 type LogRow = {
   id: string;
@@ -26,15 +27,6 @@ type AdminLogRecord = {
   createdAt: string;
 };
 
-type LogsResponsePayload = {
-  success: boolean;
-  data?: {
-    activity?: AdminLogRecord[];
-    audit?: AdminLogRecord[];
-    notifications?: AdminLogRecord[];
-  };
-};
-
 const timestampFormatter = new Intl.DateTimeFormat("en-US", {
   month: "short",
   day: "2-digit",
@@ -47,28 +39,36 @@ const columns: DataTableColumn<LogRow>[] = [
   {
     id: "module",
     header: "Module",
+    headerClassName: "min-w-[8.5rem]",
+    className: "min-w-[8.5rem]",
     cell: (row) => <span className="font-medium text-amber-700">{row.module}</span>,
   },
   {
     id: "change",
     header: "What Changed",
-    className: "max-w-[260px] whitespace-normal break-words",
+    headerClassName: "min-w-[10rem]",
+    className: "min-w-[10rem] max-w-[260px] whitespace-normal break-words",
     cell: (row) => <span className="font-medium text-slate-900">{row.change}</span>,
   },
   {
     id: "details",
     header: "Details",
-    className: "max-w-[420px] whitespace-normal break-words",
+    headerClassName: "min-w-[14rem]",
+    className: "min-w-[14rem] max-w-[420px] whitespace-normal break-words",
     cell: (row) => <span className="text-slate-600">{row.details}</span>,
   },
   {
     id: "actor",
     header: "By",
+    headerClassName: "min-w-[8rem]",
+    className: "min-w-[8rem]",
     cell: (row) => <span className="text-slate-600">{row.actor}</span>,
   },
   {
     id: "time",
     header: "Timestamp",
+    headerClassName: "min-w-[10rem]",
+    className: "min-w-[10rem]",
     cell: (row) => <span className="text-slate-600">{row.time}</span>,
   },
 ];
@@ -182,23 +182,10 @@ function LogsPageContent() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/admin/logs", {
-        cache: "no-store",
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch logs.");
-      }
-
-      const payload = (await response.json()) as LogsResponsePayload;
-
-      if (!payload.success || !payload.data) {
-        throw new Error("Invalid logs response.");
-      }
-
-      setActivityLogs(toLogRows(payload.data.activity ?? []));
-      setAuditTrail(toLogRows(payload.data.audit ?? []));
-      setNotificationLogs(toLogRows(payload.data.notifications ?? []));
+      const payload = await getAdminLogs();
+      setActivityLogs(toLogRows(payload.activity ?? []));
+      setAuditTrail(toLogRows(payload.audit ?? []));
+      setNotificationLogs(toLogRows(payload.notifications ?? []));
     } catch {
       setActivityLogs([]);
       setAuditTrail([]);
@@ -237,23 +224,7 @@ function LogsPageContent() {
     }
 
     try {
-      const response = await fetch("/api/admin/logs", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ tab: tabToClear }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to clear logs.");
-      }
-
-      const payload = (await response.json()) as { success?: boolean };
-
-      if (!payload.success) {
-        throw new Error("Failed to clear logs.");
-      }
+      await clearAdminLogs(tabToClear);
 
       if (tabToClear === "activity") {
         toast.success("Activity logs cleared.");

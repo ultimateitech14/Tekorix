@@ -51,6 +51,36 @@ export type AdminJobsListQuery = {
   pageSize?: number;
 };
 
+export type AdminJobsMetadataBucket = {
+  key: string;
+  label: string;
+  total: number;
+  published: number;
+  draft: number;
+  closed: number;
+};
+
+export type AdminJobsTypeMetadata = {
+  type: JobType;
+  label: string;
+  total: number;
+  published: number;
+  draft: number;
+  closed: number;
+};
+
+export type AdminJobsMetadata = {
+  totalJobs: number;
+  publishedJobs: number;
+  draftJobs: number;
+  closedJobs: number;
+  departments: AdminJobsMetadataBucket[];
+  countries: AdminJobsMetadataBucket[];
+  locations: AdminJobsMetadataBucket[];
+  skills: AdminJobsMetadataBucket[];
+  jobTypes: AdminJobsTypeMetadata[];
+};
+
 export type AdminJobPublishPayload = {
   status?: AdminJobStatus;
 };
@@ -148,6 +178,11 @@ export async function getAdminJobs(query: AdminJobsListQuery = {}, context?: Adm
 export async function getAdminJobById(id: string, context?: AdminAuthContext) {
   const result = await requestApi<WorkerAdminJob>(`/api/v1/admin/jobs/${id}`, withAdminAuth(context));
   return mapAdminJob(result.data);
+}
+
+export async function getAdminJobsMetadata(context?: AdminAuthContext) {
+  const result = await requestApi<AdminJobsMetadata>("/api/v1/admin/jobs/meta", withAdminAuth(context));
+  return result.data;
 }
 
 export async function createAdminJob(payload: JobFormValues, context?: AdminAuthContext) {

@@ -63,8 +63,8 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       toast.success(result.message);
       setFields(initialFields);
       setErrors({});
-    } catch {
-      setFormError("Could not connect to authentication service.");
+    } catch (error) {
+      setFormError(error instanceof Error ? error.message : "Could not connect to authentication service.");
     } finally {
       setIsLoading(false);
     }

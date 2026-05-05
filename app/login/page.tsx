@@ -12,7 +12,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "Admin Login",
-  description: "Secure admin sign-in for StartupWork operations workspace.",
+  description: "Secure admin sign-in for the operations workspace.",
   path: "/login",
 });
 

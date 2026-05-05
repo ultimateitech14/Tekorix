@@ -60,9 +60,9 @@ export function ChangePasswordForm() {
   }
 
   return (
-    <form className="surface-card space-y-5 p-6 sm:p-8" onSubmit={handleSubmit} noValidate>
+    <form className="space-y-5 p-6 sm:p-8" onSubmit={handleSubmit} noValidate>
       {formError ? (
-        <Alert className="border-red-400/50 bg-red-500/10 text-red-100">
+        <Alert className="border-red-300 bg-red-50 text-red-700">
           <AlertTitle>Change failed</AlertTitle>
           <AlertDescription>{formError}</AlertDescription>
         </Alert>
@@ -71,7 +71,7 @@ export function ChangePasswordForm() {
       <div className="space-y-2">
         <Label
           htmlFor="security-current-password"
-          className="text-xs uppercase tracking-[0.16em] text-muted-foreground"
+          className="text-xs uppercase tracking-[0.16em] text-slate-500"
         >
           Current password
         </Label>
@@ -81,16 +81,16 @@ export function ChangePasswordForm() {
           value={values.currentPassword}
           onChange={(event) => updateField("currentPassword", event.target.value)}
           placeholder="Current password"
-          className="bg-background/60"
+          className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
           aria-invalid={Boolean(errors.currentPassword)}
         />
-        {errors.currentPassword ? <p className="text-xs text-red-300">{errors.currentPassword}</p> : null}
+        {errors.currentPassword ? <p className="text-xs text-red-600">{errors.currentPassword}</p> : null}
       </div>
 
       <div className="space-y-2">
         <Label
           htmlFor="security-new-password"
-          className="text-xs uppercase tracking-[0.16em] text-muted-foreground"
+          className="text-xs uppercase tracking-[0.16em] text-slate-500"
         >
           New password
         </Label>
@@ -100,16 +100,16 @@ export function ChangePasswordForm() {
           value={values.newPassword}
           onChange={(event) => updateField("newPassword", event.target.value)}
           placeholder="New password"
-          className="bg-background/60"
+          className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
           aria-invalid={Boolean(errors.newPassword)}
         />
-        {errors.newPassword ? <p className="text-xs text-red-300">{errors.newPassword}</p> : null}
+        {errors.newPassword ? <p className="text-xs text-red-600">{errors.newPassword}</p> : null}
       </div>
 
       <div className="space-y-2">
         <Label
           htmlFor="security-confirm-password"
-          className="text-xs uppercase tracking-[0.16em] text-muted-foreground"
+          className="text-xs uppercase tracking-[0.16em] text-slate-500"
         >
           Confirm new password
         </Label>
@@ -119,10 +119,10 @@ export function ChangePasswordForm() {
           value={values.confirmPassword}
           onChange={(event) => updateField("confirmPassword", event.target.value)}
           placeholder="Confirm new password"
-          className="bg-background/60"
+          className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
           aria-invalid={Boolean(errors.confirmPassword)}
         />
-        {errors.confirmPassword ? <p className="text-xs text-red-300">{errors.confirmPassword}</p> : null}
+        {errors.confirmPassword ? <p className="text-xs text-red-600">{errors.confirmPassword}</p> : null}
       </div>
 
       <div className="flex justify-end">

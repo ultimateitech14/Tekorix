@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { Inter, Manrope, Space_Mono } from "next/font/google";
 
 import { Toaster } from "@/components/ui/sonner";
-import { tekorixBrand } from "@/lib/constants/branding";
 import { publicBrandContent } from "@/lib/constants/public-content";
 import { env } from "@/lib/env";
 import { seoSiteName } from "@/lib/seo";
 import "./globals.css";
+
+const faviconVersion = "20260505";
 
 const display = Inter({
   subsets: ["latin"],
@@ -34,9 +35,12 @@ export const metadata: Metadata = {
   },
   description: publicBrandContent.defaultMetaDescription,
   icons: {
-    icon: [{ url: tekorixBrand.logo.src, type: "image/png" }],
-    shortcut: [tekorixBrand.logo.src],
-    apple: [{ url: tekorixBrand.logo.src, type: "image/png" }],
+    icon: [
+      { url: `/favicon.ico?v=${faviconVersion}`, type: "image/x-icon" },
+      { url: `/favicon-tekorix.png?v=${faviconVersion}`, type: "image/png", sizes: "256x256" },
+    ],
+    shortcut: [`/favicon.ico?v=${faviconVersion}`],
+    apple: [{ url: `/apple-touch-icon.png?v=${faviconVersion}`, type: "image/png", sizes: "180x180" }],
   },
   openGraph: {
     siteName: seoSiteName,

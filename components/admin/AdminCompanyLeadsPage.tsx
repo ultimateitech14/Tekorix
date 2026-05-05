@@ -247,7 +247,7 @@ export function AdminCompanyLeadsPage() {
           <StatCard
             label="Company Leads"
             value={isLoading ? "..." : String(items.length)}
-            detail="Newest first, Worker-backed."
+            detail="Newest first, Express-backed."
             icon={Building2}
           />
           <StatCard

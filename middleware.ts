@@ -3,11 +3,8 @@ import { NextResponse } from "next/server";
 
 import { ADMIN_AUTH_COOKIE } from "@/lib/auth/constants";
 
-const legacyAuthPaths = new Set([
-  "/admin/login",
-  "/admin/forgot-password",
-  "/admin/reset-password",
-]);
+const adminRedirectToRootLoginPaths = new Set(["/admin/login"]);
+const adminPublicAuthPaths = new Set(["/admin/forgot-password", "/admin/reset-password"]);
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -16,12 +13,20 @@ export function middleware(request: NextRequest) {
   const isAuthenticated = Boolean(adminToken) || legacyAdminAuth === "1";
 
   // Keep old admin auth URLs predictable and avoid redirect loops.
-  if (legacyAuthPaths.has(pathname)) {
+  if (adminRedirectToRootLoginPaths.has(pathname)) {
     if (isAuthenticated) {
       return NextResponse.redirect(new URL("/admin", request.url));
     }
 
     return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  if (adminPublicAuthPaths.has(pathname)) {
+    if (isAuthenticated) {
+      return NextResponse.redirect(new URL("/admin", request.url));
+    }
+
+    return NextResponse.next();
   }
 
   if (isAuthenticated) {
