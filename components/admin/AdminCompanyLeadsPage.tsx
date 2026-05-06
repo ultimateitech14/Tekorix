@@ -270,7 +270,7 @@ export function AdminCompanyLeadsPage() {
           />
         </section>
 
-        <Card className="border-[#D4E8FC] bg-[linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] backdrop-blur-xl">
+        <Card className="border-[#D4E8FC] bg-[#F8FBFF] backdrop-blur-xl">
           <CardHeader>
             <CardTitle className="text-xl font-semibold text-slate-900">Company Leads</CardTitle>
             <p className="text-sm leading-relaxed text-slate-500">
@@ -287,8 +287,8 @@ export function AdminCompanyLeadsPage() {
               </div>
             ) : null}
 
-            <div className="overflow-hidden rounded-lg border border-[#D4E8FC]">
-              <Table>
+            <div className="rounded-lg border border-[#D4E8FC] bg-[#F8FBFF]">
+              <Table className="min-w-[72rem]">
                 <TableHeader>
                   <TableRow className="border-[#D4E8FC] bg-[#F4F9FF] hover:bg-[#F4F9FF]">
                     <TableHead className="text-xs font-semibold tracking-[0.04em] text-slate-500">

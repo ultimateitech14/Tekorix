@@ -402,7 +402,6 @@ function BlogAdminPageContent() {
       !payload.slug ||
       !payload.category ||
       !payload.title ||
-      !payload.description ||
       !payload.coverImage ||
       !editorState.content.trim()
     ) {
@@ -524,24 +523,31 @@ function BlogAdminPageContent() {
         }
 
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size="icon" variant="ghost" className="text-slate-900 hover:bg-[#EDF5FF]">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+              <Button
+                size="icon"
+                variant="ghost"
+                className="text-slate-900 hover:bg-[#EDF5FF] hover:text-slate-900 data-[state=open]:bg-[#EDF5FF] data-[state=open]:text-slate-900"
+              >
                 <MoreHorizontal className="h-4 w-4" />
                 <span className="sr-only">Open actions</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
-              <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
+              <DropdownMenuItem asChild className="cursor-pointer text-slate-900 focus:bg-[#EDF5FF] focus:text-slate-900 data-[highlighted]:bg-[#EDF5FF] data-[highlighted]:text-slate-900">
                 <Link href={`/blog/${post.slug}`} target="_blank" rel="noreferrer">
                   Open public page
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer focus:bg-[#EDF5FF]" onClick={() => openEditDialog(post)}>
+              <DropdownMenuItem
+                className="cursor-pointer text-slate-900 focus:bg-[#EDF5FF] focus:text-slate-900 data-[highlighted]:bg-[#EDF5FF] data-[highlighted]:text-slate-900"
+                onClick={() => openEditDialog(post)}
+              >
                 Edit
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="cursor-pointer focus:bg-[#EDF5FF]"
+                className="cursor-pointer text-slate-900 focus:bg-[#EDF5FF] focus:text-slate-900 data-[highlighted]:bg-[#EDF5FF] data-[highlighted]:text-slate-900"
                 onClick={() => {
                   void handleTogglePublish(post);
                 }}
@@ -549,9 +555,9 @@ function BlogAdminPageContent() {
               >
                 {post.isPublished ? "Move to Draft" : "Publish"}
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-white/10" />
+              <DropdownMenuSeparator className="bg-[#D4E8FC]" />
               <DropdownMenuItem
-                className="cursor-pointer text-rose-200 focus:bg-rose-400/15 focus:text-rose-700"
+                className="cursor-pointer text-rose-600 focus:bg-rose-100 focus:text-rose-700 data-[highlighted]:bg-rose-100 data-[highlighted]:text-rose-700 disabled:text-rose-300"
                 onClick={() => {
                   void handleDelete(post);
                 }}
@@ -662,7 +668,7 @@ function BlogAdminPageContent() {
                 value={editorState.description}
                 onChange={(event) => updateEditorField("description", event.target.value)}
                 className="min-h-24"
-                placeholder="Write a short summary that will appear on the blog card and article page"
+                placeholder="Optional: add a short summary for the blog card and article page"
               />
             </div>
             <div className="space-y-2 md:col-span-2">

@@ -1,33 +1,26 @@
 import { z } from "zod";
-import { getCitiesForCountry, jobCountries } from "@/lib/job-locations";
 
-const jobTypeSchema = z.enum(["full-time", "part-time", "contract"]);
+const jobTypeSchema = z.string().trim().min(2, "Job type is required.");
 const jobStatusSchema = z.enum(["draft", "published"]);
+const optionalDescriptionSchema = z
+  .string()
+  .trim()
+  .refine((value) => value.length === 0 || value.length >= 10, {
+    message: "Description should be at least 10 characters when provided.",
+  });
 
 export const jobFormSchema = z.object({
   title: z.string().trim().min(3, "Title is required."),
   department: z.string().trim().min(2, "Department is required."),
-  country: z.enum(jobCountries, {
-    message: "Please select a country.",
-  }),
+  country: z.string().trim().min(2, "Country is required."),
   city: z.string().trim().min(2, "City is required."),
   location: z.string().trim().min(2, "Location is required."),
-  experience: z.string().trim().min(2, "Experience is required."),
+  experience: z.string().trim().min(1, "Experience is required."),
   type: jobTypeSchema,
   salaryRange: z.string().trim().max(80, "Salary range is too long.").optional().default(""),
   skills: z.array(z.string().trim().min(1, "Skill cannot be empty.")).max(20).optional().default([]),
-  description: z.string().trim().min(20, "Description should be at least 20 characters."),
+  description: optionalDescriptionSchema,
   status: jobStatusSchema,
-}).superRefine((value, context) => {
-  const validCities = getCitiesForCountry(value.country);
-
-  if (!validCities.includes(value.city)) {
-    context.addIssue({
-      code: z.ZodIssueCode.custom,
-      path: ["city"],
-      message: "Please select a valid city for the selected country.",
-    });
-  }
 });
 
 export type JobFormValues = z.infer<typeof jobFormSchema>;

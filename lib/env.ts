@@ -1,5 +1,6 @@
 const DEFAULT_SITE_URL = "http://localhost:3000";
-const DEFAULT_API_BASE_URL = "http://127.0.0.1:4001";
+const DEFAULT_API_BASE_URL = "https://tekorix-backend.onrender.com";
+const LOCAL_HOSTNAMES = new Set(["127.0.0.1", "localhost"]);
 
 type AppEnv = {
   NODE_ENV: "development" | "test" | "production";
@@ -30,12 +31,33 @@ function normalizeUrl(value: string) {
   return url.toString().replace(/\/$/, "");
 }
 
+function isLocalUrl(value: string) {
+  try {
+    return LOCAL_HOSTNAMES.has(new URL(value).hostname);
+  } catch {
+    return false;
+  }
+}
+
+function resolveApiBaseUrl(nodeEnv: AppEnv["NODE_ENV"]) {
+  const configuredUrl = getEnv(
+    "NEXT_PUBLIC_API_BASE_URL",
+    process.env.NEXT_PUBLIC_API_URL ?? DEFAULT_API_BASE_URL,
+  );
+
+  if (nodeEnv === "production" && isLocalUrl(configuredUrl)) {
+    return DEFAULT_API_BASE_URL;
+  }
+
+  return configuredUrl;
+}
+
+const nodeEnv = resolveNodeEnv();
+
 export const env: AppEnv = {
-  NODE_ENV: resolveNodeEnv(),
+  NODE_ENV: nodeEnv,
   NEXT_PUBLIC_SITE_URL: normalizeUrl(getEnv("NEXT_PUBLIC_SITE_URL", DEFAULT_SITE_URL)),
-  NEXT_PUBLIC_API_BASE_URL: normalizeUrl(
-    getEnv("NEXT_PUBLIC_API_BASE_URL", process.env.NEXT_PUBLIC_API_URL ?? DEFAULT_API_BASE_URL),
-  ),
+  NEXT_PUBLIC_API_BASE_URL: normalizeUrl(resolveApiBaseUrl(nodeEnv)),
 };
 
 export const isProduction = env.NODE_ENV === "production";

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 
@@ -84,6 +85,13 @@ export function ChangePasswordForm() {
           className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
           aria-invalid={Boolean(errors.currentPassword)}
         />
+        <p className="text-xs text-slate-500">
+          Do not know the current password?{" "}
+          <Link href="/admin/forgot-password" className="text-[#1B66B3] hover:text-[#145188]">
+            Send a reset link
+          </Link>
+          .
+        </p>
         {errors.currentPassword ? <p className="text-xs text-red-600">{errors.currentPassword}</p> : null}
       </div>
 

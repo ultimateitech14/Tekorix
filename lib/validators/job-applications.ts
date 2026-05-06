@@ -25,7 +25,7 @@ export const jobApplicationSubmissionSchema = z.object({
   email: z.string().trim().email("Please enter a valid email address."),
   phone: publicPhoneField(),
   location: locationTextField("Current location", 2, 160),
-  experience: experienceSummaryField("Experience", 2, 160),
+  experience: experienceSummaryField("Experience", 1, 160),
   coverLetter: skillsField("Key skills", 2, 300),
 });
 

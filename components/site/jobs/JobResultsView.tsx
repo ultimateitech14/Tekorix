@@ -59,7 +59,15 @@ function formatType(value: JobType) {
     return "Part-time";
   }
 
-  return "Contract";
+  if (value === "contract") {
+    return "Contract";
+  }
+
+  return value
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
+    .join(" ");
 }
 
 function formatPostedDate(value: string) {

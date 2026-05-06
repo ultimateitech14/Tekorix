@@ -20,7 +20,7 @@ export default function ForgotPasswordPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#1B66B3]">Admin Access</p>
             <h1 className="font-display text-4xl uppercase tracking-[0.08em] text-slate-900">Reset Access</h1>
             <p className="text-sm text-slate-600">
-              Enter your email to request a password reset link.
+              Enter the admin email to request a password reset link. The link is delivered through the configured notification email channel.
             </p>
           </div>
 

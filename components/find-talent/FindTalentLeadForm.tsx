@@ -322,7 +322,7 @@ export function FindTalentLeadForm() {
 
           <div className="mt-5 space-y-2">
             <Label htmlFor="company-lead-message" className={publicFormLabelClass}>
-              Message
+              Message (Optional)
             </Label>
             <Textarea
               id="company-lead-message"
@@ -336,7 +336,7 @@ export function FindTalentLeadForm() {
             />
             <PublicFieldMessages
               error={errors.message}
-              helperText="Add enough detail for a faster first conversation."
+              helperText="Optional. Add enough detail for a faster first conversation."
               note={`${values.message.length}/700 characters`}
             />
           </div>

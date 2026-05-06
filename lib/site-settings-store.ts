@@ -60,6 +60,10 @@ export type SiteSettings = {
   notificationEmailProvider: string;
   notificationEmailApiKey: string;
   notificationFromEmail: string;
+  notificationTemplateMappings: {
+    contactSubmissionAcknowledgementTemplateId: string;
+    jobApplicationAcknowledgementTemplateId: string;
+  };
 };
 
 export const defaultSiteSettings: SiteSettings = {
@@ -105,6 +109,10 @@ export const defaultSiteSettings: SiteSettings = {
   notificationEmailProvider: "",
   notificationEmailApiKey: "",
   notificationFromEmail: "",
+  notificationTemplateMappings: {
+    contactSubmissionAcknowledgementTemplateId: "",
+    jobApplicationAcknowledgementTemplateId: "",
+  },
 };
 
 const dataDir = path.join(process.cwd(), "data");
@@ -221,6 +229,18 @@ function normalizeSiteSettings(raw: unknown): SiteSettings {
       defaultSiteSettings.notificationFromEmail,
       320,
     ),
+    notificationTemplateMappings: {
+      contactSubmissionAcknowledgementTemplateId: normalizeText(
+        value.notificationTemplateMappings?.contactSubmissionAcknowledgementTemplateId,
+        defaultSiteSettings.notificationTemplateMappings.contactSubmissionAcknowledgementTemplateId,
+        120,
+      ),
+      jobApplicationAcknowledgementTemplateId: normalizeText(
+        value.notificationTemplateMappings?.jobApplicationAcknowledgementTemplateId,
+        defaultSiteSettings.notificationTemplateMappings.jobApplicationAcknowledgementTemplateId,
+        120,
+      ),
+    },
   };
 }
 

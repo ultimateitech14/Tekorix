@@ -60,7 +60,15 @@ function formatType(value: AdminJob["type"]) {
     return "Part-time";
   }
 
-  return "Contract";
+  if (value === "contract") {
+    return "Contract";
+  }
+
+  return value
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
+    .join(" ");
 }
 
 function formatDate(value: string) {
@@ -293,30 +301,34 @@ function AdminJobsPageContent() {
         }
 
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size="icon" variant="ghost" className="text-slate-900 hover:bg-[#EDF5FF]">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+              <Button
+                size="icon"
+                variant="ghost"
+                className="text-slate-900 hover:bg-[#EDF5FF] hover:text-slate-900 data-[state=open]:bg-[#EDF5FF] data-[state=open]:text-slate-900"
+              >
                 <MoreHorizontal className="h-4 w-4" />
                 <span className="sr-only">Open actions</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900">
-              <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
+              <DropdownMenuItem asChild className="cursor-pointer text-slate-900 focus:bg-[#EDF5FF] focus:text-slate-900 data-[highlighted]:bg-[#EDF5FF] data-[highlighted]:text-slate-900">
                 <Link href={`/admin/jobs/${row.id}/edit`}>View</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#EDF5FF]">
+              <DropdownMenuItem asChild className="cursor-pointer text-slate-900 focus:bg-[#EDF5FF] focus:text-slate-900 data-[highlighted]:bg-[#EDF5FF] data-[highlighted]:text-slate-900">
                 <Link href={`/admin/jobs/${row.id}/edit`}>Edit</Link>
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="cursor-pointer focus:bg-[#EDF5FF]"
+                className="cursor-pointer text-slate-900 focus:bg-[#EDF5FF] focus:text-slate-900 data-[highlighted]:bg-[#EDF5FF] data-[highlighted]:text-slate-900"
                 onClick={() => handleTogglePublish(source)}
                 disabled={actionJobId === row.id}
               >
                 {source.status === "published" ? "Unpublish" : "Publish"}
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-white/10" />
+              <DropdownMenuSeparator className="bg-[#D4E8FC]" />
               <DropdownMenuItem
-                className="cursor-pointer text-rose-200 focus:bg-rose-400/15 focus:text-rose-700"
+                className="cursor-pointer text-rose-600 focus:bg-rose-100 focus:text-rose-700 data-[highlighted]:bg-rose-100 data-[highlighted]:text-rose-700 disabled:text-rose-300"
                 onClick={() => setDeleteTarget(source)}
                 disabled={actionJobId === row.id}
               >

@@ -268,7 +268,7 @@ export function ContactCompanyForm({ isActive = false }: ContactCompanyFormProps
 
       <div className="mt-5 space-y-2">
         <Label htmlFor="contact-company-message" className={publicFormLabelClass}>
-          Additional Requirements / Message
+          Additional Requirements / Message (Optional)
         </Label>
         <Textarea
           id="contact-company-message"
@@ -282,7 +282,7 @@ export function ContactCompanyForm({ isActive = false }: ContactCompanyFormProps
         />
         <PublicFieldMessages
           error={errors.message}
-          helperText="Add enough detail for a meaningful first response."
+          helperText="Optional. Add enough detail for a meaningful first response."
           note={`${values.message.length}/700 characters`}
         />
       </div>

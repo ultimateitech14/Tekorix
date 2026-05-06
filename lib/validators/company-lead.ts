@@ -38,9 +38,11 @@ export const companyLeadSchema = z.object({
   message: z
     .string()
     .trim()
-    .min(20, "Please enter at least 20 characters in your message.")
     .max(700, "Message must be 700 characters or less.")
-    .refine((value) => /[A-Za-z]/.test(value), {
+    .refine((value) => value.length === 0 || value.length >= 20, {
+      message: "Please enter at least 20 characters in your message.",
+    })
+    .refine((value) => value.length === 0 || /[A-Za-z]/.test(value), {
       message: "Message must include clear text, not only numbers or symbols.",
     }),
 });

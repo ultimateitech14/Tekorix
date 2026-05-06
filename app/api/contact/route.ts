@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
-
-const DEFAULT_API_BASE_URL = "http://127.0.0.1:4001";
-
-function resolveApiBaseUrl() {
-  return (process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? DEFAULT_API_BASE_URL).replace(/\/$/, "");
-}
+import { env } from "@/lib/env";
 
 export async function POST(request: Request) {
   let payload: unknown;
@@ -22,7 +17,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const response = await fetch(`${resolveApiBaseUrl()}/api/v1/contact-submissions`, {
+    const response = await fetch(`${env.NEXT_PUBLIC_API_BASE_URL}/api/v1/contact-submissions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

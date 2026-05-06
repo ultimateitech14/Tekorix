@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
 
 import { ChangePasswordForm } from "@/components/admin/forms/change-password-form";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function AdminSecurityPage() {
@@ -25,6 +27,12 @@ export default function AdminSecurityPage() {
           <div className="rounded-2xl border border-[#D4E8FC] bg-white/80 px-5 py-4">
             Password updates are saved through the Express backend and take effect on the next sign-in.
           </div>
+          <div className="rounded-2xl border border-[#D4E8FC] bg-white/80 px-5 py-4">
+            If you do not know the current password, use the forgot-password flow. A reset link is sent to the configured admin email after the notification provider is set up.
+          </div>
+          <Button asChild variant="outline" className="border-[#C3DDF9] bg-[#F8FBFF] text-slate-900 hover:bg-[#EDF5FF]">
+            <Link href="/admin/forgot-password">Open Forgot Password</Link>
+          </Button>
         </CardContent>
       </Card>
 

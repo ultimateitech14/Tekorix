@@ -81,7 +81,7 @@ const personNamePattern = /^(?=.*[A-Za-z])[A-Za-z]+(?:[ .'-][A-Za-z]+)*$/;
 const companyNamePattern = /^(?=.*[A-Za-z])[A-Za-z&.,'()\/ -]+$/;
 const roleTextPattern = /^(?=.*[A-Za-z])[A-Za-z&.,'()\/+ -]+$/;
 const locationTextPattern = /^(?=.*[A-Za-z])[A-Za-z&.,'()\/+ -]+$/;
-const experienceTextPattern = /^(?=.*[A-Za-z])[A-Za-z0-9&.,'()\/+ -]+$/;
+const experienceTextPattern = /^(?=.*[A-Za-z0-9])[A-Za-z0-9&.,'()\/+ -]+$/;
 const skillsTextPattern = /^(?=.*[A-Za-z])[A-Za-z0-9#&.,'()\/+ -]+$/;
 const salaryTextPattern = /^(?=.*[A-Za-z0-9])[A-Za-z0-9$&.,'()\/+ -]+$/;
 const phoneValuePattern = /^(\+\d{1,4})\s(\d{6,14})$/;

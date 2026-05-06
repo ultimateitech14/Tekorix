@@ -61,7 +61,7 @@ export type AdminJobsMetadataBucket = {
 };
 
 export type AdminJobsTypeMetadata = {
-  type: JobType;
+  type: string;
   label: string;
   total: number;
   published: number;

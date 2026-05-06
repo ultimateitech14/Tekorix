@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { AdminRolesPage } from "@/components/admin/AdminRolesPage";
 
 export default function RolesPage() {
-  redirect("/admin");
+  return <AdminRolesPage />;
 }

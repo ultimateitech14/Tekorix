@@ -16,7 +16,7 @@ const heroActions = [
 export function HomeHero() {
   return (
     <section className="relative overflow-hidden border-b border-[#BED9F3] bg-[#061321]">
-      <div className="absolute inset-0">
+      <div className="pointer-events-none absolute inset-0">
         <Image
           src="/images/commitment-professional.jpg"
           alt="Professional holding a coffee mug and smartphone"

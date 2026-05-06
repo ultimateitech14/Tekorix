@@ -2,7 +2,7 @@ import { env } from "@/lib/env";
 import { getAuthToken } from "@/lib/auth/store";
 
 const LEGACY_LOCAL_API_BASE_URLS = new Set(["http://127.0.0.1:8787", "http://localhost:8787"]);
-const EXPRESS_LOCAL_API_BASE_URL = "http://127.0.0.1:4001";
+const EXPRESS_LOCAL_API_BASE_URL = "https://tekorix-backend.onrender.com";
 
 export class ApiError extends Error {
   status: number;

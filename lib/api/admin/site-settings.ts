@@ -37,6 +37,10 @@ export type AdminSiteSettings = {
   notificationEmailProvider: string;
   notificationEmailApiKey: string;
   notificationFromEmail: string;
+  notificationTemplateMappings: {
+    contactSubmissionAcknowledgementTemplateId: string;
+    jobApplicationAcknowledgementTemplateId: string;
+  };
 };
 
 export async function getAdminSiteSettings() {

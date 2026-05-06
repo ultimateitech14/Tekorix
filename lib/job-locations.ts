@@ -37,9 +37,20 @@ export function getCitiesForCountry(country: string) {
 }
 
 export function buildJobLocation(country: string, city: string) {
-  if (country === "Remote" || city.toLowerCase() === "remote") {
+  const normalizedCountry = country.trim();
+  const normalizedCity = city.trim();
+
+  if (normalizedCountry === "Remote" || normalizedCity.toLowerCase() === "remote") {
     return "Remote";
   }
 
-  return `${city}, ${country}`;
+  if (!normalizedCity) {
+    return normalizedCountry;
+  }
+
+  if (!normalizedCountry) {
+    return normalizedCity;
+  }
+
+  return `${normalizedCity}, ${normalizedCountry}`;
 }

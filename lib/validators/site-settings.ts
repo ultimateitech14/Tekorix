@@ -37,6 +37,11 @@ const talentProfileSchema = z.object({
   resumeCtaLabel: optionalTrimmedString(120),
 });
 
+const notificationTemplateMappingsSchema = z.object({
+  contactSubmissionAcknowledgementTemplateId: optionalTrimmedString(120),
+  jobApplicationAcknowledgementTemplateId: optionalTrimmedString(120),
+});
+
 export const siteSettingsUpdateSchema = z
   .object({
     companyName: optionalTrimmedString(300),
@@ -58,6 +63,7 @@ export const siteSettingsUpdateSchema = z
     notificationEmailProvider: optionalTrimmedString(160),
     notificationEmailApiKey: optionalTrimmedString(2_000),
     notificationFromEmail: optionalTrimmedString(320),
+    notificationTemplateMappings: notificationTemplateMappingsSchema.optional(),
   })
   .refine((value) => Object.values(value).some((item) => item !== undefined), {
     message: "At least one setting is required.",

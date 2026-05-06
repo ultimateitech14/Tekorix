@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
-
-const DEFAULT_API_BASE_URL = "http://127.0.0.1:4001";
-
-function resolveApiBaseUrl() {
-  return (process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? DEFAULT_API_BASE_URL).replace(/\/$/, "");
-}
+import { env } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -25,7 +20,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const response = await fetch(`${resolveApiBaseUrl()}/api/v1/job-applications`, {
+    const response = await fetch(`${env.NEXT_PUBLIC_API_BASE_URL}/api/v1/job-applications`, {
       method: "POST",
       body: formData,
       cache: "no-store",

@@ -94,6 +94,8 @@ export const adminNavSections: AdminNavSection[] = [
     icon: Activity,
     children: [
       { label: "Audit Trail", href: "/admin/logs?tab=audit" },
+      { label: "Users", href: "/admin/users" },
+      { label: "Roles", href: "/admin/roles" },
     ],
   },
   {
@@ -104,6 +106,7 @@ export const adminNavSections: AdminNavSection[] = [
       { label: "Company Profile", href: "/admin/settings" },
       { label: "Careers Page Controls", href: "/admin/settings?tab=careers" },
       { label: "Talent Profiles Section", href: "/admin/settings?tab=talent-profiles" },
+      { label: "Security", href: "/admin/settings/security" },
     ],
   },
 ];
@@ -121,7 +124,10 @@ const directTitles: Record<string, string> = {
   "/admin/email-templates": "Email Templates",
   "/admin/notifications": "Notifications",
   "/admin/logs": "Logs",
+  "/admin/users": "Users",
+  "/admin/roles": "Roles",
   "/admin/settings": "Settings",
+  "/admin/settings/security": "Security",
 };
 
 function formatSegment(segment: string) {

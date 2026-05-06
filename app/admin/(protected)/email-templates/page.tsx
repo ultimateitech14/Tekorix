@@ -530,7 +530,7 @@ export default function EmailTemplatesPage() {
                     className="mt-2 w-full rounded-md border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2 text-sm text-slate-900"
                   >
                     {templates.map((template) => (
-                      <option key={template.id} value={template.id} className="bg-slate-900">
+                      <option key={template.id} value={template.id} className="bg-[#F8FBFF] text-slate-900">
                         {template.name}
                       </option>
                     ))}
@@ -565,8 +565,7 @@ export default function EmailTemplatesPage() {
           <DialogHeader>
             <DialogTitle className="text-slate-900">{editingTemplateId ? "Edit Email Template" : "New Email Template"}</DialogTitle>
             <DialogDescription className="text-slate-500">
-              Configure subject and body format. You can use placeholders like {`{{candidate_name}}`} and{" "}
-              {`{{job_title}}`}.
+              Configure subject and body format. Available placeholders include {`{{candidate_name}}`}, {`{{first_name}}`}, {`{{full_name}}`}, {`{{job_title}}`}, {`{{job_location}}`}, {`{{company_name}}`}, {`{{company_email}}`}, {`{{recruiter_name}}`}, and {`{{inquiry_type}}`}.
             </DialogDescription>
           </DialogHeader>
 
@@ -588,10 +587,10 @@ export default function EmailTemplatesPage() {
                   onChange={(event) => setTemplateIsActive(event.target.value === "active")}
                   className="h-10 w-full rounded-md border border-[#D4E8FC] bg-[#F8FBFF] px-3 text-sm text-slate-900"
                 >
-                  <option value="active" className="bg-slate-900">
+                  <option value="active" className="bg-[#F8FBFF] text-slate-900">
                     Active
                   </option>
-                  <option value="inactive" className="bg-slate-900">
+                  <option value="inactive" className="bg-[#F8FBFF] text-slate-900">
                     Inactive
                   </option>
                 </select>
@@ -648,11 +647,11 @@ export default function EmailTemplatesPage() {
                   onChange={(event) => handleRecipientChange(event.target.value)}
                   className="h-10 w-full rounded-md border border-[#D4E8FC] bg-[#F8FBFF] px-3 text-sm text-slate-900"
                 >
-                  <option value="manual" className="bg-slate-900">
+                  <option value="manual" className="bg-[#F8FBFF] text-slate-900">
                     Manual Email Entry
                   </option>
                   {recipients.map((item) => (
-                    <option key={item.id} value={item.id} className="bg-slate-900">
+                    <option key={item.id} value={item.id} className="bg-[#F8FBFF] text-slate-900">
                       {item.fullName} ({item.jobTitle}) - {item.email}
                     </option>
                   ))}

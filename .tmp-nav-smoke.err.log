@@ -2079,3 +2079,76 @@ Require stack:
 <w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
 <w>  at resolve commonjs C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
 <w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\client-development\3.pack.gz_' -> 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\client-development\3.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\_not-found'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/_not-found/page' in C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\_not-found\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/_not-found/page' in 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/_not-found/page (expected C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\_not-found\page.js)
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/admin/(protected)/jobs/page' in C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\admin\(protected)\jobs\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/admin/(protected)/jobs/page' in 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/admin/(protected)/jobs/page (expected C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\admin\(protected)\jobs\page.js)
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\_not-found'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/_not-found/page' in C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\_not-found\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/_not-found/page' in 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/_not-found/page (expected C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\_not-found\page.js)
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/admin/(protected)/jobs/page' in C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\admin\(protected)\jobs\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/admin/(protected)/jobs/page' in 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/admin/(protected)/jobs/page (expected C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\admin\(protected)\jobs\page.js)
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/admin/(protected)/settings/page' in C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\admin\(protected)\settings\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/admin/(protected)/settings/page' in 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/admin/(protected)/settings/page (expected C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\admin\(protected)\settings\page.js)
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/(site)/about/page' in C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\(site)\about\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/(site)/about/page' in 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/(site)/about/page (expected C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\server\app\(site)\about\page.js)
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\client-development\1.pack.gz_' -> 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\client-development\1.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\client-development\2.pack.gz_' -> 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\client-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\client-development\0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Restoring pack from C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\server-development.pack.gz failed: TypeError: Cannot read properties of undefined (reading 'hasStartTime')
+<w> [webpack.cache.PackFileCacheStrategy] Restoring pack from C:\Users\Dell\Desktop\Adityap\tranfile\startupwork\frontend\.next\cache\webpack\server-development.pack.gz failed: TypeError: Cannot read properties of undefined (reading 'hasStartTime')

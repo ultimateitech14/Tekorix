@@ -43,6 +43,7 @@ import {
   markAllAdminJobApplicationsRead,
 } from "@/lib/api/admin/job-applications";
 import { clearAdminLogs, getAdminLogs } from "@/lib/api/admin/logs";
+import { getAdminEmailTemplates, type AdminEmailTemplate } from "@/lib/api/admin/email-templates";
 import { requestApi } from "@/lib/api/http";
 import { cn } from "@/lib/utils";
 
@@ -94,6 +95,10 @@ type SiteSettingsPayload = {
   notificationEmailProvider?: string;
   notificationEmailApiKey?: string;
   notificationFromEmail?: string;
+  notificationTemplateMappings?: {
+    contactSubmissionAcknowledgementTemplateId?: string;
+    jobApplicationAcknowledgementTemplateId?: string;
+  };
 };
 
 const inquiryLabels: Record<string, string> = {
@@ -152,10 +157,77 @@ function formatNotificationStatus(item: NotificationLogRecord) {
   return "Logged";
 }
 
+function getProviderHelpText(provider: string) {
+  const normalized = provider.trim().toLowerCase();
+
+  if (normalized === "gmail" || normalized === "google") {
+    return "Use your Gmail address as the From Address. For the credential, use a Google App Password from your Google account security settings.";
+  }
+
+  if (normalized === "outlook" || normalized === "office365" || normalized === "microsoft") {
+    return "Use your Outlook or Microsoft 365 mailbox as the From Address. Use the mailbox password or app password in the credential field.";
+  }
+
+  if (normalized === "sendgrid") {
+    return "Create an API key in your SendGrid dashboard and paste it into the credential field.";
+  }
+
+  if (normalized === "resend") {
+    return "Create an SMTP/API key in your Resend dashboard and paste it into the credential field.";
+  }
+
+  if (normalized === "brevo" || normalized === "sendinblue") {
+    return "Use your Brevo SMTP login and password in the credential field, for example login|password.";
+  }
+
+  if (normalized.startsWith("smtp://") || normalized.startsWith("smtps://")) {
+    return "You can paste a full SMTP URL here, for example smtps://user:pass@smtp.yourdomain.com:465.";
+  }
+
+  if (normalized.includes(".")) {
+    return "Direct SMTP host detected. Use a host like smtp.yourdomain.com and add username:password in the credential field.";
+  }
+
+  return "Supported values: sendgrid, resend, gmail, outlook, office365, brevo, a direct SMTP host, or a full smtp:// URL.";
+}
+
+function getCredentialHelpText(provider: string, fromEmail: string) {
+  const normalized = provider.trim().toLowerCase();
+
+  if (normalized.startsWith("smtp://") || normalized.startsWith("smtps://")) {
+    return "Credential can be left blank when the full SMTP URL already contains the username and password.";
+  }
+
+  if (normalized === "sendgrid" || normalized === "resend") {
+    return "Paste the provider API key exactly as issued in the provider dashboard.";
+  }
+
+  if (normalized === "gmail" || normalized === "google") {
+    return "Recommended format: yourgmail@gmail.com:app-password. If you only paste the password, the From Address is used as the username.";
+  }
+
+  if (normalized === "outlook" || normalized === "office365" || normalized === "microsoft") {
+    return "Recommended format: mailbox@domain.com:password or mailbox@domain.com|password.";
+  }
+
+  if (normalized === "brevo" || normalized === "sendinblue") {
+    return "Recommended format: smtp-login|smtp-password.";
+  }
+
+  if (normalized.includes(".")) {
+    return `Recommended format: username:password. If you only paste the password, ${fromEmail || "the From Address"} is used as the username.`;
+  }
+
+  return "For SMTP-style providers, use username:password or username|password.";
+}
+
 function NotificationsPageContent() {
   const [emailProvider, setEmailProvider] = useState("");
   const [apiKey, setApiKey] = useState("");
   const [fromEmail, setFromEmail] = useState("");
+  const [templateOptions, setTemplateOptions] = useState<AdminEmailTemplate[]>([]);
+  const [contactTemplateId, setContactTemplateId] = useState("");
+  const [jobApplicationTemplateId, setJobApplicationTemplateId] = useState("");
   const [activeTab, setActiveTab] = useState("providers");
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([]);
   const [jobApplications, setJobApplications] = useState<JobApplicationNotification[]>([]);
@@ -205,7 +277,11 @@ function NotificationsPageContent() {
     [jobApplications],
   );
 
-  const hasProviderConfig = Boolean(emailProvider.trim() && fromEmail.trim());
+  const normalizedProvider = emailProvider.trim().toLowerCase();
+  const providerUsesInlineSmtpUrl =
+    normalizedProvider.startsWith("smtp://") || normalizedProvider.startsWith("smtps://");
+  const hasProviderCredential = providerUsesInlineSmtpUrl || Boolean(apiKey.trim());
+  const hasProviderConfig = Boolean(emailProvider.trim() && fromEmail.trim() && hasProviderCredential);
 
   useEffect(() => {
     let active = true;
@@ -279,12 +355,16 @@ function NotificationsPageContent() {
           setEmailProvider(result.data.notificationEmailProvider ?? "");
           setApiKey(result.data.notificationEmailApiKey ?? "");
           setFromEmail(result.data.notificationFromEmail ?? result.data.companyEmail ?? "");
+          setContactTemplateId(result.data.notificationTemplateMappings?.contactSubmissionAcknowledgementTemplateId ?? "");
+          setJobApplicationTemplateId(result.data.notificationTemplateMappings?.jobApplicationAcknowledgementTemplateId ?? "");
         }
       } catch {
         if (active) {
           setEmailProvider("");
           setApiKey("");
           setFromEmail("");
+          setContactTemplateId("");
+          setJobApplicationTemplateId("");
         }
       } finally {
         if (active) {
@@ -293,10 +373,25 @@ function NotificationsPageContent() {
       }
     }
 
+    async function loadEmailTemplateOptions() {
+      try {
+        const payload = await getAdminEmailTemplates();
+
+        if (active) {
+          setTemplateOptions((payload.items ?? []) as AdminEmailTemplate[]);
+        }
+      } catch {
+        if (active) {
+          setTemplateOptions([]);
+        }
+      }
+    }
+
     loadContacts();
     loadJobApplications();
     loadNotificationLogs();
     loadProviderSettings();
+    loadEmailTemplateOptions();
 
     return () => {
       active = false;
@@ -531,6 +626,10 @@ function NotificationsPageContent() {
           notificationEmailProvider: normalizedProvider,
           notificationEmailApiKey: normalizedApiKey,
           notificationFromEmail: normalizedFromEmail,
+          notificationTemplateMappings: {
+            contactSubmissionAcknowledgementTemplateId: contactTemplateId.trim(),
+            jobApplicationAcknowledgementTemplateId: jobApplicationTemplateId.trim(),
+          },
         },
       });
 
@@ -602,38 +701,120 @@ function NotificationsPageContent() {
               <CardTitle className="text-xl text-slate-900">Notification Providers</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Email Provider</Label>
-                <Input
-                  value={emailProvider}
-                  onChange={(event) => setEmailProvider(event.target.value)}
-                  disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
-                  placeholder="e.g. Resend, SendGrid, SMTP"
-                  className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
-                />
-              </div>
+              <section className="space-y-4 rounded-2xl border border-[#D4E8FC] bg-white/70 p-4">
+                <div className="space-y-1">
+                  <h3 className="text-base font-semibold text-slate-900">Email channel</h3>
+                  <p className="text-sm text-slate-500">Use this for admin email notifications and provider test messages.</p>
+                </div>
 
-              <div className="space-y-2">
-                <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">API Key / Credential</Label>
-                <Input
-                  value={apiKey}
-                  onChange={(event) => setApiKey(event.target.value)}
-                  disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
-                  placeholder="Enter provider API key or SMTP credential"
-                  className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
-                />
-              </div>
+                <div className="space-y-2">
+                  <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">Email Provider</Label>
+                  <Input
+                    value={emailProvider}
+                    onChange={(event) => setEmailProvider(event.target.value)}
+                    disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
+                    placeholder="e.g. gmail, resend, sendgrid, smtp.yourdomain.com, or smtps://user:pass@host:465"
+                    className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
+                  />
+                  <p className="text-xs leading-5 text-slate-500">{getProviderHelpText(emailProvider)}</p>
+                </div>
 
-              <div className="space-y-2">
-                <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">From Address</Label>
-                <Input
-                  value={fromEmail}
-                  onChange={(event) => setFromEmail(event.target.value)}
-                  disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
-                  placeholder="notifications@yourdomain.com"
-                  className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
-                />
-              </div>
+                <div className="space-y-2">
+                  <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">API Key / Credential</Label>
+                  <Input
+                    value={apiKey}
+                    onChange={(event) => setApiKey(event.target.value)}
+                    disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
+                    placeholder="API key, app password, or username:password"
+                    className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
+                  />
+                  <p className="text-xs leading-5 text-slate-500">{getCredentialHelpText(emailProvider, fromEmail.trim())}</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">From Address</Label>
+                  <Input
+                    value={fromEmail}
+                    onChange={(event) => setFromEmail(event.target.value)}
+                    disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
+                    placeholder="notifications@yourdomain.com"
+                    className="border-[#D4E8FC] bg-[#F8FBFF] text-slate-900"
+                  />
+                  <p className="text-xs leading-5 text-slate-500">
+                    The test email is sent to this same address, so use a real mailbox you can access.
+                  </p>
+                </div>
+              </section>
+
+              <section className="space-y-4 rounded-2xl border border-[#D4E8FC] bg-white/70 p-4">
+                <div className="space-y-1">
+                  <h3 className="text-base font-semibold text-slate-900">Automatic email templates</h3>
+                  <p className="text-sm text-slate-500">
+                    Pick which active template should be sent automatically after each public form submission.
+                  </p>
+                  {!templateOptions.length ? (
+                    <p className="text-xs text-slate-500">
+                      No templates found yet. Create them in{" "}
+                      <Link href="/admin/email-templates" className="text-[#1B66B3] hover:text-[#145188]">
+                        Email Templates
+                      </Link>
+                      .
+                    </p>
+                  ) : null}
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">
+                      Contact form acknowledgement
+                    </Label>
+                    <select
+                      value={contactTemplateId}
+                      onChange={(event) => setContactTemplateId(event.target.value)}
+                      disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
+                      className="h-10 w-full rounded-md border border-[#D4E8FC] bg-[#F8FBFF] px-3 text-sm text-slate-900"
+                    >
+                      <option value="" className="bg-[#F8FBFF] text-slate-900">
+                        No automatic email
+                      </option>
+                      {templateOptions.map((template) => (
+                        <option key={template.id} value={template.id} className="bg-[#F8FBFF] text-slate-900">
+                          {template.name}
+                          {template.isActive ? "" : " (Inactive)"}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="text-xs leading-5 text-slate-500">
+                      Sent after someone submits the public contact form. Only active templates are delivered automatically.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-xs uppercase tracking-[0.16em] text-slate-500">
+                      Job application acknowledgement
+                    </Label>
+                    <select
+                      value={jobApplicationTemplateId}
+                      onChange={(event) => setJobApplicationTemplateId(event.target.value)}
+                      disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
+                      className="h-10 w-full rounded-md border border-[#D4E8FC] bg-[#F8FBFF] px-3 text-sm text-slate-900"
+                    >
+                      <option value="" className="bg-[#F8FBFF] text-slate-900">
+                        No automatic email
+                      </option>
+                      {templateOptions.map((template) => (
+                        <option key={template.id} value={template.id} className="bg-[#F8FBFF] text-slate-900">
+                          {template.name}
+                          {template.isActive ? "" : " (Inactive)"}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="text-xs leading-5 text-slate-500">
+                      Sent after someone submits the public job application form. Only active templates are delivered automatically.
+                    </p>
+                  </div>
+                </div>
+              </section>
 
               {isLoadingProviderSettings ? (
                 <p className="text-sm text-slate-500">Loading provider settings...</p>
@@ -647,7 +828,7 @@ function NotificationsPageContent() {
                   }}
                   disabled={isLoadingProviderSettings || isSavingProviderSettings || isSendingProviderTest}
                 >
-                  {isSavingProviderSettings ? "Saving..." : "Save Provider"}
+                  {isSavingProviderSettings ? "Saving..." : "Save Settings"}
                 </Button>
                 <Button
                   type="button"
@@ -692,13 +873,6 @@ function NotificationsPageContent() {
                   <CheckCircle2 className="h-4 w-4 text-emerald-300" />
                   Active
                 </span>
-              </div>
-              <div className="flex items-center justify-between rounded-lg border border-[#D4E8FC] bg-[#F8FBFF] px-3 py-2">
-                <span className="inline-flex items-center gap-2">
-                  <Send className="h-4 w-4 text-amber-700" />
-                  SMS
-                </span>
-                <span className="text-xs text-slate-500">Not configured</span>
               </div>
             </CardContent>
           </Card>
