@@ -8,12 +8,13 @@ import { BrandLogo } from "@/components/global/BrandLogo";
 import { AdminLoginForm } from "@/components/admin/forms/admin-login-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ADMIN_AUTH_COOKIE } from "@/lib/auth/constants";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, noIndexRobots } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "Admin Login",
   description: "Secure admin sign-in for the operations workspace.",
   path: "/login",
+  robots: noIndexRobots,
 });
 
 export default function LoginPage() {

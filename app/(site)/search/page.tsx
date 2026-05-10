@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, noIndexFollowRobots } from "@/lib/seo";
 
 type SearchEntry = {
   title: string;
@@ -23,6 +23,7 @@ export const metadata: Metadata = buildMetadata({
   description: "Search across jobs, services, careers, insights, and key pages on Tekorix.",
   path: "/search",
   keywords: ["search jobs", "site search", "services search"],
+  robots: noIndexFollowRobots,
 });
 
 const siteSearchIndex: SearchEntry[] = [

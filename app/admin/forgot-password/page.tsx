@@ -3,12 +3,13 @@ import Link from "next/link";
 
 import { ForgotPasswordForm } from "@/components/admin/forms/forgot-password-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, noIndexRobots } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "Forgot Password",
   description: "Request an admin password reset email.",
   path: "/admin/forgot-password",
+  robots: noIndexRobots,
 });
 
 export default function ForgotPasswordPage() {

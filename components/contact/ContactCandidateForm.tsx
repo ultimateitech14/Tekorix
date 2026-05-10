@@ -38,6 +38,7 @@ import {
   getZodFieldError,
   normalizePublicPhoneDigits,
   publicResumeAccept,
+  publicResumeMaxSizeLabel,
   sanitizeEmailInput,
   sanitizePersonNameInput,
   sanitizeRoleTextInput,
@@ -205,6 +206,7 @@ export function ContactCandidateForm({ isActive = false }: ContactCandidateFormP
         const uploadResponse = await requestCandidateLeadUploadUrl({
           fileName: resumeFile.name,
           contentType: resumeFile.type,
+          fileSize: resumeFile.size,
           submissionType: parsed.data.submissionType,
         });
 
@@ -413,7 +415,7 @@ export function ContactCandidateForm({ isActive = false }: ContactCandidateFormP
             note={
               resumeFile
                 ? `Selected file: ${resumeFile.name}`
-                : "Accepted formats: PDF, DOC, or DOCX up to 5 MB."
+                : `Accepted formats: PDF, DOC, or DOCX up to ${publicResumeMaxSizeLabel}.`
             }
           />
         </div>

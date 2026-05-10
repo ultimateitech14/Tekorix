@@ -3,12 +3,13 @@ import Link from "next/link";
 
 import { ResetPasswordForm } from "@/components/admin/forms/reset-password-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, noIndexRobots } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "Reset Password",
   description: "Set a new admin password using a secure reset token.",
   path: "/admin/reset-password",
+  robots: noIndexRobots,
 });
 
 type ResetPasswordPageProps = {

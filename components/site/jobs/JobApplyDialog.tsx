@@ -19,12 +19,14 @@ import { Label } from "@/components/ui/label";
 import { requestFormDataApi } from "@/lib/api/http";
 import { Textarea } from "@/components/ui/textarea";
 import type { PublicJob } from "@/lib/api/jobs";
+import { formatPublicJobReference } from "@/lib/public-jobs";
 import { themeTokens } from "@/lib/theme/tokens";
 import { jobApplicationSubmissionSchema } from "@/lib/validators/job-applications";
 import {
   composePublicPhoneValue,
   defaultPublicPhonePrefix,
   getPublicResumeValidationError,
+  publicResumeMaxSizeLabel,
   getZodFieldError,
   normalizePublicPhoneDigits,
   publicResumeAccept,
@@ -58,10 +60,6 @@ const initialState: JobApplicationFormValues = {
   experience: "",
   coverLetter: "",
 };
-
-function refNumber(id: string) {
-  return id.replace(/-/g, "").slice(0, 8).toUpperCase();
-}
 
 function mapZodErrors(error: z.ZodError<z.input<typeof jobApplicationSubmissionSchema>>) {
   return error.issues.reduce<JobApplicationErrors>((acc, issue) => {
@@ -254,7 +252,7 @@ export function JobApplyDialog({ job, open, onOpenChange }: JobApplyDialogProps)
             </DialogTitle>
             {job ? (
               <DialogDescription className="space-y-1 text-sm text-slate-600">
-                <span className="block">Reference Number {refNumber(job.id)}</span>
+                <span className="block">Reference Number {formatPublicJobReference(job.id)}</span>
                 <span className="block">{job.location}</span>
               </DialogDescription>
             ) : null}
@@ -380,7 +378,7 @@ export function JobApplyDialog({ job, open, onOpenChange }: JobApplyDialogProps)
               <PublicFieldMessages
                 error={errors.resume}
                 helperText="Accepted formats: PDF, DOC, or DOCX."
-                note={resumeFile ? `Selected file: ${resumeFile.name}` : "Maximum file size: 5 MB."}
+                note={resumeFile ? `Selected file: ${resumeFile.name}` : `Maximum file size: ${publicResumeMaxSizeLabel}.`}
               />
             </div>
 

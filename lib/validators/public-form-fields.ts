@@ -72,7 +72,9 @@ export const publicPhoneMetadata: Record<
   },
 };
 
-export const publicResumeMaxSizeInBytes = 5 * 1024 * 1024;
+export const publicResumeMaxSizeInMegabytes = 3;
+export const publicResumeMaxSizeInBytes = publicResumeMaxSizeInMegabytes * 1024 * 1024;
+export const publicResumeMaxSizeLabel = `${publicResumeMaxSizeInMegabytes} MB`;
 export const publicResumeAllowedExtensions = [".pdf", ".doc", ".docx"] as const;
 export const publicResumeAccept = publicResumeAllowedExtensions.join(",");
 
@@ -289,7 +291,7 @@ export function getPublicResumeValidationError(
   }
 
   if (file.size > publicResumeMaxSizeInBytes) {
-    return "Resume file must be 5 MB or smaller.";
+    return `Resume file must be ${publicResumeMaxSizeLabel} or smaller.`;
   }
 
   return null;

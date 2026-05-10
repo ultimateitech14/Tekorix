@@ -14,6 +14,7 @@ export type CandidateLeadResumeContentType =
 export type RequestCandidateLeadUploadUrlPayload = {
   fileName: string;
   contentType: string;
+  fileSize: number;
   submissionType: CandidateLeadSubmissionType;
 };
 
@@ -83,6 +84,7 @@ export async function requestCandidateLeadUploadUrl(payload: RequestCandidateLea
     {
       fileName: string;
       contentType: CandidateLeadResumeContentType;
+      fileSize: number;
       submissionType: CandidateLeadSubmissionType;
     }
   >("/api/v1/candidate-leads/upload-url", {
@@ -90,6 +92,7 @@ export async function requestCandidateLeadUploadUrl(payload: RequestCandidateLea
     body: {
       fileName: payload.fileName,
       contentType: normalizedContentType,
+      fileSize: payload.fileSize,
       submissionType: payload.submissionType,
     },
   });
@@ -113,7 +116,19 @@ export async function uploadCandidateResumeToR2(payload: UploadCandidateResumeTo
   });
 
   if (!response.ok) {
-    throw new Error("Resume upload failed. Please try again.");
+    let message = "Resume upload failed. Please try again.";
+
+    try {
+      const errorPayload = (await response.json()) as { message?: unknown };
+
+      if (typeof errorPayload.message === "string" && errorPayload.message.trim()) {
+        message = errorPayload.message;
+      }
+    } catch {
+      // Ignore non-JSON uploads such as direct R2 responses.
+    }
+
+    throw new Error(message);
   }
 }
 

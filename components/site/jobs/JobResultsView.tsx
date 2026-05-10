@@ -16,6 +16,13 @@ import {
   type PublicJob,
 } from "@/lib/api/jobs";
 import { ApiError } from "@/lib/api/http";
+import {
+  buildPublicJobPath,
+  formatPublicJobPostedDate,
+  formatPublicJobReference,
+  formatPublicJobType,
+  getPublicJobPostedAt,
+} from "@/lib/public-jobs";
 import { themeTokens } from "@/lib/theme/tokens";
 import { cn } from "@/lib/utils";
 import type { JobType } from "@/lib/validators/jobs";
@@ -49,44 +56,6 @@ const contractTypes: Array<{ value: JobType | "all"; label: string }> = [
   { value: "part-time", label: "Part-time" },
   { value: "contract", label: "Contract" },
 ];
-
-function formatType(value: JobType) {
-  if (value === "full-time") {
-    return "Full-time";
-  }
-
-  if (value === "part-time") {
-    return "Part-time";
-  }
-
-  if (value === "contract") {
-    return "Contract";
-  }
-
-  return value
-    .split(/[-_\s]+/)
-    .filter(Boolean)
-    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
-    .join(" ");
-}
-
-function formatPostedDate(value: string) {
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) {
-    return "Recently";
-  }
-
-  return date.toLocaleDateString("en-US", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-}
-
-function refNumber(id: string) {
-  return id.replace(/-/g, "").slice(0, 8).toUpperCase();
-}
 
 export function JobResultsView({
   basePath = "/careers/job-results",
@@ -399,10 +368,10 @@ export function JobResultsView({
                   <div className="space-y-4">
                     <div className="flex flex-wrap gap-2">
                       <span className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em]" style={{ backgroundColor: colors.surfaceAlt, color: colors.primary }}>
-                        Ref {refNumber(job.id)}
+                        Ref {formatPublicJobReference(job.id)}
                       </span>
                       <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700">
-                        {formatType(job.type)}
+                        {formatPublicJobType(job.type)}
                       </span>
                       <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700">
                         {job.department}
@@ -411,7 +380,12 @@ export function JobResultsView({
 
                     <div className="space-y-2">
                       <h3 className="font-display text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
-                        {job.title}
+                        <Link
+                          href={buildPublicJobPath(job.slug)}
+                          className="transition-colors hover:text-[#1B66B3]"
+                        >
+                          {job.title}
+                        </Link>
                       </h3>
                       <p className="max-w-3xl text-sm leading-7 text-slate-600">{job.description}</p>
                     </div>
@@ -450,7 +424,7 @@ export function JobResultsView({
                       Posted
                     </p>
                     <p className="mt-2 text-sm font-medium text-slate-900">
-                      {formatPostedDate(job.publishedAt ?? job.updatedAt)}
+                      {formatPublicJobPostedDate(getPublicJobPostedAt(job))}
                     </p>
                   </div>
 

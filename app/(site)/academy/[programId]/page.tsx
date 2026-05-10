@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 
 import { PublicBottomCta } from "@/components/global/PublicBottomCta";
 import { Button } from "@/components/ui/button";
-import { buildMetadata } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import {
   academyPrograms,
   getAcademyProgramById,
@@ -51,9 +51,18 @@ export default function AcademyProgramDetailPage({ params }: AcademyProgramDetai
   }
 
   const relatedPrograms = getRelatedAcademyPrograms(program.id);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Academy", path: "/academy" },
+    { name: program.title, path: `/academy/${program.id}` },
+  ]);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <section className="bg-[#E6F1FF] public-section">
         <div className="site-container">
           <div className="mb-8">

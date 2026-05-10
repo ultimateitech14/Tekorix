@@ -36,6 +36,7 @@ import {
   getZodFieldError,
   normalizePublicPhoneDigits,
   publicResumeAccept,
+  publicResumeMaxSizeLabel,
   sanitizeEmailInput,
   sanitizeLocationTextInput,
   sanitizePersonNameInput,
@@ -212,6 +213,7 @@ export function FindJobCandidateLeadForm({ variant, buttonLabel }: FindJobCandid
       const uploadResponse = await requestCandidateLeadUploadUrl({
         fileName: resumeFile.name,
         contentType: resumeFile.type,
+        fileSize: resumeFile.size,
         submissionType: variant,
       });
 
@@ -467,7 +469,7 @@ export function FindJobCandidateLeadForm({ variant, buttonLabel }: FindJobCandid
           <PublicFieldMessages
             error={errors.resume}
             helperText="Accepted formats: PDF, DOC, or DOCX."
-            note={resumeFile ? `Selected file: ${resumeFile.name}` : "Maximum file size: 5 MB."}
+            note={resumeFile ? `Selected file: ${resumeFile.name}` : `Maximum file size: ${publicResumeMaxSizeLabel}.`}
           />
         </div>
       </div>

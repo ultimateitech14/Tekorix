@@ -6,8 +6,10 @@ import { ArrowLeft } from "lucide-react";
 
 import { getPublicBlogPostBySlug } from "@/lib/api/blog-posts";
 import { resolveAssetUrl } from "@/lib/asset-url";
+import { tekorixBrand } from "@/lib/constants/branding";
 import { getBlogPostBySlug } from "@/lib/constants/blog-posts";
-import { buildMetadata } from "@/lib/seo";
+import { publicBrandContent } from "@/lib/constants/public-content";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
 const AUTO_SECTION_HEADING = "Overview";
 
@@ -50,6 +52,8 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
     description: post.description,
     path: `/blog/${post.slug}`,
     keywords: [post.category.toLowerCase(), "tekorix blog", "hiring", "delivery"],
+    imagePath: resolveAssetUrl(post.coverImage),
+    openGraphType: "article",
   });
 }
 
@@ -59,6 +63,23 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   if (!post) {
     notFound();
   }
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: post.title, path: `/blog/${post.slug}` },
+  ]);
+  const articleJsonLd = buildArticleJsonLd({
+    title: post.title,
+    description: post.description,
+    path: `/blog/${post.slug}`,
+    imagePath: resolveAssetUrl(post.coverImage),
+    keywords: [post.category, "Tekorix", "blog"],
+    section: post.category,
+    authorName: publicBrandContent.companyName,
+    publisherName: publicBrandContent.companyName,
+    publisherLogoPath: tekorixBrand.logo.src,
+  });
 
   const renderedSections = post.sections
     .map((section) => {
@@ -82,6 +103,14 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   return (
     <article className="bg-[#E6F1FF] public-section">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <div className="site-container public-stack">
         <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-[#1B66B3]">
           <ArrowLeft className="h-4 w-4" />

@@ -101,9 +101,9 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={item.label}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[#BED9F3] bg-white/70 px-3 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:bg-[#EAF4FF] hover:text-slate-900"
+                className="inline-flex items-center gap-1.5 rounded-full border border-[#9FC3E8] bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-[#DCEEFF] hover:text-slate-950"
               >
-                <item.icon className="h-3.5 w-3.5 text-[#1B66B3]" />
+                <item.icon className="h-3.5 w-3.5 text-[#145188]" />
                 {item.label}
               </a>
             ))}

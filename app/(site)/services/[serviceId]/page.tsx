@@ -4,7 +4,7 @@ import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { buildMetadata } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import { getRelatedServices, getServiceById, serviceCatalog } from "@/lib/constants/service-catalog";
 import { themeTokens } from "@/lib/theme/tokens";
 
@@ -46,9 +46,18 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
   }
 
   const relatedServices = getRelatedServices(service.id);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: service.title, path: `/services/${service.id}` },
+  ]);
 
   return (
     <section className="bg-[#E6F1FF] public-section">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="site-container">
         <div className="mb-8">
           <Button asChild variant="ghost" className="px-0 text-[#1B66B3] hover:bg-transparent hover:text-[#145188]">

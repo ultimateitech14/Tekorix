@@ -9,7 +9,7 @@ import { HomeStats } from "@/components/home/HomeStats";
 import { getPublicSiteSettings } from "@/lib/api/site-settings";
 import { blogPosts as fallbackBlogPosts } from "@/lib/constants/blog-posts";
 import { tekorixBrand } from "@/lib/constants/branding";
-import { publicBrandContent, publicSocialLinks } from "@/lib/constants/public-content";
+import { publicBrandContent, publicContactContent, publicSocialLinks, publicOfficeContent } from "@/lib/constants/public-content";
 import { getSiteSettings } from "@/lib/site-settings-store";
 import { absoluteUrl, buildMetadata } from "@/lib/seo";
 
@@ -27,7 +27,23 @@ const organizationJsonLd = {
   name: publicBrandContent.companyName,
   url: absoluteUrl("/"),
   logo: absoluteUrl(tekorixBrand.logo.src),
-  sameAs: [publicSocialLinks.linkedinCompany],
+  sameAs: Object.values(publicSocialLinks),
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: publicContactContent.email,
+      telephone: publicContactContent.phone,
+      areaServed: publicOfficeContent.country,
+      availableLanguage: ["en"],
+    },
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: publicOfficeContent.city,
+    addressRegion: publicOfficeContent.state,
+    addressCountry: publicOfficeContent.country,
+  },
 };
 
 const websiteJsonLd = {
@@ -37,7 +53,7 @@ const websiteJsonLd = {
   url: absoluteUrl("/"),
   potentialAction: {
     "@type": "SearchAction",
-    target: `${absoluteUrl("/")}?q={search_term_string}`,
+    target: `${absoluteUrl("/search")}?q={search_term_string}`,
     "query-input": "required name=search_term_string",
   },
 };
